@@ -5,6 +5,7 @@ const SideBar = () => {
      return (
           <>
                <Sidebar>
+                    <span className='p-5'>Me Social</span>
                     <Menu>
                          <SubMenu label="Charts">
                               <MenuItem> Pie charts </MenuItem>

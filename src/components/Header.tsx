@@ -5,8 +5,11 @@ import { MdGroups } from "react-icons/md";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { PiVideoFill } from "react-icons/pi";
 import { IoHome, IoMoonSharp } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
+import Login from "../view/auth/Login";
 
 const Header = () => {
+     const navigate = useNavigate();
      return (
           <>
                <header className="bg-sky-600">
@@ -40,19 +43,29 @@ const Header = () => {
                          </div>
                          <div className="flex justify-around gap-x-16">
                               <div className="p-1 mt-0">
-                                   <IoHome style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <Link to={`/posts`} >
+                                        <IoHome style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   </Link>
                               </div>
                               <div className="p-1 mt-0">
-                                   <IoMdPersonAdd style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <Link to={`/listfriends`}>
+                                        <IoMdPersonAdd style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   </Link>
                               </div>
                               <div className="p-1 mt-0">
-                                   <PiVideoFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <Link to={`reels`}>
+                                        <PiVideoFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   </Link>
                               </div>
                               <div className="mt-0">
-                                   <MdGroups style={{ fontSize: "32px", color: "white", cursor: "pointer" }} />
+                                   <Link to={`listgroup`}>
+                                        <MdGroups style={{ fontSize: "32px", color: "white", cursor: "pointer" }} />
+                                   </Link>
                               </div>
                               <div className="p-1 mt-0">
-                                   <VscThreeBars style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <Link to={`seemore`}>
+                                        <VscThreeBars style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   </Link>
                               </div>
                          </div>
 
@@ -66,12 +79,13 @@ const Header = () => {
                               <div className="mr-4 mt-1">
                                    <IoMdNotifications style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
                               </div>
-                              <a
-                                   href="#"
+                              <div
+                                   style={{ cursor: "pointer" }}
+                                   onClick={() => navigate("login")}
                                    className="mb-2 text-lg font-semibold leading-6 text-white mt-1 ml-2"
                               >
                                    Log in <span aria-hidden="true">&rarr;</span>
-                              </a>
+                              </div>
                          </div>
                     </nav>
                </header>
