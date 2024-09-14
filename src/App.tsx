@@ -9,6 +9,7 @@ import Register from "./view/auth/Register";
 import ErrorPage from "./view/errors/ErrorPage";
 import HomeView from "./view/home/HomeView";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Profile from "./view/profile/Profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -49,6 +50,10 @@ function App() {
       path: "register",
       element: <Register />,
     },
+    {
+      path: '/profile',
+      element: <Profile />
+    }
     
   ]);
 
