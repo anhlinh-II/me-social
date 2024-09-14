@@ -34,7 +34,7 @@ const Header = () => {
                                    <input
                                         type="search"
                                         id="default-search"
-                                        className="block w-full p-2 ps-10 text-sm text-white rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-sky-500 dark:bg-sky-500 dark:border-sky-600 dark:placeholder-white dark:text-white dark:focus:ring-white-500 dark:focus:border-blue-500"
+                                        className="block w-full p-2 ps-10 text-sm text-white rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-outline-none focus:border-sky-500 dark:bg-sky-500 dark:border-sky-600 dark:placeholder-white dark:text-white dark:focus:ring-white-500 dark:focus:border-blue-500"
                                         placeholder="Find Friends..."
                                         required
                                    />
@@ -44,36 +44,51 @@ const Header = () => {
                          <div className="flex justify-around gap-x-12">
                               <Link
                                    to={``}
-                                   className="myDiv1 cursor-pointer p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoHome style={{ fontSize: "24px", color: "white" }} />
+                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                        Home
+                                   </div>
                               </Link>
                               <Link
                                    to={`/listfriends`}
-                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoMdPersonAdd style={{ fontSize: "24px", color: "white" }} />
+                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                        Friends
+                                   </div>
                               </Link>
 
                               <Link
                                    to={`reels`}
-                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <PiVideoFill style={{ fontSize: "24px", color: "white" }} />
+                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                        Video
+                                   </div>
                               </Link>
 
                               <Link
                                    to={`listgroup`}
-                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
-                                   <MdGroups style={{ fontSize: "28px", color: "white" }} />
+                                   <MdGroups style={{ fontSize: "24px", color: "white" }} />
+                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                        Groups
+                                   </div>
                               </Link>
 
                               <Link
                                    to={`seemore`}
-                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <VscThreeBars style={{ fontSize: "24px", color: "white" }} />
+                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                        More
+                                   </div>
                               </Link>
                          </div>
 
