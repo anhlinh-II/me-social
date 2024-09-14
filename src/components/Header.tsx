@@ -6,7 +6,7 @@ import { BiSolidMessageRounded } from "react-icons/bi";
 import { PiVideoFill } from "react-icons/pi";
 import { IoHome, IoMoonSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../view/auth/Login";
+import '../styles/Header.scss';
 
 const Header = () => {
      const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Header = () => {
           <>
                <header className="bg-sky-600">
                     <nav
-                         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
+                         className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
                     >
                          <div className="flex lg:flex-1">
@@ -41,32 +41,40 @@ const Header = () => {
                               </div>
 
                          </div>
-                         <div className="flex justify-around gap-x-16">
-                              <div className="p-1 mt-0">
-                                   <Link to={`/posts`} >
-                                        <IoHome style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
-                                   </Link>
-                              </div>
-                              <div className="p-1 mt-0">
-                                   <Link to={`/listfriends`}>
-                                        <IoMdPersonAdd style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
-                                   </Link>
-                              </div>
-                              <div className="p-1 mt-0">
-                                   <Link to={`reels`}>
-                                        <PiVideoFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
-                                   </Link>
-                              </div>
-                              <div className="mt-0">
-                                   <Link to={`listgroup`}>
-                                        <MdGroups style={{ fontSize: "32px", color: "white", cursor: "pointer" }} />
-                                   </Link>
-                              </div>
-                              <div className="p-1 mt-0">
-                                   <Link to={`seemore`}>
-                                        <VscThreeBars style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
-                                   </Link>
-                              </div>
+                         <div className="flex justify-around gap-x-12">
+                              <Link
+                                   to={``}
+                                   className="myDiv1 cursor-pointer p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
+                              >
+                                   <IoHome style={{ fontSize: "24px", color: "white" }} />
+                              </Link>
+                              <Link
+                                   to={`/listfriends`}
+                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                              >
+                                   <IoMdPersonAdd style={{ fontSize: "24px", color: "white" }} />
+                              </Link>
+
+                              <Link
+                                   to={`reels`}
+                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                              >
+                                   <PiVideoFill style={{ fontSize: "24px", color: "white" }} />
+                              </Link>
+
+                              <Link
+                                   to={`listgroup`}
+                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                              >
+                                   <MdGroups style={{ fontSize: "28px", color: "white" }} />
+                              </Link>
+
+                              <Link
+                                   to={`seemore`}
+                                   className="cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                              >
+                                   <VscThreeBars style={{ fontSize: "24px", color: "white" }} />
+                              </Link>
                          </div>
 
                          <div className="hidden lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">

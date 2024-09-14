@@ -1,0 +1,9 @@
+.hide1 {
+     display: none;
+     opacity: 0;
+}
+
+.myDiv1:hover + .hide1 {
+     display: block;
+     color: red;
+}
