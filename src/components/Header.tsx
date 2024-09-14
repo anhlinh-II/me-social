@@ -25,7 +25,7 @@ const Header = () => {
                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                         <IoIosSearch
                                              style={{
-                                                  fontSize: "24px",
+                                                  fontSize: "20px",
                                                   color: "white",
                                                   fontWeight: "bold",
                                              }}
