@@ -1,7 +1,12 @@
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { TbBrandReact } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+
+     const [showEye, setShowEye] = useState<boolean>(false);
+
      return (
           <div className="flex justify-center items-center h-screen">
                <div className="h-[550px] w-[500px] rounded border-2 shadow-gray-800 p-6">
@@ -24,15 +29,24 @@ const Login = () => {
                               />
                          </div>
 
-                         <div className="mb-6">
+                         <div className="relative mb-6">
                               <label className="block text-gray-700 mb-2" htmlFor="password">Password</label>
                               <input
                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-600 focus:border-2"
-                                   type="password"
+                                   type={showEye ? "text" : "password"}
                                    id="password"
                                    placeholder="Enter your password"
                                    required
-                              />
+                              >
+
+                              </input>
+                              <div
+                                   className='absolute right-4 top-11 cursor-pointer hover:text-sky-600'
+                                   onClick={() => setShowEye(!showEye)}
+                              >
+                                   {showEye ? <FaEyeSlash /> : <FaEye />}
+                                   
+                              </div>
                          </div>
 
                          <p className='flex justify-center mb-8 hover:text-sky-600 cursor-pointer'>Forgot your password?</p>
