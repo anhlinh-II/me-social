@@ -17,3 +17,88 @@
   font-size: 28px;
   color: #38bdf8;
 }
+
+// Multi Carousel
+.slick-slider {
+  max-width: 100%; 
+  margin: 0 auto;
+}
+.slick-list {
+  width: 640px; /* Show 4 slides, 160px each */
+  overflow: hidden;
+}
+
+.slick-slide {
+  width: 160px !important; 
+  height: 280px;
+}
+
+.slick-slide .p-4 {
+  padding: 0;
+}
+
+.story-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 260px; 
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.story-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-info {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.story-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid white;
+  margin-right: 0.5rem;
+}
+
+.slick-prev, .slick-next {
+  width: 48px;
+  height: 48px;
+  background-color: rgb(128, 128, 128);
+  border-radius: 100%;
+  padding-top: 2px;
+}
+
+.slick-next {
+  right: 5%;
+  z-index: 9;
+}
+.slick-prev {
+  left: 5%;
+  z-index: 9;
+}
+
+.slick-prev::before, .slick-next::before {
+  width: 24px;
+  height: 24px;
+  color: rgb(208, 208, 208);
+}
+
+.slick-prev:hover, .slick-next:hover {
+  background-color: rgb(135, 135, 135);
+}
+
+.slick-disabled{
+    display: none;
+    opacity: 0;
+}
