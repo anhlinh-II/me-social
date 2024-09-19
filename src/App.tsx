@@ -10,6 +10,7 @@ import ErrorPage from "./view/errors/ErrorPage";
 import HomeView from "./view/home/HomeView";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./view/profile/Profile";
+import Stories from "./view/stories/StoriesPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ function App() {
     {
       path: '/profile',
       element: <Profile />
+    },
+    {
+      path: '/stories',
+      element: <Stories />
     }
     
   ]);
