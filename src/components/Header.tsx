@@ -1,12 +1,16 @@
 import logo from "../assets/react.svg";
 import { VscThreeBars } from "react-icons/vsc";
 import { IoMdPersonAdd, IoIosSearch, IoMdNotifications } from "react-icons/io";
-import { MdGroups } from "react-icons/md";
+import { MdGroups, MdOutlineDarkMode, MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
 import { BiSolidMessageRounded } from "react-icons/bi";
-import { PiVideoFill } from "react-icons/pi";
-import { IoHome, IoMoonSharp } from "react-icons/io5";
+import { PiChatCircle, PiVideoFill } from "react-icons/pi";
+import { IoHome, IoHomeOutline, IoMoonSharp, IoPersonAddOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
+import { FaRegBell } from "react-icons/fa6";
+import { CiBellOn } from "react-icons/ci";
+import { GoBell } from "react-icons/go";
+import { BsMoon } from "react-icons/bs";
 
 const Header = () => {
      const navigate = useNavigate();
@@ -46,7 +50,7 @@ const Header = () => {
                                    to={``}
                                    className="group/item relative cursor-pointer p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
                               >
-                                   <IoHome style={{ fontSize: "24px", color: "white" }} />
+                                   <IoHomeOutline style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Home
                                    </div>
@@ -55,7 +59,7 @@ const Header = () => {
                                    to={`/listfriends`}
                                    className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
-                                   <IoMdPersonAdd style={{ fontSize: "24px", color: "white" }} />
+                                   <IoPersonAddOutline style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Friends
                                    </div>
@@ -65,7 +69,7 @@ const Header = () => {
                                    to={`reels`}
                                    className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
-                                   <PiVideoFill style={{ fontSize: "24px", color: "white" }} />
+                                   <MdOutlineOndemandVideo style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Video
                                    </div>
@@ -75,7 +79,7 @@ const Header = () => {
                                    to={`listgroup`}
                                    className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
-                                   <MdGroups style={{ fontSize: "24px", color: "white" }} />
+                                   <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Groups
                                    </div>
@@ -94,13 +98,13 @@ const Header = () => {
 
                          <div className="hidden lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
                               <div className="mr-4 mt-1">
-                                   <BiSolidMessageRounded style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
                               </div>
                               <div className="mr-4 mt-1">
-                                   <IoMoonSharp style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <BsMoon style={{ fontSize: "22px", color: "white", cursor: "pointer" }} />
                               </div>
                               <div className="mr-4 mt-1">
-                                   <IoMdNotifications style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
                               </div>
                               <div
                                    style={{ cursor: "pointer" }}

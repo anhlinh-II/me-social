@@ -8,7 +8,7 @@ const Profile = () => {
         <>
             <Header />
             <div className="mx-auto flex max-w-7xl items-center justify-between pt-5 lg:px-8">
-                <div><SideBar /></div>
+                {/* <div><SideBar /></div> */}
                 <div id="detail">
                     <Outlet />
                     <ProfileInfo
