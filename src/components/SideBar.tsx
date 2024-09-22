@@ -6,17 +6,20 @@ import { MdManageAccounts } from 'react-icons/md';
 import { FaAngleDown, FaAngleRight, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import CreateReelModal from './modal/Reel.create.modal';
 
 const SideBar = () => {
      // let text = window.location.href
      // let profileExist = text.search("profile");
+     const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
      const [active, setActive] = useState<string>("home");
      // profileExist ? "home" : "profile"
 
      const openAddRewModal = () => {
-
-          console.log(window.location.href)
+          // setActive("createReels");
+          setShowCreateReelModal(true);
+          // alert("hello")
      }
 
      return (
@@ -93,8 +96,7 @@ const SideBar = () => {
                               </MenuItem>
                               <MenuItem
                                    active={active === "createReels" ? true : false}
-                                   onClick={() => setActive("createReels")}
-                                   // onClick={() => openAddRewModal()}
+                                   onClick={() => openAddRewModal()}
                                    rootStyles={{ padding: "5px" }}
                                    icon={<IoIosAddCircle />}
                               >
@@ -146,6 +148,10 @@ const SideBar = () => {
                     </Link>
 
                </Sidebar>
+               <CreateReelModal
+                    show={showCreateReelModal}
+                    setShow={setShowCreateReelModal}
+               />
           </div>
      )
 }

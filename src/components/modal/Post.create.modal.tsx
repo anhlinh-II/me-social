@@ -89,9 +89,7 @@ const CreatePostModal = (props: IProps) => {
                                                        className="p-1 ml-auto bg-transparent border-0 text-sky-600 float-right text-4xl leading-none font-semibold outline-none focus:outline-none"
                                                        onClick={() => props.setShow(false)}
                                                   >
-                                                       <IoIosCloseCircle className="" />
-                                                       {/* <span className="bg-black text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                                       </span> */}
+                                                       <IoIosCloseCircle/>
                                                   </button>
                                              </div>
                                              {/*body*/}
