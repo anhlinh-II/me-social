@@ -16,6 +16,7 @@
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "6.11.2",
     "react-select": "^5.8.1",
+    "react-show-more-text": "^1.7.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1"
   },
@@ -23,6 +24,7 @@
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@types/react-show-more-text": "^1.4.5",
     "@types/react-slick": "^0.23.13",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
