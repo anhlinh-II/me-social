@@ -1,5 +1,5 @@
 import { BsBookmark } from "react-icons/bs";
-import { FaEarthAmericas, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from "react-icons/fa6";
+import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { IoReload } from "react-icons/io5";
@@ -7,9 +7,11 @@ import ShowMoreText from "react-show-more-text";
 import '../styles/App.scss';
 import { FaUserFriends } from "react-icons/fa";
 
+import { useState } from "react";
+
 const ListPosts = () => {
 
-     const fakePostData : IPost[] = [
+     const [posts, setPosts] = useState<IPost[]>([
           {
                username: "Ahn Linhh",
                avatar: "https://scontent.fhph1-1.fna.fbcdn.net/v/t39.30808-6/451418121_1493503281258736_1067539081919969742_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=_Zd01_0VGpYQ7kNvgGeWDHD&_nc_ht=scontent.fhph1-1.fna&oh=00_AYBHEAthlGeQj62ElU3i3-wL8Pg2Yne60mzoift-ZQxEKw&oe=66F439A4",
@@ -19,6 +21,7 @@ const ListPosts = () => {
                totalComments: 120,
                time: 2,
                isLiked: true,
+               isFavourited: true,
                image: "https://scontent.fhph1-2.fna.fbcdn.net/v/t39.30808-6/438804782_1493180808269191_794376572904014893_n.jpg?stp=cp6_dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=lTxR81NaTf4Q7kNvgFzm-S-&_nc_ht=scontent.fhph1-2.fna&oh=00_AYDAhKVXDXWRQG-Mh7sccB6jZ3ycM328lsE2XtLyp7YZ8w&oe=66F4962C",
           },
           {
@@ -30,6 +33,7 @@ const ListPosts = () => {
                totalComments: 200,
                time: 6,
                isLiked: true,
+               isFavourited: true,
                image: "https://scontent.fhph1-1.fna.fbcdn.net/v/t39.30808-6/374179586_1149802439309602_3858405574136977883_n.jpg?stp=cp6_dst-jpg&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=BJAjFCOjbsoQ7kNvgG-f5Ly&_nc_ht=scontent.fhph1-1.fna&_nc_gid=A4zwiCCYIcbOKkixVXtFYC8&oh=00_AYC_OwwBWHjqNf_zWkxK9KsRfI9zadDtz61FgDg1pIcBmQ&oe=66F4CDB1"
           },
           {
@@ -40,33 +44,47 @@ const ListPosts = () => {
                description: "Healing sau quãng thời gian chạy đua với deadline nhừ người hahahahahaha",
                totalComments: 12,
                time: 18,
-               isLiked: true,
+               isLiked: undefined,
+               isFavourited: true,
                image: "https://scontent.fhph1-2.fna.fbcdn.net/v/t1.6435-9/75472790_158391592042390_359204500264714240_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=HmwpgCNUhJ4Q7kNvgFyp69K&_nc_ht=scontent.fhph1-2.fna&_nc_gid=AZxMhfcL4U2JN_tJJOzebNM&oh=00_AYDFsKuYyZxZTAjqqS7PJUtymsj2qoggOMPS3ttG9ZhNrg&oe=67166380"
           }
-     ]
+     ])
 
      interface IPost {
-          
-               username: string;
-               avatar: string;
-               postStatus: string;
-               likes: number;
-               description: string;
-               totalComments: number;
-               time: number;
-               isLiked: boolean;
-               image: string;
+
+          username: string;
+          avatar: string;
+          postStatus: string;
+          likes: number;
+          description: string;
+          totalComments: number;
+          time: number;
+          isLiked: boolean | undefined;
+          isFavourited: boolean | undefined;
+          image: string;
      }
 
-     const handleLikeBtn = (post : IPost, index : number) => {
-          
+     const handleLikeBtn = (index: number) => {
+          setPosts(prevPosts =>
+               prevPosts.map((post, i) =>
+                    i === index ? { ...post, isLiked: !post.isLiked } : post
+               )
+          );
+     };
+
+     const handleFavouriteBtn = (index: number) => {
+          setPosts(prevPosts => 
+               prevPosts.map((post, i) => {
+                    return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
+               })
+          )
      }
 
      return (
           <div className="flex justify-center items-center flex-col gap-5">
                <div className=" w-full h-fit rounded">
                     {
-                         fakePostData.map((item : IPost, index : number) => {
+                         posts.map((item: IPost, index: number) => {
                               return (
                                    <div key={`post-key-${index}`} className="w-[100%] bg-sky-100 rounded border-b-2 border-sky-800">
                                         <div className="flex justify-start items-center px-4 py-4 gap-2">
@@ -92,14 +110,21 @@ const ListPosts = () => {
                                         <div className="flex flex-col p-3">
                                              <div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
                                                   <div className="flex gap-4 font-bold text-lg">
-                                                       <FaRegHeart
-                                                            onClick={() => handleLikeBtn(item, index)}
-                                                            className="hover:text-gray-600"
-                                                       />
+                                                       <div
+                                                            onClick={() => handleLikeBtn(index)}
+                                                            className={item.isLiked ? "" : "hover:text-gray-600"}
+                                                       >
+                                                            {item.isLiked ? <FaHeart /> : <FaRegHeart />}
+                                                       </div>
                                                        <FaRegComment className="hover:text-gray-600" />
                                                        <FaRegPaperPlane className="hover:text-gray-600" />
                                                   </div>
-                                                  <div><BsBookmark className="hover:text-gray-600" /></div>
+                                                  <div
+                                                       onClick={() => handleFavouriteBtn(index)}
+                                                       className={item.isFavourited ? "" : "hover:text-gray-600"}
+                                                  >
+                                                       {item.isFavourited ? <FaBookmark /> : <BsBookmark  />}
+                                                  </div>
                                              </div>
                                              <span className="font-medium text-sky-800">{item.likes} likes</span>
                                              <div className="w-[100%]">
