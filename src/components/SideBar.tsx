@@ -8,11 +8,15 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const SideBar = () => {
+     // let text = window.location.href
+     // let profileExist = text.search("profile");
 
      const [active, setActive] = useState<string>("home");
+     // profileExist ? "home" : "profile"
 
      const openAddRewModal = () => {
-          alert('I am an addReelModal');
+
+          console.log(window.location.href)
      }
 
      return (
@@ -25,6 +29,7 @@ const SideBar = () => {
                               padding: '0 10% 0 10px',
                               overflow: "hidden",
                               position: "fixed",
+                              left: "0",
                               top: '72px',
                               display: 'flex',
                               flexDirection: 'column',
@@ -61,11 +66,11 @@ const SideBar = () => {
                                    },
 
                               }}
-                              rootStyles={{
-                                   "&:hover": {
-                                        color: "red"
-                                   }
-                              }}
+                              // rootStyles={{
+                              //      "&:hover": {
+                              //           color: "red"
+                              //      }
+                              // }}
                               renderExpandIcon={({ open }) => <span>{open ? <FaAngleDown /> : <FaAngleRight />}</span>}
                          >
                               <MenuItem
@@ -89,6 +94,7 @@ const SideBar = () => {
                               <MenuItem
                                    active={active === "createReels" ? true : false}
                                    onClick={() => setActive("createReels")}
+                                   // onClick={() => openAddRewModal()}
                                    rootStyles={{ padding: "5px" }}
                                    icon={<IoIosAddCircle />}
                               >

@@ -39,12 +39,10 @@ function App() {
           path: "seemore",
           element: <SeeMore />
         },
-
         {
           path: '/profile',
           element: <Profile />
         },
-
       ]
     },
     {
@@ -59,8 +57,7 @@ function App() {
     {
       path: '/stories',
       element: <Stories />
-    }
-
+    },
   ]);
 
   return (
