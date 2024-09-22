@@ -22,7 +22,7 @@ const SideBar = () => {
                          [`.${sidebarClasses.container}`]: {
                               backgroundColor: 'white',
                               fontSize: '15px',
-                              padding: '0 50px 0 10px',
+                              padding: '0 10% 0 10px',
                               overflow: "hidden",
                               position: "fixed",
                               top: '72px',
@@ -43,6 +43,7 @@ const SideBar = () => {
                                         // only apply styles on first level elements of the tree
                                         if (level === 0)
                                              return {
+                                                  width: "180%",
                                                   color: disabled ? 'rgba(0,0,0,0.3)' : '#075985',
                                                   backgroundColor: active ? 'rgb(186 230 253)' : undefined,
                                                   fontWeight: "500",

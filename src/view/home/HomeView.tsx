@@ -7,9 +7,9 @@ const HomeView = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto flex max-w-7xl items-center justify-between pt-5 lg:px-8">
+      <div className=" flex max-w-7xl items-center justify-between pt-5 ">
         <div><SideBar /></div>
-        <div id="detail" className="w-[40%]">
+        <div id="detail" className="w-[40%] ms-[9.5%]">
           <Outlet />
         </div>
         <div className="w-[10%]">
