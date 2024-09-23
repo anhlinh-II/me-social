@@ -68,7 +68,7 @@ const CustomSingleValue = (props: SingleValueProps<NewType>) => (
 const CreateReelModal = (props: IProps) => {
      const { show, setShow } = props;
 
-     const [reel, setReel] = useState<string | null>(null);
+     const [reel, setReel] = useState<string>("");
      const [openEditPanel, setOpenEditPanel] = useState<boolean>(false);
 
      const inputFile = useRef<HTMLInputElement | null>(null);
@@ -86,13 +86,13 @@ const CreateReelModal = (props: IProps) => {
      const handleSaveFile = () => {
           setOpenEditPanel(false);
           setShow(false);
-          setReel(null);
+          setReel("");
      }
 
      const handleClose = () => {
           setOpenEditPanel(false);
           setShow(false);
-          setReel(null);
+          setReel("");
      }
 
      return (
