@@ -1,14 +1,11 @@
 import logo from "../assets/react.svg";
 import { VscThreeBars } from "react-icons/vsc";
-import { IoMdPersonAdd, IoIosSearch, IoMdNotifications } from "react-icons/io";
-import { MdGroups, MdOutlineDarkMode, MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
-import { BiSolidMessageRounded } from "react-icons/bi";
-import { PiChatCircle, PiVideoFill } from "react-icons/pi";
-import { IoHome, IoHomeOutline, IoMoonSharp, IoPersonAddOutline } from "react-icons/io5";
+import { IoIosSearch } from "react-icons/io";
+import { MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
+import { PiChatCircle } from "react-icons/pi";
+import { IoHomeOutline, IoPersonAddOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
-import { FaRegBell } from "react-icons/fa6";
-import { CiBellOn } from "react-icons/ci";
 import { GoBell } from "react-icons/go";
 import { BsMoon } from "react-icons/bs";
 
@@ -48,7 +45,7 @@ const Header = () => {
                          <div className="flex justify-around gap-x-12">
                               <Link
                                    to={``}
-                                   className="group/item relative cursor-pointer p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoHomeOutline style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -57,7 +54,7 @@ const Header = () => {
                               </Link>
                               <Link
                                    to={`/listfriends`}
-                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoPersonAddOutline style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -67,7 +64,7 @@ const Header = () => {
 
                               <Link
                                    to={`reels`}
-                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineOndemandVideo style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -77,7 +74,7 @@ const Header = () => {
 
                               <Link
                                    to={`listgroup`}
-                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -87,7 +84,7 @@ const Header = () => {
 
                               <Link
                                    to={`seemore`}
-                                   className="group/item relative cursor-pointer p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+                                   className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <VscThreeBars style={{ fontSize: "24px", color: "white" }} />
                                    <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
