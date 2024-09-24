@@ -8,9 +8,16 @@ import { Link, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
 import { BsMoon } from "react-icons/bs";
+import { useState } from "react";
+import SearchFriends from "./SearchFriends";
 
 const Header = () => {
+     const [openSearch, setOpenSearch] = useState<boolean>(false);
      const navigate = useNavigate();
+
+     const handleOpenSearch = () => {
+          setOpenSearch(true);
+     }
      return (
           <>
                <header className="bg-sky-600 fixed top-0 right-0 left-0 z-10">
@@ -35,9 +42,11 @@ const Header = () => {
                                    <input
                                         type="search"
                                         id="default-search"
-                                        className="block w-full p-2 ps-10 text-sm text-white rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-outline-none focus:border-sky-500 dark:bg-sky-500 dark:border-sky-600 dark:placeholder-white dark:text-white dark:focus:ring-white-500 dark:focus:border-blue-500"
+                                        className="block cursor-pointer w-full p-2 ps-10 text-sm text-white rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-outline-none focus:border-sky-500 dark:bg-sky-500 dark:border-sky-600 dark:placeholder-white dark:text-white dark:focus:ring-white-500 dark:focus:border-blue-500"
                                         placeholder="Find Friends..."
                                         required
+                                        autoComplete="off"
+                                        onClick={() => handleOpenSearch()}
                                    />
                               </div>
 
@@ -113,6 +122,10 @@ const Header = () => {
                          </div>
                     </nav>
                </header>
+               <SearchFriends
+                    show={openSearch}
+                    setShow={setOpenSearch}
+               />
           </>
      );
 };
