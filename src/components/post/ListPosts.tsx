@@ -4,7 +4,7 @@ import { GoDotFill } from "react-icons/go";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { IoReload } from "react-icons/io5";
 import ShowMoreText from "react-show-more-text";
-import '../styles/App.scss';
+import '../../styles/App.scss';
 import { FaUserFriends } from "react-icons/fa";
 
 import { useState } from "react";

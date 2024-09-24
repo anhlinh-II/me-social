@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { BsCameraVideoFill } from "react-icons/bs";
-import { FaCircleUser, FaImage } from "react-icons/fa6";
-import CreatePostModal from "./modal/Post.create.modal";
+import {  FaImage } from "react-icons/fa6";
+import CreatePostModal from "../modal/Post.create.modal";
 import { SiGoogledocs } from "react-icons/si";
 
 const CreatePost = () => {
