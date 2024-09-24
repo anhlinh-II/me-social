@@ -8,7 +8,7 @@ const SuggestFriends = () => {
                     {/* title */}
                     <div className="flex justify-between font-bold ">
                          <span className="text-gray-600">Suggested for you</span>
-                         <Link to={`/listFriends`}><span className="cursor-pointer hover:text-gray-600 font-semibold">See All</span></Link>
+                         <Link to={`/listFriends/suggestion`}><span className="cursor-pointer hover:text-gray-600 font-semibold">See All</span></Link>
                     </div>
                     {/* list suggest */}
                     <div className="flex flex-col mt-6">
@@ -20,10 +20,10 @@ const SuggestFriends = () => {
                                    />
                                    <div className="flex flex-col ml-3">
                                         <span className="font-semibold text-sm text-gray-700 cursor-pointer ">Thùy Vân</span>
-                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Khánh Linh</strong></span>
+                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Hoang Dung</strong></span>
                                    </div>
                               </div>
-                              <span className="text-sm text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
+                              <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
                          </div>
                          <div className="mb-5 flex justify-between items-center">
                               <div className="flex justify-between">
@@ -33,10 +33,10 @@ const SuggestFriends = () => {
                                    />
                                    <div className="flex flex-col ml-3">
                                         <span className="font-semibold text-sm text-gray-700 cursor-pointer ">Thùy Vân</span>
-                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Khánh Linh</strong></span>
+                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Hoang Dung</strong></span>
                                    </div>
                               </div>
-                              <span className="text-sm text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
+                              <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
                          </div>
                          <div className="mb-5 flex justify-between items-center">
                               <div className="flex justify-between">
@@ -46,10 +46,10 @@ const SuggestFriends = () => {
                                    />
                                    <div className="flex flex-col ml-3">
                                         <span className="font-semibold text-sm text-gray-700 cursor-pointer ">Thùy Vân</span>
-                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Khánh Linh</strong></span>
+                                        <span className="text-gray-400">Followed by <strong className="cursor-pointer font-semibold">Hoang Dung</strong></span>
                                    </div>
                               </div>
-                              <span className="text-sm text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
+                              <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
                          </div>
                     </div>
                </div>

@@ -9,7 +9,7 @@ import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
 import { BsMoon } from "react-icons/bs";
 import { useState } from "react";
-import SearchFriends from "./SearchFriends";
+import SearchFriends from "./friends/SearchFriends";
 
 const Header = () => {
      const [openSearch, setOpenSearch] = useState<boolean>(false);
@@ -62,7 +62,7 @@ const Header = () => {
                                    </div>
                               </Link>
                               <Link
-                                   to={`/listfriends`}
+                                   to={`/listFriends/friends`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoPersonAddOutline style={{ fontSize: "24px", color: "white" }} />
@@ -102,7 +102,7 @@ const Header = () => {
                               </Link>
                          </div>
 
-                         <div className="hidden w-[20%] lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
+                         <div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
                               <div className="mr-4 mt-1">
                                    <PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
                               </div>

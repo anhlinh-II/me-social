@@ -1,6 +1,6 @@
-import ListFriends from "./components/ListFriends";
+import ListFriends from "./components/friends/ListFriends";
 import ListGroups from "./components/ListGroup";
-import Posts from "./components/Posts";
+import Posts from "./components/post/Posts";
 import Reels from "./components/Reels";
 import SeeMore from "./components/SeeMore";
 import "./styles/App.scss";
@@ -11,6 +11,10 @@ import HomeView from "./view/home/HomeView";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./view/profile/Profile";
 import Stories from "./view/stories/StoriesPage";
+import Friends from "./components/friends/Friends";
+import FriendsRequest from "./components/friends/FriendsRequest";
+import Suggestion from "./components/friends/Suggestion";
+import RecentlyAdded from "./components/friends/RecentlyAdded";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,7 +29,25 @@ function App() {
         },
         {
           path: "listFriends",
-          element: <ListFriends />
+          element: <ListFriends />,
+          children: [
+            {
+              element: <Friends />,
+              path: 'friends'
+            },
+            {
+              element: <FriendsRequest />,
+              path: 'friendsRequest'
+            },
+            {
+              element: <Suggestion />,
+              path: 'suggestion'
+            },
+            {
+              element: <RecentlyAdded />,
+              path: "recentlyAdded"
+            }
+          ]
         },
         {
           path: "reels",
