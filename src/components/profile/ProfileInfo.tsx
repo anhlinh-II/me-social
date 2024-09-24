@@ -13,7 +13,7 @@ interface ProfileInfoProps {
 
 const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts, followers, following, bio }) => {
     return (
-        <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md">
+        <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-[90%] ms-[-6%]">
             <img
                 src={profileImage}
                 alt={`${username}'s profile`}

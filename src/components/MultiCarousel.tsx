@@ -8,6 +8,53 @@ interface MultiCarouselProps {
   items: React.ReactNode[];
 }
 
+const CustomPrevArrow = (props: any) => {
+  const { className, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        width: "48px",
+        height: "48px",
+        display: "block",
+        background: "rgb(110, 110, 110)",
+        textAlign: "center",
+        borderRadius: "50%",
+        padding: "10px",
+        paddingTop: "15px",
+        left: "35px",
+      }}
+      onClick={onClick}
+    >
+      Prev
+    </div>
+  );
+};
+
+const CustomNextArrow = (props: any) => {
+  const { className, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        width: "48px",
+        height: "48px",
+        display: "block",
+        background: "rgb(110, 110, 110)",
+        textAlign: "center",
+        borderRadius: "50%",
+        padding: "10px",
+        paddingTop: "15px",
+        right: "35px",
+      }}
+      onClick={onClick}
+    >
+      Next
+    </div>
+  );
+};
+
+
 const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
     const settings = {
       dots: false,
@@ -16,6 +63,8 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
       slidesToShow: 4,
       slidesToScroll: 4,
       adaptiveHeight: true,
+      prevArrow: <CustomPrevArrow />,
+      nextArrow: <CustomNextArrow />,
       responsive: [
         {
           breakpoint: 1024,
