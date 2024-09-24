@@ -35,7 +35,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-3 gap-4 p-4 w-[94%] ms-[-8%]">
+      <div className="grid grid-cols-3 gap-2 p-4 w-[84%] ms-[-8%]">
         {posts.map(post => (
           <PostItem 
             key={post.id} 

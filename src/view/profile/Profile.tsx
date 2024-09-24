@@ -83,8 +83,8 @@ const Profile = () => {
                             profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
                             username="Cristiano Ronaldo"
                             posts={3749}
-                            followers={639607594}
-                            following={579}
+                            likes={1639607594}
+                            mutual_friends={777}
                             bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
                         />
                     </div>
