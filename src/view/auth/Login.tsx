@@ -24,7 +24,7 @@ const Login = () => {
                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-600 focus:border-2"
                                    type="email"
                                    id="email"
-                                   placeholder="ex: thuyvan@gmail.com"
+                                   placeholder="Enter your email, username or phone number"
                                    required
                               />
                          </div>

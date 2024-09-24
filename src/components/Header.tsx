@@ -18,7 +18,7 @@ const Header = () => {
                          className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
                     >
-                         <div className="flex lg:flex-1">
+                         <div className="flex w-[20%] lg:flex-1">
                               <a href="#" className="-m-1.5 p-1.5">
                                    <img className="h-8 w-auto" src={logo} alt="" />
                               </a>
@@ -42,7 +42,7 @@ const Header = () => {
                               </div>
 
                          </div>
-                         <div className="flex justify-around gap-x-12">
+                         <div className="flex justify-between w-[36%] gap-x-12">
                               <Link
                                    to={``}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
@@ -93,7 +93,7 @@ const Header = () => {
                               </Link>
                          </div>
 
-                         <div className="hidden lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
+                         <div className="hidden w-[20%] lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
                               <div className="mr-4 mt-1">
                                    <PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
                               </div>

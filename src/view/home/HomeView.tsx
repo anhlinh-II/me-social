@@ -9,14 +9,14 @@ const HomeView = () => {
   return (
     <>
       <Header />
-      <div className="flex max-w-7xl items-center justify-between pt-5">
-        <div><SideBar /></div>
-        <div id="detail" className={hasProfile ? "ms-[9.5%] w-[60%]" : "ms-[9.5%] w-[40%]"}>
+      <div className="flex w-full items-start gap-52 pt-5">
+        <div className="w-[20%]"><SideBar /></div>
+        <div id="detail" className={hasProfile ? "w-[60%]" : "w-[34%]"}>
           <Outlet />
         </div>
         {
           !hasProfile && (
-            <div className="w-[10%]">
+            <div className="w-[20%]">
               <SuggestFriends />
             </div>
           )

@@ -1,7 +1,7 @@
-import { Sidebar, Menu, MenuItem, SubMenu, sidebarClasses } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { IoHome, IoLogOut, IoPersonCircle } from 'react-icons/io5';
 import { PiVideoFill } from 'react-icons/pi';
-import { IoIosAddCircle, IoIosMore, IoMdSettings } from 'react-icons/io';
+import { IoIosAddCircle, IoMdSettings } from 'react-icons/io';
 import { MdManageAccounts } from 'react-icons/md';
 import { FaAngleDown, FaAngleRight, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -9,17 +9,13 @@ import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 
 const SideBar = () => {
-     // let text = window.location.href
-     // let profileExist = text.search("profile");
      const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
      const [active, setActive] = useState<string>("home");
-     // profileExist ? "home" : "profile"
+     
 
      const openAddRewModal = () => {
-          // setActive("createReels");
           setShowCreateReelModal(true);
-          // alert("hello")
      }
 
      return (
@@ -44,7 +40,7 @@ const SideBar = () => {
                     }}
                >
                     <div>
-                         <div className='dancing-script-title p-5 decoration-sky-600'>Me Social</div>
+                         <div className='px-4 py-6 satisfy-regular me-social decoration-sky-600'>Me Social</div>
                          <Menu
                               menuItemStyles={{
                                    button: ({ level, active, disabled }) => {
@@ -69,11 +65,6 @@ const SideBar = () => {
                                    },
 
                               }}
-                              // rootStyles={{
-                              //      "&:hover": {
-                              //           color: "red"
-                              //      }
-                              // }}
                               renderExpandIcon={({ open }) => <span>{open ? <FaAngleDown /> : <FaAngleRight />}</span>}
                          >
                               <MenuItem

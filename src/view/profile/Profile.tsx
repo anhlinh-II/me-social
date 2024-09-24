@@ -7,7 +7,7 @@ const Profile = () => {
     return (
         <>
             {/* <Header /> */}
-            <div className="flex max-w-7xl items-center justify-between pt-5 ">
+            <div className="flex max-w-7xl items-center justify-between mt-[72px]">
                 {/* <div><SideBar /></div> */}
                 <div id="detail" className="">
                     {/* <Outlet /> */}

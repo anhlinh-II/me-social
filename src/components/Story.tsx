@@ -131,7 +131,7 @@ const Story = () => {
 
 	return (
 		<>
-			<div>
+			<div className="">
 				<MultiCarousel items={carouselUsers} />
 			</div>
 
