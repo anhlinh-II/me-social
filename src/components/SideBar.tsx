@@ -8,11 +8,18 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 
-const SideBar = () => {
-     const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
+interface IProps {
+     isFullSiderBar: boolean;
+     setIsFullSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+     active: string;
+     setActive:  React.Dispatch<React.SetStateAction<string>>;
+}
 
-     const [active, setActive] = useState<string>("home");
-     
+const SideBar = (props: IProps) => {
+
+     const { isFullSiderBar, active, setActive } = props
+
+     const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
      const openAddRewModal = () => {
           setShowCreateReelModal(true);
@@ -29,7 +36,7 @@ const SideBar = () => {
                               overflow: "hidden",
                               position: "fixed",
                               left: "0",
-                              top: '72px',
+                              top: isFullSiderBar ? "0" : "60px",
                               display: 'flex',
                               flexDirection: 'column',
                               justifyContent: "space-between",
@@ -114,7 +121,6 @@ const SideBar = () => {
                                    rootStyles={{ padding: "5px" }}
                                    active={active === "admin" ? true : false}
                                    onClick={() => setActive("admin")}
-                                   disabled
                                    icon={<MdManageAccounts />}>
                                    Admin Page
                               </MenuItem>

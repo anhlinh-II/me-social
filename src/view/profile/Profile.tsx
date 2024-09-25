@@ -1,4 +1,3 @@
-
 import ProfileInfo from "../../components/profile/ProfileInfo";
 import PostGrid from "../../components/profile/PostGrid";
 

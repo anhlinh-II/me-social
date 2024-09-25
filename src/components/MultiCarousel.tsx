@@ -56,53 +56,53 @@ const CustomNextArrow = (props: any) => {
 
 
 const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      adaptiveHeight: true,
-      prevArrow: <CustomPrevArrow />,
-      nextArrow: <CustomNextArrow />,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    adaptiveHeight: true,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
         },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
-        {
-          breakpoint: 640,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
-      ],
-    };
-  
-    return (
-      <div className="container mx-auto multiCarousel">
-        <Slider {...settings}>
-          {items.map((item, index) => (
-            <div key={index} className="p-2">
-              <div className="bg-white p-4 rounded-lg shadow-lg">
-                {item}
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-    );
+      },
+    ],
   };
-  
-  export default MultiCarousel;
+
+  return (
+    <div className="container mx-auto multiCarousel">
+      <Slider {...settings}>
+        {items.map((item, index) => (
+          <div key={index} className="p-2">
+            <div className="bg-white p-4 rounded-lg shadow-lg">
+              {item}
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
+  );
+};
+
+export default MultiCarousel;
