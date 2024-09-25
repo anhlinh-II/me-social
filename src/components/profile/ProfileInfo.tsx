@@ -6,14 +6,14 @@ interface ProfileInfoProps {
     profileImage: string;
     username: string;
     posts: number;
-    followers: number;
-    following: number;
+    likes: number;
+    mutual_friends: number;
     bio: string;
 }
 
-const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts, followers, following, bio }) => {
+const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts, likes, mutual_friends, bio }) => {
     return (
-        <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-[90%] ms-[-6%]">
+        <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-[80%] ms-[-6%]">
             <img
                 src={profileImage}
                 alt={`${username}'s profile`}
@@ -24,15 +24,15 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
                 <div className="flex space-x-8 my-4">
                     <div className="text-center">
                         <p className="font-bold">{posts}</p>
-                        <p className="text-gray-500">Posts</p>
+                        <p className="text-gray-500">Bài đăng</p>
                     </div>
                     <div className="text-center">
-                        <p className="font-bold">{followers}</p>
-                        <p className="text-gray-500">Followers</p>
+                        <p className="font-bold">{likes}</p>
+                        <p className="text-gray-500">Lượt thích</p>
                     </div>
                     <div className="text-center">
-                        <p className="font-bold">{following}</p>
-                        <p className="text-gray-500">Following</p>
+                        <p className="font-bold">{mutual_friends}</p>
+                        <p className="text-gray-500">Bạn chung</p>
                     </div>
                 </div>
                 <p className="text-center text-gray-700">{bio}</p>
