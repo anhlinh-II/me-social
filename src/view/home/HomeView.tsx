@@ -7,23 +7,32 @@ const HomeView = () => {
   const location = useLocation();
   const hasProfile = location.pathname.includes("profile");
   const hasListFriends = location.pathname.includes("listFriends")
+  const hasGroups = location.pathname.includes("listGroup")
+  const hasSeemore = location.pathname.includes("seemore")
+
+  const inHomeView: boolean = !hasListFriends && !hasProfile && !hasGroups && !hasSeemore ? true : false;
   return (
-    <>
+    <div className="bg-gray-50">
       <Header />
       <div className="flex w-full items-start gap-52 pt-5">
-        <div className="w-[20%]"><SideBar /></div>
-        <div id="detail" className={hasProfile || hasListFriends ? "w-[60%]" : "w-[34%]"}>
+        <div className="w-[20%]"><SideBar
+          active={hasProfile ? "profile" : (inHomeView ? "home" : "")}
+          setActive={() => null}
+          isFullSiderBar={false}
+          setIsFullSideBar={() => null}
+        /></div>
+        <div id="detail" className={!inHomeView ? "w-[60%]" : "w-[34%]"}>
           <Outlet />
         </div>
         {
-          !hasProfile && !hasListFriends && (
+          inHomeView && (
             <div className="w-[20%]">
               <SuggestFriends />
             </div>
           )
         }
       </div>
-    </>
+    </div>
   );
 };
 

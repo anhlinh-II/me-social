@@ -50,10 +50,6 @@ function App() {
           ]
         },
         {
-          path: "reels",
-          element: <Reels />
-        },
-        {
           path: "listGroup",
           element: <ListGroups />
         },
@@ -66,6 +62,11 @@ function App() {
           element: <Profile />
         },
       ]
+    },
+    
+    {
+      path: "reels",
+      element: <Reels />
     },
     {
       path: "login",

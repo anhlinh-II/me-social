@@ -91,40 +91,40 @@ const Story = () => {
 	];
 
 	const navigate = useNavigate();
-	const carouselUsers = [ 
+	const carouselUsers = [
 		(
-			<div key="create-new-story" className="story-container create-new-story" 
+			<div key="create-new-story" className="story-container create-new-story"
 				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 2 } })}>
 				{/* Placeholder for the 'Create New Story' item */}
 				<div className="create-story flex flex-col items-center">
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s" 
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-40 object-cover" />
 					<h5 className="text-black font-semibold text-center mt-2 mb-2">Tạo Tin</h5>
 					<div className="create-story-btn">+</div>
 				</div>
 			</div>
 		),
-		
+
 		...fakeData.map((item, index) => {
-		
 
-		const handleClick = () => {
-			navigate('/stories', { state: { stories: fakeData, storyIndex: index } });
-		};
 
-		return (
-			<div key={item.id} className="story-container hover:opacity-90" onClick={handleClick} style={{ cursor: 'pointer' }}>
-				{/* Background video or image */}
-				<video className="story-background">
-					<source src={item.background} type="video/mp4" />
-					Your browser does not support the video tag.
-				</video>
-				{/* Avatar and username */}
-				<div className="story-info">
-					<img src={item.avt} alt={item.userName} className="story-avatar" />
-					<h5 className="text-white font-semibold">{item.userName}</h5>
+			const handleClick = () => {
+				navigate('/stories', { state: { stories: fakeData, storyIndex: index } });
+			};
+
+			return (
+				<div key={item.id} className="story-container hover:opacity-90" onClick={handleClick} style={{ cursor: 'pointer' }}>
+					{/* Background video or image */}
+					<video className="story-background">
+						<source src={item.background} type="video/mp4" />
+						Your browser does not support the video tag.
+					</video>
+					{/* Avatar and username */}
+					<div className="story-info">
+						<img src={item.avt} alt={item.userName} className="story-avatar" />
+						<h5 className="text-white font-semibold">{item.userName}</h5>
+					</div>
 				</div>
-			</div>
 			);
 		})
 	];
