@@ -87,7 +87,7 @@ const Profile = () => {
                             bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
                         />
                     </div>
-                    <hr className='w-[80%] ms-[-6%] mb-5 mt-5'></hr>
+                    <hr className='w-[80%] h-[1.5px] bg-gray-500 ms-[-6%] mb-5 mt-5'></hr>
                     <div>
                         <PostGrid posts={posts} />
                     </div>

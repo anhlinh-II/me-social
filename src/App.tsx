@@ -1,5 +1,5 @@
 import ListFriends from "./components/friends/ListFriends";
-import ListGroups from "./components/ListGroup";
+import ListGroups from "./components/groups/ListGroup";
 import Posts from "./components/post/Posts";
 import Reels from "./components/Reels";
 import SeeMore from "./components/SeeMore";
@@ -15,6 +15,9 @@ import Friends from "./components/friends/Friends";
 import FriendsRequest from "./components/friends/FriendsRequest";
 import Suggestion from "./components/friends/Suggestion";
 import RecentlyAdded from "./components/friends/RecentlyAdded";
+import GroupJoined from "./components/groups/GroupJoined";
+import GroupSuggestion from "./components/groups/GroupSuggestion";
+import GroupActivity from "./components/groups/GroupActivity";
 
 function App() {
   const router = createBrowserRouter([
@@ -51,7 +54,21 @@ function App() {
         },
         {
           path: "listGroup",
-          element: <ListGroups />
+          element: <ListGroups />,
+          children: [
+            {
+              element: <GroupActivity />,
+              path: "recentlyActivity"
+            },
+            {
+              element: <GroupJoined />,
+              path: 'joined'
+            },
+            {
+              element: <GroupSuggestion />,
+              path: 'suggestion'
+            }
+          ]
         },
         {
           path: "seemore",
