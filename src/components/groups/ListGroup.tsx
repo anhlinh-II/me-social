@@ -20,7 +20,7 @@ const ListGroups = () => {
 					<ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
 						<li className="me-2">
 							<Link to={`/listGroup/recentlyActivity`}
-								className={active === "recentlyActivity" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+								className={active === "recentlyActivity" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
 								onClick={() => setActive("recentlyActivity")}
 							>
 								Bảng Feed Nhóm
@@ -28,7 +28,7 @@ const ListGroups = () => {
 						</li>
 						<li className="me-2">
 							<Link to={`/listGroup/joined`}
-								className={active === "joined" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+								className={active === "joined" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 text-base border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
 								onClick={() => setActive("joined")}
 							>
 								Nhóm của bạn
@@ -36,10 +36,18 @@ const ListGroups = () => {
 						</li>
 						<li className="me-2">
 							<Link to={`/listGroup/suggestion`}
-								className={active === "suggestion" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+								className={active === "suggestion" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
 								onClick={() => setActive("suggestion")}
 							>
 								Nhóm gợi ý
+							</Link>
+						</li>
+						<li className="me-2">
+							<Link to={`/listGroup/create`}
+								className={active === "create" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+								onClick={() => setActive("create")}
+							>
+								Tạo nhóm của bạn
 							</Link>
 						</li>
 					</ul>

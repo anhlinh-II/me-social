@@ -18,6 +18,7 @@ import RecentlyAdded from "./components/friends/RecentlyAdded";
 import GroupJoined from "./components/groups/GroupJoined";
 import GroupSuggestion from "./components/groups/GroupSuggestion";
 import GroupActivity from "./components/groups/GroupActivity";
+import GroupCreation from "./components/groups/GroupCreation";
 
 function App() {
   const router = createBrowserRouter([
@@ -67,6 +68,10 @@ function App() {
             {
               element: <GroupSuggestion />,
               path: 'suggestion'
+            },
+            {
+              element: <GroupCreation />,
+              path: 'create'
             }
           ]
         },

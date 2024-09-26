@@ -1,6 +1,6 @@
 // PostGrid.tsx
 import React, { useState } from 'react';
-import PostItem from './PostItem';
+import PostItem from './ProfilePostItem';
 import PostModal from './PostModal';
 
 interface Comment {

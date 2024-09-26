@@ -12,6 +12,7 @@ const GroupJoined: React.FC = () => {
         { id: 7, name: 'Group 7', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s' },
         { id: 8, name: 'Group 8', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s' },
         { id: 9, name: 'Group 9', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s' },
+        { id: 10, name: 'Group 10', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s' },
     ];
 
     return (
