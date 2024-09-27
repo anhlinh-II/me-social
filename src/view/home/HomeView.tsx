@@ -7,7 +7,7 @@ const HomeView = () => {
   const location = useLocation();
   const hasProfile = location.pathname.includes("profile");
   const hasListFriends = location.pathname.includes("listFriends")
-  const hasGroups = location.pathname.includes("listGroup")
+  const hasGroups = location.pathname.includes("group")
   const hasSeemore = location.pathname.includes("seemore")
 
   const inHomeView: boolean = !hasListFriends && !hasProfile && !hasGroups && !hasSeemore ? true : false;

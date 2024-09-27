@@ -91,15 +91,18 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
   };
 
   return (
-    <div className="container mx-auto multiCarousel">
+    <div className="grid container mx-auto multiCarousel">
       <Slider {...settings}>
-        {items.map((item, index) => (
-          <div key={index} className="p-2">
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              {item}
+        {items.map((item, index) => {
+          console.log(item)
+          return (
+            <div key={index} className="p-2">
+              <div className="bg-white p-4 rounded-lg shadow-lg">
+                {item}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </Slider>
     </div>
   );

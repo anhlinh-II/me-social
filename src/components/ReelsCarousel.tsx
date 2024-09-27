@@ -105,11 +105,14 @@ const ReelsCarousel: React.FC<ReelsCarouselProps> = ({ items }) => {
           dots: true,
           infinite: false,
           speed: 500,
-          slidesToShow: 4,
-          slidesToScroll: 4,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           adaptiveHeight: true,
           prevArrow: <CustomPrevArrow />,
           nextArrow: <CustomNextArrow />,
+          // vertical: true,
+          // verticalSwiping: true,
+          // variableHeight: false,
           responsive: [
                {
                     breakpoint: 1024,
@@ -142,16 +145,13 @@ const ReelsCarousel: React.FC<ReelsCarouselProps> = ({ items }) => {
      };
 
      return (
-          <div className="container mx-auto multiCarousel bg-gray-400 w-[400px] h-[650px] ">
-               <Slider {...settings}>
-                    {items.map((item, index) => (
-                         <>
-                              {item}
-                         </>
-                    ))}
+          <div className="container mx-auto multiCarousel bg-gray-400 w-fit h-[650px] ">
+               <Slider {...settings} className='overflow-hidden'>
+                    {items.map((item, index) => {
+                         return <>{item} </>;
+                    })}
                </Slider>
           </div>
-
      );
 }
 export default ReelsCarousel;
