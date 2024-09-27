@@ -122,7 +122,7 @@ const CreateGroup = () => {
                     </div>
                </div>
                {/* right */}
-               <div className="w-[77%]">right</div>
+               <div className="ml-auto w-[77%]">right</div>
           </div>
      );
 };

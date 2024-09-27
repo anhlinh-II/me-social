@@ -1,6 +1,6 @@
 // PostGrid.tsx
 import React, { useState } from 'react';
-import PostItem from './PostItem';
+import PostItem from './ProfilePostItem';
 import PostModal from './PostModal';
 
 interface Comment {
@@ -35,7 +35,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-3 gap-2 p-4 w-[84%] ms-[-8%]">
+      <div className="grid grid-cols-3 gap-1 p-4 w-[84%] ms-[-8%]">
         {posts.map(post => (
           <PostItem 
             key={post.id} 
