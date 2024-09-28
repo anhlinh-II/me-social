@@ -1,5 +1,5 @@
 import { Avatar, Breadcrumbs, FormControl, InputLabel, Link, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, ListItemIcon, ListItemText } from "@mui/material";
-import { FaEarthAmericas, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
+import { FaEarthAmericas, FaLocationDot, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
 import { IoMdClose, IoMdPhotos } from "react-icons/io";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -15,8 +15,17 @@ const CreateGroup = () => {
      const navigate = useNavigate();
      const [groupName, setGroupName] = useState<string>("");
      const [groupBio, setGroupBio] = useState<string>("");
+     const [groupLocation, setGroupLocation] = useState<string>("")
 
      const [isEnoughInfo, setIsEnoughInfo] = useState<boolean | 0>(false);
+
+     useEffect(() => {
+          const hasEnoughInfo: boolean | 0 = (mode && groupBio && groupName && groupLocation) as (boolean | 0);
+
+          if (isEnoughInfo !== hasEnoughInfo) {
+               setIsEnoughInfo(hasEnoughInfo);
+          }
+     }, [mode, groupBio, groupName, groupLocation])
 
      const handleChangeGroupName = useCallback(
           debounce((newValue) => {
@@ -25,17 +34,16 @@ const CreateGroup = () => {
           []
      );
 
-     useEffect(() => {
-          const hasEnoughInfo: boolean | 0 = (mode && groupBio && groupName) as (boolean | 0);
-
-          if (isEnoughInfo !== hasEnoughInfo) {
-               setIsEnoughInfo(hasEnoughInfo);
-          }
-     }, [mode, groupBio, groupName])
-
      const handleChangeBio = useCallback(
           debounce((newValue) => {
                setGroupBio(newValue);
+          }, 200),
+          []
+     )
+
+     const handleChangeLocation = useCallback(
+          debounce((newValue) => {
+               setGroupLocation(newValue);
           }, 200),
           []
      )
@@ -106,7 +114,8 @@ const CreateGroup = () => {
                          {/* form */}
                          <div>
                               <div className="mb-4"><TextField onChange={(e) => handleChangeGroupName(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group name" /></div>
-                              <div className=""><TextField onChange={(e) => handleChangeBio(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group bio" /></div>
+                              <div className="mb-4"><TextField onChange={(e) => handleChangeBio(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group bio" /></div>
+                              <div className=""><TextField onChange={(e) => handleChangeLocation(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group location" /></div>
                               <div className="my-4">
                                    <FormControl className="w-[90%] mt-4">
                                         <InputLabel id="demo-simple-select-label">Mode</InputLabel>
@@ -187,7 +196,7 @@ const CreateGroup = () => {
                                              <div className="flex items-center justify-center gap-1"><FaRegFaceKissBeam /> <span>Feeling/Activity</span></div>
                                         </div>
                                    </div>
-                                   <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-4 pt-4 pb-6">
+                                   <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-4 pt-4 pb-6 text-gray-500">
                                         <div className="text-gray-500 font-semibold mb-2">About</div>
                                         {groupBio ? <div className="mb-2">{groupBio}</div> : ""}
                                         {
@@ -195,7 +204,7 @@ const CreateGroup = () => {
                                              <span className="flex items-start gap-2">
                                                   <span className="relative top-1.5"><FaEarthAmericas /></span>
                                                   <span className="flex flex-col">
-                                                       <span className="font-semibold text-gray-700">Public group</span>
+                                                       <span className="font-semibold">Public group</span>
                                                        <span>Anyone can see who's in the group and what they post</span>
                                                   </span>
                                              </span>
@@ -210,6 +219,15 @@ const CreateGroup = () => {
                                                        <span>Only members can see who's in the group and what they post</span>
                                                   </span>
                                              </span>
+                                        }
+                                        {
+                                             groupLocation &&
+                                             <div className="flex items-start gap-2 mt-2">
+                                                  <span className="relative top-1.5"><FaLocationDot /></span>
+                                                  <span className="">
+                                                       {groupLocation}
+                                                  </span>
+                                             </div>
                                         }
                                    </div>
                               </div>
