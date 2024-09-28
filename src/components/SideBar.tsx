@@ -121,7 +121,9 @@ const SideBar = (props: IProps) => {
                                    rootStyles={{ padding: "5px" }}
                                    active={active === "admin" ? true : false}
                                    onClick={() => setActive("admin")}
-                                   icon={<MdManageAccounts />}>
+                                   icon={<MdManageAccounts />}
+                                   component={<Link to={'/admin'} />}
+                                   >
                                    Admin Page
                               </MenuItem>
                               <MenuItem

@@ -19,6 +19,11 @@ import GroupSuggestion from "./components/groups/GroupSuggestion";
 import GroupActivity from "./components/groups/GroupActivity";
 import CreateGroup from "./components/groups/CreateGroup";
 import Groups from "./components/groups/Groups";
+import LayoutAdmin from "./view/admin/Layout.admin";
+import Dashboard from "./components/admin/Admin.dashboard";
+import UsersPanel from "./components/admin/Admin.users";
+import PostsPanel from "./components/admin/Admin.posts";
+import GroupsPanel from "./components/admin/Admin.groups";
 
 function App() {
   const router = createBrowserRouter([
@@ -103,6 +108,28 @@ function App() {
     {
       path: '/groups/create',
       element: <CreateGroup />
+    },
+    {
+      path: '/admin',
+      element: <LayoutAdmin />,
+      children: [
+        {
+          path: 'dashboard',
+          element: <Dashboard />
+        },
+        {
+          path: "users",
+          element: <UsersPanel />
+        },
+        {
+          path: "posts",
+          element: <PostsPanel />
+        },
+        {
+          path: "groups",
+          element: <GroupsPanel />
+        }
+      ]
     }
     
   ]);

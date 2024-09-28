@@ -25,7 +25,7 @@ const CreateGroup = () => {
           if (isEnoughInfo !== hasEnoughInfo) {
                setIsEnoughInfo(hasEnoughInfo);
           }
-     }, [mode, groupBio, groupName, groupLocation])
+     }, [mode, groupBio, groupName, groupLocation, isEnoughInfo])
 
      const handleChangeGroupName = useCallback(
           debounce((newValue) => {
