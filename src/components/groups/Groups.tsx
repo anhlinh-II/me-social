@@ -9,8 +9,8 @@ const Groups = () => {
 	const [active, setActive] = useState<string>(initialActive);
 
 	useEffect(() => {
-		if (location.pathname === '/listGroup') {
-			navigate('/listGroup/recentlyActivity');
+		if (location.pathname === '/groups') {
+			navigate('/groups/recentlyActivity');
 		}
 	}, [location.pathname, navigate]);
 

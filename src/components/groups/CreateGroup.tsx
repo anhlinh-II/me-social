@@ -1,17 +1,20 @@
 import { Avatar, Breadcrumbs, FormControl, InputLabel, Link, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, ListItemIcon, ListItemText } from "@mui/material";
-import { FaEarthAmericas, FaReact } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
+import { FaEarthAmericas, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
+import { IoMdClose, IoMdPhotos } from "react-icons/io";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useState } from "react";
 import MultipleSelectChip from "./MultipleSelectChip";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import creategroup from '../../assets/creategroup.png';
+import { LuDot } from "react-icons/lu";
+import { HiOutlineUserCircle } from "react-icons/hi";
 
 const CreateGroup = () => {
      const [mode, setMode] = useState('');
      const navigate = useNavigate();
 
-     const [isEnoughInfo, setIsEnoughInfo] = useState<boolean>(true);
+     const [isEnoughInfo, setIsEnoughInfo] = useState<boolean>(false);
 
      const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
           console.info('You clicked a breadcrumb.');
@@ -40,7 +43,7 @@ const CreateGroup = () => {
      ];
 
      return (
-          <div className="flex w-screen h-screen">
+          <div className="flex w-full">
                {/* left */}
                <div className="fixed top-0 bottom-0 left-0 w-[23%] flex flex-col pl-4 border-r-2 border-gray-200 shadow-xl">
                     {/* icon and logo */}
@@ -77,7 +80,7 @@ const CreateGroup = () => {
                          </div>
                          {/* form */}
                          <div>
-                              <TextField className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group Name" />
+                              <TextField className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group name" />
                               <div className="my-4">
                                    <FormControl className="w-[90%] mt-4">
                                         <InputLabel id="demo-simple-select-label">Mode</InputLabel>
@@ -122,7 +125,45 @@ const CreateGroup = () => {
                     </div>
                </div>
                {/* right */}
-               <div className="ml-auto w-[77%]">right</div>
+               <div className="ml-auto w-[77%] bg-gray-100 flex fixed top-0 right-0 bottom-0">
+                    <div className="border rounded-xl shadow-xl bg-white m-auto h-4/5 w-4/5 px-4 pt-6">
+                         <span className="text-lg font-semibold">Preview</span>
+                         <div className="mt-4 border h-[90%] overflow-scroll overflow-x-hidden rounded-xl">
+                              <img
+                                   src={creategroup}
+                                   alt="creategroup"
+                                   className="rounded-xl"
+                              />
+                              <div className="px-4 pt-4 flex flex-col">
+                                   <div className="text-3xl mb-3 text-gray-400 font-bold">Group name</div>
+                                   <span className="flex items-center border-b-1 border-b border-gray-300 pb-4 text-gray-500 font-semibold">
+                                        <span className="text-sm">Group privacy</span> <LuDot /> <span className="text-gray-700">1 member</span>
+                                   </span>
+                                   <div className="flex cursor-not-allowed font-semibold text-gray-500">
+                                        <span className="px-4 py-3">About</span>
+                                        <span className="px-4 py-3">Posts</span>
+                                        <span className="px-4 py-3">Members</span>
+                                   </div>
+                              </div>
+                              <div className="bg-gray-100 p-3 flex gap-6 shadow-md">
+                                   <div className="flex-[60%] font-xs bg-gray-50 rounded-lg px-2 py-3">
+                                        <div className="flex items-center gap-2">
+                                             <span className="text-4xl text-gray-300"><HiOutlineUserCircle /></span>
+                                             <input className="bg-gray-200 w-[100%]  cursor-context-menu indent-1 px-2 py-1.5 rounded-full" type="text" placeholder="What's on your mind, bro?" />
+                                        </div>
+                                        <div className="mt-4 flex justify-center gap-12 text-gray-500 text-md cursor-not-allowed">
+                                             <div className="flex items-center justify-center gap-1"><IoMdPhotos /> <span>Photo/Videos</span></div>
+                                             <div className="flex items-center justify-center gap-1"><FaUserTag /> <span>Tag People</span></div>
+                                             <div className="flex items-center justify-center gap-1"><FaRegFaceKissBeam /> <span>Feeling/Activity</span></div>
+                                        </div>
+                                   </div>
+                                   <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-2 pt-4 pb-6 font-semibold text-gray-500">
+                                        About
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
           </div>
      );
 };
