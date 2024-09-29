@@ -122,7 +122,7 @@ const SideBar = (props: IProps) => {
                                    active={active === "admin" ? true : false}
                                    onClick={() => setActive("admin")}
                                    icon={<MdManageAccounts />}
-                                   component={<Link to={'/admin'} />}
+                                   component={<Link to={'/admin/dashboard'} />}
                                    >
                                    Admin Page
                               </MenuItem>

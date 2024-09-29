@@ -11,8 +11,8 @@ import { PiShootingStarLight } from 'react-icons/pi';
 
 const LayoutAdmin = () => {
 
-     const [active, setActive] = useState<string>("users");
-     const [open, setOpen] = useState<'general' | 'features' | undefined>();
+     const [active, setActive] = useState<string>("dashboard");
+     const [open, setOpen] = useState<'general' | 'features' | undefined>("general");
 
      const handleOpenSubMenu = (key: 'general' | 'features') => {
           if (open === key) {
