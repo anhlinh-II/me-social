@@ -82,11 +82,12 @@ const ListPosts = () => {
 
      return (
           <div className="flex justify-center items-center flex-col gap-5">
-               <div className=" w-full h-fit rounded">
+               {/* list post */}
+               <div className=" w-full h-fit rounded flex flex-col gap-6">
                     {
                          posts.map((item: IPost, index: number) => {
                               return (
-                                   <div key={`post-key-${index}`} className="w-[100%] bg-sky-100 rounded border-b-2 border-sky-800">
+                                   <div key={`post-key-${index}`} className="w-[100%] bg-sky-100 rounded border border-sky-600">
                                         <div className="flex justify-start items-center px-4 py-4 gap-2">
                                              <img src={item.avatar}
                                                   className="rounded-[100%] h-10 w-10 "

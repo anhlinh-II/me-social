@@ -1,30 +1,62 @@
 import { Avatar, Breadcrumbs, FormControl, InputLabel, Link, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, ListItemIcon, ListItemText } from "@mui/material";
-import { FaEarthAmericas, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
+import { FaEarthAmericas, FaLocationDot, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
 import { IoMdClose, IoMdPhotos } from "react-icons/io";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useState } from "react";
-import MultipleSelectChip from "./MultipleSelectChip";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import creategroup from '../../assets/creategroup.png';
 import { LuDot } from "react-icons/lu";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import debounce from 'lodash/debounce';
 
 const CreateGroup = () => {
-     const [mode, setMode] = useState('');
+     const [mode, setMode] = useState<string | number>('');
      const navigate = useNavigate();
+     const [groupName, setGroupName] = useState<string>("");
+     const [groupBio, setGroupBio] = useState<string>("");
+     const [groupLocation, setGroupLocation] = useState<string>("")
 
-     const [isEnoughInfo, setIsEnoughInfo] = useState<boolean>(false);
+     const [isEnoughInfo, setIsEnoughInfo] = useState<boolean | 0>(false);
+
+     useEffect(() => {
+          const hasEnoughInfo: boolean | 0 = (mode && groupBio && groupName && groupLocation) as (boolean | 0);
+
+          if (isEnoughInfo !== hasEnoughInfo) {
+               setIsEnoughInfo(hasEnoughInfo);
+          }
+     }, [mode, groupBio, groupName, groupLocation, isEnoughInfo])
+
+     const handleChangeGroupName = useCallback(
+          debounce((newValue) => {
+               setGroupName(newValue);
+          }, 200), // adjust the delay as needed
+          []
+     );
+
+     const handleChangeBio = useCallback(
+          debounce((newValue) => {
+               setGroupBio(newValue);
+          }, 200),
+          []
+     )
+
+     const handleChangeLocation = useCallback(
+          debounce((newValue) => {
+               setGroupLocation(newValue);
+          }, 200),
+          []
+     )
 
      const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-          console.info('You clicked a breadcrumb.');
+          // setMode("");
      };
 
-     const handleChange = (event: SelectChangeEvent) => {
+     const handleChangeModeGroup = (event: SelectChangeEvent<string | number>) => {
           setMode(event.target.value as string);
      };
 
-     const breadcrumbs = [
+     const breadcrumbs = useMemo(() => [
           <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
                Home
           </Link>,
@@ -40,7 +72,8 @@ const CreateGroup = () => {
           <Typography key="3" sx={{ color: 'text.primary' }}>
                Create Group
           </Typography>,
-     ];
+     ], []);
+
 
      return (
           <div className="flex w-full">
@@ -80,7 +113,9 @@ const CreateGroup = () => {
                          </div>
                          {/* form */}
                          <div>
-                              <TextField className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group name" />
+                              <div className="mb-4"><TextField onChange={(e) => handleChangeGroupName(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group name" /></div>
+                              <div className="mb-4"><TextField onChange={(e) => handleChangeBio(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group bio" /></div>
+                              <div className=""><TextField onChange={(e) => handleChangeLocation(e.target.value)} className="w-[90%]" id="demo-helper-text-misaligned-no-helper" label="Group location" /></div>
                               <div className="my-4">
                                    <FormControl className="w-[90%] mt-4">
                                         <InputLabel id="demo-simple-select-label">Mode</InputLabel>
@@ -89,7 +124,7 @@ const CreateGroup = () => {
                                              id="demo-simple-select"
                                              value={mode}
                                              label="Mode"
-                                             onChange={handleChange}
+                                             onChange={handleChangeModeGroup}
                                              renderValue={(selected: string | number) => (
                                                   <div className="flex items-center gap-2 text-gray-600">
                                                        {selected === 10 && <span className="p-2 rounded-full bg-gray-300"><FaEarthAmericas /></span>}
@@ -115,9 +150,6 @@ const CreateGroup = () => {
                                         </Select>
                                    </FormControl>
                               </div>
-                              <div className="-ml-2 pr-[4px]">
-                                   <MultipleSelectChip />
-                              </div>
                          </div>
                     </div>
                     <div className="flex absolute bottom-0 right-0 left-0 border-t border-gray-300 h-[10%] drop-shadow-2xl">
@@ -135,9 +167,16 @@ const CreateGroup = () => {
                                    className="rounded-xl"
                               />
                               <div className="px-4 pt-4 flex flex-col">
-                                   <div className="text-3xl mb-3 text-gray-400 font-bold">Group name</div>
+                                   <div className="text-3xl mb-3 text-gray-400 font-bold">{groupName === "" ? "Group name" : groupName}</div>
                                    <span className="flex items-center border-b-1 border-b border-gray-300 pb-4 text-gray-500 font-semibold">
-                                        <span className="text-sm">Group privacy</span> <LuDot /> <span className="text-gray-700">1 member</span>
+                                        <span className="text-sm">
+                                             {
+                                                  mode === 10 ? <span className="flex items-center gap-1"><FaEarthAmericas /><span> Public group</span></span>
+                                                       : <span className="flex items-center gap-1"><FaLock /><span> Private group</span></span>
+                                             }
+                                        </span>
+                                        <LuDot />
+                                        <span className="text-gray-700">1 member</span>
                                    </span>
                                    <div className="flex cursor-not-allowed font-semibold text-gray-500">
                                         <span className="px-4 py-3">About</span>
@@ -145,8 +184,8 @@ const CreateGroup = () => {
                                         <span className="px-4 py-3">Members</span>
                                    </div>
                               </div>
-                              <div className="bg-gray-100 p-3 flex gap-6 shadow-md">
-                                   <div className="flex-[60%] font-xs bg-gray-50 rounded-lg px-2 py-3">
+                              <div className="bg-gray-200 p-4 flex gap-6 shadow-md">
+                                   <div className="flex-[60%] font-xs bg-gray-50 rounded-lg px-2 py-3 h-fit pb-4">
                                         <div className="flex items-center gap-2">
                                              <span className="text-4xl text-gray-300"><HiOutlineUserCircle /></span>
                                              <input className="bg-gray-200 w-[100%]  cursor-context-menu indent-1 px-2 py-1.5 rounded-full" type="text" placeholder="What's on your mind, bro?" />
@@ -157,8 +196,39 @@ const CreateGroup = () => {
                                              <div className="flex items-center justify-center gap-1"><FaRegFaceKissBeam /> <span>Feeling/Activity</span></div>
                                         </div>
                                    </div>
-                                   <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-2 pt-4 pb-6 font-semibold text-gray-500">
-                                        About
+                                   <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-4 pt-4 pb-6 text-gray-500">
+                                        <div className="text-gray-500 font-semibold mb-2">About</div>
+                                        {groupBio ? <div className="mb-2">{groupBio}</div> : ""}
+                                        {
+                                             mode === 10 &&
+                                             <span className="flex items-start gap-2">
+                                                  <span className="relative top-1.5"><FaEarthAmericas /></span>
+                                                  <span className="flex flex-col">
+                                                       <span className="font-semibold">Public group</span>
+                                                       <span>Anyone can see who's in the group and what they post</span>
+                                                  </span>
+                                             </span>
+
+                                        }
+                                        {
+                                             mode === 20 &&
+                                             <span className="flex items-start gap-2">
+                                                  <span className="relative top-1.5"><FaLock /></span>
+                                                  <span className="flex flex-col">
+                                                       <span className="font-semibold text-gray-700">Private group</span>
+                                                       <span>Only members can see who's in the group and what they post</span>
+                                                  </span>
+                                             </span>
+                                        }
+                                        {
+                                             groupLocation &&
+                                             <div className="flex items-start gap-2 mt-2">
+                                                  <span className="relative top-1.5"><FaLocationDot /></span>
+                                                  <span className="">
+                                                       {groupLocation}
+                                                  </span>
+                                             </div>
+                                        }
                                    </div>
                               </div>
                          </div>
