@@ -53,7 +53,7 @@ const Header = () => {
                          </div>
                          <div className="flex justify-between w-[36%] gap-x-12">
                               <Link
-                                   to={``}
+                                   to={`/`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoHomeOutline style={{ fontSize: "24px", color: "white" }} />

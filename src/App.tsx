@@ -24,6 +24,7 @@ import Dashboard from "./components/admin/Admin.dashboard";
 import UsersPanel from "./components/admin/Admin.users";
 import PostsPanel from "./components/admin/Admin.posts";
 import GroupsPanel from "./components/admin/Admin.groups";
+import GroupDetail from "./components/group_detail/GroupDetail";
 
 function App() {
   const router = createBrowserRouter([
@@ -108,6 +109,10 @@ function App() {
     {
       path: '/groups/create',
       element: <CreateGroup />
+    },
+    {
+      element: <GroupDetail/>,
+      path: '/groups/groupName'
     },
     {
       path: '/admin',
