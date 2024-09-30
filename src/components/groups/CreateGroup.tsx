@@ -82,7 +82,7 @@ const CreateGroup = () => {
                     {/* icon and logo */}
                     <div className="flex flex-row gap-4 py-4 border-b-2 border-gray-200">
                          <span
-                              onClick={() => navigate(`/groups`)}
+                              onClick={() => navigate(-1)}
                               className="p-2 bg-gray-400 text-white rounded-full cursor-pointer"
                          ><IoMdClose /></span>
                          <span className="text-3xl text-sky-600 cursor-pointer"
