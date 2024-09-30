@@ -4,6 +4,8 @@ import type { TableProps } from 'antd';
 import { IoMdAdd } from 'react-icons/io';
 import { IoFilter } from 'react-icons/io5';
 import ViewUserModal from '../modal/Admin.user.view.modal';
+import UpdateUserModal from '../modal/Admin.user.update.modal';
+import DeleteUserModal from '../modal/Admin.user.delete.modal';
 
 interface DataType {
      key: string;
@@ -133,6 +135,8 @@ const data: DataType[] = [
 const UsersPanel: React.FC = () => {
 
      const [showViewModal, setShowViewModal] = useState<boolean>(false);
+     const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
      const columns: TableProps<DataType>['columns'] = [
           {
@@ -184,8 +188,18 @@ const UsersPanel: React.FC = () => {
                          >
                               View
                          </Button>
-                         <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }}>Update</Button>
-                         <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }}>Delete</Button>
+                         <Button
+                              style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }}
+                              onClick={() => setShowUpdateModal(true)}
+                         >
+                              Update
+                         </Button>
+                         <Button
+                              style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }}
+                              onClick={() => setShowDeleteModal(true)}
+                         >
+                              Delete
+                         </Button>
                     </Space>
                ),
           },
@@ -213,6 +227,14 @@ const UsersPanel: React.FC = () => {
                <ViewUserModal
                     show={showViewModal}
                     setShow={setShowViewModal}
+               />
+               <UpdateUserModal
+                    show={showUpdateModal}
+                    setShow={setShowUpdateModal}
+               />
+               <DeleteUserModal
+                    show={showDeleteModal}
+                    setShow={setShowDeleteModal}
                />
           </div>
      )
