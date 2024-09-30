@@ -1,6 +1,6 @@
 import ListFriends from "./components/friends/ListFriends";
 import Posts from "./components/post/Posts";
-import Reels from "./components/Reels";
+import Reels from "./components/reels/Reels";
 import SeeMore from "./components/SeeMore";
 import "./styles/App.scss";
 import Login from "./view/auth/Login";
