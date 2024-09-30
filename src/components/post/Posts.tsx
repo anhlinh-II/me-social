@@ -1,7 +1,7 @@
 import { Counter } from "../../redux/features/counter/Counter"
 import CreatePost from "./CreatePost"
 import ListPosts from "./ListPosts"
-import Story from "../Story"
+import Story from "../stories/Story"
 
 const Posts = () => {
      return (
