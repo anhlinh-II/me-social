@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+Me-Social is a modern social networking platform built with ReactJS and TypeScript. It allows users to register, log in, create posts, like, comment, and interact with other users through features like group creation, reels, stories, one-on-one chat, group chats, and more. The platform also includes an admin dashboard for managing content and users.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features:
+  User Authentication: Sign up and login functionality.
+  Create Posts: Share posts with captions and media.
+  Like and Comment: Interact with posts via likes and comments.
+  Create Groups: Users can create and join groups.
+  Reels & Stories: Share short videos and temporary stories.
+  One-on-One Chat: Direct messaging between users.
+  Group Chat: Communicate with multiple users in group chats.
+  Admin Dashboard: Manage users and content as an admin.
 
-Currently, two official plugins are available:
+Tech Stack:
+  Frontend
+    ReactJS: Core framework for building the UI.
+    TypeScript: Ensures type safety and scalability in the codebase.
+    Redux Toolkit: Manages global state across the app efficiently.
+    Tailwind CSS: Provides utility-first CSS styling for rapid UI development.
+    Ant Design (AntD): A rich UI component library for building modern interfaces.
+    Material UI (MUI): Additional UI components and design resources for a seamless user experience.
+    React Router Dom: Handles routing and navigation between pages.
+    Axios: Manages API requests and communication with the backend.
+  State Management:
+    Redux Toolkit: Centralized state management for handling authentication, posts, chat, and other dynamic content.
+Installation
+  1. Clone the repository: https://github.com/anhlinh-II/me-social
+  2. Navigate to the project directory: cd me-social
+  3. npm install
+  4. npm run dev
+The app should now be running on http://localhost:5173
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Project Structure
+src/
+│
+├── components/        # Reusable UI components
+├── features/          # Redux slices and state logic
+├── pages/             # Main pages (e.g., Login, Home, Group)
+├── services/          # API services (using Axios)
+├── utils/             # Utility functions
+└── styles/            # Global styles (Tailwind config)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+How to Contribute
+  Fork the repository.
+  Create a new feature branch (git checkout -b feature/feature-name).
+  Commit your changes (git commit -m 'Add feature').
+  Push to the branch (git push origin feature/feature-name).
+  Create a Pull Request.
+License
+  This project is licensed under the MIT License - see the LICENSE file for details.
