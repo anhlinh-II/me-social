@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { FaEarthAmericas } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
-import { IoPlay } from 'react-icons/io5';
+import { IoPause, IoPlay } from 'react-icons/io5';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Story from '../../components/stories/Story';
 import { PiSpeakerSimpleHighFill, PiSpeakerSimpleSlashFill } from 'react-icons/pi';
@@ -24,6 +24,8 @@ const StoriesPage: React.FC = () => {
     const { stories, storyIndex } = location.state as LocationState;
     const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(storyIndex || 0);
     const [isMuted, setIsMuted] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [progress, setProgress] = useState(0);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
     const handlePlay = () => {
@@ -31,17 +33,19 @@ const StoriesPage: React.FC = () => {
         if (videoElement) {
             if (videoElement.paused) {
                 videoElement.play();
+                setIsPlaying(true);
             } else {
                 videoElement.pause();
+                setIsPlaying(false);
             }
         }
     };
-    
+
     const handleMuteVideo = () => {
         const videoElement = videoRefs.current[currentStoryIndex];
         if (videoElement) {
-            videoElement.muted = !videoElement.muted; 
-            setIsMuted(videoElement.muted); 
+            videoElement.muted = !videoElement.muted;
+            setIsMuted(videoElement.muted);
         }
     };
 
@@ -51,30 +55,40 @@ const StoriesPage: React.FC = () => {
                 const nextIndex = prevIndex + 1;
                 const nextVideoElement = videoRefs.current[nextIndex];
                 if (nextVideoElement) {
-                    nextVideoElement.play(); // Auto play next video
+                    nextVideoElement.play();
                 }
+                setIsPlaying(true);
                 return nextIndex;
             });
         } else {
-            navigate(-1); // Close the story view
+            navigate(-1);
         }
     };
 
     const handlePreviousStory = () => {
         if (currentStoryIndex > 0) {
             setCurrentStoryIndex(currentStoryIndex - 1);
+            setIsPlaying(true);
         } else {
-            navigate(-1); // Close the story view
+            navigate(-1);
         }
     };
 
     const handleClose = () => {
-        navigate(-1); // Go back to the previous page
+        navigate(-1);
     };
 
     const handleStorySelect = (index: number) => {
         setCurrentStoryIndex(index);
     };
+
+    const handleVideoTimeUpdate = () => {
+        const videoElement = videoRefs.current[currentStoryIndex];
+        if (videoElement) {
+          const progress = (videoElement.currentTime / videoElement.duration) * 100;
+          setProgress(progress);
+        }
+      };
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-100 flex z-50">
@@ -108,19 +122,33 @@ const StoriesPage: React.FC = () => {
 
             {/* Story Content */}
             <div className="relative w-full h-full flex justify-center items-center border border-black rounded-xl">
-                <div className="flex items-center justify-center w-[360px] h-[640px] rounded-lg cursor-pointer relative bg-gray-700">
+                <div className="flex items-center justify-center w-[360px] h-[640px] rounded-lg cursor-pointer relative bg-[#18191A]">
                     <div className="absolute top-[4%] flex items-center space-x-2 z-20">
                         <img src={stories[currentStoryIndex]?.avt} alt={stories[currentStoryIndex]?.userName} className="w-12 h-12 rounded-full" />
                         <h5 className="text-white font-semibold">{stories[currentStoryIndex]?.userName}</h5>
                         <span className="flex justify-center items-center text-white align-center">20h <GoDotFill className="text-[10px]" /></span>
                         <span>< FaEarthAmericas className="text-white text-sm font-normal align-center" /></span>
+
                         {/* Play Icon */}
-                        <span
-                            className='text-md ps-12 rounded-full text-white cursor-pointer'
-                            onClick={handlePlay}
-                        >
-                            <IoPlay />
-                        </span>
+                        {!isPlaying && (
+                            <span
+                                className='text-md ps-12 rounded-full text-white cursor-pointer'
+                                onClick={handlePlay}
+                            >
+                                <IoPlay />
+                            </span>
+                        )}
+
+                        {/* Pause Icon */}
+                        {isPlaying && (
+                            <span
+                                className='text-md ps-12 rounded-full text-white cursor-pointer'
+                                onClick={handlePlay}
+                            >
+                                <IoPause />
+                            </span>
+                        )}
+
                         {/* Mute Icon */}
                         <div
                             className='text-white p-4 bg-gray-800/50 rounded-full cursor-pointer'
@@ -136,8 +164,18 @@ const StoriesPage: React.FC = () => {
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-contain w-full h-full z-10"
                         onClick={handlePlay}
                         src={stories[currentStoryIndex]?.background}
+                        onTimeUpdate={handleVideoTimeUpdate}
                     >
                     </video>
+
+                    
+					{/* Video Progress Bar */}
+					<div className="absolute bottom-4 left-0 w-[90%] ms-[5%] rounded-lg h-1 bg-gray-600">
+						<div
+							className="h-full bg-white"
+							style={{ width: `${progress}%` }}
+						></div>
+					</div>
                 </div>
 
                 {/* Video Navigation Buttons */}
