@@ -25,6 +25,11 @@ import UsersPanel from "./components/admin/Admin.users";
 import PostsPanel from "./components/admin/Admin.posts";
 import GroupsPanel from "./components/admin/Admin.groups";
 import GroupDetail from "./components/group_detail/GroupDetail";
+import GroupAbout from "./components/group_detail/GroupAbout";
+import GroupDiscussion from "./components/group_detail/GroupDiscussion";
+import GroupMembers from "./components/group_detail/GroupMembers";
+import GroupMedia from "./components/group_detail/GroupMedia";
+import GroupFile from "./components/group_detail/GroupFile";
 
 function App() {
   const router = createBrowserRouter([
@@ -112,7 +117,29 @@ function App() {
     },
     {
       element: <GroupDetail/>,
-      path: '/groups/groupName'
+      path: '/groups/groupName',
+      children: [
+        {
+          path: 'about',
+          element: <GroupAbout />
+        },
+        {
+          path: 'discussion',
+          element: <GroupDiscussion />
+        },
+        {
+          path: 'members',
+          element: <GroupMembers />
+        },
+        {
+          path: 'media',
+          element: <GroupMedia />
+        },
+        {
+          path: 'files',
+          element: <GroupFile />
+        },
+      ]
     },
     {
       path: '/admin',
