@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface GroupCardProps {
     imageUrl: string;
@@ -19,7 +20,11 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
             <span className='text-xs ms-4 text-gray-500'>Truy cập lần gần nhất 2 ngày trước</span>
             <div className='flex flex-row'>
                 <div className="p-4 ps-4 pe-0">
-                    <button className="bg-blue-100 text-blue-500 px-4 ps-10 pe-10 py-2 rounded-md hover:bg-blue-200">Xem nhóm</button>
+                    <button className="bg-blue-100 text-blue-500 px-4 ps-10 pe-10 py-2 rounded-md hover:bg-blue-200">
+                        <Link to={`/groups/groupName`}>
+                            Xem nhóm
+                        </Link>
+                    </button>
                 </div>
                 <div className="p-4">
                     <div className="relative inline-block text-left">
