@@ -3,9 +3,10 @@ import { Button, Space, Table, Tag } from 'antd';
 import type { TableProps } from 'antd';
 import { IoMdAdd } from 'react-icons/io';
 import { IoFilter } from 'react-icons/io5';
-import ViewUserModal from '../modal/Admin.user.view.modal';
-import UpdateUserModal from '../modal/Admin.user.update.modal';
-import DeleteUserModal from '../modal/Admin.user.delete.modal';
+import ViewUserModal from '../modal/admin/user/Admin.user.view.modal';
+import UpdateUserModal from '../modal/admin/user/Admin.user.update.modal';
+import DeleteUserModal from '../modal/admin/user/Admin.user.delete.modal';
+import CreateUserModal from '../modal/admin/user/Admin.user.create.modal';
 
 interface DataType {
      key: string;
@@ -14,8 +15,6 @@ interface DataType {
      email: string;
      tags: string[];
 }
-
-
 
 const data: DataType[] = [
      {
@@ -137,6 +136,7 @@ const UsersPanel: React.FC = () => {
      const [showViewModal, setShowViewModal] = useState<boolean>(false);
      const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
      const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
      const columns: TableProps<DataType>['columns'] = [
           {
@@ -216,7 +216,12 @@ const UsersPanel: React.FC = () => {
                     <div className='flex gap-4'>
                          <input className='border-2 p-1 border-sky-700 rounded-xl indent-2 focus:outline-none' type="text" placeholder='search users...' />
                          <Button style={{ border: "2px solid rgb(3 105 161)" }}><span><IoFilter /></span> Filter</Button>
-                         <Button style={{ backgroundColor: "black", color: "white", fontWeight: "600", display: "flex", gap: "2px" }}> <span className='font-2xl'><IoMdAdd /></span>Add user</Button>
+                         <Button
+                              style={{ backgroundColor: "black", color: "white", fontWeight: "600", display: "flex", gap: "2px" }}
+                              onClick={() => setShowCreateModal(true)}
+                         >
+                              <span className='font-2xl'><IoMdAdd /></span>Add user
+                         </Button>
                     </div>
                </div>
                <Table<DataType>
@@ -235,6 +240,10 @@ const UsersPanel: React.FC = () => {
                <DeleteUserModal
                     show={showDeleteModal}
                     setShow={setShowDeleteModal}
+               />
+               <CreateUserModal
+                    show={showCreateModal}
+                    setShow={setShowCreateModal}
                />
           </div>
      )
