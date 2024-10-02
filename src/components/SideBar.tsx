@@ -17,7 +17,7 @@ interface IProps {
 
 const SideBar = (props: IProps) => {
 
-     const { isFullSiderBar, active, setActive } = props
+     const { active, setActive } = props
 
      const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
@@ -32,11 +32,8 @@ const SideBar = (props: IProps) => {
                          [`.${sidebarClasses.container}`]: {
                               backgroundColor: 'white',
                               fontSize: '15px',
-                              padding: '0 10% 0 10px',
+                              padding: '0 10px 0 10px',
                               overflow: "hidden",
-                              position: "fixed",
-                              left: "0",
-                              top: isFullSiderBar ? "0" : "60px",
                               display: 'flex',
                               flexDirection: 'column',
                               justifyContent: "space-between",

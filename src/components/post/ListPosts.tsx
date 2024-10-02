@@ -1,5 +1,5 @@
 import { BsBookmark } from "react-icons/bs";
-import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from "react-icons/fa6";
+import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane, FaS } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { IoReload } from "react-icons/io5";
@@ -8,6 +8,7 @@ import '../../styles/App.scss';
 import { FaUserFriends } from "react-icons/fa";
 
 import { useState } from "react";
+import PostDetailModal from "../modal/Post.detail.modal";
 
 const ListPosts = () => {
 
@@ -34,7 +35,7 @@ const ListPosts = () => {
                time: 6,
                isLiked: true,
                isFavourited: true,
-               image: "https://scontent.fhph1-1.fna.fbcdn.net/v/t39.30808-6/374179586_1149802439309602_3858405574136977883_n.jpg?stp=cp6_dst-jpg&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=BJAjFCOjbsoQ7kNvgG-f5Ly&_nc_ht=scontent.fhph1-1.fna&_nc_gid=A4zwiCCYIcbOKkixVXtFYC8&oh=00_AYC_OwwBWHjqNf_zWkxK9KsRfI9zadDtz61FgDg1pIcBmQ&oe=66F4CDB1"
+               image: "https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/453530783_122139111278271357_7821382139692007781_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGVYCrHea9BWuasolp3wxEepob1SPeef2mmhvVI955_aVq_K1dKTut4jiGP6RqFHvDCmz5bHEMx_1Vk1Z05Mw8H&_nc_ohc=X85O_LA4FDEQ7kNvgEbufUx&_nc_ht=scontent.fhan20-1.fna&_nc_gid=AwTPZE99EqppBlK1EehgY-i&oh=00_AYCu4aytf_B1AKRr0KnLb2a0fRUms9fX4g5fXAsf6qwLzA&oe=67020306"
           },
           {
                username: "Khánh Linh",
@@ -46,9 +47,10 @@ const ListPosts = () => {
                time: 18,
                isLiked: undefined,
                isFavourited: true,
-               image: "https://scontent.fhph1-2.fna.fbcdn.net/v/t1.6435-9/75472790_158391592042390_359204500264714240_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=HmwpgCNUhJ4Q7kNvgFyp69K&_nc_ht=scontent.fhph1-2.fna&_nc_gid=AZxMhfcL4U2JN_tJJOzebNM&oh=00_AYDFsKuYyZxZTAjqqS7PJUtymsj2qoggOMPS3ttG9ZhNrg&oe=67166380"
+               image: "https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg"
           }
      ])
+     const [showDetailModal, setShowDetailModal] = useState<boolean>(false)
 
      interface IPost {
 
@@ -73,7 +75,7 @@ const ListPosts = () => {
      };
 
      const handleFavouriteBtn = (index: number) => {
-          setPosts(prevPosts => 
+          setPosts(prevPosts =>
                prevPosts.map((post, i) => {
                     return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
                })
@@ -90,11 +92,11 @@ const ListPosts = () => {
                                    <div key={`post-key-${index}`} className="w-[100%] bg-sky-100 rounded border border-sky-600">
                                         <div className="flex justify-start items-center px-4 py-4 gap-2">
                                              <img src={item.avatar}
-                                                  className="rounded-[100%] h-10 w-10 "
+                                                  className="rounded-[100%] h-10 w-10 cursor-pointer"
                                                   alt="error"
                                              />
                                              <div className="ml-2">
-                                                  <span className="text-base font-bold text-sky-800">{item.username}</span>
+                                                  <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{item.username}</span>
                                                   <div className="flex gap-2 justify-start items-center">
                                                        <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{item.time}h <GoDotFill className="text-[10px]" /></span>
                                                        <span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
@@ -105,8 +107,9 @@ const ListPosts = () => {
 
                                         <img
                                              src={item.image}
-                                             className="w-[100%] rounded h-auto"
+                                             className="w-[100%] rounded h-auto cursor-pointer"
                                              alt="error"
+                                             onClick={() => setShowDetailModal(true)}
                                         />
                                         <div className="flex flex-col p-3">
                                              <div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
@@ -124,7 +127,7 @@ const ListPosts = () => {
                                                        onClick={() => handleFavouriteBtn(index)}
                                                        className={item.isFavourited ? "" : "hover:text-gray-600"}
                                                   >
-                                                       {item.isFavourited ? <FaBookmark /> : <BsBookmark  />}
+                                                       {item.isFavourited ? <FaBookmark /> : <BsBookmark />}
                                                   </div>
                                              </div>
                                              <span className="font-medium text-sky-800">{item.likes} likes</span>
@@ -143,10 +146,19 @@ const ListPosts = () => {
                                                   >
                                                        {item.description}
                                                   </ShowMoreText>
-                                                  <span className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">view all 3 comments</span>
+                                                  <span
+                                                       className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
+                                                       onClick={() => setShowDetailModal(true)}
+                                                  >
+                                                       view all 3 comments
+                                                  </span>
                                                   <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                                              </div>
                                         </div>
+                                        <PostDetailModal
+                                             show={showDetailModal}
+                                             setShow={setShowDetailModal}
+                                        />
                                    </div>
                               )
                          })

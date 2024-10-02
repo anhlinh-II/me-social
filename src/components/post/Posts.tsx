@@ -5,7 +5,7 @@ import Story from "../stories/Story"
 
 const Posts = () => {
      return (
-          <div className="flex flex-col justify-center items-center mt-16">
+          <div className="flex flex-col justify-center items-center">
                <Story />
                <div className="flex w-full flex-col gap-4">
                     <CreatePost />

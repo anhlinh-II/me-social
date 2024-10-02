@@ -12,15 +12,17 @@ const HomeView = () => {
 
   const inHomeView: boolean = !hasListFriends && !hasProfile && !hasGroups && !hasSeemore ? true : false;
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 flex flex-col">
       <Header />
-      <div className="flex w-full items-start gap-52 pt-5">
-        <div className="w-[20%]"><SideBar
-          active={hasProfile ? "profile" : (inHomeView ? "home" : "")}
-          setActive={() => null}
-          isFullSiderBar={false}
-          setIsFullSideBar={() => null}
-        /></div>
+      <div className="relative flex w-full mt-[72px] items-start justify-between">
+        <div className="w-[20%] h-full">
+          <SideBar
+            active={hasProfile ? "profile" : (inHomeView ? "home" : "")}
+            setActive={() => null}
+            isFullSiderBar={false}
+            setIsFullSideBar={() => null}
+          />
+        </div>
         <div id="detail" className={!inHomeView ? "w-[60%]" : "w-[34%]"}>
           <Outlet />
         </div>
