@@ -30,6 +30,7 @@ import GroupDiscussion from "./components/group_detail/GroupDiscussion";
 import GroupMembers from "./components/group_detail/GroupMembers";
 import GroupMedia from "./components/group_detail/GroupMedia";
 import GroupFile from "./components/group_detail/GroupFile";
+import "yet-another-react-lightbox/styles.css";
 
 function App() {
   const router = createBrowserRouter([

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Tag } from 'antd';
+import React from 'react';
+import {  Form, Input, Modal, Tag } from 'antd';
 import { Avatar } from '@mui/material';
 import avatar from '../../../../assets/jisoo.jpg'
 import TextArea from 'antd/es/input/TextArea';
@@ -45,7 +45,7 @@ const ViewUserModal = (props: IProps) => {
                >
                     <div className='p-4 flex flex-col'>
                          {/* row 1 */}
-                         <div className='flex gap-4 items-center '>
+                         <div className='flex gap-4 items-center'>
                               {/* avatar email and name */}
                               <div className='flex gap-4 items-center justify-center w-1/2'>
                                    <div>

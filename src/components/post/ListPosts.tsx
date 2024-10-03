@@ -91,7 +91,7 @@ const ListPosts = () => {
                     {
                          posts.map((item: IPost, index: number) => {
                               return (
-                                   <div key={`post-key-${index}`} className="w-[100%] bg-sky-100 rounded border border-sky-600">
+                                   <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
                                         <div className="flex justify-start items-center px-4 py-4 gap-2">
                                              <img src={item.avatar}
                                                   className="rounded-[100%] h-10 w-10 cursor-pointer"
