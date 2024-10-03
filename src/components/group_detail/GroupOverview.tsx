@@ -26,7 +26,7 @@ const GroupOverview = () => {
     ];
 
     return (
-        <div className="w-[65%] sticky top-12 h-fit rounded-lg bg-white shadow-md p-6 space-y-6">
+        <div className="w-[90%] sticky top-20 h-fit rounded-lg bg-white shadow-md p-6 space-y-6">
             {/* Giới thiệu */}
             <div className="space-y-2">
                 <h2 className="text-2xl font-bold">Giới thiệu về nhóm</h2>

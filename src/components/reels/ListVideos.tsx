@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { BsBookmark } from 'react-icons/bs';
 import { FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
-import { IoPlay } from 'react-icons/io5';
+import { IoPause, IoPlay } from 'react-icons/io5';
 import { LuDot } from 'react-icons/lu';
 import { PiSpeakerSimpleSlashFill, PiSpeakerSimpleHighFill } from 'react-icons/pi';
 import ShowMoreText from "react-show-more-text";
@@ -10,14 +10,19 @@ const ListVideos = () => {
 	const [isMuted, setIsMuted] = useState(false);
 	const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 	const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+	const [isPlaying, setIsPlaying] = useState(true);
+	const [progress, setProgress] = useState(0);
+	const [showPlayButton, setShowPlayButton] = useState(false);
 
 	const handlePlay = () => {
 		const videoElement = videoRefs.current[currentVideoIndex];
 		if (videoElement) {
 			if (videoElement.paused) {
 				videoElement.play();
+				setIsPlaying(true);
 			} else {
 				videoElement.pause();
+				setIsPlaying(false);
 			}
 		}
 	};
@@ -27,6 +32,14 @@ const ListVideos = () => {
 		if (videoElement) {
 			videoElement.muted = !videoElement.muted;
 			setIsMuted(videoElement.muted);
+		}
+	};
+
+	const handleVideoTimeUpdate = () => {
+		const videoElement = videoRefs.current[currentVideoIndex];
+		if (videoElement) {
+			const progress = (videoElement.currentTime / videoElement.duration) * 100; // Tính phần trăm tiến trình
+			setProgress(progress);
 		}
 	};
 
@@ -50,7 +63,7 @@ const ListVideos = () => {
 			totalComments: 12,
 			isLiked: true,
 			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
+			video: "https://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.mp4",
 			isFriend: false
 		},
 		{
@@ -72,7 +85,7 @@ const ListVideos = () => {
 			totalComments: 53,
 			isLiked: false,
 			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
+			video: "https://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.mp4",
 			isFriend: false
 		},
 		{
@@ -133,10 +146,20 @@ const ListVideos = () => {
 	]
 
 	const handleNextVideo = () => {
+		const currentVideoElement = videoRefs.current[currentVideoIndex];
+		if (currentVideoElement) {
+			currentVideoElement.currentTime = 0;
+			setIsPlaying(true);
+		}
 		setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % fakeReelsData.length);
 	};
 
 	const handlePrevVideo = () => {
+		const currentVideoElement = videoRefs.current[currentVideoIndex];
+		if (currentVideoElement) {
+			currentVideoElement.currentTime = 0;
+			setIsPlaying(true);
+		}
 		setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + fakeReelsData.length) % fakeReelsData.length);
 	};
 
@@ -190,25 +213,41 @@ const ListVideos = () => {
 
 			{/* Main video */}
 			<div className="relative w-full h-full flex justify-center border border-black rounded-xl">
-				<div className="w-[360px] h-[650px] cursor-pointer relative bg-blue-100">
+				<div className="w-[360px] h-[650px] cursor-pointer relative bg-[#18191A]"
+					onMouseEnter={() => setShowPlayButton(true)}
+					onMouseLeave={() => setShowPlayButton(false)}>
 					<video
-						ref={(el) => (videoRefs.current[currentVideoIndex] = el)} // Store reference to the current video
+						key={currentVideoIndex}
+						ref={(el) => (videoRefs.current[currentVideoIndex] = el)}
 						autoPlay
-						muted={isMuted} // Set muted based on state
+						muted={isMuted}
 						className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-contain w-full h-full"
-						onClick={handlePlay} // Toggle play/pause when clicking the video
+						onClick={handlePlay}
+						onTimeUpdate={handleVideoTimeUpdate}
 					>
 						<source src={currentVideo.video} type="video/mp4" />
 						Your browser does not support the video tag.
 					</video>
 
 					{/* Play Icon */}
-					<span
-						className='text-md absolute top-[47%] right-[44%] p-3 rounded-full bg-black/50 text-white cursor-pointer'
-						onClick={handlePlay} // Toggle play/pause when clicking the play icon
-					>
-						<IoPlay />
-					</span>
+					{showPlayButton && !isPlaying && (
+						<span
+							className='text-md absolute top-[47%] right-[44%] p-3 rounded-full bg-black/50 text-white cursor-pointer'
+							onClick={handlePlay}
+						>
+							<IoPlay />
+						</span>
+					)}
+
+					{/* Pause Icon */}
+					{showPlayButton && isPlaying && (
+						<span
+							className='text-md absolute top-[47%] right-[44%] p-3 rounded-full bg-black/50 text-white cursor-pointer'
+							onClick={handlePlay}
+						>
+							<IoPause />
+						</span>
+					)}
 
 					{/* Video Info */}
 					<div className='absolute bottom-0 left-0 p-4 w-full bg-gradient-to-t from-black to-transparent'>
@@ -226,7 +265,7 @@ const ListVideos = () => {
 							lines={2}
 							more="more"
 							less="less"
-							className='text-white/80'
+							className='text-white/80 mb-5'
 							anchorClass="text-slate-300 cursor-pointer font-bold hover:text-slate-100"
 						>
 							<p>{currentVideo.description}</p>
@@ -239,6 +278,14 @@ const ListVideos = () => {
 						<span className='cursor-pointer text-3xl'><FaRegComment /><span className='text-sm'>{currentVideo.totalComments}</span></span>
 						<span className='cursor-pointer text-3xl'><FaRegPaperPlane /></span>
 						{currentVideo.isFavourited ? <FaBookmark className=' text-3xl' /> : <BsBookmark className='cursor-pointer text-3xl' />}
+					</div>
+
+					{/* Video Progress Bar */}
+					<div className="absolute bottom-4 left-0 w-[90%] ms-[5%] rounded-lg h-1 bg-gray-600">
+						<div
+							className="h-full bg-white"
+							style={{ width: `${progress}%` }}
+						></div>
 					</div>
 
 					{/* Mute Icon */}

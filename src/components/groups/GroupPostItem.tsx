@@ -5,6 +5,7 @@ import { BsBookmark } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
+import { Link } from 'react-router-dom';
 
 interface IPost {
     username: string;
@@ -36,7 +37,10 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                     alt="error"
                 />
                 <div className="ml-2">
-                    <h4 className='font-bold text-black-500'>{post.groupName}</h4>
+                    <h4 className='font-bold text-black-500'>
+                        <Link to={`/groups/groupName`}>
+                            {post.groupName}
+                        </Link></h4>
                     <div className="flex gap-2 justify-start items-center">
                         <span className="text-sm font-bold text-gray-500">{post.username}</span>
                         <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{post.time}h <GoDotFill className="text-[10px]" /></span>
