@@ -68,6 +68,7 @@ const SideBar = (props: IProps) => {
                                                        backgroundColor: 'rgb(186 230 253)'
                                                   }
                                              },
+                                             paddingRight: '100px',
                                              cursor: disabled ? "none" : undefined
                                         };
                               },

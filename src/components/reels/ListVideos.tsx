@@ -167,11 +167,11 @@ const ListVideos = () => {
 
 	return (
 		<div className='w-full mx-auto relative flex-1 flex justify-center items-center bg-black'>
-			{/* Video Navigation Buttons */}
-			<div className="absolute mt-0 bottom--1 left-0 right-0 flex justify-between px-80">
+			<div className="relative w-full h-full flex items-center justify-center border border-black rounded-xl z-5">
+				{/* Video Navigation Buttons */}
 				<button
 					onClick={handlePrevVideo}
-					className="text-white bg-gray-700 p-2 rounded-[100%] z-50 hover:bg-gray-600 cursor-pointer"
+					className="text-white bg-gray-700 p-2 me-7 w-[40px] h-[40px] rounded-[100%] hover:bg-gray-600 cursor-pointer"
 					disabled={currentVideoIndex === 0}
 				>
 					<svg
@@ -189,30 +189,8 @@ const ListVideos = () => {
 						/>
 					</svg>
 				</button>
-				<button
-					onClick={handleNextVideo}
-					className="text-white bg-gray-700 p-2 rounded-[100%] z-50 hover:bg-gray-600"
-					disabled={currentVideoIndex === fakeReelsData.length - 1}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						className="h-6 w-6"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth={2}
-							d="M9 5l7 7-7 7"
-						/>
-					</svg>
-				</button>
-			</div>
 
-			{/* Main video */}
-			<div className="relative w-full h-full flex justify-center border border-black rounded-xl">
+				{/* Main video */}
 				<div className="w-[360px] h-[650px] cursor-pointer relative bg-[#18191A]"
 					onMouseEnter={() => setShowPlayButton(true)}
 					onMouseLeave={() => setShowPlayButton(false)}>
@@ -296,6 +274,27 @@ const ListVideos = () => {
 						{isMuted ? <PiSpeakerSimpleSlashFill /> : <PiSpeakerSimpleHighFill />}
 					</div>
 				</div>
+				{/* Video Navigation Buttons */}
+				<button
+					onClick={handleNextVideo}
+					className="text-white bg-gray-700 p-2 ms-7 rounded-[100%] w-[40px] h-[40px] hover:bg-gray-600"
+					disabled={currentVideoIndex === fakeReelsData.length - 1}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M9 5l7 7-7 7"
+						/>
+					</svg>
+				</button>
 			</div>
 		</div>
 	);

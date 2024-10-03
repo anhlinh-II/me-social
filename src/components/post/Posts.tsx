@@ -7,7 +7,7 @@ const Posts = () => {
      return (
           <div className="flex bg-gray-100 flex-col justify-center items-center w-full">
                <Story />
-               <div className="flex w-1/3 flex-col gap-4">
+               <div className="flex w-[38%] flex-col gap-4">
                     <CreatePost />
                     <ListPosts />
                     <Counter />

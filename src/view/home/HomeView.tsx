@@ -15,7 +15,7 @@ const HomeView = () => {
     <div className="bg-gray-50 flex flex-col">
       <Header />
       <div className="flex w-full top-[72px] fixed items-start justify-between">
-        <div className="w-[20%] h-screen absolute top-0 bottom-0 left-0 shadow-lg border-r">
+        <div className="w-[22%] h-screen absolute top-0 bottom-0 left-0 shadow-lg border-r">
           <SideBar
             active={hasProfile ? "profile" : (inHomeView ? "home" : "")}
             setActive={() => null}
