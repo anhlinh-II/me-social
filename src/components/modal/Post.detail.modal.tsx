@@ -7,6 +7,7 @@ import { IoMdHeartEmpty } from 'react-icons/io';
 import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
 import { FiBookmark } from 'react-icons/fi';
 import Emoji from '../Emoji';
+import More from './More';
 
 interface ModalProps {
      show: boolean;
@@ -16,6 +17,8 @@ interface ModalProps {
 const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
 
      const [openEmoji, setOpenEmoji] = useState<boolean>(false);
+     const [showReplies, setShowReplies] = useState<boolean>(false);
+     const [showMore, setShowMore] = useState<boolean>(false);
 
      const wrapperRef = useRef(null);
 
@@ -92,9 +95,9 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    </span>
                                    <span className='font-semibold text-sm'>pittapiu</span>
                               </div>
-                              <BsThreeDots />
+                              <span onClick={() => setShowMore(true)} className='cursor-pointer hover:text-gray-600'><BsThreeDots /></span>
                          </div>
-                         <div className='p-4 overflow-auto h-4/5'>
+                         <div className='p-4 overflow-auto no-scrollbar h-4/5'>
                               {/* owner post's caption */}
                               <div className='flex gap-3 items-start mb-4'>
                                    <span className='border h-fit w-fit rounded-full border-sky-600'>
@@ -126,6 +129,39 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                                   <span className='cursor-pointer'>1 like</span>
                                                   <span className='cursor-pointer'>Reply</span>
                                              </div>
+                                             {/* reply section */}
+                                             <div
+                                                  className='flex items-center gap-3 cursor-pointer'
+                                                  onClick={() => setShowReplies(!showReplies)}
+                                             >
+                                                  <div className='border w-8 h-0 border-gray-500'></div>
+                                                  <div className='text-xs cursor-pointer font-semibold text-gray-400'>
+                                                       {showReplies ? <>Hide all comments</> : <>View replies (2)</>}
+                                                  </div>
+                                             </div>
+                                             {
+                                                  showReplies ?
+                                                       <div className='flex justify-between items-start'>
+                                                            <div className='flex gap-3'>
+                                                                 <span className='border h-fit w-fit rounded-full border-sky-600'>
+                                                                      <Avatar
+                                                                           sx={{ width: 30, height: 30 }}
+                                                                           src='https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/461669622_2070442183412162_7950140092646977056_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHp42LKZHE0a4VFlWpzAk630u1QxIl-jzLS7VDEiX6PMpdG66MrQZfAVQtV9P8COLYXa1PK7tB5CcO5WinKQSLJ&_nc_ohc=6jg8lX7VNLcQ7kNvgFbtthq&_nc_ht=scontent.fhan2-3.fna&oh=00_AYDdL_03ss4O0c2G3f5MT8DOJ3slfRZONoG2uyCQxDpkKA&oe=67020CE3'
+                                                                           alt='avatar'
+                                                                      />
+                                                                 </span>
+                                                                 <div className='flex flex-col gap-1.5'>
+                                                                      <p className='text-sm'><span className='font-semibold'>Khánh Linh</span> xinh qua di, huhuhuhu</p>
+                                                                      <div className='text-gray-400 text-xs font-semibold flex gap-4 '>
+                                                                           <div className='cursor-text'>8w</div>
+                                                                           <span className='cursor-pointer'>1 like</span>
+                                                                           <span className='cursor-pointer'>Reply</span>
+                                                                      </div>
+                                                                 </div>
+                                                            </div>
+                                                            <span className='text-md'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
+                                                       </div>: <></>
+                                             }
                                         </div>
                                    </div>
                                    <span className='text-md'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
@@ -178,16 +214,16 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                               <div className='p-4 border border-b-gray-400 flex justify-between items-start'>
                                    <div className='flex flex-col gap-4'>
                                         <div className='flex gap-4'>
-                                             <span className='text-xl cursor-pointer'><FaRegHeart /></span>
-                                             <span className='text-xl cursor-pointer'><FaRegComment /></span>
-                                             <span className='text-xl cursor-pointer'><FaRegPaperPlane /></span>
+                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegHeart /></span>
+                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegComment /></span>
+                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegPaperPlane /></span>
                                         </div>
                                         <div className='flex flex-col text-sm'>
                                              <span className='font-semibold'>465,253 likes</span>
                                              <span className='text-gray-600 font-md'>4 hours ago</span>
                                         </div>
                                    </div>
-                                   <span className='text-xl cursor-pointer'><FiBookmark /></span>
+                                   <span className='text-xl cursor-pointer hover:text-gray-600'><FiBookmark /></span>
                               </div>
                               {/* comment input */}
                               <div className='flex gap-4 justify-between items-start p-4'>
@@ -203,12 +239,13 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                              />
                                         </span>
                                    </span>
-                                   <textarea className='w-full outline-none resize-none rounded-md' rows={4} placeholder='Add a comment...' />
+                                   <textarea className='w-full outline-none resize-none rounded-md' rows={1} placeholder='Add a comment...' />
                                    <span className='font-semibold text-sky-600 cursor-pointer'>Post</span>
                               </div>
                          </div>
                     </div>
                </div>
+               <More show={showMore} setShow={setShowMore}/>
           </div>
      );
 };

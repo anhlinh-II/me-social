@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
 import { BsBookmark } from 'react-icons/bs';
@@ -6,6 +6,7 @@ import { GoDotFill } from 'react-icons/go';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
+import More from '../modal/More';
 
 interface IPost {
     username: string;
@@ -29,6 +30,7 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
+    const [showMore, setShowMore] = useState<boolean>(false);
     return (
         <div className="w-[100%] bg-sky-100 rounded-lg border-t-2 border-b-2 border-sky-800 mb-4">
             <div className="flex justify-start items-center px-4 py-4 gap-2">
@@ -47,7 +49,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                         <span>{post.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>
                 </div>
-                <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded"><HiOutlineDotsVertical /></span>
+                <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
             <img
@@ -98,6 +100,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                     </div>
                 </div>
             </div>
+            <More show={showMore} setShow={setShowMore} />
         </div>
     );
 };

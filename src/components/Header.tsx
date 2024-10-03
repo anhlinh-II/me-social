@@ -20,7 +20,7 @@ const Header = () => {
      }
      return (
           <>
-               <header className="bg-sky-600 fixed top-0 right-0 left-0 shadow-md">
+               <header className="bg-sky-600 fixed z-5 top-0 right-0 left-0 shadow-md">
                     <nav
                          className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
@@ -57,7 +57,7 @@ const Header = () => {
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoHomeOutline style={{ fontSize: "24px", color: "white" }} />
-                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                   <div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Home
                                    </div>
                               </Link>
@@ -66,7 +66,7 @@ const Header = () => {
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <IoPersonAddOutline style={{ fontSize: "24px", color: "white" }} />
-                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                   <div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Friends
                                    </div>
                               </Link>
@@ -76,7 +76,7 @@ const Header = () => {
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineOndemandVideo style={{ fontSize: "24px", color: "white" }} />
-                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                   <div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Video
                                    </div>
                               </Link>
@@ -86,7 +86,7 @@ const Header = () => {
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />
-                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                   <div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         Groups
                                    </div>
                               </Link>
@@ -96,7 +96,7 @@ const Header = () => {
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <VscThreeBars style={{ fontSize: "24px", color: "white" }} />
-                                   <div className="absolute top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+                                   <div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
                                         More
                                    </div>
                               </Link>

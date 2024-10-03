@@ -9,6 +9,7 @@ import { FaUserFriends } from "react-icons/fa";
 
 import { useState } from "react";
 import PostDetailModal from "../modal/Post.detail.modal";
+import More from "../modal/More";
 
 const ListPosts = () => {
 
@@ -50,7 +51,8 @@ const ListPosts = () => {
                image: "https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg"
           }
      ])
-     const [showDetailModal, setShowDetailModal] = useState<boolean>(false)
+     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+     const [showMore, setShowMore] = useState<boolean>(false);
 
      interface IPost {
 
@@ -83,7 +85,7 @@ const ListPosts = () => {
      }
 
      return (
-          <div className="flex justify-center items-center flex-col gap-5">
+          <div className="flex justify-center items-center flex-col gap-5 w-full">
                {/* list post */}
                <div className=" w-full h-fit rounded flex flex-col gap-6">
                     {
@@ -102,7 +104,7 @@ const ListPosts = () => {
                                                        <span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                                   </div>
                                              </div>
-                                             <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded"><HiOutlineDotsVertical /></span>
+                                             <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
                                         </div>
 
                                         <img
@@ -167,6 +169,7 @@ const ListPosts = () => {
 
                </div>
                <div className="px-4 py-2 bg-sky-400 w-[100px] justify-center text-center rounded-full flex items-center gap-2 cursor-pointer hover:bg-sky-600 hover:text-white transition duration-150"><IoReload className="text-2xl font-bold" /><span>Refresh</span></div>
+               <More show={showMore} setShow={setShowMore}/>
           </div>
      )
 };

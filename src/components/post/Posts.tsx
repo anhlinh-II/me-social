@@ -5,9 +5,9 @@ import Story from "../stories/Story"
 
 const Posts = () => {
      return (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center w-full">
                <Story />
-               <div className="flex w-full flex-col gap-4">
+               <div className="flex w-1/3 flex-col gap-4">
                     <CreatePost />
                     <ListPosts />
                     <Counter />
