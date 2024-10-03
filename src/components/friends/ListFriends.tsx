@@ -7,8 +7,8 @@ const ListFriends = () => {
      const [active, setActive] = useState<string>(initialActive);
 
      return (
-          <div>
-               <div className="mt-[72px] border-b border-gray-300">
+          <div className="w-4/5 flex justify-center flex-col">
+               <div className=" border-b border-gray-300">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
                               <Link to={`/listFriends/friends`}

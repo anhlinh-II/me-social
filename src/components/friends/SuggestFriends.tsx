@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SuggestFriends = () => {
      return (
-          <div className="relative right-8 h-fit w-[100%] border-1 rounded-xl p-4">
+          <div className="h-fit border-1 rounded-xl p-4">
                <div className=" text-sm ">
                     {/* title */}
                     <div className="flex justify-between font-bold ">

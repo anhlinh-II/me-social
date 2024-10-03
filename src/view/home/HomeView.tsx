@@ -14,21 +14,21 @@ const HomeView = () => {
   return (
     <div className="bg-gray-50 flex flex-col">
       <Header />
-      <div className="relative flex w-full mt-[72px] items-start justify-between">
-        <div className="w-[20%] h-full">
+      <div className="flex w-full top-[72px] fixed items-start justify-between">
+        <div className="w-[20%] h-screen absolute top-0 bottom-0 left-0 shadow-lg border-r">
           <SideBar
             active={hasProfile ? "profile" : (inHomeView ? "home" : "")}
             setActive={() => null}
-            isFullSiderBar={false}
+            isFullSiderBar={true}
             setIsFullSideBar={() => null}
           />
         </div>
-        <div id="detail" className={!inHomeView ? "w-[60%]" : "w-[34%]"}>
+        <div id="detail" className={!inHomeView ? "ml-auto h-screen overflow-y-auto no-scrollbar w-[80%] flex justify-center items-start" : "m-auto h-screen no-scrollbar overflow-y-auto w-[34%]"}>
           <Outlet />
         </div>
         {
           inHomeView && (
-            <div className="w-[20%]">
+            <div className="bg-white absolute top-0 bottom-0 right-0 w-[20%] border-l shadow-lg">
               <SuggestFriends />
             </div>
           )

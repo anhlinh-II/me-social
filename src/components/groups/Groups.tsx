@@ -15,9 +15,9 @@ const Groups = () => {
 	}, [location.pathname, navigate]);
 
 	return (
-		<>
+		<div className="w-[80%]">
 			<div>
-				<div className="mt-[72px] border-b border-gray-300 flex items-center">
+				<div className="border-b border-gray-300 flex items-center">
 					<ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-600">
 						<li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
 							<Link to={`/groups/recentlyActivity`}
@@ -59,7 +59,7 @@ const Groups = () => {
 			<div className="mt-5">
 				<Outlet />
 			</div>
-		</>
+		</div>
 	)
 }
 

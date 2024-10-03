@@ -20,7 +20,7 @@ const Header = () => {
      }
      return (
           <>
-               <header className="bg-sky-600 fixed top-0 right-0 left-0 z-10 shadow-md">
+               <header className="bg-sky-600 fixed top-0 right-0 left-0 shadow-md">
                     <nav
                          className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
