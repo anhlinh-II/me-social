@@ -26,18 +26,18 @@ const GroupOverview = () => {
     ];
 
     return (
-        <div className="w-[90%] sticky top-20 h-fit rounded-lg bg-white shadow-md p-6 space-y-6">
+        <div className="w-[90%] sticky top-20 h-fit space-y-6">
             {/* Giới thiệu */}
-            <div className="space-y-2">
-                <h2 className="text-2xl font-bold">Giới thiệu về nhóm</h2>
+            <div className="space-y-2 rounded-lg bg-white shadow-md p-6">
+                <h2 className="text-lg font-bold">Giới thiệu về nhóm</h2>
                 <p className="text-gray-600">
                     Đây là một nhóm thảo luận về các chủ đề công nghệ hiện đại và chia sẻ kinh nghiệm, tài liệu học tập. Tham gia cùng chúng tôi để cập nhật các thông tin mới nhất.
                 </p>
             </div>
 
             {/* File phương tiện gần đây */}
-            <div className="space-y-4 flex flex-col items-center">
-                <h3 className="text-xl font-bold">File phương tiện gần đây</h3>
+            <div className="space-y-4 flex flex-col rounded-lg bg-white shadow-md p-6">
+                <h3 className="text-lg font-bold">File phương tiện gần đây</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
                     {mediaFiles.map((file) => (
                         <div key={file.id} className="relative">
@@ -52,7 +52,7 @@ const GroupOverview = () => {
                         </div>
                     ))}
                 </div>
-                <div className="">
+                <div className="self-center">
                     <button className="bg-blue-100 text-blue-500 px-4 ps-20 pe-20 py-2 rounded-md hover:bg-blue-200">
                         Xem tất cả
                     </button>
