@@ -7,7 +7,7 @@ const GroupDetail: React.FC = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col bg-[#F3F4F6] items-center justify-center">
                 <Header />
                 <GroupHeader />
                 <Outlet />

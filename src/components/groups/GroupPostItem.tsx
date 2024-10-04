@@ -32,7 +32,7 @@ interface PostItemProps {
 const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
     return (
-        <div className="w-[100%] bg-sky-100 rounded-lg border-t-2 border-b-2 border-sky-800 mb-4">
+        <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
             <div className="flex justify-start items-center px-4 py-4 gap-2">
                 <img src={post.avatar}
                     className="rounded-[100%] h-10 w-10 mt-1"
