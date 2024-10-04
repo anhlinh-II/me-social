@@ -4,6 +4,7 @@ import type { TableProps } from 'antd';
 import { IoMdAdd } from 'react-icons/io';
 import { IoFilter } from 'react-icons/io5';
 import ViewPostModal from '../modal/admin/post/Admin.post.view.modal';
+import UpdatePostModal from '../modal/admin/post/Admin.post.update.modal';
 
 interface DataType {
      key: string;
@@ -62,6 +63,7 @@ const data: DataType[] = [
 const PostsPanel: React.FC = () => {
 
      const [showView, setShowView] = useState<boolean>(false);
+     const [showUpdate, setShowUpdate] = useState<boolean>(false);
 
      const columns: TableProps<DataType>['columns'] = [
           {
@@ -97,7 +99,7 @@ const PostsPanel: React.FC = () => {
                render: () => (
                     <Space size="middle">
                          <Button style={{ backgroundColor: "rgb(2 132 199)", color: "white", fontWeight: "600" }} onClick={() => setShowView(true)}>View</Button>
-                         <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }}>Update</Button>
+                         <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }} onClick={() => setShowUpdate(true)}>Update</Button>
                          <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }}>Delete</Button>
                     </Space>
                ),
@@ -123,6 +125,7 @@ const PostsPanel: React.FC = () => {
                     dataSource={data}
                />
                <ViewPostModal show={showView} setShow={setShowView} />
+               <UpdatePostModal show={showUpdate} setShow={setShowUpdate}/>
           </div>
      )
 };
