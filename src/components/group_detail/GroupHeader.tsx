@@ -18,7 +18,7 @@ const GroupHeader = () => {
     }, [location.pathname, navigate]);
 
     return (
-        <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mb-5">
+        <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mt-[-72px] mb-5">
             <img
                 src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
                 alt="Group"

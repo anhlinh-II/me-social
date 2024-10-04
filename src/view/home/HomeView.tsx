@@ -23,7 +23,7 @@ const HomeView = () => {
             setIsFullSideBar={() => null}
           />
         </div>
-        <div id="detail" className={!inHomeView ? "ml-auto h-screen overflow-y-auto no-scrollbar w-[80%] flex justify-center items-start" : "m-auto h-screen no-scrollbar overflow-y-auto w-[100%]"}>
+        <div id="detail" className={!inHomeView ? "ml-auto h-screen overflow-y-auto bg-[#F3F4F6] no-scrollbar w-[80%] flex justify-center items-start" : "m-auto h-screen no-scrollbar bg-[#F3F4F6] overflow-y-auto w-[100%]"}>
           <Outlet />
         </div>
         {
