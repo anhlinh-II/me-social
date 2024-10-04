@@ -5,6 +5,7 @@ import { IoMdAdd } from 'react-icons/io';
 import { IoFilter } from 'react-icons/io5';
 import ViewPostModal from '../modal/admin/post/Admin.post.view.modal';
 import UpdatePostModal from '../modal/admin/post/Admin.post.update.modal';
+import DeletePostModal from '../modal/admin/post/Admin.post.delete.modal';
 
 interface DataType {
      key: string;
@@ -64,7 +65,8 @@ const PostsPanel: React.FC = () => {
 
      const [showView, setShowView] = useState<boolean>(false);
      const [showUpdate, setShowUpdate] = useState<boolean>(false);
-
+     const [showDelete, setShowDelete] = useState<boolean>(false);
+ 
      const columns: TableProps<DataType>['columns'] = [
           {
                title: <span style={{ color: 'rgb(3 105 161)', fontWeight: "600", fontSize: "16px", }}>ID</span>,
@@ -100,7 +102,7 @@ const PostsPanel: React.FC = () => {
                     <Space size="middle">
                          <Button style={{ backgroundColor: "rgb(2 132 199)", color: "white", fontWeight: "600" }} onClick={() => setShowView(true)}>View</Button>
                          <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }} onClick={() => setShowUpdate(true)}>Update</Button>
-                         <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }}>Delete</Button>
+                         <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }} onClick={() => setShowDelete(true)}>Delete</Button>
                     </Space>
                ),
           },
@@ -126,6 +128,7 @@ const PostsPanel: React.FC = () => {
                />
                <ViewPostModal show={showView} setShow={setShowView} />
                <UpdatePostModal show={showUpdate} setShow={setShowUpdate}/>
+               <DeletePostModal show={showDelete} setShow={setShowDelete} />
           </div>
      )
 };
