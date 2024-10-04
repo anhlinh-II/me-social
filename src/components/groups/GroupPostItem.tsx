@@ -39,12 +39,17 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                     alt="error"
                 />
                 <div className="ml-2">
-                    <h4 className='font-bold text-black-500'>
+                    <h4 className='font-bold text-black-500 hover:underline'>
                         <Link to={`/groups/groupName`}>
                             {post.groupName}
-                        </Link></h4>
+                        </Link>
+                    </h4>
                     <div className="flex gap-2 justify-start items-center">
-                        <span className="text-sm font-bold text-gray-500">{post.username}</span>
+                        <span className="text-sm font-bold text-gray-500 hover:underline">
+                            <Link to={`/profile`}>
+                                {post.username}
+                            </Link>
+                        </span>
                         <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{post.time}h <GoDotFill className="text-[10px]" /></span>
                         <span>{post.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>

@@ -41,7 +41,7 @@ const SideBar = (props: IProps) => {
                               flexDirection: 'column',
                               justifyContent: "between",
                               alignItems: "start",
-                              width: "300px",
+                              width: "335px",
                               height: "100vh",
                          },
                     }}
