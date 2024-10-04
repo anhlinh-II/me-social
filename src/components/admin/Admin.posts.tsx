@@ -6,6 +6,7 @@ import { IoFilter } from 'react-icons/io5';
 import ViewPostModal from '../modal/admin/post/Admin.post.view.modal';
 import UpdatePostModal from '../modal/admin/post/Admin.post.update.modal';
 import DeletePostModal from '../modal/admin/post/Admin.post.delete.modal';
+import AddPostModal from '../modal/admin/post/Admin.post.add.modal';
 
 interface DataType {
      key: string;
@@ -66,7 +67,8 @@ const PostsPanel: React.FC = () => {
      const [showView, setShowView] = useState<boolean>(false);
      const [showUpdate, setShowUpdate] = useState<boolean>(false);
      const [showDelete, setShowDelete] = useState<boolean>(false);
- 
+     const [showAdd, setShowAdd] = useState<boolean>(false);
+
      const columns: TableProps<DataType>['columns'] = [
           {
                title: <span style={{ color: 'rgb(3 105 161)', fontWeight: "600", fontSize: "16px", }}>ID</span>,
@@ -118,7 +120,9 @@ const PostsPanel: React.FC = () => {
                     <div className='flex gap-4'>
                          <input className='border-2 p-1 border-sky-700 rounded-xl indent-2 focus:outline-none' type="text" placeholder='search posts...' />
                          <Button style={{ border: "2px solid rgb(3 105 161)" }}><span><IoFilter /></span> Filter</Button>
-                         <Button style={{ backgroundColor: "black", color: "white", fontWeight: "600", display: "flex", gap: "2px" }}> <span className='font-2xl'><IoMdAdd /></span>Add post</Button>
+                         <Button onClick={() => setShowAdd(true)} style={{ backgroundColor: "black", color: "white", fontWeight: "600", display: "flex", gap: "2px" }}>
+                              <span className='font-2xl'><IoMdAdd /></span>Add post
+                         </Button>
                     </div>
                </div>
                <Table<DataType>
@@ -127,8 +131,9 @@ const PostsPanel: React.FC = () => {
                     dataSource={data}
                />
                <ViewPostModal show={showView} setShow={setShowView} />
-               <UpdatePostModal show={showUpdate} setShow={setShowUpdate}/>
+               <UpdatePostModal show={showUpdate} setShow={setShowUpdate} />
                <DeletePostModal show={showDelete} setShow={setShowDelete} />
+               <AddPostModal show={showAdd} setShow={setShowAdd}/>
           </div>
      )
 };
