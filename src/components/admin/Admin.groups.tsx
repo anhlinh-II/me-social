@@ -5,6 +5,8 @@ import { IoMdAdd } from 'react-icons/io';
 import { IoFilter } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import ViewGroupModal from '../modal/admin/group/Admin.group.view.modal';
+import UpdateGroupModal from '../modal/admin/group/Admin.group.update.modal';
+import DeleteGroupModal from '../modal/admin/group/Admin.group.delete.modal';
 
 interface DataType {
      key: string;
@@ -73,6 +75,8 @@ const data: DataType[] = [
 const GroupsPanel: React.FC = () => {
 
      const [showView, setShowView] = useState<boolean>(false);
+     const [showUpdate, setShowUpdate] = useState<boolean>(false);
+     const [showDelete, setShowDelete] = useState<boolean>(false);
      const navigate = useNavigate();
 
      const columns: TableProps<DataType>['columns'] = [
@@ -121,8 +125,8 @@ const GroupsPanel: React.FC = () => {
                render: () => (
                     <Space size="middle">
                          <Button style={{ backgroundColor: "rgb(2 132 199)", color: "white", fontWeight: "600" }} onClick={() => setShowView(true)}>View</Button>
-                         <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }}>Update</Button>
-                         <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }}>Delete</Button>
+                         <Button style={{ backgroundColor: "rgb(245 158 11)", color: "white", fontWeight: "600" }} onClick={() => setShowUpdate(true)}>Update</Button>
+                         <Button style={{ backgroundColor: "rgb(190 24 93)", color: "white", fontWeight: "600" }} onClick={() => setShowDelete(true)}>Delete</Button>
                     </Space>
                ),
           },
@@ -148,6 +152,8 @@ const GroupsPanel: React.FC = () => {
                     dataSource={data}
                />
                <ViewGroupModal show={showView} setShow={setShowView} />
+               <UpdateGroupModal show={showUpdate} setShow={setShowUpdate} />
+               <DeleteGroupModal show={showDelete} setShow={setShowDelete} />
           </div>
      )
 };
