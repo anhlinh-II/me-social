@@ -84,28 +84,6 @@ const ListPosts = () => {
 		)
 	}
 
-     return (
-          <div className="flex justify-center items-center flex-col gap-5 w-full">
-               {/* list post */}
-               <div className=" w-full h-fit rounded flex flex-col gap-6">
-                    {
-                         posts.map((item: IPost, index: number) => {
-                              return (
-                                   <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
-                                        <div className="flex justify-start items-center px-4 py-4 gap-2">
-                                             <img src={item.avatar}
-                                                  className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
-                                                  alt="error"
-                                             />
-                                             <div className="ml-2">
-                                                  <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{item.username}</span>
-                                                  <div className="flex gap-2 justify-start items-center">
-                                                       <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{item.time}h <GoDotFill className="text-[10px]" /></span>
-                                                       <span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
-                                                  </div>
-                                             </div>
-                                             <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
-                                        </div>
 	return (
 		<>
 			<div className="flex justify-center items-center flex-col gap-5 w-full">
@@ -117,7 +95,7 @@ const ListPosts = () => {
 								<div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
 									<div className="flex justify-start items-center px-4 py-4 gap-2">
 										<img src={item.avatar}
-											className="rounded-[100%] h-10 w-10 cursor-pointer"
+											className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
 											alt="error"
 										/>
 										<div className="ml-2">
