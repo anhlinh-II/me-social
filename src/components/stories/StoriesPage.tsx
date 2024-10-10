@@ -3,7 +3,7 @@ import { FaEarthAmericas } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
 import { IoPause, IoPlay } from 'react-icons/io5';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Story from '../../components/stories/Story';
+import Story from './Story';
 import { PiSpeakerSimpleHighFill, PiSpeakerSimpleSlashFill } from 'react-icons/pi';
 
 interface Story {

@@ -33,11 +33,11 @@ const GroupDiscussion = () => {
             time: 2,
             isLiked: true,
             isFavourited: true,
-            image: "https://instagram.fhan20-1.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fhan20-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=wnFSNF5kazcQ7kNvgHeV44W&_nc_gid=827766f3e7db4752ac9f155d5230a6a5&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYC9mFEMbanq9mRDRnzqo8M_WjK1P28jQKXm_xUsW8MwKA&oe=66F852EE&_nc_sid=22de04",
+            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04",
         },
         {
             username: "Lionel Messi",
-            avatar: "https://scontent.fhph1-2.fna.fbcdn.net/v/t39.30808-6/455247901_1566647544255850_2979140626005352086_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=4-KFw0tZwUcQ7kNvgGumm25&_nc_ht=scontent.fhph1-2.fna&_nc_gid=Asbht8uRsRLY2BRiW23YGVl&oh=00_AYDM0qHWcYLmyQMBgVWgdSZrq18-BfCkiSVM48uxu2J4qA&oe=66F4AD8A",
+            avatar: "https://images.mykhel.com/img/2024/07/lionel-messi-crying1-1721013787.jpg",
             groupName: "FIFA Favorite Son",
             postStatus: "friends",
             likes: 120865050,
@@ -46,11 +46,11 @@ const GroupDiscussion = () => {
             time: 6,
             isLiked: true,
             isFavourited: true,
-            image: "https://instagram.fhan20-1.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fhan20-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=wnFSNF5kazcQ7kNvgHeV44W&_nc_gid=827766f3e7db4752ac9f155d5230a6a5&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYC9mFEMbanq9mRDRnzqo8M_WjK1P28jQKXm_xUsW8MwKA&oe=66F852EE&_nc_sid=22de04"
+            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04"
         },
         {
             username: "Neymar",
-            avatar: "https://scontent.fhph2-1.fna.fbcdn.net/v/t39.30808-6/449159350_1997633627359685_3033974697510613913_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=bxRqxaMid2wQ7kNvgHATpZV&_nc_ht=scontent.fhph2-1.fna&_nc_gid=AHEGGND76WGF-xDKG-J38eH&oh=00_AYA93jCpdrlbdmG2Rb17SPhdqG4gYE0mdrh595lfGFcw9w&oe=66F4BAE6",
+            avatar: "https://tmssl.akamaized.net//images/foto/galerie/neymar-brazil-2023-1694521247-116480.jpg?lm=1694521259",
             groupName: "Party All Life",
             postStatus: "private",
             likes: 44956056,
@@ -59,7 +59,7 @@ const GroupDiscussion = () => {
             time: 18,
             isLiked: undefined,
             isFavourited: true,
-            image: "https://instagram.fhan20-1.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fhan20-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=wnFSNF5kazcQ7kNvgHeV44W&_nc_gid=827766f3e7db4752ac9f155d5230a6a5&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYC9mFEMbanq9mRDRnzqo8M_WjK1P28jQKXm_xUsW8MwKA&oe=66F852EE&_nc_sid=22de04"
+            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04"
         }
     ]);
 
