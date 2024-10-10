@@ -2,6 +2,7 @@ import { Counter } from "../../redux/features/counter/Counter"
 import CreatePost from "./CreatePost"
 import ListPosts from "./ListPosts"
 import Story from "../stories/Story"
+import TestApi from "../TestApi"
 
 const Posts = () => {
      return (
@@ -9,6 +10,7 @@ const Posts = () => {
                <Story />
                <div className="flex w-[38%] flex-col gap-4">
                     <CreatePost />
+                    <TestApi />
                     <ListPosts />
                     <Counter />
                </div>

@@ -35,7 +35,7 @@ import "yet-another-react-lightbox/styles.css";
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "",
       element: <HomeView />,
       errorElement: <ErrorPage />,
       children: [
