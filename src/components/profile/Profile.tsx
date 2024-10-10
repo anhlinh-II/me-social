@@ -1,5 +1,5 @@
-import ProfileInfo from "../../components/profile/ProfileInfo";
-import PostGrid from "../../components/profile/PostGrid";
+import ProfileInfo from "./ProfileInfo";
+import PostGrid from "./PostGrid";
 
 const Profile = () => {
 	const posts = [

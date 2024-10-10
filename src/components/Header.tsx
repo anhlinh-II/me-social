@@ -10,14 +10,26 @@ import { GoBell } from "react-icons/go";
 import { BsMoon } from "react-icons/bs";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
+import NotificationDropdown from "./NotificationDropdown";
 
 const Header = () => {
      const [openSearch, setOpenSearch] = useState<boolean>(false);
+     const [showNotifications, setShowNotifications] = useState<boolean>(false);
      const navigate = useNavigate();
 
      const handleOpenSearch = () => {
           setOpenSearch(true);
      }
+
+     const toggleNotifications = () => {
+          setShowNotifications(!showNotifications);
+     };
+
+     const notifications = [
+          { id: 1, message: 'Người dùng A đã gửi cho bạn lời mời kết bạn.' },
+          { id: 2, message: 'Người dùng B đã thích bài viết của bạn.' },
+          { id: 3, message: 'Người dùng C đã bình luận về bài viết của bạn.' },
+     ];
      return (
           <>
      <header className="bg-sky-600 w-full top-0 right-0 left-0 shadow-md">
@@ -109,8 +121,17 @@ const Header = () => {
                               <div className="mr-4 mt-1">
                                    <BsMoon style={{ fontSize: "22px", color: "white", cursor: "pointer" }} />
                               </div>
-                              <div className="mr-4 mt-1">
-                                   <GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                              <div className="relative mr-4 mt-1">
+                                   <GoBell
+                                        style={{ fontSize: "24px", color: "white", cursor: "pointer" }}
+                                        onClick={toggleNotifications}
+                                   />
+                                   {showNotifications && (
+                                        <NotificationDropdown
+                                             notifications={notifications}
+                                             onClose={() => setShowNotifications(false)}
+                                        />
+                                   )}
                               </div>
                               <div
                                    style={{ cursor: "pointer" }}
