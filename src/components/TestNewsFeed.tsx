@@ -12,7 +12,7 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
         const fetchPosts = async () => {
             try {
                 const data = await getPostsForNewsFeed(userId);
-                setPosts(data.result.content); // Giả sử dữ liệu trả về có structure này
+                setPosts(data.result.content);
                 setLoading(false);
             } catch (err: any) {
                 setError(err.message || 'Something went wrong');
@@ -20,7 +20,7 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
             }
         };
 
-        fetchPosts(); // Gọi hàm để fetch bài đăng
+        fetchPosts();
     }, [userId]);
 
     if (loading) {
