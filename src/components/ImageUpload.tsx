@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uploadImage } from '../services/uploadImages/uploadImage';
+import { uploadImage } from '../services/Images/uploadImage';
 
 const ImageUpload: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

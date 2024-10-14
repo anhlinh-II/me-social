@@ -31,12 +31,20 @@ interface PostItemProps {
 
 const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
+    const [imageError, setImageError] = useState<boolean>(false);
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
     return (
         <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
             <div className="flex justify-start items-center px-4 py-4 gap-2">
-                <img src={post.avatar}
+                <img
+                    src={post.avatar}
                     className="rounded-[100%] h-10 w-10 mt-1"
                     alt="error"
+                    onError={handleImageError}
                 />
                 <div className="ml-2">
                     <h4 className='font-bold text-black-500 hover:underline'>
@@ -57,13 +65,21 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                 <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
-            <img
-                src={post.image}
-                className="w-[100%] h-auto"
-                alt="error"
-            />
+            {imageError ? (
+                <div className="flex justify-center items-center w-full h-64 bg-gray-200">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
+                </div>
+            ) : (
+                <img
+                    src={post.image}
+                    className="w-[100%] h-auto"
+                    alt="error"
+                    onError={handleImageError}
+                />
+            )}
+
             <div className="flex flex-col p-3">
-                <div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
+                <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                     <div className="flex gap-4 font-bold text-lg">
                         <div
                             onClick={() => handleLikeBtn(index)}
@@ -100,6 +116,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                         <img src={post.avatar}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
+                            onError={handleImageError}
                         />
                         <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                     </div>
@@ -109,5 +126,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
         </div>
     );
 };
+
+
 
 export default PostItem;

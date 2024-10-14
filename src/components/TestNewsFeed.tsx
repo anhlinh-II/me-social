@@ -1,7 +1,7 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { PostResponse } from '../services/fetchPosts/PostType';
-import { getPostsForNewsFeed } from '../services/fetchPosts/PostService';
+import { PostResponse } from '../services/Types/PostType';
+import { getPostsForNewsFeed } from '../services/Posts/PostService';
 
 const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     const [posts, setPosts] = useState<PostResponse[]>([]);
@@ -11,7 +11,13 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const data = await getPostsForNewsFeed(userId);
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI4OTUzODE2LCJpYXQiOjE3Mjg4Njc0MTYsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.LbK4ToGcCjnTrLmZQr4Q5NTBgPfyePn59YhAoAGVyAJsyYBUX48hx4fHkjuwsp7f6aD5zWTwVSAX8NOTX1JsAA"; 
+                // localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('No token found');
+                }
+    
+                const data = await getPostsForNewsFeed(userId, 0, token);
                 setPosts(data.result.content);
                 setLoading(false);
             } catch (err: any) {
@@ -19,9 +25,10 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
                 setLoading(false);
             }
         };
-
+    
         fetchPosts();
     }, [userId]);
+    
 
     if (loading) {
         return <div>Loading...</div>;

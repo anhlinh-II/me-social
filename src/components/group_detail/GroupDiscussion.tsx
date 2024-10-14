@@ -83,7 +83,7 @@ const GroupDiscussion = () => {
         <>
             <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
                 <div className="flex gap-5">
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 w-[60%]">
                         <CreatePost />
                         <div className=" w-full h-fit rounded">
                             {posts.map((item, index) => (

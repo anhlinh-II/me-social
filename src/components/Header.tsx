@@ -32,7 +32,7 @@ const Header = () => {
      ];
      return (
           <>
-     <header className="bg-sky-600 w-full top-0 right-0 left-0 shadow-md">
+     <header className="bg-sky-600 w-full top-0 fixed z-8 right-0 left-0 shadow-md">
                     <nav
                          className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
@@ -84,7 +84,7 @@ const Header = () => {
                               </Link>
 
                               <Link
-                                   to={`reels`}
+                                   to={`/reels`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineOndemandVideo style={{ fontSize: "24px", color: "white" }} />
@@ -94,7 +94,7 @@ const Header = () => {
                               </Link>
 
                               <Link
-                                   to={`groups`}
+                                   to={`/groups`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />
@@ -104,7 +104,7 @@ const Header = () => {
                               </Link>
 
                               <Link
-                                   to={`seemore`}
+                                   to={`/seemore`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <VscThreeBars style={{ fontSize: "24px", color: "white" }} />
