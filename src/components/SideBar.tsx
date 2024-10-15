@@ -30,7 +30,7 @@ const SideBar = (props: IProps) => {
                <Sidebar
                     rootStyles={{
                          [`.${sidebarClasses.container}`]: {
-                              backgroundColor: 'white',
+                              backgroundColor: '#F3F4F6',
                               fontSize: '15px',
                               padding: '0 30px',
                               display: 'flex',
@@ -66,7 +66,8 @@ const SideBar = (props: IProps) => {
                                                   transition: "all .08s linear",
                                                   "&:focus": {
                                                        backgroundColor: 'rgb(186 230 253)'
-                                                  }
+                                                  },
+                                                  backgroundColor: 'rgb(230 230 230)'
                                              },
                                              paddingRight: '100px',
                                              cursor: disabled ? "none" : undefined

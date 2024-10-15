@@ -2,7 +2,7 @@ import { IoReload } from "react-icons/io5"
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
 import { useState } from "react"
-import PostItem from "../post/GroupPostItem"
+import GroupPostItem from "../post/GroupPostItem"
 
 const GroupDiscussion = () => {
 
@@ -87,7 +87,7 @@ const GroupDiscussion = () => {
                         <CreatePost />
                         <div className=" w-full h-fit rounded">
                             {posts.map((item, index) => (
-                                <PostItem
+                                <GroupPostItem
                                     key={`post-key-${index}`}
                                     post={item}
                                     index={index}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoReload } from 'react-icons/io5';
-import PostItem from '../post/GroupPostItem';
+import GroupPostItem from '../post/GroupPostItem';
 
 const GroupActivity: React.FC = () => {
 
@@ -80,7 +80,7 @@ const GroupActivity: React.FC = () => {
         <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
             <div className=" w-full h-fit rounded">
                 {posts.map((item, index) => (
-                    <PostItem
+                    <GroupPostItem
                         key={`post-key-${index}`}
                         post={item}
                         index={index}

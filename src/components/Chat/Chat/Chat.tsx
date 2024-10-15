@@ -9,6 +9,7 @@ import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 
 import './Chat.css';
+import { IoClose } from 'react-icons/io5';
 
 const ENDPOINT = 'http://localhost:8080/';
 
@@ -32,6 +33,7 @@ const Chat: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]); // Specify type for users
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]); // Specify type for messages
+  const [onClose, setOnClose] = useState<boolean>(true);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search) as { name: string; room: string };
@@ -70,8 +72,19 @@ const Chat: React.FC = () => {
     }
   };
 
+  const handleClose = () => {
+    setOnClose(false);
+  };
+
+  if (!onClose) {
+    return null; // Không render component nếu đã đóng
+  }
+
   return (
     <div className="outerContainer">
+      <div className="rightInnerContainer">
+        <IoClose size={25} onClick={handleClose} className='cursor-pointer'/>
+      </div>
       <div className="container">
         <InfoBar chatName={"Ronaldo"} />
         <Messages messages={messages} name={name} />

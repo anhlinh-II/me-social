@@ -29,7 +29,7 @@ interface PostItemProps {
     handleFavouriteBtn: (index: number) => void;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
+const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
 
@@ -129,4 +129,4 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
 
 
 
-export default PostItem;
+export default GroupPostItem;
