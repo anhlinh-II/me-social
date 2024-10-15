@@ -2,7 +2,7 @@ import { IoReload } from "react-icons/io5"
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
 import { useState } from "react"
-import PostItem from "../groups/GroupPostItem"
+import PostItem from "../post/GroupPostItem"
 
 const GroupDiscussion = () => {
 

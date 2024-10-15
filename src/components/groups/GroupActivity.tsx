@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoReload } from 'react-icons/io5';
-import PostItem from './GroupPostItem';
+import PostItem from '../post/GroupPostItem';
 
 const GroupActivity: React.FC = () => {
 

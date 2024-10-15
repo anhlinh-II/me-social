@@ -11,10 +11,12 @@ import { BsMoon } from "react-icons/bs";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
 import NotificationDropdown from "./NotificationDropdown";
+import Chat from "./Chat/Chat/Chat";
 
 const Header = () => {
      const [openSearch, setOpenSearch] = useState<boolean>(false);
      const [showNotifications, setShowNotifications] = useState<boolean>(false);
+     const [showChats, setChats] = useState<boolean>(false);
      const navigate = useNavigate();
 
      const handleOpenSearch = () => {
@@ -23,6 +25,10 @@ const Header = () => {
 
      const toggleNotifications = () => {
           setShowNotifications(!showNotifications);
+     };
+
+     const toggleChats = () => {
+          setChats(!showChats);
      };
 
      const notifications = [
@@ -116,7 +122,8 @@ const Header = () => {
 
                          <div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex justify-center align-center">
                               <div className="mr-4 mt-1">
-                                   <PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+                                   <PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} 
+                                        onClick={toggleChats}/>
                               </div>
                               <div className="mr-4 mt-1">
                                    <BsMoon style={{ fontSize: "22px", color: "white", cursor: "pointer" }} />
@@ -147,6 +154,9 @@ const Header = () => {
                     show={openSearch}
                     setShow={setOpenSearch}
                />
+               {showChats && (
+                    <Chat/>
+               )}
           </>
      );
 };

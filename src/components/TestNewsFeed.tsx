@@ -1,6 +1,6 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { PostResponse } from '../services/Types/PostType';
+import { PostResponse } from '../services/Types/PostResponse';
 import { getPostsForNewsFeed } from '../services/Posts/PostService';
 
 const PostList: React.FC<{ userId: number }> = ({ userId }) => {
@@ -11,7 +11,7 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI4OTUzODE2LCJpYXQiOjE3Mjg4Njc0MTYsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.LbK4ToGcCjnTrLmZQr4Q5NTBgPfyePn59YhAoAGVyAJsyYBUX48hx4fHkjuwsp7f6aD5zWTwVSAX8NOTX1JsAA"; 
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5MDQ3MTEwLCJpYXQiOjE3Mjg5NjA3MTAsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.oFfaz79nR3cXOevMDZllVNtpuUY1pdh_pyNmR59NyM8U1KoIhIWYqsB1Ty9tYfp4xTKlwxkKK2pfOjqhTGw4eQ"; 
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
