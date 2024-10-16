@@ -5,7 +5,7 @@ import { IoAddOutline } from "react-icons/io5";
 const Groups = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const initialActive = location.pathname.includes("joined") ? "joined" : "recentlyActivity";
+	const initialActive = location.pathname.includes("joined") ? "joined" : "feed";
 	const [active, setActive] = useState<string>(initialActive);
 
 
@@ -15,9 +15,9 @@ const Groups = () => {
 				<div className="border-b border-gray-300 flex items-center">
 					<ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-600">
 						<li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
-							<Link to={`/groups/recentlyActivity`}
-								className={active === "recentlyActivity" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
-								onClick={() => setActive("recentlyActivity")}
+							<Link to={`/groups/feed`}
+								className={active === "feed" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+								onClick={() => setActive("feed")}
 							>
 								Bảng Feed Nhóm
 							</Link>
@@ -51,7 +51,7 @@ const Groups = () => {
 				</div>
 			</div>
 
-			<div className="mt-5">
+			<div className="mt-5 mb-[10%]">
 				<Outlet />
 			</div>
 		</div>

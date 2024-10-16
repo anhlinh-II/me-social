@@ -4,7 +4,6 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 import Message from './Message/Message';
 
-import './Messages.css';
 
 interface MessageObject {
   text: string;
@@ -17,7 +16,7 @@ interface MessagesProps {
 }
 
 const Messages: React.FC<MessagesProps> = ({ messages, name }) => (
-  <ScrollToBottom className="messages">
+  <ScrollToBottom className="flex-auto overflow-auto px-[5%]">
     {messages.map((message, i) => (
       <div key={i}>
         <Message message={message} name={name} />

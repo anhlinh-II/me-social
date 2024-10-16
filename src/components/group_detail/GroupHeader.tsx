@@ -16,7 +16,7 @@ const GroupHeader = () => {
             <img
                 src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
                 alt="Group"
-                className="rounded-md object-cover w-[1120px] h-[440px]"
+                className="rounded-md object-cover w-[1120px] h-[540px]"
             />
             <div className='w-[72%] mt-4 border-b border-black pb-4'>
                 <h1 className="text-2xl w-fit cursor-pointer font-bold hover:underline">Spring Boot + React or whatever you're learning</h1>

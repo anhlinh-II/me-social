@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './Input.css';
 
 interface InputProps {
   setMessage: (message: string) => void;
@@ -17,17 +16,20 @@ const Input: React.FC<InputProps> = ({ setMessage, sendMessage, message }) => {
   };
 
   return (
-    <form className="form" onSubmit={sendMessage}>
-      <input
-        className="input"
-        type="text"
-        placeholder="Type a message..."
-        value={message}
-        onChange={({ target: { value } }) => setMessage(value)}
-        onKeyPress={handleKeyPress}
-      />
-      <button className="sendButton" type="submit">Send</button>
-    </form>
+    <form className="flex border-t-2 border-[#D3D3D3] h-[48px]" onSubmit={sendMessage}>
+  <input
+    className="border-none rounded-none p-[2%] w-[80%] text-base focus:outline-none"
+    type="text"
+    placeholder="Type a message..."
+    value={message}
+    onChange={({ target: { value } }) => setMessage(value)}
+    onKeyPress={handleKeyPress}
+  />
+  <button className="text-white uppercase bg-[#2979FF] p-[10px] inline-block border-none w-[20%]" type="submit">
+    Send
+  </button>
+</form>
+
   );
 };
 

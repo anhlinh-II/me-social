@@ -8,7 +8,7 @@ const Posts = () => {
      const userId = 3;
      
      return (
-          <div className="flex bg-gray-100 flex-col justify-center items-center w-full">
+          <div className="flex bg-gray-100 flex-col justify-center items-center w-full mb-[5%]">
                <Story />
                <div className="flex w-[40%] flex-col gap-4">
                     <CreatePost />

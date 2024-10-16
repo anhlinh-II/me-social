@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './Message.css';
 
 interface MessageProps {
   message: {
@@ -21,18 +20,18 @@ const Message: React.FC<MessageProps> = ({ message: { text, user }, name }) => {
 
   return (
     isSentByCurrentUser ? (
-      <div className="messageContainer justifyEnd">
-        <p className="sentText pr-10">{trimmedName}</p>
-        <div className="messageBox backgroundBlue">
-          <p className="messageText colorWhite">{text}</p>
+      <div className="flex justify-end items-center mt-1 px-[5%]">
+        <p className="text-[#828282] font-helvetica flex items-center pr-2">{trimmedName}</p>
+        <div className="inline-block max-w-[80%] bg-[#2979FF] rounded-[20px] p-1.5 px-5">
+          <p className="text-white text-[1.1em] break-words">{text}</p>
         </div>
       </div>
     ) : (
-      <div className="messageContainer justifyStart">
-        <div className="messageBox backgroundLight">
-          <p className="messageText colorDark">{text}</p>
+      <div className="flex justify-start items-center mt-1 px-[5%]">
+        <div className="inline-block max-w-[80%] bg-[#F3F3F3] rounded-[20px] p-1.5 px-5">
+          <p className="text-[#353535] text-[1.1em] break-words">{text}</p>
         </div>
-        <p className="sentText pl-10 ">{user}</p>
+        <p className="text-[#828282] font-helvetica flex items-center pl-2">{user}</p>
       </div>
     )
   );

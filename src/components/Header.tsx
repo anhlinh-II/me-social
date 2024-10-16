@@ -44,7 +44,7 @@ const Header = () => {
                          aria-label="Global"
                     >
                          <div className="flex w-[20%] lg:flex-1">
-                              <a href="#" className="-m-1.5 p-1.5">
+                              <a href="/" className="-m-1.5 p-1.5">
                                    <img className="h-8 w-auto" src={logo} alt="" />
                               </a>
                               <div className="relative ml-10">
@@ -100,7 +100,7 @@ const Header = () => {
                               </Link>
 
                               <Link
-                                   to={`/groups/recentlyActivity`}
+                                   to={`/groups/feed`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />

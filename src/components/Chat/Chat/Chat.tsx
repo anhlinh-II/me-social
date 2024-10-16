@@ -8,7 +8,6 @@ import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 
-import './Chat.css';
 import { IoClose } from 'react-icons/io5';
 
 const ENDPOINT = 'http://localhost:8080/';
@@ -81,16 +80,17 @@ const Chat: React.FC = () => {
   }
 
   return (
-    <div className="outerContainer">
-      <div className="rightInnerContainer">
-        <IoClose size={25} onClick={handleClose} className='cursor-pointer'/>
+    <div className="flex absolute bottom-0 right-[10%] z-10 justify-center items-center h-[60vh] w-[360px] bg-[#1A1A1D]">
+      <div className="absolute right-4 top-3">
+        <IoClose size={25} onClick={handleClose} className="cursor-pointer" />
       </div>
-      <div className="container">
+      <div className="flex flex-col justify-between bg-white rounded-[8px] h-full w-full">
         <InfoBar chatName={"Ronaldo"} />
         <Messages messages={messages} name={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
     </div>
+
   );
 };
 
