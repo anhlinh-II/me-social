@@ -2,20 +2,14 @@ import { IoSearchSharp } from "react-icons/io5";
 import { BsThreeDots } from 'react-icons/bs';
 import { FaEarthAmericas, FaPlus, FaShare } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const GroupHeader = () => {
     const location = useLocation();
-    const navigate = useNavigate();
     const initialActive = location.pathname.includes("about") ? "about" : "discussion";
     const [active, setActive] = useState<string>(initialActive);
 
-    useEffect(() => {
-        if (location.pathname === '/groups/groupName') {
-            navigate('/groups/groupName/discussion');
-        }
-    }, [location.pathname, navigate]);
 
     return (
         <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mt-[-72px] mb-5">
@@ -72,7 +66,7 @@ const GroupHeader = () => {
 
                     <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">
                         Tham gia</button>
-                    <button className="flex items-center gap-1 bg-red-500 px-4 py-2 rounded-md hover:bg-red-400">
+                    <button className="flex items-center text-white gap-1 bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500">
                         <FaPlus />
                         <div>Mời</div>
                     </button>

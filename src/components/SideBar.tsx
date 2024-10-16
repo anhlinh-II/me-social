@@ -32,7 +32,7 @@ const SideBar = (props: IProps) => {
                          [`.${sidebarClasses.container}`]: {
                               backgroundColor: '#F3F4F6',
                               fontSize: '15px',
-                              padding: '0 30px',
+                              padding: '0 0px',
                               display: 'flex',
                               // position: "absolute",
                               // top: "0",

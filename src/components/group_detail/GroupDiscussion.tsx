@@ -33,7 +33,7 @@ const GroupDiscussion = () => {
             time: 2,
             isLiked: true,
             isFavourited: true,
-            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04",
+            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
         },
         {
             username: "Lionel Messi",
@@ -46,7 +46,7 @@ const GroupDiscussion = () => {
             time: 6,
             isLiked: true,
             isFavourited: true,
-            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04"
+            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg"
         },
         {
             username: "Neymar",
@@ -59,7 +59,7 @@ const GroupDiscussion = () => {
             time: 18,
             isLiked: undefined,
             isFavourited: true,
-            image: "https://instagram.fhan14-4.fna.fbcdn.net/v/t39.30808-6/430818351_1034560898030450_5363521448821745273_n.jpg?stp=dst-jpg_e35_tt6&_nc_cb=dae8a7dc-ddb356e0&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDI3eDE0Mjcuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlLmpwZWdsaV84MDA5MjMifQ&_nc_ht=instagram.fhan14-4.fna.fbcdn.net&_nc_cat=102&_nc_ohc=MC4dvRbcTRsQ7kNvgHhPd6g&_nc_gid=b83b65bc4581446f8d65f7e5fce9619e&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzMxNzcwOTkwMTI1NjkxNzE3OA%3D%3D.3-ccb7-5&oh=00_AYDi8si6GL8NH0FVGuPITq9PGT7Nk6oqN-DRa86YvGwkCw&oe=670C196E&_nc_sid=22de04"
+            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg"
         }
     ]);
 

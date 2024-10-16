@@ -48,7 +48,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                 />
                 <div className="ml-2">
                     <h4 className='font-bold text-black-500 hover:underline'>
-                        <Link to={`/groups/groupName`}>
+                        <Link to={`/groups/groupName/discussion`}>
                             {post.groupName}
                         </Link>
                     </h4>

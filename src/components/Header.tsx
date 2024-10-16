@@ -100,7 +100,7 @@ const Header = () => {
                               </Link>
 
                               <Link
-                                   to={`/groups`}
+                                   to={`/groups/recentlyActivity`}
                                    className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
                               >
                                    <MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />

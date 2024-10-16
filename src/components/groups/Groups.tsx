@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 
 const Groups = () => {
@@ -8,11 +8,6 @@ const Groups = () => {
 	const initialActive = location.pathname.includes("joined") ? "joined" : "recentlyActivity";
 	const [active, setActive] = useState<string>(initialActive);
 
-	useEffect(() => {
-		if (location.pathname === '/groups') {
-			navigate('/groups/recentlyActivity');
-		}
-	}, [location.pathname, navigate]);
 
 	return (
 		<div className="w-[80%]">
