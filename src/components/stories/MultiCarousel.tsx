@@ -60,7 +60,7 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 4,
     adaptiveHeight: true,
     prevArrow: <CustomPrevArrow />,

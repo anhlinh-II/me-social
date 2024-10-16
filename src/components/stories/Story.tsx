@@ -37,7 +37,7 @@ const Story = () => {
 			userName: "Story 5",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
+			background: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
 		},
 		{
 			id: 6,
@@ -65,7 +65,7 @@ const Story = () => {
 			userName: "Story 9",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
+			background: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
 		},
 		{
 			id: 10,

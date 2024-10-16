@@ -3,6 +3,8 @@ import CreatePost from "./CreatePost"
 import ListPosts from "./ListPosts"
 import Story from "../stories/Story"
 import PostList from "../TestNewsFeed"
+import ImageUploader from "../ImageUploader"
+import VideoUploader from "../VideoUploader"
 
 const Posts = () => {
      const userId = 3;
@@ -12,6 +14,8 @@ const Posts = () => {
                <Story />
                <div className="flex w-[40%] flex-col gap-4">
                     <CreatePost />
+                    <ImageUploader />
+                    <VideoUploader />
                     <PostList userId={userId} />
                     <ListPosts />
                     <Counter />

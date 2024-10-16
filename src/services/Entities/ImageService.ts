@@ -4,11 +4,12 @@ import axios from 'axios';
 export const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'UPLOAD_PRESET');
+    formData.append('upload_preset', 'preset');
+    formData.append('folder', 'logo');
 
     try {
         const response = await axios.post(
-            `https://api.cloudinary.com/v1_1/CLOUD_NAME/image/upload`,
+            `https://api.cloudinary.com/v1_1/cloud_name/image/upload`,
             formData
         );
 
