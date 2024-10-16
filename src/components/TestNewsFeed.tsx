@@ -1,6 +1,5 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { PostResponse } from '../services/Types/responses/PostResponse';
 import { getPostsForNewsFeed } from '../services/Entities/Posts/PostService';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
@@ -11,6 +10,7 @@ import ShowMoreText from "react-show-more-text";
 import { Link } from 'react-router-dom';
 import PostDetailModal from './modal/Post.detail.modal';
 import More from './modal/More';
+import { PostResponse } from '../services/Types/Post';
 
 interface Post {
     id: number;

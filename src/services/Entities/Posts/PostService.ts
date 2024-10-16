@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { PostResponse } from '../../Types/responses/PostResponse';
-import { PostRequest } from '../../Types/requests/PostRequest';
+import { PostRequest, PostResponse } from '../../Types/Post';
 
 const API_URL = 'http://localhost:8080/api/posts';
 
