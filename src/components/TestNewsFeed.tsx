@@ -1,6 +1,6 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { getPostsForNewsFeed } from '../services/Entities/Posts/PostService';
+import { getPostsForNewsFeed } from '../services/Entities/PostService';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';

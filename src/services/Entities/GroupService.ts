@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GroupRequest, GroupResponse } from '../../Types/Group';
+import { GroupRequest, GroupResponse } from '../Types/Group';
 
 const API_URL = 'http://localhost:8080/api/groups';
 

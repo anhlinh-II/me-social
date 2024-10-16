@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserCreationRequest, UserUpdateRequest, UserResponse, UserDTO } from '../../Types/User';
+import { UserCreationRequest, UserUpdateRequest, UserResponse, UserDTO } from '../Types/User';
 
 const API_URL = 'http://localhost:8080/api/users';
 
