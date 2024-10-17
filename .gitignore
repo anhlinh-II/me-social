@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-ImageService.ts
-VideoUploadService.ts
+/src/services/Entities/ImageService.ts
+VideoService.ts
