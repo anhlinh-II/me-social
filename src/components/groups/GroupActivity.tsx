@@ -77,7 +77,7 @@ const GroupActivity: React.FC = () => {
     }
 
     return (
-        <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+        <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
             <div className=" w-full h-fit rounded">
                 {posts.map((item, index) => (
                     <GroupPostItem

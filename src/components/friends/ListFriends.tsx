@@ -12,7 +12,7 @@ const ListFriends = () => {
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
                               <Link to={`/listFriends/friends`}
-                                   className={active === "friends" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+                                   className={active === "friends" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("friends")}
                               >
                                    Friends
@@ -20,7 +20,7 @@ const ListFriends = () => {
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
                               <Link to={`/listFriends/friendsRequest`}
-                                   className={active === "friendsRequest" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+                                   className={active === "friendsRequest" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("friendsRequest")}
                               >
                                    Request
@@ -28,7 +28,7 @@ const ListFriends = () => {
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
                               <Link to={`/listFriends/recentlyAdded`}
-                                   className={active === "recentlyAdded" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+                                   className={active === "recentlyAdded" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("recentlyAdded")}
                               >
                                    Recently Added
@@ -36,7 +36,7 @@ const ListFriends = () => {
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
                               <Link to={`/listFriends/suggestion`}
-                                   className={active === "suggestion" ? "inline-flex items-center justify-center p-4 text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
+                                   className={active === "suggestion" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("suggestion")}
                               >
                                    Suggestion

@@ -43,7 +43,7 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5MTYxNDAzLCJpYXQiOjE3MjkwNzUwMDMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.72zzbWw1WGwevEjZ3eU0wGwprRFK0Npt6PWy9sUlQNbocW88rzDDKWHwIYcykQCpwVr08JPeSORB-E6mLCUPJA";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5MjU3MzQwLCJpYXQiOjE3MjkxNzA5NDAsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.ziz2OfgONgwE4oqCkZ67hlRfgfYEN1Fp5tTXrYybEfc5diHkgCoS2V926NIfcfOH3jUulp83gaupTuN_HmjT-w";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');

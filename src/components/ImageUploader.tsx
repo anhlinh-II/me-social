@@ -33,7 +33,6 @@ const ImageUploader: React.FC = () => {
             <button onClick={handleUpload} disabled={uploading}>
                 {uploading ? 'Uploading...' : 'Upload Image'}
             </button>
-            <img src="https://res.cloudinary.com/ds14e8hbm/image/upload/v1729095284/logo/xfaafqxsty1oyk1dzjb6.png"></img>
         </div>
     );
 };

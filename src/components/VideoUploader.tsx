@@ -33,7 +33,6 @@ const VideoUploader: React.FC = () => {
             <button onClick={handleUpload} disabled={uploading}>
                 {uploading ? 'Uploading...' : 'Upload Video'}
             </button>
-            <video controls autoPlay src='https://res.cloudinary.com/ds14e8hbm/video/upload/v1729146600/video/rf1k8nojub9hjj1iagxw.mp4'></video>
         </div>
     );
 };

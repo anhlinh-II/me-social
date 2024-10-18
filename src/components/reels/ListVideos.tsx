@@ -191,7 +191,7 @@ const ListVideos = () => {
 				</button>
 
 				{/* Main video */}
-				<div className="w-[360px] h-[650px] cursor-pointer relative bg-[#18191A]"
+				<div className="w-[360px] h-[670px] cursor-pointer rounded-lg relative bg-[#18191A]"
 					onMouseEnter={() => setShowPlayButton(true)}
 					onMouseLeave={() => setShowPlayButton(false)}>
 					<video
