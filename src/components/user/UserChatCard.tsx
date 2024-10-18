@@ -22,7 +22,7 @@ const UserChatCard: React.FC<UserCardProps> = ({ name, avatar, lastChat, lastCha
                     />
                     <div className="ml-4 flex flex-col items-start">
                         <h2 className="text-lg font-bold text-gray-800">{name}</h2>
-                        <div className="flex gap-6">
+                        <div className="flex gap-2">
                             <p className="text-sm">{lastChat}</p>
                             <p className="text-sm">{lastChatSince}</p>
                         </div>

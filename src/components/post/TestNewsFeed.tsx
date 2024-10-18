@@ -1,6 +1,6 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { getPostsForNewsFeed } from '../services/Entities/PostService';
+import { getPostsForNewsFeed } from '../../services/Entities/PostService';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
@@ -8,9 +8,9 @@ import { GoDotFill } from 'react-icons/go';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from "react-show-more-text";
 import { Link } from 'react-router-dom';
-import PostDetailModal from './modal/Post.detail.modal';
-import More from './modal/More';
-import { PostResponse } from '../services/Types/Post';
+import PostDetailModal from '../modal/Post.detail.modal';
+import More from '../modal/More';
+import { PostResponse } from '../../services/Types/Post';
 
 interface Post {
     id: number;

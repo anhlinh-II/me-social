@@ -2,9 +2,9 @@ import { Counter } from "../../redux/features/counter/Counter"
 import CreatePost from "./CreatePost"
 import ListPosts from "./ListPosts"
 import Story from "../stories/Story"
-import PostList from "../TestNewsFeed"
-import ImageUploader from "../ImageUploader"
-import VideoUploader from "../VideoUploader"
+import PostList from "./TestNewsFeed"
+import ImageUploader from "../test/ImageUploader"
+import VideoUploader from "../test/VideoUploader"
 
 const Posts = () => {
      const userId = 3;

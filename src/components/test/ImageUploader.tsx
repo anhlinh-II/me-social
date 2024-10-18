@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { uploadVideo } from '../services/Entities/VideoService';
+import { useState } from "react";
+import { uploadImage } from "../../services/Entities/ImageService";
 
-const VideoUploader: React.FC = () => {
+const ImageUploader: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
 
@@ -15,8 +15,8 @@ const VideoUploader: React.FC = () => {
         if (selectedFile) {
             setUploading(true);
             try {
-                const result = await uploadVideo(selectedFile);
-                console.log('Uploaded video data:', result);
+                const result = await uploadImage(selectedFile);
+                console.log('Uploaded image data:', result);
             } catch (error) {
                 console.error('Upload failed:', error);
             } finally {
@@ -28,13 +28,13 @@ const VideoUploader: React.FC = () => {
     };
 
     return (
-        <div className="video-uploader">
-            <input type="file" accept="video/*" onChange={handleFileChange} />
+        <div className="image-uploader">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
             <button onClick={handleUpload} disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Upload Video'}
+                {uploading ? 'Uploading...' : 'Upload Image'}
             </button>
         </div>
     );
 };
 
-export default VideoUploader;
+export default ImageUploader;

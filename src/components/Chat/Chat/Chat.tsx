@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import queryString from 'query-string';
 import { IoClose } from 'react-icons/io5';
-import UserChatCard from '../../UserChatCard';
+import UserChatCard from '../../user/UserChatCard';
 import InfoBar from '../InfoBar/InfoBar';
 import Messages from '../Messages/Messages';
 import Input from '../Input/Input';
@@ -92,7 +92,7 @@ const Chat: React.FC<ChatProps> = ({ chats }) => {
 			{showChatList ? (
 				<div className="flex flex-col absolute top-[72px] right-[5%] z-10 justify-start h-[85vh] w-[360px] bg-white rounded-lg">
 					{/* Tiêu đề đoạn chat */}
-					<p className="text-2xl ms-4 font-bold">Đoạn chat</p>
+					<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Đoạn chat</p>
 
 					{/* Danh sách các đoạn chat */}
 

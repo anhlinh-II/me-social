@@ -1,5 +1,5 @@
 import { GoDotFill } from "react-icons/go"
-import UserCard from "../UserCard";
+import UserCard from "../user/UserCard";
 
 
 const GroupMembers = () => {
