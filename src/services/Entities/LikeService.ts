@@ -1,16 +1,7 @@
 import axios from 'axios';
+import { Like } from '../Types/Like';
 
 const API_URL = 'http://localhost:8080/api/likes';
-
-export interface Like {
-    id: number;
-    userId: number;
-    postId?: number;
-    commentId?: number;
-    reelId?: number;
-    storyId?: number;
-    createdAt: string;
-}
 
 // Get Post Like Count
 export const getPostLikeCount = async (postId: number, token: string): Promise<number> => {
