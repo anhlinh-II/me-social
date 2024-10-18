@@ -10,7 +10,7 @@ import { GoBell } from "react-icons/go";
 import { BsMoon } from "react-icons/bs";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
-import NotificationDropdown from "./NotificationDropdown";
+import NotificationDropdown from "./Notification";
 import Chat from "./Chat/Chat/Chat";
 
 const Header = () => {
@@ -32,13 +32,31 @@ const Header = () => {
      };
 
      const notifications = [
-          { id: 1, message: 'Người dùng A đã gửi cho bạn lời mời kết bạn.' },
-          { id: 2, message: 'Người dùng B đã thích bài viết của bạn.' },
-          { id: 3, message: 'Người dùng C đã bình luận về bài viết của bạn.' },
+          {
+               id: 1,
+               name: 'John Doe',
+               avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+               lastChat: 'Hey, how are you?',
+               lastChatSince: '2 phút',
+           },
+           {
+               id: 2,
+               name: 'Jane Smith',
+               avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+               lastChat: 'Let’s meet tomorrow.',
+               lastChatSince: '10 phút',
+           },
+           {
+               id: 3,
+               name: 'Alice Brown',
+               avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
+               lastChat: 'Thanks for your help!',
+               lastChatSince: '1 giờ',
+           },
      ];
      return (
           <>
-     <header className="bg-sky-600 w-full top-0 fixed z-8 right-0 left-0 shadow-md">
+     <header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0 shadow-md">
                     <nav
                          className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
                          aria-label="Global"
@@ -155,7 +173,7 @@ const Header = () => {
                     setShow={setOpenSearch}
                />
                {showChats && (
-                    <Chat/>
+                    <Chat chats={notifications}/>
                )}
           </>
      );

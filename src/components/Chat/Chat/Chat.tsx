@@ -1,97 +1,140 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import queryString from 'query-string';
-import io from 'socket.io-client';
-
-import TextContainer from '../TextContainer/TextContainer';
-import Messages from '../Messages/Messages';
+import { IoClose } from 'react-icons/io5';
+import UserChatCard from '../../UserChatCard';
 import InfoBar from '../InfoBar/InfoBar';
+import Messages from '../Messages/Messages';
 import Input from '../Input/Input';
 
-import { IoClose } from 'react-icons/io5';
-
 const ENDPOINT = 'http://localhost:8080/';
-
 let socket: any;
 
-// Define an interface for the message object
+// Định nghĩa Message và User
 interface Message {
-  text: string;
-  user: string;
+	text: string;
+	user: string;
 }
 
-// Define an interface for the user object
 interface User {
-  name: string;
+	name: string;
 }
 
-const Chat: React.FC = () => {
-  const location = useLocation();
-  const [name, setName] = useState<string>('');
-  const [room, setRoom] = useState<string>('');
-  const [users, setUsers] = useState<User[]>([]); // Specify type for users
-  const [message, setMessage] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([]); // Specify type for messages
-  const [onClose, setOnClose] = useState<boolean>(true);
+interface UserChat {
+	id: number;
+	name: string;
+	avatar: string;
+	lastChat: string;
+	lastChatSince: string;
+}
 
-  useEffect(() => {
-    const { name, room } = queryString.parse(location.search) as { name: string; room: string };
+interface ChatProps {
+	chats: UserChat[];
+}
 
-    socket = io(ENDPOINT);
+const Chat: React.FC<ChatProps> = ({ chats }) => {
+	const location = useLocation();
+	const [name, setName] = useState<string>('');
+	const [room, setRoom] = useState<string>('');
+	const [users, setUsers] = useState<User[]>([]);
+	const [message, setMessage] = useState<string>('');
+	const [messages, setMessages] = useState<Message[]>([]);
+	const [showChatList, setShowChatList] = useState<boolean>(true);
+	const [selectedChat, setSelectedChat] = useState<UserChat | null>(null);
 
-    setRoom(room);
-    setName(name);
+	useEffect(() => {
+		// Lấy name và room từ query string trong URL
+		const { name, room } = queryString.parse(location.search) as { name: string; room: string };
 
-    socket.emit('join', { name, room }, (error: any) => {
-      if (error) {
-        alert(error);
-      }
-    });
+		// Kết nối với socket
+		socket = io(ENDPOINT);
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [location.search]);
+		setRoom(room);
+		setName(name);
 
-  useEffect(() => {
-    socket.on('message', (message: Message) => {
-      setMessages((messages) => [...messages, message]);
-    });
+		// Emit sự kiện "join" để tham gia phòng chat
+		socket.emit('join', { name, room }, (error: any) => {
+			if (error) {
+				alert(error);
+			}
+		});
 
-    socket.on('roomData', ({ users }: { users: User[] }) => {
-      setUsers(users);
-    });
-  }, []);
+		// Cleanup socket khi component unmount
+		return () => {
+			socket.disconnect();
+		};
+	}, [location.search]);
 
-  const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+	useEffect(() => {
+		// Lắng nghe sự kiện "message" từ server
+		socket.on('message', (message: Message) => {
+			setMessages((prevMessages) => [...prevMessages, message]);
+		});
 
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
-  };
+		// Lắng nghe sự kiện "roomData" để nhận danh sách người dùng trong phòng
+		socket.on('roomData', ({ users }: { users: User[] }) => {
+			setUsers(users);
+		});
+	}, []);
 
-  const handleClose = () => {
-    setOnClose(false);
-  };
+	const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 
-  if (!onClose) {
-    return null; // Không render component nếu đã đóng
-  }
+		if (message) {
+			// Emit sự kiện "sendMessage" để gửi tin nhắn
+			socket.emit('sendMessage', message, () => setMessage(''));
+		}
+	};
 
-  return (
-    <div className="flex absolute bottom-0 right-[10%] z-10 justify-center items-center h-[60vh] w-[360px] bg-[#1A1A1D]">
-      <div className="absolute right-4 top-3">
-        <IoClose size={25} onClick={handleClose} className="cursor-pointer" />
-      </div>
-      <div className="flex flex-col justify-between bg-white rounded-[8px] h-full w-full">
-        <InfoBar chatName={"Ronaldo"} />
-        <Messages messages={messages} name={name} />
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-      </div>
-    </div>
+	return (
+		<div>
+			{showChatList ? (
+				<div className="flex flex-col absolute top-[72px] right-[5%] z-10 justify-start h-[85vh] w-[360px] bg-white rounded-lg">
+					{/* Tiêu đề đoạn chat */}
+					<p className="text-2xl ms-4 font-bold">Đoạn chat</p>
 
-  );
+					{/* Danh sách các đoạn chat */}
+
+					<ul className="items-center justify-center">
+						{chats.length > 0 ? (
+							chats.map((chat) => (
+								<li key={chat.id} className="cursor-pointer" onClick={() => {
+									setSelectedChat(chat);
+									setShowChatList(false); // Ẩn danh sách đoạn chat
+								}}>
+									<UserChatCard
+										id={chat.id}
+										name={chat.name}
+										avatar={chat.avatar}
+										lastChat={chat.lastChat}
+										lastChatSince={chat.lastChatSince}
+									/>
+								</li>
+							))
+						) : (
+							<li className="p-2 text-center">Không có tin nhắn</li>
+						)}
+					</ul>
+
+
+				</div>
+			) : null}
+			{selectedChat && (
+				<div className="absolute bottom-0 right-[5%] z-10 flex flex-col justify-start h-[60vh] w-[360px] bg-white rounded-lg">
+					<div className="absolute right-4 top-3">
+						<IoClose size={25} onClick={() => setSelectedChat(null)} className="cursor-pointer" />
+					</div>
+					<div className="flex flex-col justify-between bg-white rounded-[8px] h-full w-full">
+						<InfoBar chatName={selectedChat.name} />
+						<Messages messages={messages} name={name} />
+						<Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+					</div>
+				</div>
+			)}
+		</div>
+
+	);
 };
 
 export default Chat;
