@@ -30,7 +30,7 @@ const HomeView = () => {
         </div>
         {
           inHomeView && (
-            <div className="bg-[#F3F4F6] absolute top-0 bottom-0 right-4 w-[20%] border-l">
+            <div className="bg-[#F3F4F6] absolute top-0 bottom-0 right-3 w-[20%] border-l">
               <div className="h-full scrollbar-hidden scrollbar-visible hover:overflow-auto">
                 <SuggestFriends />
               </div>

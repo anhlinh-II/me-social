@@ -94,12 +94,12 @@
 }
 
 .create-story-btn {
-  width: 35px;
-  height: 35px;
-  background-color: cyan;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
   border-radius: 100%;
   text-align: center;
-  font-size: larger;
 }
 
 
@@ -131,7 +131,6 @@
 
 .scrollbar-visible::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px; 
 }
 
 .scrollbar-visible::-webkit-scrollbar-track {

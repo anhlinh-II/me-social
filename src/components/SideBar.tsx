@@ -46,7 +46,7 @@ const SideBar = (props: IProps) => {
                          },
                     }}
                >
-                    <div className='px-4 py-6 satisfy-regular me-social decoration-sky-600'>Me Social</div>
+                    <div className='ps-10 py-6 satisfy-regular me-social decoration-sky-600'>Me Social</div>
                     <Menu
                          rootStyles={{
                          }}
@@ -81,7 +81,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "home" ? true : false}
                               component={<Link to={'/'} />}
-                              icon={<IoHome />}
+                              icon={<IoHome className='text-2xl'/>}
                               onClick={() => setActive("home")}
                          >
                               Home
@@ -91,7 +91,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("reels")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/reels'} />}
-                              icon={<PiVideoFill />}
+                              icon={<PiVideoFill className='text-2xl'/>}
                          >
                               Reels
                          </MenuItem>
@@ -99,7 +99,7 @@ const SideBar = (props: IProps) => {
                               active={active === "createReels" ? true : false}
                               onClick={() => openAddRewModal()}
                               rootStyles={{ padding: "5px" }}
-                              icon={<IoIosAddCircle />}
+                              icon={<IoIosAddCircle className='text-2xl'/>}
                          >
                               Create Reels
                          </MenuItem>
@@ -108,7 +108,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<IoPersonCircle />}
+                              icon={<IoPersonCircle className='text-2xl'/>}
                          >
                               Profile
                          </MenuItem>
@@ -116,7 +116,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "setting" ? true : false}
                               onClick={() => setActive("setting")}
-                              icon={<IoMdSettings />}
+                              icon={<IoMdSettings className='text-2xl'/>}
                          >
                               Setting
                          </MenuItem>
@@ -124,7 +124,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "admin" ? true : false}
                               onClick={() => setActive("admin")}
-                              icon={<MdManageAccounts />}
+                              icon={<MdManageAccounts className='text-2xl'/>}
                               component={<Link to={'/admin/dashboard'} />}
                          >
                               Admin Page
@@ -134,17 +134,17 @@ const SideBar = (props: IProps) => {
                               active={active === "logout" ? true : false}
                               onClick={() => setActive("logout")}
                               component={<Link to={'/login'} />}
-                              icon={<IoLogOut />}
+                              icon={<IoLogOut className='text-2xl'/>}
                          >
                               Log out
                          </MenuItem>
                     </Menu>
-                    <div className='p-5 mt-20'>
+                    <div className='px-8 mt-20'>
                          <Link
                               className='cursor-pointer flex justify-start align-center gap-x-4'
                               to={'https://github.com/anhlinh-II/me-social'} target="_blank"
                          >
-                              <FaGithub className='mt-1 text-base text-sky-800' />
+                              <FaGithub className='mt-1 text-2xl text-sky-800' />
                               <p className='underline underline-offset-4 decoration-sky-800 text-sky-800 font-medium'>Visit Our Source</p>
                          </Link>
                     </div>
