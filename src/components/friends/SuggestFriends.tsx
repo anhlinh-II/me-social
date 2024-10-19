@@ -1,9 +1,78 @@
 import { LuDot } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import UserSimpleCard from "../user/UserSimpleCard";
 
 const SuggestFriends = () => {
+
+     const users = [
+          {
+               name: 'Alice Johnson',
+               avatar: 'https://randomuser.me/api/portraits/women/45.jpg',
+               description: 'Graphic Designer',
+               mutualFriends: 12,
+               location: 'New York, USA',
+               joinedSince: 'June 2018'
+          },
+          {
+               name: 'Mark Stevenson',
+               avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+               description: 'Full-Stack Developer',
+               mutualFriends: 8,
+               location: 'London, UK',
+               joinedSince: 'March 2019'
+          },
+          {
+               name: 'Clara Rodriguez',
+               avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+               description: 'Marketing Specialist',
+               mutualFriends: 20,
+               location: 'Madrid, Spain',
+               joinedSince: 'January 2020'
+          },
+          {
+               name: 'David Kim',
+               avatar: 'https://randomuser.me/api/portraits/men/34.jpg',
+               description: 'Software Engineer',
+               mutualFriends: 15,
+               location: 'Seoul, South Korea',
+               joinedSince: 'October 2017'
+          },
+          {
+               name: 'Emma Wong',
+               avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+               description: 'Data Analyst',
+               mutualFriends: 9,
+               location: 'Singapore',
+               joinedSince: 'April 2019'
+          },
+          {
+               name: 'Liam O\'Brien',
+               avatar: 'https://randomuser.me/api/portraits/men/15.jpg',
+               description: 'Project Manager',
+               mutualFriends: 7,
+               location: 'Dublin, Ireland',
+               joinedSince: 'August 2020'
+          },
+          {
+               name: 'Sophia Garcia',
+               avatar: 'https://randomuser.me/api/portraits/women/27.jpg',
+               description: 'UX/UI Designer',
+               mutualFriends: 18,
+               location: 'Mexico City, Mexico',
+               joinedSince: 'May 2018'
+          },
+          {
+               name: 'James Patel',
+               avatar: 'https://randomuser.me/api/portraits/men/9.jpg',
+               description: 'Cloud Architect',
+               mutualFriends: 14,
+               location: 'Mumbai, India',
+               joinedSince: 'February 2017'
+          },
+     ];
+
      return (
-          <div className="h-fit border-1 rounded-xl p-4">
+          <div className="h-fit border-1 rounded-xl p-2 me-2 hover:me-0">
                <div className=" text-sm ">
                     {/* title */}
                     <div className="flex justify-between font-bold ">
@@ -52,6 +121,19 @@ const SuggestFriends = () => {
                               <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Add</span>
                          </div>
                     </div>
+
+                    <div className="flex justify-between font-bold mb-2">
+                         <span className="text-gray-600">Contacts</span>
+                    </div>
+                    <div className="flex flex-col w-full items-start">
+                         {users.map((user, index) => (
+                              <UserSimpleCard
+                                   userId={index}
+                                   userFullName={user.name}
+                                   avatarUrl={user.avatar}
+                              />
+                         ))}
+                    </div>
                </div>
 
                <div className="flex flex-wrap mt-20 text-gray-400 text-sm">
@@ -91,7 +173,7 @@ const SuggestFriends = () => {
                </div>
 
                <div className="mt-6 text-gray-400 text-sm">
-                    <span>© 2024 MeSocial from Meta</span>
+                    <span>© 2024 MeSocial from LL</span>
                </div>
 
           </div>

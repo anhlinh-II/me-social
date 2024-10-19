@@ -93,13 +93,13 @@ const Story = () => {
 	const navigate = useNavigate();
 	const carouselUsers = [
 		(
-			<div key="create-new-story" className="story-container create-new-story"
+			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
 				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 2 } })}>
 				{/* Placeholder for the 'Create New Story' item */}
 				<div className="create-story flex flex-col items-center">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
-						alt="{user.userName}" className="w-100 h-40 object-cover" />
-					<h5 className="text-black font-semibold text-center mt-2 mb-2">Tạo Tin</h5>
+						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
+					<h5 className="text-black font-semibold text-center mt-1 mb-1">Tạo Tin</h5>
 					<div className="create-story-btn">+</div>
 				</div>
 			</div>

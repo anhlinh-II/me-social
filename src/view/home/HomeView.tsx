@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import SideBar from "../../components/SideBar";
 import SuggestFriends from "../../components/friends/SuggestFriends";
 
+import "../../styles/App.scss"
+
 const HomeView = () => {
   const location = useLocation();
   const hasProfile = location.pathname.includes("profile");
@@ -28,8 +30,10 @@ const HomeView = () => {
         </div>
         {
           inHomeView && (
-            <div className="bg-[#F3F4F6] absolute top-0 bottom-0 right-0 w-[20%] border-l">
-              <SuggestFriends />
+            <div className="bg-[#F3F4F6] absolute top-0 bottom-0 right-4 w-[20%] border-l">
+              <div className="h-full scrollbar-hidden scrollbar-visible hover:overflow-auto">
+                <SuggestFriends />
+              </div>
             </div>
           )
         }

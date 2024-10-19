@@ -17,7 +17,7 @@
   margin: 0 auto;
 }
 .slick-list {
-  width: 622px; 
+  width: 620px; 
   overflow: hidden;
 }
 
@@ -114,4 +114,26 @@
   color:  rgb(2 132 199);
   font-size: 30px;
   font-weight: 550;
+}
+
+// For SuggestFriends
+.scrollbar-hidden {
+  overflow: hidden;
+}
+
+.scrollbar-visible:hover {
+  overflow: auto;
+}
+
+.scrollbar-visible::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px; 
+}
+
+.scrollbar-visible::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); 
 }

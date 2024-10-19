@@ -53,6 +53,48 @@ const Header = () => {
                lastChat: 'Thanks for your help!',
                lastChatSince: '1 giờ',
           },
+		{
+               id: 4,
+               name: 'John Doe',
+               avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+               lastChat: 'Hey, how are you?',
+               lastChatSince: '2 phút',
+          },
+          {
+               id: 5,
+               name: 'Jane Smith',
+               avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+               lastChat: 'Let’s meet tomorrow.',
+               lastChatSince: '10 phút',
+          },
+          {
+               id: 6,
+               name: 'Alice Brown',
+               avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
+               lastChat: 'Thanks for your help!',
+               lastChatSince: '1 giờ',
+          },
+		{
+               id: 7,
+               name: 'John Doe',
+               avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+               lastChat: 'Hey, how are you?',
+               lastChatSince: '2 phút',
+          },
+          {
+               id: 8,
+               name: 'Jane Smith',
+               avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+               lastChat: 'Let’s meet tomorrow.',
+               lastChatSince: '10 phút',
+          },
+          {
+               id: 9,
+               name: 'Alice Brown',
+               avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
+               lastChat: 'Thanks for your help!',
+               lastChatSince: '1 giờ',
+          },
      ]
 
      const notifications = [

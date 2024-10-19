@@ -10,29 +10,10 @@ import ShowMoreText from "react-show-more-text";
 import { Link } from 'react-router-dom';
 import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
-import { PostResponse } from '../../services/Types/Post';
+import { Post, PostResponse } from '../../services/Types/Post';
 
-interface Post {
-    id: number;
-    userId: number;
-    userFullName: string;
-    avatar: string;
-    groupId: number;
-    groupName: string;
-    content: string;
-    privacy: string;
-    createdAt: string;
-    updatedAt: string;
-    likeNum: number;
-    commentNum: number;
-    time: number;
-    isLiked: boolean | undefined;
-    isFavourited: boolean | undefined;
-    image: string;
-    imageError: boolean;
-}
 
-const PostList: React.FC<{ userId: number }> = ({ userId }) => {
+const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -43,7 +24,7 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5MjU3MzQwLCJpYXQiOjE3MjkxNzA5NDAsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.ziz2OfgONgwE4oqCkZ67hlRfgfYEN1Fp5tTXrYybEfc5diHkgCoS2V926NIfcfOH3jUulp83gaupTuN_HmjT-w";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NDA5MTg1LCJpYXQiOjE3MjkzMjI3ODUsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.Ro0sBYAHG-Oz9zTWck6lFfza7Ms8cQcaQ4DFJ0U-lynF0m0NJDucFHdIg0Cg5J2jIxmmj4E0mCW49_ra5ApW2Q";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -232,4 +213,4 @@ const PostList: React.FC<{ userId: number }> = ({ userId }) => {
     );
 };
 
-export default PostList;
+export default TestNewsFeed;

@@ -96,7 +96,7 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
         {items.map((item, index) => {
           return (
             <div key={index} className="p-1">
-              <div className="bg-white p-4 rounded-lg shadow-lg">
+              <div className="bg-white p-4 rounded-lg border">
                 {item}
               </div>
             </div>
