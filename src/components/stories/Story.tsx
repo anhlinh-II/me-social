@@ -1,3 +1,4 @@
+import { FaCirclePlus } from "react-icons/fa6";
 import MultiCarousel from "./MultiCarousel";
 import { useNavigate } from 'react-router-dom';
 
@@ -6,28 +7,28 @@ const Story = () => {
 	const fakeData = [
 		{
 			id: 1,
-			userName: "Story 1",
+			userName: "Cristiano Ronaldo",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
 			background: "https://www.w3schools.com/html/mov_bbb.mp4",
 		},
 		{
 			id: 2,
-			userName: "Story 2",
+			userName: "Lionel Messi",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
 			background: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
 		},
 		{
 			id: 3,
-			userName: "Story 3",
+			userName: "Neymar Jr",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
 			background: "https://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.mp4",
 		},
 		{
 			id: 4,
-			userName: "Story 4",
+			userName: "Antony 2008",
 			img: "https://via.placeholder.com/100",
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
 			background: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
@@ -96,11 +97,13 @@ const Story = () => {
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
 				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 2 } })}>
 				{/* Placeholder for the 'Create New Story' item */}
-				<div className="create-story flex flex-col items-center">
+				<div className="create-story flex flex-col items-center bg-gray-500">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
-					<h5 className="text-black font-semibold text-center mt-1 mb-1">Tạo Tin</h5>
-					<div className="create-story-btn">+</div>
+					<h5 className="text-white font-semibold w-full text-center mt-1">Tạo Tin</h5>
+					<div className="w-full h-full px-2 pb-2 pt-1 text-3xl flex items-center justify-center">
+						<FaCirclePlus className="create-story-btn"/>
+					</div>
 				</div>
 			</div>
 		),
@@ -124,7 +127,7 @@ const Story = () => {
 						<img src={item.avt} alt={item.userName} className="story-avatar" />
 					</div>
 					<div className="absolute bottom-[0.5rem] left-[0.5rem]">
-						<h5 className="text-white font-semibold">{item.userName}</h5>
+						<h5 className="text-white text-sm font-semibold">{item.userName}</h5>
 					</div>
 				</div>
 			);
@@ -133,7 +136,7 @@ const Story = () => {
 
 	return (
 		<>
-			<div className="">
+			<div className="mt-2 mb-2">
 				<MultiCarousel items={carouselUsers} />
 			</div>
 

@@ -107,7 +107,7 @@ const ListPosts = () => {
 								<div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
 									<div className="flex justify-start items-center px-4 py-4 gap-2">
 										<img src={item.avatar}
-											className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
+											className="border border-sky-600 rounded-[100%] h-12 w-12 cursor-pointer"
 											alt="error"
 										/>
 										<div className="ml-2">
@@ -117,7 +117,8 @@ const ListPosts = () => {
 												<span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
 											</div>
 										</div>
-										<span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
+										<div className='ml-auto satisfy-regular me-social decoration-sky-600'>Me Social</div>
+										<span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
 									</div>
 									{item.imageError ? (
 										<div className="flex justify-center items-center w-full h-64 bg-gray-200">

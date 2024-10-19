@@ -7,12 +7,11 @@ import { IoHomeOutline, IoPersonAddOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
-import { BsSun } from "react-icons/bs";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
 import NotificationDropdown from "./Notification";
 import Chat from "./Chat/Chat";
-import { FaBell, FaMoon } from "react-icons/fa6";
+import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";
 
 const Header = () => {
@@ -169,13 +168,13 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeTheme === 'Moon' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center `}
 							onClick={() => handleToggleMoon('Moon')}
 						>
 							{activeTheme === 'Moon' ? (
 								<FaMoon style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
 							) : (
-								<BsSun style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
+								<FaSun style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
