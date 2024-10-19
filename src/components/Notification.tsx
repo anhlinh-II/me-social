@@ -1,6 +1,7 @@
 // Notification.tsx
 import React from 'react';
 import NotifyCard from './NotifyCard';
+import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 
 interface Notification {
     id: number;
@@ -16,8 +17,13 @@ interface NotificationProps {
 
 const Notification: React.FC<NotificationProps> = ({ notifications }) => {
     return (
-        <div className="absolute top-[42px] right-[-100px] z-40 w-[360px] mt-2 bg-white rounded-lg shadow-lg">
-            <div className="p-2 text-2xl font-bold">Thông báo</div>
+        <div className="absolute top-[64px] right-[2%] z-40 w-[360px] mt-2 bg-white rounded-lg shadow-lg">
+            <div className='flex  justify-between items-center pe-4'>
+						<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Thông báo</p>
+						<div className={`w-[32px] h-[32px] hover:bg-[#F3F4F6] rounded-full flex items-center justify-center`}>
+							<PiDotsThreeOutlineFill style={{ fontSize: "22px", color: "black", cursor: "pointer" }}/>
+						</div>
+					</div>
             <ul className="max-h-[80vh] overflow-y-auto">
                 {notifications.length > 0 ? (
                     notifications.map((notification) => (

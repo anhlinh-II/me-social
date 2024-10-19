@@ -3,10 +3,11 @@ import { useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import queryString from 'query-string';
 import { IoClose } from 'react-icons/io5';
-import UserChatCard from '../../user/UserChatCard';
-import InfoBar from '../InfoBar/InfoBar';
-import Messages from '../Messages/Messages';
-import Input from '../Input/Input';
+import UserChatCard from '../user/UserChatCard';
+import InfoBar from './InfoBar';
+import Messages from './Messages';
+import Input from './Input';
+import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 
 const ENDPOINT = 'http://localhost:8080/';
 let socket: any;
@@ -92,10 +93,13 @@ const Chat: React.FC<ChatProps> = ({ chats }) => {
 			{showChatList ? (
 				<div className="flex flex-col absolute top-[72px] right-[2%] z-10 justify-start h-[85vh] w-[360px] bg-white rounded-lg">
 					{/* Tiêu đề đoạn chat */}
-					<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Đoạn chat</p>
-
+					<div className='flex  justify-between items-center pe-4'>
+						<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Đoạn chat</p>
+						<div className={`w-[32px] h-[32px] hover:bg-[#F3F4F6] rounded-full flex items-center justify-center`}>
+							<PiDotsThreeOutlineFill style={{ fontSize: "22px", color: "black", cursor: "pointer" }}/>
+						</div>
+					</div>
 					{/* Danh sách các đoạn chat */}
-
 					<ul className="items-center justify-center overflow-y-auto">
 						{chats.length > 0 ? (
 							chats.map((chat) => (
@@ -116,8 +120,6 @@ const Chat: React.FC<ChatProps> = ({ chats }) => {
 							<li className="p-2 text-center">Không có tin nhắn</li>
 						)}
 					</ul>
-
-
 				</div>
 			) : null}
 			{selectedChat && (
