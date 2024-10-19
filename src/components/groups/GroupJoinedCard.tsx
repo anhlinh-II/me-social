@@ -21,7 +21,7 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
             <div className='flex flex-row'>
                 <div className="p-4 ps-4 pe-0">
                     <button className="bg-blue-100 text-blue-500 px-4 ps-10 pe-10 py-2 rounded-md hover:bg-blue-200">
-                        <Link to={`/groups/groupName`}>
+                        <Link to={`/groups/groupName/discussion`}>
                             Xem nhóm
                         </Link>
                     </button>

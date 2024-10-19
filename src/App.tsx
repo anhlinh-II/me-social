@@ -71,7 +71,7 @@ function App() {
           children: [
             {
               element: <GroupActivity />,
-              path: "recentlyActivity"
+              path: "feed"
             },
             {
               element: <GroupJoined />,

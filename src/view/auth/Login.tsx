@@ -38,7 +38,7 @@ const Login = () => {
                     if (res.data.result.access_token) {
                          localStorage.setItem('access_token', res.data.result.access_token);  // Only set if access_token exists
                     }
-                    dispatch(setUserLoginInfo(res.));  // Use 'result.user'
+                    dispatch(setUserLoginInfo(res.data.result));  // Use 'result.user'
                     message.success('Đăng nhập tài khoản thành công!');
                     window.location.href = callback ? callback : '/';
                } else {

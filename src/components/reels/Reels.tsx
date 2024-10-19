@@ -16,7 +16,7 @@ const Reels = () => {
                          setIsFullSideBar={setIsReel}
                     />
                </div>
-               <div className="ml-auto mt-[20px] h-[650px] border-2 border-sky-600 border-dashed w-[75%]">
+               <div className="ml-auto h-[100vh] w-[78%]">
                     <ListVideos />
                </div>
           </div>

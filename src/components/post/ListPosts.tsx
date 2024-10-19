@@ -13,47 +13,49 @@ import PostDetailModal from "../modal/Post.detail.modal";
 import More from "../modal/More";
 
 const ListPosts = () => {
-
-     const [posts, setPosts] = useState<IPost[]>([
-          {
-               username: "Ahn Linhh",
-               avatar: avt,
-               postStatus: "public",
-               likes: 999,
-               description: "Hôm nay đưa em bé nhà tôi đi chơi ở đường Phan Đình Phùng, chụp ảnh cho bé đăng bài sống ảo tí hihi",
-               totalComments: 120,
-               time: 2,
-               isLiked: true,
-               isFavourited: true,
-               image: jisoo,
-          },
-          {
-               username: "Thùy Vân",
-               avatar: avt,
-               postStatus: "friends",
-               likes: 10000000,
-               description: "Chả hiểu sao nói đùa mà nó cũng phi xe từ Hà Nội lên tận Hạ Long luôn ạ",
-               totalComments: 200,
-               time: 6,
-               isLiked: true,
-               isFavourited: true,
-               image: jisoo
-          },
-          {
-               username: "Khánh Linh",
-               avatar: avt,
-               postStatus: "private",
-               likes: 47,
-               description: "Healing sau quãng thời gian chạy đua với deadline nhừ người hahahahahaha",
-               totalComments: 12,
-               time: 18,
-               isLiked: undefined,
-               isFavourited: true,
-               image: "https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg"
-          }
-     ])
-     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
-     const [showMore, setShowMore] = useState<boolean>(false);
+	const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+	const [showMore, setShowMore] = useState<boolean>(false);
+	const [posts, setPosts] = useState<IPost[]>([
+		{
+			username: "Ahn Linhh",
+			avatar: avt,
+			postStatus: "public",
+			likes: 999,
+			description: "Hôm nay đưa em bé nhà tôi đi chơi ở đường Phan Đình Phùng, chụp ảnh cho bé đăng bài sống ảo tí hihi",
+			totalComments: 120,
+			time: 2,
+			isLiked: true,
+			isFavourited: true,
+			image: jisoo,
+			imageError: false
+		},
+		{
+			username: "Thùy Vân",
+			avatar: avt,
+			postStatus: "friends",
+			likes: 10000000,
+			description: "Chả hiểu sao nói đùa mà nó cũng phi xe từ Hà Nội lên tận Hạ Long luôn ạ",
+			totalComments: 200,
+			time: 6,
+			isLiked: true,
+			isFavourited: true,
+			image: jisoo,
+			imageError: false
+		},
+		{
+			username: "Khánh Linh",
+			avatar: avt,
+			postStatus: "private",
+			likes: 47,
+			description: "Healing sau quãng thời gian chạy đua với deadline nhừ người hahahahahaha",
+			totalComments: 12,
+			time: 18,
+			isLiked: undefined,
+			isFavourited: true,
+			image: "https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg",
+			imageError: false
+		}
+	])
 
 	interface IPost {
 
@@ -67,6 +69,7 @@ const ListPosts = () => {
 		isLiked: boolean | undefined;
 		isFavourited: boolean | undefined;
 		image: string;
+		imageError: boolean;
 	}
 
 	const handleLikeBtn = (index: number) => {
@@ -84,6 +87,14 @@ const ListPosts = () => {
 			})
 		)
 	}
+
+	const handleImageError = (index: number) => {
+		setPosts(prevPosts =>
+			prevPosts.map((post, i) =>
+				i === index ? { ...post, imageError: true } : post
+			)
+		);
+	};
 
 	return (
 		<>
@@ -108,34 +119,44 @@ const ListPosts = () => {
 										</div>
 										<span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
 									</div>
-
-									<img
-										src={item.image}
-										className="w-[100%] rounded h-auto cursor-pointer"
-										alt="error"
-										onClick={() => setShowDetailModal(true)}
-									/>
+									{item.imageError ? (
+										<div className="flex justify-center items-center w-full h-64 bg-gray-200">
+											<div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
+										</div>
+									) : (
+										<img
+											src={item.image}
+											className="w-[100%] rounded h-auto cursor-pointer"
+											alt="Post"
+											onError={() => handleImageError(index)}
+											onClick={() => setShowDetailModal(true)}
+										/>
+									)}
 									<div className="flex flex-col p-3">
 										<div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
-											<div className="flex gap-4 font-bold text-lg">
-												<div
+											<div className="flex gap-1 font-bold text-2xl">
+												<button
 													onClick={() => handleLikeBtn(index)}
-													className={item.isLiked ? "" : "hover:text-gray-600"}
+													className={item.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
 												>
 													{item.isLiked ? <FaHeart /> : <FaRegHeart />}
-												</div>
-												<FaRegComment className="hover:text-gray-600" />
-												<FaRegPaperPlane className="hover:text-gray-600" />
+												</button>
+												<button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
+													<FaRegComment />
+												</button>
+												<button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center pe-1`}>
+													<FaRegPaperPlane />
+												</button>
 											</div>
-											<div
+											<button
 												onClick={() => handleFavouriteBtn(index)}
-												className={item.isFavourited ? "" : "hover:text-gray-600"}
+												className={item.isFavourited ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
 											>
 												{item.isFavourited ? <FaBookmark /> : <BsBookmark />}
-											</div>
+											</button>
 										</div>
 										<span className="font-medium text-sky-800">{item.likes} likes</span>
-										<div className="w-[100%]">
+										<div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
 											<span className="font-bold text-sky-700">{item.username}</span>
 											<ShowMoreText
 												/* Default options */
@@ -154,9 +175,15 @@ const ListPosts = () => {
 												className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
 												onClick={() => setShowDetailModal(true)}
 											>
-												view all 3 comments
+												View all 3 comments
 											</span>
-											<input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
+											<div className='flex flex-row mt-2'>
+												<img src={item.avatar}
+													className="rounded-[100%] h-10 w-10 me-2"
+													alt="error"
+												/>
+												<input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -169,10 +196,13 @@ const ListPosts = () => {
 				<div className="px-4 py-2 bg-sky-400 w-[100px] justify-center text-center rounded-full flex items-center gap-2 cursor-pointer hover:bg-sky-600 hover:text-white transition duration-150"><IoReload className="text-2xl font-bold" /><span>Refresh</span></div>
 				<More show={showMore} setShow={setShowMore} />
 			</div>
-			<PostDetailModal
-				show={showDetailModal}
-				setShow={setShowDetailModal}
-			/>
+			<div className="relative">
+				<PostDetailModal
+					show={showDetailModal}
+					setShow={setShowDetailModal}
+				/>
+			</div>
+
 		</>
 	)
 }

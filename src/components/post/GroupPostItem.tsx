@@ -29,18 +29,26 @@ interface PostItemProps {
     handleFavouriteBtn: (index: number) => void;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
+const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
+    const [imageError, setImageError] = useState<boolean>(false);
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
     return (
         <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
             <div className="flex justify-start items-center px-4 py-4 gap-2">
-                <img src={post.avatar}
+                <img
+                    src={post.avatar}
                     className="rounded-[100%] h-10 w-10 mt-1"
                     alt="error"
+                    onError={handleImageError}
                 />
                 <div className="ml-2">
                     <h4 className='font-bold text-black-500 hover:underline'>
-                        <Link to={`/groups/groupName`}>
+                        <Link to={`/groups/groupName/discussion`}>
                             {post.groupName}
                         </Link>
                     </h4>
@@ -57,29 +65,41 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                 <span className="ml-auto cursor-pointer p-1 hover:bg-sky-200 duration-300 transition rounded" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
-            <img
-                src={post.image}
-                className="w-[100%] h-auto"
-                alt="error"
-            />
+            {imageError ? (
+                <div className="flex justify-center items-center w-full h-64 bg-gray-200">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
+                </div>
+            ) : (
+                <img
+                    src={post.image}
+                    className="w-[100%] h-auto"
+                    alt="error"
+                    onError={handleImageError}
+                />
+            )}
+
             <div className="flex flex-col p-3">
-                <div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
-                    <div className="flex gap-4 font-bold text-lg">
-                        <div
+                <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
+                    <div className="flex gap-1 font-bold text-2xl">
+                        <button
                             onClick={() => handleLikeBtn(index)}
-                            className={post.isLiked ? "" : "hover:text-gray-600"}
+                            className={post.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
                         >
                             {post.isLiked ? <FaHeart /> : <FaRegHeart />}
-                        </div>
-                        <FaRegComment className="hover:text-gray-600" />
-                        <FaRegPaperPlane className="hover:text-gray-600" />
+                        </button>
+                        <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
+                            <FaRegComment />
+                        </button>
+                        <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center pe-1`}>
+                            <FaRegPaperPlane />
+                        </button>
                     </div>
-                    <div
+                    <button
                         onClick={() => handleFavouriteBtn(index)}
-                        className={post.isFavourited ? "" : "hover:text-gray-600"}
+                        className={post.isFavourited ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
                     >
                         {post.isFavourited ? <FaBookmark /> : <BsBookmark />}
-                    </div>
+                    </button>
                 </div>
                 <span className="font-medium text-sky-800">{post.likes} likes</span>
                 <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
@@ -100,6 +120,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
                         <img src={post.avatar}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
+                            onError={handleImageError}
                         />
                         <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                     </div>
@@ -110,4 +131,6 @@ const PostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleF
     );
 };
 
-export default PostItem;
+
+
+export default GroupPostItem;

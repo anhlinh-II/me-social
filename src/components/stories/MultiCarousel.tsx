@@ -60,7 +60,7 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 4,
     adaptiveHeight: true,
     prevArrow: <CustomPrevArrow />,
@@ -95,8 +95,8 @@ const MultiCarousel: React.FC<MultiCarouselProps> = ({ items }) => {
       <Slider {...settings}>
         {items.map((item, index) => {
           return (
-            <div key={index} className="p-2">
-              <div className="bg-white p-4 rounded-lg shadow-lg">
+            <div key={index} className="p-1">
+              <div className="bg-white p-4 rounded-lg border">
                 {item}
               </div>
             </div>

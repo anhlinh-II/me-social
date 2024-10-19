@@ -166,7 +166,7 @@ const ListVideos = () => {
 	const currentVideo = fakeReelsData[currentVideoIndex]; // Get the current video
 
 	return (
-		<div className='w-full mx-auto relative flex-1 flex justify-center items-center bg-black'>
+		<div className='w-full h-full mx-auto relative flex-1 flex justify-center items-center bg-black'>
 			<div className="relative w-full h-full flex items-center justify-center border border-black rounded-xl z-5">
 				{/* Video Navigation Buttons */}
 				<button
@@ -191,7 +191,7 @@ const ListVideos = () => {
 				</button>
 
 				{/* Main video */}
-				<div className="w-[360px] h-[650px] cursor-pointer relative bg-[#18191A]"
+				<div className="w-[360px] h-[670px] cursor-pointer rounded-lg relative bg-[#18191A]"
 					onMouseEnter={() => setShowPlayButton(true)}
 					onMouseLeave={() => setShowPlayButton(false)}>
 					<video
