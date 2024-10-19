@@ -21,9 +21,9 @@ const formatTime = (createdAt: string): string => {
 const NotifyCard: React.FC<NotifyCardProps> = ({ avatar, content, createdAt }) => {
     return (
         <div className="flex items-start p-4 border-b">
-            <img className="w-12 h-12 rounded-full object-cover" src={avatar} alt="Avatar" />
+            <img className="w-16 h-16 rounded-full object-cover" src={avatar} alt="Avatar" />
             <div className="ml-4">
-                <p className="text-sm text-gray-800">{content}</p>
+                <p className="text-md text-gray-800">{content}</p>
                 <p className="text-xs text-gray-500">{formatTime(createdAt)}</p>
             </div>
         </div>

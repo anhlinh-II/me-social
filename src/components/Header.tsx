@@ -7,7 +7,7 @@ import { IoHomeOutline, IoPersonAddOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
-import { BsMoon } from "react-icons/bs";
+import { BsSun } from "react-icons/bs";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
 import NotificationDropdown from "./Notification";
@@ -39,7 +39,8 @@ const Header = () => {
         }
     };
 
-    const [activeButton, setActiveButton] = useState<'chat' | 'moon' | 'notification' | null>(null);
+    const [activeButton, setActiveButton] = useState<'chat' | 'notification' | null>(null);
+	const [activeTheme, setActiveTheme] = useState<'Moon' | 'Sun' | null>(null);
 
     const handleToggle = (button: 'chat' | 'notification') => {
         if (activeButton === button) {
@@ -55,8 +56,17 @@ const Header = () => {
         }
     };
 
-	const handleToggleMoon = (button: 'moon') => {
-		setActiveButton(activeButton === button ? null : button);
+	const handleToggleMoon = (button: 'Moon' | 'Sun') => {
+		if (activeTheme === button) {
+            setActiveTheme(null);
+            return; 
+        }
+
+        if (button === 'Moon') {
+            setActiveTheme('Moon');
+        } else if (button === 'Sun') {
+            setActiveTheme('Sun');
+        }
 	};
 
 	
@@ -146,39 +156,39 @@ const Header = () => {
 
 					<div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex gap-4 justify-center align-center">
 						<button
-							className={`w-[40px] h-[40px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('chat')
 								toggleChats()
 							}}
 						>
 							{activeButton === 'chat' ? (
-								<PiChatCircleDotsFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+								<PiChatCircleDotsFill style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
 							) : (
-								<PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+								<PiChatCircle style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
-							className={`w-[40px] h-[40px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'moon' ? 'bg-[#0EA5E9]' : ''}`}
-							onClick={() => handleToggleMoon('moon')}
+							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeTheme === 'Moon' ? 'bg-[#0EA5E9]' : ''}`}
+							onClick={() => handleToggleMoon('Moon')}
 						>
-							{activeButton === 'moon' ? (
-								<FaMoon style={{ fontSize: "22px", color: "white", cursor: "pointer" }} />
+							{activeTheme === 'Moon' ? (
+								<FaMoon style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
 							) : (
-								<BsMoon style={{ fontSize: "22px", color: "white", cursor: "pointer" }} />
+								<BsSun style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
-							className={`relative w-[40px] h-[40px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`relative w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('notification')
 								toggleNotifications()
 							}}
 						>
 							{activeButton === 'notification' ? (
-								<FaBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+								<FaBell style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
 							) : (
-								<GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
+								<GoBell style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button

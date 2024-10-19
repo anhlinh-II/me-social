@@ -134,22 +134,26 @@ const ListPosts = () => {
 									)}
 									<div className="flex flex-col p-3">
 										<div className="flex justify-between  cursor-pointer text-sky-600 mb-2">
-											<div className="flex gap-4 font-bold text-lg">
-												<div
+											<div className="flex gap-1 font-bold text-2xl">
+												<button
 													onClick={() => handleLikeBtn(index)}
-													className={item.isLiked ? "" : "hover:text-gray-600"}
+													className={item.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
 												>
 													{item.isLiked ? <FaHeart /> : <FaRegHeart />}
-												</div>
-												<FaRegComment className="hover:text-gray-600" />
-												<FaRegPaperPlane className="hover:text-gray-600" />
+												</button>
+												<button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
+													<FaRegComment />
+												</button>
+												<button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center pe-1`}>
+													<FaRegPaperPlane />
+												</button>
 											</div>
-											<div
+											<button
 												onClick={() => handleFavouriteBtn(index)}
-												className={item.isFavourited ? "" : "hover:text-gray-600"}
+												className={item.isFavourited ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
 											>
 												{item.isFavourited ? <FaBookmark /> : <BsBookmark />}
-											</div>
+											</button>
 										</div>
 										<span className="font-medium text-sky-800">{item.likes} likes</span>
 										<div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
@@ -171,7 +175,7 @@ const ListPosts = () => {
 												className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
 												onClick={() => setShowDetailModal(true)}
 											>
-												view all 3 comments
+												View all 3 comments
 											</span>
 											<div className='flex flex-row mt-2'>
 												<img src={item.avatar}
