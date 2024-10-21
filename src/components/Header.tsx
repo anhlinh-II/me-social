@@ -71,9 +71,9 @@ const Header = () => {
 	
 	return (
 		<>
-			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0 shadow-md">
+			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0">
 				<nav
-					className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8"
+					className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8 shadow-2xl"
 					aria-label="Global"
 				>
 					<div className="flex w-[20%] lg:flex-1">

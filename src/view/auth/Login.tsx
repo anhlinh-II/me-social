@@ -1,15 +1,74 @@
-import { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Button, Divider, Form, Input, message, notification } from 'antd';
+import { useEffect, useState } from 'react';
 import { TbBrandReact } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { callLogin } from '../../config/api';
+import { setUserLoginInfo } from '../../redux/slice/accountSlice';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../redux/hook';
 
 const Login = () => {
 
-     const [showEye, setShowEye] = useState<boolean>(false);
+     const navigate = useNavigate();
+     const [isSubmit, setIsSubmit] = useState(false);
+     const dispatch = useDispatch();
+     const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+
+     let location = useLocation();
+     let params = new URLSearchParams(location.search);
+     const callback = params?.get("callback");
+
+     useEffect(() => {
+          //đã login => redirect to '/'
+          if (isAuthenticated) {
+               // navigate('/');
+               window.location.href = '/';
+          }
+     }, [])
+
+     const onFinish = async (values: any) => {
+          const { username, password } = values;
+          setIsSubmit(true);
+
+          try {
+               const res = await callLogin(username, password);
+               setIsSubmit(false);
+
+               if (res?.data?.result) {  // Use 'result' from the IApiResponse
+                    if (res.data.result.access_token) {
+                         localStorage.setItem('access_token', res.data.result.access_token);  // Only set if access_token exists
+                    }
+                    dispatch(setUserLoginInfo(res.data.result));  // Use 'result.user'
+                    message.success('Đăng nhập tài khoản thành công!');
+                    window.location.href = callback ? callback : '/';
+               } else {
+                    notification.error({
+                         message: "Có lỗi xảy ra",
+                         description: res?.data?.message ?? "Unknown error",  // Optional chaining for 'message'
+                         duration: 5,
+                    });
+               }
+          } catch (error) {
+               setIsSubmit(false);
+               // Handle different possible error types (like Axios errors)
+               // const errorMessage =
+               //      error?.response?.data?.message ??  // Axios-specific error
+               //      error?.message ??  // General JS error
+               //      "An unknown error occurred";  // Fallback message
+
+               notification.error({
+                    message: "Login Error",
+                    description: "Error",
+                    duration: 5,
+               });
+          }
+     };
+
+
 
      return (
           <div className="flex justify-center items-center h-screen">
-               <div className="h-[550px] w-[500px] rounded border-2 shadow-gray-800 p-6">
+               <div className="h-[550px] w-[450px] rounded border-2 shadow-gray-800 p-6">
                     <div className="mb-6">
                          <div className='flex justify-start items-center gap-2 text-xl text-sky-600 font-bold pb-2'>
                               <TbBrandReact className='text-sky-600 text-xl' />
@@ -17,53 +76,45 @@ const Login = () => {
                          </div>
                          <p className='text-3xl font-semibold'>Sign In</p>
                     </div>
-                    <form>
-                         <div className="mb-4">
-                              <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
-                              <input
-                                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-600 focus:border-2"
-                                   type="email"
-                                   id="email"
-                                   placeholder="Enter your email, username or phone number"
-                                   required
-                              />
-                         </div>
+                    <Form
+                         name="basic"
+                         onFinish={onFinish}
+                         autoComplete="off"
+                    >
+                         <Form.Item
+                              className="mb-4"
+                              labelCol={{ span: 24 }} //whole column
+                              label="Email"
+                              name="username"
+                              rules={[{ required: true, message: 'This field must be filled!' }]}
+                         >
+                              <Input className='py-2' placeholder='Enter your email, username or phone number' />
+                         </Form.Item>
 
-                         <div className="relative mb-6">
-                              <label className="block text-gray-700 mb-2" htmlFor="password">Password</label>
-                              <input
-                                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-600 focus:border-2"
-                                   type={showEye ? "text" : "password"}
-                                   id="password"
-                                   placeholder="Enter your password"
-                                   required
-                              >
-
-                              </input>
-                              <div
-                                   className='absolute right-4 top-11 cursor-pointer hover:text-sky-600'
-                                   onClick={() => setShowEye(!showEye)}
-                              >
-                                   {showEye ? <FaEyeSlash /> : <FaEye />}
-                                   
-                              </div>
-                         </div>
+                         <Form.Item
+                              labelCol={{ span: 24 }} //whole column
+                              label="Password"
+                              name="password"
+                              rules={[{ required: true, message: 'Password must be filled!' }]}
+                              className="relative mb-6"
+                         >
+                              <Input.Password className='py-2' placeholder='Enter your password' />
+                         </Form.Item>
 
                          <p className='flex justify-center mb-8 hover:text-sky-600 cursor-pointer'>Forgot your password?</p>
 
-                         <button
-                              type="submit"
-                              className="w-full bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700 transition duration-300"
-                         >
-                              Sign In
-                         </button>
-
+                         <Form.Item>
+                              <Button className="w-full bg-sky-600 text-white py-5 rounded-md hover:bg-sky-700 transition duration-300" type="primary" htmlType="submit" loading={isSubmit}>
+                                   Đăng nhập
+                              </Button>
+                         </Form.Item>
+                         <Divider>Or</Divider>
                          <p className='flex justify-center mt-6'>Don't have an account? &nbsp;
                               <Link to={'/register'}>
                                    <span className='underline cursor-pointer'>Sign Up</span>
                               </Link>
                          </p>
-                    </form>
+                    </Form>
                </div>
           </div>
      )
