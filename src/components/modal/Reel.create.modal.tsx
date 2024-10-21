@@ -3,6 +3,9 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas, FaLock } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import Select, { components, SingleValueProps } from 'react-select';
+import { uploadVideo } from "../../services/Entities/VideoService";
+import { ReelRequest } from "../../services/Types/Reel";
+import { createReel } from "../../services/Entities/ReelService";
 
 interface IProps {
      show: boolean;
@@ -83,11 +86,35 @@ const CreateReelModal = (props: IProps) => {
           }
      };
 
-     const handleSaveFile = () => {
-          setOpenEditPanel(false);
-          setShow(false);
-          setReel("");
-     }
+     const handleSaveFile = async () => {
+          if (inputFile.current && inputFile.current.files && inputFile.current.files[0]) {
+              try {
+                  // Upload video lên Cloudinary
+                  const uploadedData = await uploadVideo(inputFile.current.files[0]);
+                  console.log(uploadedData);
+                  console.log('Uploaded video URL:', uploadedData.secure_url);
+      
+                  // Tạo request để lưu vào database
+                  const reelRequest: ReelRequest = {
+                      userId: 3,
+                      url: uploadedData.secure_url,
+                      content: "Upload video testing", 
+                  };
+      
+                  // Gọi service để lưu reel vào database
+                  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
+                  const reelResponse = await createReel(reelRequest, token);
+                  console.log('Reel saved:', reelResponse);
+      
+                  // Đóng modal và reset trạng thái
+                  setOpenEditPanel(false);
+                  setShow(false);
+                  setReel("");
+              } catch (error) {
+                  console.error('Error during file upload or reel save:', error);
+              }
+          }
+      };      
 
      const handleClose = () => {
           setOpenEditPanel(false);
