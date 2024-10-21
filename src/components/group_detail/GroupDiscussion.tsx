@@ -1,67 +1,75 @@
 import { IoReload } from "react-icons/io5"
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GroupPostItem from "../post/GroupPostItem"
+import { getPostsByGroup } from "../../services/Entities/PostService"
+import { Post, PostResponse } from "../../services/Types/Post"
+import ListPosts from "../post/ListPosts"
 
 const GroupDiscussion = () => {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
+    const groupId = 6;
 
-    interface IPost {
-        username: string;
-        avatar: string;
-        groupName: string;
-        postStatus: string;
-        likes: number;
-        description: string;
-        totalComments: number;
-        time: number;
-        isLiked: boolean | undefined;
-        isFavourited: boolean | undefined;
-        image: string;
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
+                // localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('No token found');
+                }
+
+                const data = await getPostsByGroup(groupId, 0, token);
+                const transformedPosts: Post[] = data.result.content.map((item: PostResponse) => {
+
+                    const createdAtDate = new Date(item.createdAt);
+                    const now = new Date();
+                    const timeDifference = Math.floor((now.getTime() - createdAtDate.getTime()) / (1000 * 60 * 60));
+
+                    return {
+                        id: item.id,
+                        userId: item.userId,
+                        userFullName: item.userFullName,
+                        avatar: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
+                        groupId: item.groupId,
+                        groupName: item.groupName,
+                        content: item.content,
+                        privacy: item.privacy,
+                        createdAt: item.createdAt,
+                        updatedAt: item.updatedAt,
+                        likeNum: item.likeNum,
+                        commentNum: item.commentNum,
+                        time: timeDifference,
+                        isLiked: false,
+                        isFavourited: false,
+                        image: "https://bizweb.dktcdn.net/100/370/339/products/z4529778288710-9a538b8bcac451561af81cd240d963a1.jpg?v=1689758099500",
+                        imageError: false
+                    }
+                });
+
+                setPosts(transformedPosts);
+                setLoading(false);
+            } catch (err: any) {
+                setError(err.message || 'Something went wrong');
+                setLoading(false);
+            }
+        };
+
+        fetchPosts();
+    }, [groupId]);
+    
+    if (loading) {
+        return <></>;
     }
 
-    const [posts, setPosts] = useState<IPost[]>([
-        {
-            username: "Cristiano Ronaldo",
-            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s",
-            groupName: "GOAT Football Player",
-            postStatus: "public",
-            likes: 977797779,
-            description: "The First to have 5 Champions Leagues!",
-            totalComments: 1945277,
-            time: 2,
-            isLiked: true,
-            isFavourited: true,
-            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-        },
-        {
-            username: "Lionel Messi",
-            avatar: "https://images.mykhel.com/img/2024/07/lionel-messi-crying1-1721013787.jpg",
-            groupName: "FIFA Favorite Son",
-            postStatus: "friends",
-            likes: 120865050,
-            description: "Congratulations on your victorius!",
-            totalComments: 782777,
-            time: 6,
-            isLiked: true,
-            isFavourited: true,
-            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg"
-        },
-        {
-            username: "Neymar",
-            avatar: "https://tmssl.akamaized.net//images/foto/galerie/neymar-brazil-2023-1694521247-116480.jpg?lm=1694521259",
-            groupName: "Party All Life",
-            postStatus: "private",
-            likes: 44956056,
-            description: "GOAT GOAT GOAT",
-            totalComments: 124895,
-            time: 18,
-            isLiked: undefined,
-            isFavourited: true,
-            image: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg"
-        }
-    ]);
+    if (error) {
+        return <></>;
+    }
+    
 
     const handleLikeBtn = (index: number) => {
         setPosts(prevPosts =>
@@ -96,6 +104,7 @@ const GroupDiscussion = () => {
                                 />
                             ))}
                         </div>
+                        <ListPosts />
                     </div>
                     <GroupOverview />
                 </div>

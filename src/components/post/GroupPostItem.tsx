@@ -7,23 +7,10 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
 import More from '../modal/More';
-
-interface IPost {
-    username: string;
-    avatar: string;
-    groupName: string;
-    postStatus: string;
-    likes: number;
-    description: string;
-    totalComments: number;
-    time: number;
-    isLiked: boolean | undefined;
-    isFavourited: boolean | undefined;
-    image: string;
-}
+import { Post } from '../../services/Types/Post';
 
 interface PostItemProps {
-    post: IPost;
+    post: Post;
     index: number;
     handleLikeBtn: (index: number) => void;
     handleFavouriteBtn: (index: number) => void;
@@ -55,14 +42,14 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                     <div className="flex gap-2 justify-start items-center">
                         <span className="text-sm font-bold text-gray-500 hover:underline">
                             <Link to={`/profile`}>
-                                {post.username}
+                                {post.userFullName}
                             </Link>
                         </span>
                         <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{post.time}h <GoDotFill className="text-[10px]" /></span>
-                        <span>{post.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                        <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>
                 </div>
-                <div className='ml-auto satisfy-regular me-social decoration-sky-600'>Me Social</div>
+                <div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
                 <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
@@ -102,9 +89,9 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         {post.isFavourited ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
-                <span className="font-medium text-sky-800">{post.likes} likes</span>
+                <span className="font-medium text-sky-800">{post.likeNum} likes</span>
                 <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
-                    <span className="font-bold text-sky-700">{post.username}</span>
+                    <span className="font-bold text-sky-700">{post.userFullName}</span>
                     <ShowMoreText
                         lines={1}
                         more="more"
@@ -114,7 +101,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         expanded={false}
                         truncatedEndingComponent={"..."}
                     >
-                        {post.description}
+                        {post.content}
                     </ShowMoreText>
                     <span className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">view all 3 comments</span>
                     <div className='flex flex-row mt-2'>

@@ -6,6 +6,7 @@ const SuggestFriends = () => {
 
      const users = [
           {
+               id: 1,
                name: 'Alice Johnson',
                avatar: 'https://randomuser.me/api/portraits/women/45.jpg',
                description: 'Graphic Designer',
@@ -14,6 +15,7 @@ const SuggestFriends = () => {
                joinedSince: 'June 2018'
           },
           {
+               id: 2,
                name: 'Mark Stevenson',
                avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
                description: 'Full-Stack Developer',
@@ -22,6 +24,7 @@ const SuggestFriends = () => {
                joinedSince: 'March 2019'
           },
           {
+               id: 3,
                name: 'Clara Rodriguez',
                avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
                description: 'Marketing Specialist',
@@ -30,6 +33,7 @@ const SuggestFriends = () => {
                joinedSince: 'January 2020'
           },
           {
+               id: 4,
                name: 'David Kim',
                avatar: 'https://randomuser.me/api/portraits/men/34.jpg',
                description: 'Software Engineer',
@@ -38,6 +42,7 @@ const SuggestFriends = () => {
                joinedSince: 'October 2017'
           },
           {
+               id: 5,
                name: 'Emma Wong',
                avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
                description: 'Data Analyst',
@@ -46,6 +51,7 @@ const SuggestFriends = () => {
                joinedSince: 'April 2019'
           },
           {
+               id: 6,
                name: 'Liam O\'Brien',
                avatar: 'https://randomuser.me/api/portraits/men/15.jpg',
                description: 'Project Manager',
@@ -54,6 +60,7 @@ const SuggestFriends = () => {
                joinedSince: 'August 2020'
           },
           {
+               id: 7,
                name: 'Sophia Garcia',
                avatar: 'https://randomuser.me/api/portraits/women/27.jpg',
                description: 'UX/UI Designer',
@@ -62,6 +69,7 @@ const SuggestFriends = () => {
                joinedSince: 'May 2018'
           },
           {
+               id: 8,
                name: 'James Patel',
                avatar: 'https://randomuser.me/api/portraits/men/9.jpg',
                description: 'Cloud Architect',
@@ -126,9 +134,10 @@ const SuggestFriends = () => {
                          <span className="text-gray-600">Contacts</span>
                     </div>
                     <div className="flex flex-col w-full items-start">
-                         {users.map((user, index) => (
+                         {users.map((user) => (
                               <UserSimpleCard
-                                   userId={index}
+                                   key={user.id}
+                                   userId={user.id}
                                    userFullName={user.name}
                                    avatarUrl={user.avatar}
                               />

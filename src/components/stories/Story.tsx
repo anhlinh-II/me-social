@@ -95,9 +95,8 @@ const Story = () => {
 	const carouselUsers = [
 		(
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
-				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 2 } })}>
-				{/* Placeholder for the 'Create New Story' item */}
-				<div className="create-story flex flex-col items-center bg-gray-500">
+				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 0 } })}>
+				<div className="create-story flex flex-col items-center bg-gray-400">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
 					<h5 className="text-white font-semibold w-full text-center mt-1">Tạo Tin</h5>

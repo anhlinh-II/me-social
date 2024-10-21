@@ -6,9 +6,9 @@ interface UserSimpleCardProps {
 	avatarUrl: string;
 }
 
-const UserSimpleCard: React.FC<UserSimpleCardProps> = ({ userId, userFullName, avatarUrl }) => {
+const UserSimpleCard: React.FC<UserSimpleCardProps> = ({ userFullName, avatarUrl }) => {
 	return (
-		<div key={userId} className="flex w-full p-1 justify-between overflow-hidden rounded-lg cursor-pointer hover:bg-[#E7E7E7]">
+		<div className="flex w-full p-1 justify-between overflow-hidden rounded-lg cursor-pointer hover:bg-[#E7E7E7]">
 			<div className="flex items-center relative w-full gap-4 py-1">
 				<img
 					className="w-10 h-10 rounded-full object-cover"

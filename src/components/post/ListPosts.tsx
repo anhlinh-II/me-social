@@ -117,7 +117,7 @@ const ListPosts = () => {
 												<span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
 											</div>
 										</div>
-										<div className='ml-auto satisfy-regular me-social decoration-sky-600'>Me Social</div>
+										<div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
 										<span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
 									</div>
 									{item.imageError ? (

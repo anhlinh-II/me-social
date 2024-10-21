@@ -24,7 +24,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NDA5MTg1LCJpYXQiOjE3MjkzMjI3ODUsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.Ro0sBYAHG-Oz9zTWck6lFfza7Ms8cQcaQ4DFJ0U-lynF0m0NJDucFHdIg0Cg5J2jIxmmj4E0mCW49_ra5ApW2Q";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -71,11 +71,11 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
 
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <></>;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <></>;
     }
 
     const handleLikeBtn = (index: number) => {
@@ -137,7 +137,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 </div>
                             </div>
                         )}
-                        <div className='ml-auto satisfy-regular me-social decoration-sky-600'>Me Social</div>
+                        <div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
                         <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
                     </div>
                     {item.imageError ? (
