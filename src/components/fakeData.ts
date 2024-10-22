@@ -1,3 +1,5 @@
+import { ReelGridProps } from "./profile/ReelGrid";
+
 export const chats = [
     {
         id: 1,
@@ -223,3 +225,76 @@ const fakeGroups: GroupCardProps[] = [
 ];
 
 export default fakeGroups;
+
+// Fakedata for Reel and Comments
+
+export const fakeReel: ReelGridProps = {
+    reels: [
+      {
+        id: 1,
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", // video thật
+        posterUrl: "https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg", // poster thật
+        altText: "Big Buck Bunny Video",
+        content: "A funny animated short film by Blender Foundation",
+        likes: 102,
+        comments: [
+          {
+            id: 1,
+            username: "john_doe",
+            text: "This is hilarious!"
+          },
+          {
+            id: 2,
+            username: "jane_smith",
+            text: "Love the animation!"
+          }
+        ]
+      },
+      {
+        id: 2,
+        videoUrl: "https://www.w3schools.com/html/movie.mp4", // video thật
+        posterUrl: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg", // poster thật
+        altText: "Sample HTML5 Video",
+        content: "An HTML5 sample video showing different video formats.",
+        likes: 88,
+        comments: [
+          {
+            id: 1,
+            username: "alice_wonderland",
+            text: "Really cool technology demo."
+          },
+          {
+            id: 2,
+            username: "bob_marley",
+            text: "I learned something new today!"
+          }
+        ]
+      },
+      {
+        id: 3,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "https://img.youtube.com/vi/7H6DoCk5uCQ/maxresdefault.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
+        likes: 250,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      }
+    ]
+  };
+  

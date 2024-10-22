@@ -31,6 +31,7 @@ import GroupMembers from "./components/group_detail/GroupMembers";
 import GroupMedia from "./components/group_detail/GroupMedia";
 import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
+import PostGrid from "./components/profile/PostGrid";
 
 function App() {
   const router = createBrowserRouter([
@@ -90,7 +91,17 @@ function App() {
         },
         {
           path: '/profile',
-          element: <Profile />
+          element: <Profile />,
+          children: [
+            {
+              path: "reels",
+              element: <PostGrid posts={[]}/>
+            },
+            {
+              path: "stories",
+              element: <PostGrid posts={[]}/>
+            }
+          ]
         },
       ]
     },

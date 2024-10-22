@@ -1,7 +1,19 @@
 import ProfileInfo from "./ProfileInfo";
 import PostGrid from "./PostGrid";
+import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { BsGrid3X3GapFill } from "react-icons/bs";
+import { PiFilmReelFill } from "react-icons/pi";
+import { MdVideoLibrary } from "react-icons/md";
+import ReelGrid from "./ReelGrid";
+import StoryGrid from "./StoryGrid";
+import { fakeReel } from "../fakeData";
 
 const Profile = () => {
+	const location = useLocation();
+    const initialActive = location.pathname.includes("reels") ? "reels" : "posts";
+    const [active, setActive] = useState<string>(initialActive);
+	
 	const posts = [
 		{
 			id: 1,
@@ -69,24 +81,55 @@ const Profile = () => {
 			],
 		},
 	];
+	const reels = fakeReel.reels;
 
 	return (
 		<>
 			<div className="flex w-[78%] items-center justify-between mt-5 mb-[100px]">
 				<div id="detail" className="flex flex-col items-center justify-center">
-					<div>
-						<ProfileInfo
-							profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
-							username="Cristiano Ronaldo"
-							posts={3749}
-							likes={1639607594}
-							mutual_friends={777}
-							bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
-						/>
+					<ProfileInfo
+						profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
+						username="Cristiano Ronaldo"
+						posts={3749}
+						likes={1639607594}
+						mutual_friends={777}
+						bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
+					/>
+					<hr className='w-[80%] h-[1.5px] bg-gray-500 ms-[-6%] mt-5'></hr>
+					<div className="flex space-x-2">
+						<Link to={`/profile`} onClick={() => setActive("posts")}>
+							<button className={active === "posts" 
+								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
+								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
+									<BsGrid3X3GapFill />
+									Bài viết
+							</button>
+						</Link>
+
+						<Link to={`/profile/reels`} onClick={() => setActive("reels")}>
+							<button className={active === "reels" 
+								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
+								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
+									<MdVideoLibrary />
+									Reels
+							</button>
+						</Link>
+
+						<Link to={`/profile/stories`} onClick={() => setActive("stories")}>
+							<button className={active === "stories" 
+								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
+								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
+									<PiFilmReelFill />
+									Stories
+							</button>
+						</Link>
 					</div>
-					<hr className='w-[80%] h-[1.5px] bg-gray-500 ms-[-6%] mb-5 mt-5'></hr>
-					
+					{(active === "posts") ? 
 						<PostGrid posts={posts} />
+					: ((active === "reels") ? 
+							<ReelGrid reels={reels} />
+						: <StoryGrid stories={reels} />)
+					}
 					
 				</div>
 			</div>

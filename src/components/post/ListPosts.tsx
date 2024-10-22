@@ -100,7 +100,7 @@ const ListPosts = () => {
 		<>
 			<div className="flex justify-center items-center flex-col gap-5 w-full">
 				{/* list post */}
-				<div className=" w-full h-fit rounded flex flex-col gap-6">
+				<div className=" w-full h-fit rounded flex flex-col gap-4">
 					{
 						posts.map((item: IPost, index: number) => {
 							return (
