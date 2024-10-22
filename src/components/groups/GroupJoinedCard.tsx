@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BsThreeDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 interface GroupCardProps {
@@ -20,7 +21,7 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
             <span className='text-xs ms-4 text-gray-500'>Truy cập lần gần nhất 2 ngày trước</span>
             <div className='flex flex-row'>
                 <div className="p-4 ps-4 pe-0">
-                    <button className="bg-blue-100 text-blue-500 px-4 ps-10 pe-10 py-2 rounded-md hover:bg-blue-200">
+                    <button className="bg-blue-100 text-blue-500 px-16 py-2 rounded-md hover:bg-blue-200">
                         <Link to={`/groups/groupName/discussion`}>
                             Xem nhóm
                         </Link>
@@ -29,10 +30,10 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
                 <div className="p-4">
                     <div className="relative inline-block text-left">
                         <button
-                            className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-xl font-medium text-gray-700 hover:bg-gray-50"
                             onClick={toggleMenu}
                         >
-                            Menu
+                            <BsThreeDots />
                         </button>
                         {menuOpen && (
                             <div 

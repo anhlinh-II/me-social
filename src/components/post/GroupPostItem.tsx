@@ -8,6 +8,7 @@ import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
 import More from '../modal/More';
 import { Post } from '../../services/Types/Post';
+import GroupJoinedCard from '../groups/GroupJoinedCard';
 
 interface PostItemProps {
     post: Post;
@@ -19,26 +20,50 @@ interface PostItemProps {
 const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
+    const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
 
     const handleImageError = () => {
         setImageError(true);
     };
 
+    const handleMouseEnter = () => {
+        setShowGroupCard(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowGroupCard(false);
+    };
+
     return (
         <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
-            <div className="flex justify-start items-center px-4 py-4 gap-2">
-                <img
-                    src={post.avatar}
-                    className="border border-sky-600 rounded-[100%] h-12 w-12 mt-1 cursor-pointer"
-                    alt="error"
-                    onError={handleImageError}
-                />
+            <div className="flex relative justify-start items-center px-3 py-3 gap-2">
+                <Link to={`/groups/groupName/discussion`}>
+                    <img
+                        src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
+                        className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
+                        alt="error"
+                        onError={handleImageError}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                    />
+                </Link>
+                <img className="absolute bottom-2 left-10 w-8 h-8 rounded-full object-cover cursor-pointer border" 
+                    src={post.avatar}/>
+                {showGroupCard && (
+                    <div className="absolute top-8 -left-20 z-10" 
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}>
+                        <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={post.groupName} />
+                    </div>
+                )}
                 <div className="ml-2">
-                    <h4 className='font-bold text-black-500 hover:underline'>
-                        <Link to={`/groups/groupName/discussion`}>
+                    <span className='font-bold text-lg text-black-500 hover:underline'>
+                        <Link to={`/groups/groupName/discussion`} 
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}>
                             {post.groupName}
                         </Link>
-                    </h4>
+                    </span>
                     <div className="flex gap-2 justify-start items-center">
                         <span className="text-sm font-bold text-gray-500 hover:underline">
                             <Link to={`/profile`}>

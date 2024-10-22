@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
 import { Post, PostResponse } from '../../services/Types/Post';
+import GroupJoinedCard from '../groups/GroupJoinedCard';
 
 
 const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -20,6 +21,16 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
 
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<boolean>(false);
+
+    const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
+
+    const handleMouseEnter = () => {
+        setShowGroupCard(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowGroupCard(false);
+    };
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -106,16 +117,44 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         <div className="w-full h-fit rounded flex flex-col gap-6">
             {posts.map((item: Post, index: number) => (
                 <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
-                    <div className="flex justify-start items-center px-4 py-4 gap-2">
-                        <img src={item.avatar}
-                            className="border border-sky-600 rounded-[100%] h-12 w-12 cursor-pointer"
-                            alt="error"
-                        />
+                    <div className="flex relative justify-start items-center px-3 py-3 gap-2">
+                        {item.groupId ? (
+                            <div>
+                                <Link to={`/groups/groupName/discussion`}>
+                                    <img
+                                        src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
+                                        className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
+                                        alt="error"
+                                        onError={() => handleImageError(index)}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                    />
+                                </Link>
+                                <img className="absolute bottom-2 left-10 w-8 h-8 rounded-full object-cover cursor-pointer border"
+                                    src={item.avatar} />
+                                {showGroupCard && (
+                                    <div className="absolute top-8 -left-20 z-10"
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}>
+                                            <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={item.groupName} />
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <>
+                                <img src={item.avatar}
+                                    className="border border-sky-600 rounded-[100%] h-12 w-12 object-cover cursor-pointer"
+                                    alt="error"
+                                />
+                            </>
+                        )}
                         {item.groupId ? (
                             <div className="ml-2">
-                                <h4 className='font-bold text-black-500 hover:underline'>
-                                    <Link to={`/groups/groupName/discussion`}>
-                                        {item.groupName}
+                                <h4 className='font-bold text-lg text-black-500 hover:underline'>
+                                    <Link to={`/groups/groupName/discussion`}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}>
+                                            {item.groupName}
                                     </Link>
                                 </h4>
                                 <div className="flex gap-2 justify-start items-center">

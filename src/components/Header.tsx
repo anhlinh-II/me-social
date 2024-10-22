@@ -1,5 +1,4 @@
 import logo from "../assets/react.svg";
-import { VscThreeBars } from "react-icons/vsc";
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
 import { PiChatCircle, PiChatCircleDotsFill } from "react-icons/pi";
@@ -73,7 +72,7 @@ const Header = () => {
 		<>
 			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0">
 				<nav
-					className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-8 shadow-2xl"
+					className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-10 shadow-lg"
 					aria-label="Global"
 				>
 					<div className="flex w-[20%] lg:flex-1">
@@ -102,21 +101,21 @@ const Header = () => {
 						</div>
 
 					</div>
-					<div className="flex justify-between w-[36%] gap-x-12">
+					<div className="flex justify-between w-[38%] ">
 						<Link
 							to={`/`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 h-max mt-0 hover:bg-sky-500 rounded"
+							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg"
 						>
-							<IoHomeOutline style={{ fontSize: "24px", color: "white" }} />
+							<IoHomeOutline style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Home
 							</div>
 						</Link>
 						<Link
 							to={`/listFriends/friends`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
-							<IoPersonAddOutline style={{ fontSize: "24px", color: "white" }} />
+							<IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Friends
 							</div>
@@ -124,9 +123,9 @@ const Header = () => {
 
 						<Link
 							to={`/reels`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
-							<MdOutlineOndemandVideo style={{ fontSize: "24px", color: "white" }} />
+							<MdOutlineOndemandVideo style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Video
 							</div>
@@ -134,21 +133,11 @@ const Header = () => {
 
 						<Link
 							to={`/groups/feed`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
+							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
-							<MdOutlineGroups style={{ fontSize: "24px", color: "white" }} />
+							<MdOutlineGroups style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Groups
-							</div>
-						</Link>
-
-						<Link
-							to={`/seemore`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-px-4 mt-0 hover:bg-sky-500 rounded"
-						>
-							<VscThreeBars style={{ fontSize: "24px", color: "white" }} />
-							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
-								More
 							</div>
 						</Link>
 					</div>
