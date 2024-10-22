@@ -1,10 +1,8 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Link, Outlet, useLocation } from "react-router-dom"
 import { useState } from "react";
-import { IoAddOutline } from "react-icons/io5";
 
 const Groups = () => {
 	const location = useLocation();
-	const navigate = useNavigate();
 	const initialActive = location.pathname.includes("joined") ? "joined" : "feed";
 	const [active, setActive] = useState<string>(initialActive);
 
@@ -40,14 +38,6 @@ const Groups = () => {
 						</li>
 
 					</ul>
-					<button 
-					onClick={() => navigate('/groups/create')}
-					className="border ml-auto hover:bg-sky-600 transition duration-300 px-5 rounded-lg h-2/3 py-2 bg-sky-500 text-white flex justify-center items-center">
-						<span className="text-xl pr-2 font-bold"><IoAddOutline /></span>
-						<span className="font-semibold">
-							Create Your Group
-						</span>
-					</button>
 				</div>
 			</div>
 

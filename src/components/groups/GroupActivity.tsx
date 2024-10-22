@@ -4,6 +4,7 @@ import GroupPostItem from '../post/GroupPostItem';
 import { getPostsForGroupActivities } from '../../services/Entities/PostService';
 import { Post, PostResponse } from '../../services/Types/Post';
 import ListPosts from '../post/ListPosts';
+import GroupJoinedSideBar from './GroupJoinedSideBar';
 
 const GroupActivity: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -15,7 +16,7 @@ const GroupActivity: React.FC = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5Njc3MjAzLCJpYXQiOjE3Mjk1OTA4MDMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.07ImTPWKCUd_I6w18aTRDh0UpGit-ucHEm7QErxSD6RUmHyI6aIcKI_U4UI0FuJNIgEIYir1Rc4emRbuDUUkFg";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -85,21 +86,28 @@ const GroupActivity: React.FC = () => {
     }
 
     return (
-        <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
-            <div className=" w-full h-fit rounded">
-                {posts.map((item, index) => (
-                    <GroupPostItem
-                        key={`post-key-${index}`}
-                        post={item}
-                        index={index}
-                        handleLikeBtn={handleLikeBtn}
-                        handleFavouriteBtn={handleFavouriteBtn}
-                    />
-                ))}
+        <div className='flex flex-row'>
+            <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
+                <div className=" w-full h-fit rounded">
+                    {posts.map((item, index) => (
+                        <GroupPostItem
+                            key={`post-key-${index}`}
+                            post={item}
+                            index={index}
+                            handleLikeBtn={handleLikeBtn}
+                            handleFavouriteBtn={handleFavouriteBtn}
+                        />
+                    ))}
+                </div>
+                <ListPosts />
+                <div className="px-4 py-2 bg-sky-400 w-[100px] justify-center text-center rounded-full flex items-center gap-2 cursor-pointer hover:bg-sky-600 hover:text-white transition duration-150">
+                    <IoReload className="text-2xl font-bold" /><span>Refresh</span>
+                </div>
             </div>
-            <ListPosts />
-            <div className="px-4 py-2 bg-sky-400 w-[100px] justify-center text-center rounded-full flex items-center gap-2 cursor-pointer hover:bg-sky-600 hover:text-white transition duration-150">
-                <IoReload className="text-2xl font-bold" /><span>Refresh</span>
+            <div className='flex flex-col gap-2 bg-[#F3F4F6] absolute top-0 bottom-0 right-3 w-[24%] border-l'>
+                <div className="h-full scrollbar-hidden scrollbar-visible hover:overflow-auto">
+                    <GroupJoinedSideBar />
+                </div>
             </div>
         </div>
     );

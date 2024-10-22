@@ -72,7 +72,7 @@ const Header = () => {
 		<>
 			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0">
 				<nav
-					className="mx-0 flex max-w-8xl items-center justify-between p-2 lg:px-10 shadow-lg"
+					className="mx-0 flex max-w-8xl items-center justify-between p-1 lg:px-10 shadow-lg"
 					aria-label="Global"
 				>
 					<div className="flex w-[20%] lg:flex-1">
@@ -107,7 +107,7 @@ const Header = () => {
 							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<IoHomeOutline style={{ fontSize: "28px", color: "white" }} />
-							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Home
 							</div>
 						</Link>
@@ -116,7 +116,7 @@ const Header = () => {
 							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />
-							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Friends
 							</div>
 						</Link>
@@ -126,7 +126,7 @@ const Header = () => {
 							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<MdOutlineOndemandVideo style={{ fontSize: "28px", color: "white" }} />
-							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Video
 							</div>
 						</Link>
@@ -136,7 +136,7 @@ const Header = () => {
 							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<MdOutlineGroups style={{ fontSize: "28px", color: "white" }} />
-							<div className="absolute z-50 top-[60px] left-[0] invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Groups
 							</div>
 						</Link>
@@ -144,7 +144,7 @@ const Header = () => {
 
 					<div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex gap-4 justify-center align-center">
 						<button
-							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('chat')
 								toggleChats()
@@ -157,7 +157,7 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center `}
+							className={`w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center `}
 							onClick={() => handleToggleMoon('Moon')}
 						>
 							{activeTheme === 'Moon' ? (
@@ -167,7 +167,7 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`relative w-[44px] h-[44px] hover:bg-[#0EA5E9] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`relative w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('notification')
 								toggleNotifications()

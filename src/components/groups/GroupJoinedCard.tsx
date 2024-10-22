@@ -16,8 +16,14 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
 
     return (
         <div className="bg-white rounded-lg shadow-md">
-            <img src={imageUrl} alt={groupName} className="w-full h-36 object-cover rounded-tl-lg rounded-tr-lg" />
-            <h3 className="text-lg font-semibold mt-2 ms-4">{groupName}</h3>
+            <Link to={`/groups/groupName/discussion`}>
+                <img src={imageUrl} alt={groupName} className="w-full h-36 object-cover rounded-tl-lg rounded-tr-lg" />
+            </Link>
+            <h3 className="text-lg font-semibold mt-2 ms-4">
+                <Link to={`/groups/groupName/discussion`} className='hover:underline'>
+                    {groupName}
+                </Link>
+            </h3>
             <span className='text-xs ms-4 text-gray-500'>Truy cập lần gần nhất 2 ngày trước</span>
             <div className='flex flex-row'>
                 <div className="p-4 ps-4 pe-0">

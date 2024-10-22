@@ -23,19 +23,12 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
 
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
-
-    const handleMouseEnter = () => {
-        setShowGroupCard(true);
-    };
-
-    const handleMouseLeave = () => {
-        setShowGroupCard(false);
-    };
+    const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5Njc3MjAzLCJpYXQiOjE3Mjk1OTA4MDMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.07ImTPWKCUd_I6w18aTRDh0UpGit-ucHEm7QErxSD6RUmHyI6aIcKI_U4UI0FuJNIgEIYir1Rc4emRbuDUUkFg";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -113,6 +106,20 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         );
     };
 
+    const handleMouseEnter = () => {
+        const timeout = setTimeout(() => {
+            setShowGroupCard(true);
+        }, 500);
+        setHoverTimeout(timeout);
+    };
+
+    const handleMouseLeave = () => {
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+        }
+        setShowGroupCard(false);
+    };
+
     return (
         <div className="w-full h-fit rounded flex flex-col gap-6">
             {posts.map((item: Post, index: number) => (
@@ -130,7 +137,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                         onMouseLeave={handleMouseLeave}
                                     />
                                 </Link>
-                                <img className="absolute bottom-2 left-10 w-8 h-8 rounded-full object-cover cursor-pointer border"
+                                <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
                                     src={item.avatar} />
                                 {showGroupCard && (
                                     <div className="absolute top-8 -left-20 z-10"

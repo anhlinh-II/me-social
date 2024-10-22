@@ -21,16 +21,23 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
+    const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
     const handleImageError = () => {
         setImageError(true);
     };
 
     const handleMouseEnter = () => {
-        setShowGroupCard(true);
+        const timeout = setTimeout(() => {
+            setShowGroupCard(true);
+        }, 500);
+        setHoverTimeout(timeout);
     };
 
     const handleMouseLeave = () => {
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+        }
         setShowGroupCard(false);
     };
 
@@ -47,7 +54,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         onMouseLeave={handleMouseLeave}
                     />
                 </Link>
-                <img className="absolute bottom-2 left-10 w-8 h-8 rounded-full object-cover cursor-pointer border" 
+                <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border" 
                     src={post.avatar}/>
                 {showGroupCard && (
                     <div className="absolute top-8 -left-20 z-10" 
@@ -61,7 +68,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         <Link to={`/groups/groupName/discussion`} 
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
-                            {post.groupName}
+                                {post.groupName}
                         </Link>
                     </span>
                     <div className="flex gap-2 justify-start items-center">
