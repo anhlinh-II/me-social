@@ -8,7 +8,7 @@ import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
-import NotificationDropdown from "./Notification";
+import NotificationDropdown from "./notification/Notification";
 import Chat from "./Chat/Chat";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";

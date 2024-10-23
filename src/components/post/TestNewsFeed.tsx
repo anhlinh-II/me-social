@@ -157,7 +157,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         )}
                         {item.groupId ? (
                             <div className="ml-2">
-                                <h4 className='font-bold text-lg text-black-500 hover:underline'>
+                                <h4 className='font-bold font-serif text-lg text-black-500 hover:underline'>
                                     <Link to={`/groups/groupName/discussion`}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>

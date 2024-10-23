@@ -15,7 +15,7 @@ interface ProfileInfoProps {
 
 const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts, likes, mutual_friends, bio }) => {
     return (
-        <div className="flex flex-row justify-between items-center p-4 bg-[#F3F4F6] w-[80%]">
+        <div className="flex flex-row justify-between items-center p-4 bg-gray-100 w-[80%]">
             <img
                 src={profileImage}
                 alt={`${username}'s profile`}
@@ -23,7 +23,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
             />
             <div className='flex flex-col items-start'>
                 <div className='flex flex-row gap-4'>
-                    <h2 className="text-xl font-semibold">{username}</h2>
+                    <h2 className="text-xl font-semibold font-serif me-2">{username}</h2>
                     <button className='flex flex-row gap-2 items-center bg-[#E4E6EB] hover:bg-[#D8DADF] p-2 rounded-lg'>
                         <FaEdit/>
                         <span>Chỉnh sửa</span>
@@ -53,7 +53,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
                         <p className="text-gray-500">Bạn chung</p>
                     </div>
                 </div>
-                <p className="text-center text-gray-700">{bio}</p>
+                <p className="text-left text-gray-700 w-full">{bio} </p>
             </div>
         </div>
     );

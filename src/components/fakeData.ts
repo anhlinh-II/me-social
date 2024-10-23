@@ -1,3 +1,4 @@
+import { ProfileStoryProps } from "./profile/ProfileStory";
 import { ReelGridProps } from "./profile/ReelGrid";
 
 export const chats = [
@@ -236,7 +237,8 @@ export const fakeReel: ReelGridProps = {
         posterUrl: "https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg", // poster thật
         altText: "Big Buck Bunny Video",
         content: "A funny animated short film by Blender Foundation",
-        likes: 102,
+        likes: 393535,
+        commentNum: 93535,
         comments: [
           {
             id: 1,
@@ -256,7 +258,8 @@ export const fakeReel: ReelGridProps = {
         posterUrl: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg", // poster thật
         altText: "Sample HTML5 Video",
         content: "An HTML5 sample video showing different video formats.",
-        likes: 88,
+        likes: 793535,
+        commentNum: 93535,
         comments: [
           {
             id: 1,
@@ -273,10 +276,11 @@ export const fakeReel: ReelGridProps = {
       {
         id: 3,
         videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
-        posterUrl: "https://img.youtube.com/vi/7H6DoCk5uCQ/maxresdefault.jpg", // poster thật
+        posterUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg", // poster thật
         altText: "Sintel Trailer",
         content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
-        likes: 250,
+        likes: 493535,
+        commentNum: 93535,
         comments: [
           {
             id: 1,
@@ -298,3 +302,102 @@ export const fakeReel: ReelGridProps = {
     ]
   };
   
+  export const fakeStory: ProfileStoryProps = {
+    stories: [
+      
+      {
+        id: 3,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "Love💖",
+        likes: 6537209,
+        commentNum: 93535,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      },
+      {
+        id: 4,
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", // video thật
+        posterUrl: "http://localhost:5173/src/assets/jisoo.jpg", // poster thật
+        altText: "Big Buck Bunny Video",
+        content: "Family👪",
+        likes: 723967,
+        commentNum: 52135,
+        comments: [
+          {
+            id: 1,
+            username: "john_doe",
+            text: "This is hilarious!"
+          },
+          {
+            id: 2,
+            username: "jane_smith",
+            text: "Love the animation!"
+          }
+        ]
+      },
+      {
+        id: 5,
+        videoUrl: "https://www.w3schools.com/html/movie.mp4", // video thật
+        posterUrl: "https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg", // poster thật
+        altText: "Sample HTML5 Video",
+        content: "Love💖",
+        likes: 976712,
+        commentNum: 47359,
+        comments: [
+          {
+            id: 1,
+            username: "alice_wonderland",
+            text: "Really cool technology demo."
+          },
+          {
+            id: 2,
+            username: "bob_marley",
+            text: "I learned something new today!"
+          }
+        ]
+      },
+      {
+        id: 6,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "http://localhost:5173/src/assets/me1.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "hehe🙃",
+        likes: 845651,
+        commentNum: 23535,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      }
+    ]
+  };

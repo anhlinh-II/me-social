@@ -3,11 +3,10 @@ import PostGrid from "./PostGrid";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { PiFilmReelFill } from "react-icons/pi";
 import { MdVideoLibrary } from "react-icons/md";
 import ReelGrid from "./ReelGrid";
-import StoryGrid from "./StoryGrid";
-import { fakeReel } from "../fakeData";
+import { fakeReel, fakeStory } from "../fakeData";
+import ProfileStory from "./ProfileStory";
 
 const Profile = () => {
 	const location = useLocation();
@@ -20,7 +19,8 @@ const Profile = () => {
 			imageUrl: 'https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg',
 			altText: 'Post 1',
 			content: '1 Billion follows on social medias!',
-			likes: 120,
+			likes: 9842138,
+			commentNum: 128647,
 			comments: [
 				{ id: 1, username: 'john_doe', text: 'Beautiful!' },
 				{ id: 2, username: 'jane_smith', text: 'Wish I was there!' },
@@ -28,10 +28,11 @@ const Profile = () => {
 		},
 		{
 			id: 2,
-			imageUrl: 'https://icdn.24h.com.vn/upload/1-2019/images/2019-03-14/1552480900_562316_1552484248_noticia_normal_recorte1-660-1552564223-710-width660height440.jpg',
+			imageUrl: 'https://nld.mediacdn.vn/zoom/594_371/291774122806476800/2024/5/22/367665968-1043122716604056-338-6755-5396-1698222857-1716365427555912026234-126-0-595-750-crop-17163656793691494473476.jpg',
 			altText: 'Post 2',
 			content: 'First person to have 5 Champions Leagues',
-			likes: 95,
+			likes: 3842168,
+			commentNum: 128647,
 			comments: [
 				{ id: 1, username: 'alex123', text: 'Looks amazing!' },
 			],
@@ -41,7 +42,8 @@ const Profile = () => {
 			imageUrl: 'https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg',
 			altText: 'Post 3',
 			content: 'Greatest player of Champions League',
-			likes: 45,
+			likes: 697231,
+			commentNum: 87678,
 			comments: [
 				{ id: 1, username: 'mike_b', text: 'Agreed!' },
 				{ id: 2, username: 'susan_w', text: 'GOAT' },
@@ -49,10 +51,11 @@ const Profile = () => {
 		},
 		{
 			id: 4,
-			imageUrl: 'https://icdn.24h.com.vn/upload/1-2019/images/2019-03-14/1552480900_562316_1552484248_noticia_normal_recorte1-660-1552564223-710-width660height440.jpg',
+			imageUrl: 'http://localhost:5173/src/assets/jisoo.jpg',
 			altText: 'Post 4',
 			content: 'GOAT GOAT GOAT',
-			likes: 45,
+			likes: 468127,
+			commentNum: 92432,
 			comments: [
 				{ id: 1, username: 'mike_b', text: 'Agreed!' },
 				{ id: 2, username: 'susan_w', text: 'GOAT' },
@@ -63,7 +66,8 @@ const Profile = () => {
 			imageUrl: 'https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg',
 			altText: 'Post 5',
 			content: 'Helping children',
-			likes: 45,
+			likes: 295354,
+			commentNum: 78673,
 			comments: [
 				{ id: 1, username: 'mike_b', text: 'Agreed!' },
 				{ id: 2, username: 'susan_w', text: 'GOAT' },
@@ -71,10 +75,11 @@ const Profile = () => {
 		},
 		{
 			id: 6,
-			imageUrl: 'https://icdn.24h.com.vn/upload/1-2019/images/2019-03-14/1552480900_562316_1552484248_noticia_normal_recorte1-660-1552564223-710-width660height440.jpg',
+			imageUrl: 'http://localhost:5173/src/assets/me1.jpg',
 			altText: 'Post 6',
 			content: 'Fighting for the country!',
-			likes: 45,
+			likes: 78925,
+			commentNum: 47359,
 			comments: [
 				{ id: 1, username: 'mike_b', text: 'Agreed!' },
 				{ id: 2, username: 'susan_w', text: 'GOAT' },
@@ -82,11 +87,12 @@ const Profile = () => {
 		},
 	];
 	const reels = fakeReel.reels;
+	const stories = fakeStory.stories;
 
 	return (
 		<>
-			<div className="flex w-[78%] items-center justify-between mt-5 mb-[100px]">
-				<div id="detail" className="flex flex-col items-center justify-center">
+			<div className="flex w-[80%] items-center justify-between mt-5 mb-[100px] ms-[-10%]">
+				<div id="detail" className="w-[100%] flex flex-col items-center justify-center">
 					<ProfileInfo
 						profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						username="Cristiano Ronaldo"
@@ -95,8 +101,9 @@ const Profile = () => {
 						mutual_friends={777}
 						bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
 					/>
-					<hr className='w-[80%] h-[1.5px] bg-gray-500 ms-[-6%] mt-5'></hr>
-					<div className="flex space-x-2">
+					<ProfileStory stories={stories}/>
+					<hr className='w-[97%] h-[1.5px] bg-gray-500 mt-5'></hr>
+					<div className="flex space-x-2 mb-4">
 						<Link to={`/profile`} onClick={() => setActive("posts")}>
 							<button className={active === "posts" 
 								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
@@ -115,20 +122,11 @@ const Profile = () => {
 							</button>
 						</Link>
 
-						<Link to={`/profile/stories`} onClick={() => setActive("stories")}>
-							<button className={active === "stories" 
-								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
-								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
-									<PiFilmReelFill />
-									Stories
-							</button>
-						</Link>
 					</div>
 					{(active === "posts") ? 
 						<PostGrid posts={posts} />
-					: ((active === "reels") ? 
+						:  
 							<ReelGrid reels={reels} />
-						: <StoryGrid stories={reels} />)
 					}
 					
 				</div>

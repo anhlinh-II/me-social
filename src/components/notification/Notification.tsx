@@ -1,7 +1,7 @@
 // Notification.tsx
 import React from 'react';
-import NotifyCard from './NotifyCard';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import NotifyCard from './NotifyCard';
 
 interface Notification {
     id: number;

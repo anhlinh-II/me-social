@@ -124,6 +124,8 @@ const Story = () => {
 					{/* Avatar and username */}
 					<div className="story-info">
 						<img src={item.avt} alt={item.userName} className="story-avatar" />
+						<img className="absolute bottom-0 left-7 w-3 h-3 rounded-full object-cover" 
+                    		src="../src/assets/img/icons/onlineIcon.png"></img> 
 					</div>
 					<div className="absolute bottom-[0.5rem] left-[0.5rem]">
 						<h5 className="text-white text-sm font-semibold">{item.userName}</h5>

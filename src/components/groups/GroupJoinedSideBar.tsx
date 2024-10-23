@@ -11,7 +11,7 @@ const GroupJoinedSideBar: React.FC = () => {
 
     return (
         <div className='mb-[25%] me-2 hover:me-0'>
-            <div className="flex flex-col gap-2 p-2">
+            <div className="flex flex-col gap-1 p-2">
                 <button 
                 onClick={() => navigate('/groups/create')}
                 className="border  hover:bg-sky-600 transition duration-300 px-5 rounded-lg h-2/3 py-2 bg-sky-500 text-white flex justify-center items-center">
