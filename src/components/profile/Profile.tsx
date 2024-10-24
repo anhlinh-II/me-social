@@ -104,7 +104,7 @@ const Profile = () => {
 					/>
 					<ProfileStory stories={stories} />
 					<hr className='w-[97%] h-[1.5px] bg-gray-500 mt-5'></hr>
-					<div className="flex space-x-2 mb-4">
+					<div className="flex space-x-2">
 						<Link to={`/profile`} onClick={() => setActive("posts")}>
 							<button className={active === "posts"
 								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold"

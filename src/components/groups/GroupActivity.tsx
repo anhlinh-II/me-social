@@ -16,7 +16,7 @@ const GroupActivity: React.FC = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NzY0MDg0LCJpYXQiOjE3Mjk2Nzc2ODQsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.fW939sbRLLAG2RB-WS3WvR1mJesGRG9q41zBDyVjPomfgbUSrTpE5K8JMR5LUWykxO9QN6jyhkwOizdmPGXxQQ";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODY2MDI5LCJpYXQiOjE3Mjk3Nzk2MjksInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.FzIxyk1DoQdltsqCyUm9se7PU7YT-6qCouEnROMcciqr68z0Iyp4eAYmkT8sMlH4phDQPkxZiq67kFmQbZ0VCw";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');

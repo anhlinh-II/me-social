@@ -302,6 +302,60 @@ export const fakeReel: ReelGridProps = {
           }
         ]
       },
+      {
+        id: 4,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
+        views: 93919185,
+        likes: 4693535,
+        commentNum: 93535,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      },
+      {
+        id: 5,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "/gta6.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
+        views: 218919185,
+        likes: 14693535,
+        commentNum: 93535,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      },
     ]
   };
   

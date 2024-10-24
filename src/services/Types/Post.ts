@@ -14,7 +14,7 @@ export interface Post {
     time: number;
     isLiked: boolean | undefined;
     isFavourited: boolean | undefined;
-    image: string;
+    urls: string[];
     imageError: boolean;
 }
 
@@ -30,7 +30,7 @@ export interface PostRequest {
     userId: number;
     groupId?: number;
     content?: string;
-    urls?: string[];
+    urls: string[];
     publicIds?: string[];
     privacy: PostPrivacy;
     nameTag?: string[];
@@ -43,7 +43,7 @@ export interface PostResponse {
     groupId: number;
     groupName: string;
     content: string;
-    urls?: string[];
+    urls: string[];
     publicIds?: string[];
     privacy: string;
     createdAt: string;

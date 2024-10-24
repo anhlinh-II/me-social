@@ -12,6 +12,7 @@ import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
 import { Post, PostResponse } from '../../services/Types/Post';
 import GroupJoinedCard from '../groups/GroupJoinedCard';
+import ImageSlider from './ImageSlider';
 
 
 const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -28,7 +29,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODQ1NDA3LCJpYXQiOjE3Mjk3NTkwMDcsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.AQvnao_roLFCMXvZ59XDMMEw7z_FJbrXNrNkeyzVTN2AKd0T_tVqDy8KtXvJQ1ZPYgmLVgHl0ar-rTowPEUXNA";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODY2MDI5LCJpYXQiOjE3Mjk3Nzk2MjksInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.FzIxyk1DoQdltsqCyUm9se7PU7YT-6qCouEnROMcciqr68z0Iyp4eAYmkT8sMlH4phDQPkxZiq67kFmQbZ0VCw";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -57,7 +58,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
-                        image: "https://bizweb.dktcdn.net/100/370/339/products/z4529778288710-9a538b8bcac451561af81cd240d963a1.jpg?v=1689758099500",
+                        urls: item.urls,
                         imageError: false
                     }
                 });
@@ -124,6 +125,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         <div className="w-full h-fit rounded flex flex-col gap-4">
             {posts.map((item: Post, index: number) => (
                 <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
+                    {/* Post header */}
                     <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                         {item.groupId ? (
                             <div>
@@ -186,19 +188,17 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         <div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
                         <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
                     </div>
+
+                    {/* Post slider */}
                     {item.imageError ? (
                         <div className="flex justify-center items-center w-full h-64 bg-gray-200">
                             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                         </div>
                     ) : (
-                        <img
-                            src={item.image}
-                            className="w-[100%] rounded h-auto cursor-pointer"
-                            alt="Post"
-                            onError={() => handleImageError(index)}
-                            onClick={() => setShowDetailModal(true)}
-                        />
+                        <ImageSlider urls={item.urls}/>
                     )}
+
+                    {/* Post Content and things */}
                     <div className="flex flex-col p-3">
                         <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                             <div className="flex gap-1 font-bold text-2xl">
