@@ -28,7 +28,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5Njc3MjAzLCJpYXQiOjE3Mjk1OTA4MDMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.07ImTPWKCUd_I6w18aTRDh0UpGit-ucHEm7QErxSD6RUmHyI6aIcKI_U4UI0FuJNIgEIYir1Rc4emRbuDUUkFg";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODQ1NDA3LCJpYXQiOjE3Mjk3NTkwMDcsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.AQvnao_roLFCMXvZ59XDMMEw7z_FJbrXNrNkeyzVTN2AKd0T_tVqDy8KtXvJQ1ZPYgmLVgHl0ar-rTowPEUXNA";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -124,7 +124,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         <div className="w-full h-fit rounded flex flex-col gap-4">
             {posts.map((item: Post, index: number) => (
                 <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
-                    <div className="flex relative justify-start items-center px-3 py-3 gap-2">
+                    <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                         {item.groupId ? (
                             <div>
                                 <Link to={`/groups/groupName/discussion`}>
@@ -229,19 +229,21 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 lines={1}
                                 more="more"
                                 less="less"
-                                className="text-gray-700 w-[100%] text-base leading-relaxed"
+                                className="text-gray-700 w-[100%] text-base leading-relaxed mb-2"
                                 anchorClass="text-blue-500 cursor-pointer font-bold hover:text-blue-600 transition-colors duration-300"
                                 expanded={false}
                                 truncatedEndingComponent={"..."}
                             >
                                 {item.content}
                             </ShowMoreText>
-                            <span
-                                className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
-                                onClick={() => setShowDetailModal(true)}
-                            >
-                                {item.commentNum} comments
-                            </span>
+                            {item.commentNum > 0 ?
+                                <span
+                                    className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
+                                    onClick={() => setShowDetailModal(true)}
+                                >
+                                    Xem {item.commentNum} bình luận
+                                </span>
+                            :   <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                             <div className='flex flex-row mt-2'>
                                 <img src={item.avatar}
                                     className="rounded-[100%] h-10 w-10 me-2"

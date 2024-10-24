@@ -232,11 +232,39 @@ export default fakeGroups;
 export const fakeReel: ReelGridProps = {
     reels: [
       {
+        id: 3,
+        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
+        posterUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg", // poster thật
+        altText: "Sintel Trailer",
+        content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
+        views: 93919185,
+        likes: 4693535,
+        commentNum: 93535,
+        comments: [
+          {
+            id: 1,
+            username: "film_buff",
+            text: "Sintel is visually stunning!"
+          },
+          {
+            id: 2,
+            username: "movie_critic",
+            text: "Can't wait to see the full movie."
+          },
+          {
+            id: 3,
+            username: "animation_lover",
+            text: "The animation quality is top-notch!"
+          }
+        ]
+      },
+      {
         id: 1,
         videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", // video thật
         posterUrl: "https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg", // poster thật
         altText: "Big Buck Bunny Video",
         content: "A funny animated short film by Blender Foundation",
+        views: 7469185,
         likes: 393535,
         commentNum: 93535,
         comments: [
@@ -258,6 +286,7 @@ export const fakeReel: ReelGridProps = {
         posterUrl: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg", // poster thật
         altText: "Sample HTML5 Video",
         content: "An HTML5 sample video showing different video formats.",
+        views: 929185,
         likes: 793535,
         commentNum: 93535,
         comments: [
@@ -273,32 +302,6 @@ export const fakeReel: ReelGridProps = {
           }
         ]
       },
-      {
-        id: 3,
-        videoUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4", // video thật
-        posterUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg", // poster thật
-        altText: "Sintel Trailer",
-        content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
-        likes: 493535,
-        commentNum: 93535,
-        comments: [
-          {
-            id: 1,
-            username: "film_buff",
-            text: "Sintel is visually stunning!"
-          },
-          {
-            id: 2,
-            username: "movie_critic",
-            text: "Can't wait to see the full movie."
-          },
-          {
-            id: 3,
-            username: "animation_lover",
-            text: "The animation quality is top-notch!"
-          }
-        ]
-      }
     ]
   };
   

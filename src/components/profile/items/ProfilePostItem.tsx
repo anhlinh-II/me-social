@@ -1,6 +1,7 @@
 // PostItem.tsx
 import React, { useState } from 'react';
 import { FaComment, FaHeart } from 'react-icons/fa6';
+import { formatNumberWithUnit } from '../../../utils/FormatNumber';
 
 interface PostItemProps {
 	id: number;
@@ -10,15 +11,6 @@ interface PostItemProps {
 	commentNum: number;
 	onClick: () => void;
 }
-
-const formatNumber = (num: number): string => {
-    if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M'; 
-    } else if (num >= 1000) {
-        return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
-};
 
 const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, commentNum, onClick }) => {
 	const [imageError, setImageError] = useState<boolean>(false);
@@ -40,7 +32,7 @@ const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, comment
 				
 				  <img
 					  src={imageUrl}
-					  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+					  className="w-full h-full object-cover"
 					  alt={altText}
 					  onError={handleImageError}
 				  />
@@ -51,11 +43,11 @@ const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, comment
 					<div className='flex flex-row gap-8 text-white text-xl z-20'>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaHeart />
-							{formatNumber(likeNum)}
+							{formatNumberWithUnit(likeNum)}
 						</div>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaComment />
-							{formatNumber(commentNum)}
+							{formatNumberWithUnit(commentNum)}
 						</div>
 					</div>
 				</div>

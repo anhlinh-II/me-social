@@ -3,6 +3,7 @@
 import React from 'react';
 import { FaArchive, FaEdit } from 'react-icons/fa';
 import { GrSettingsOption } from "react-icons/gr";
+import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/FormatNumber';
 
 interface ProfileInfoProps {
     profileImage: string;
@@ -40,16 +41,22 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
                     </button>
                 </div>
                 <div className="flex space-x-8 my-4">
-                    <div className="text-start">
-                        <p className="font-bold">{posts}</p>
+                    <div className="text-start group/item relative">
+                        <p className="font-bold">{formatNumberWithUnit(posts)}</p>
                         <p className="text-gray-500">Bài đăng</p>
+                        <div className="absolute z-40 w-max top-[25px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-200 rounded-lg">
+							{formatNumberWithCommas(posts)}
+						</div>
                     </div>
-                    <div className="text-start">
-                        <p className="font-bold">{likes}</p>
+                    <div className="text-start group/item relative">
+                        <p className="font-bold">{formatNumberWithUnit(likes)}</p>
                         <p className="text-gray-500">Lượt thích</p>
+                        <div className="absolute z-40 w-max top-[25px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-200 rounded-lg">
+							{formatNumberWithCommas(likes)}
+						</div>
                     </div>
                     <div className="text-start">
-                        <p className="font-bold">{mutual_friends}</p>
+                        <p className="font-bold">{formatNumberWithUnit(mutual_friends)}</p>
                         <p className="text-gray-500">Bạn chung</p>
                     </div>
                 </div>

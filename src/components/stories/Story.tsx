@@ -1,8 +1,15 @@
 import { FaCirclePlus } from "react-icons/fa6";
 import MultiCarousel from "./MultiCarousel";
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import CreateReelModal from "../modal/Reel.create.modal";
 
 const Story = () => {
+	const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
+
+    const openAddReelModal = () => {
+         setShowCreateReelModal(true);
+    }
 
 	const fakeData = [
 		{
@@ -95,7 +102,7 @@ const Story = () => {
 	const carouselUsers = [
 		(
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
-				style={{ cursor: 'pointer' }} onClick={() => navigate('/stories', { state: { stories: fakeData, storyIndex: 0 } })}>
+				style={{ cursor: 'pointer' }}  onClick={() => openAddReelModal()}>
 				<div className="create-story flex flex-col items-center bg-gray-400">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
@@ -140,7 +147,10 @@ const Story = () => {
 			<div className="mt-2 mb-2">
 				<MultiCarousel items={carouselUsers} />
 			</div>
-
+			<CreateReelModal
+                show={showCreateReelModal}
+                setShow={setShowCreateReelModal}
+            />
 		</>
 	)
 }

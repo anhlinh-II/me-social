@@ -30,6 +30,8 @@ export interface PostRequest {
     userId: number;
     groupId?: number;
     content?: string;
+    urls?: string[];
+    publicIds?: string[];
     privacy: PostPrivacy;
     nameTag?: string[];
 }
@@ -41,6 +43,8 @@ export interface PostResponse {
     groupId: number;
     groupName: string;
     content: string;
+    urls?: string[];
+    publicIds?: string[];
     privacy: string;
     createdAt: string;
     updatedAt: string;

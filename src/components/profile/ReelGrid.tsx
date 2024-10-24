@@ -16,6 +16,7 @@ interface Reel {
     posterUrl: string; 
     altText: string;
     content: string;
+    views: number;
     likes: number;
     commentNum: number;
     comments: Comment[];
@@ -43,7 +44,7 @@ const ReelGrid: React.FC<ReelGridProps> = ({ reels }) => {
 
     const Reels = [
         (
-			<div key="createReel" className="w-full h-80 bg-gray-200 overflow-hidden cursor-pointer p-6 border border-gray-500 relative group" 
+			<div key="createReel" className="w-56 h-96 bg-gray-200 overflow-hidden cursor-pointer p-6 border border-gray-500 relative group" 
                 onClick={() => openAddReelModal()}>
 				<div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/gta6.jpg')", backgroundPosition: "center bottom" }}></div>
 				<div className="relative h-full p-4 pt-12 border border-white flex flex-col gap-y-4 items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
@@ -65,6 +66,7 @@ const ReelGrid: React.FC<ReelGridProps> = ({ reels }) => {
                     key={reel.id}
                     posterUrl={reel.posterUrl}
                     altText={reel.altText}
+                    views={reel.views}
                     likeNum={reel.likes} 
                     commentNum={reel.commentNum}
                     onClick={() => handlePostClick(reel)}
@@ -74,7 +76,7 @@ const ReelGrid: React.FC<ReelGridProps> = ({ reels }) => {
 
     return (
         <div className="relative">
-            <div className="grid grid-cols-3 gap-1 p-4 w-[100%]">
+            <div className="grid grid-cols-4 gap-1 p-4 w-[100%]">
                 {Reels}
             </div>
 

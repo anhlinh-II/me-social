@@ -14,9 +14,9 @@ interface IProps {
 }
 
 const options = [
-     { value: "Public", label: "Public", icon: <FaEarthAmericas /> },
-     { value: "Friends", label: "Friends", icon: <FaUserFriends /> },
-     { value: "Private", label: "Private", icon: <FaLock /> }
+     { value: "PUBLIC", label: "Public", icon: <FaEarthAmericas /> },
+     { value: "FRIENDS", label: "Friends", icon: <FaUserFriends /> },
+     { value: "PRIVATE", label: "Private", icon: <FaLock /> }
 ];
 
 const baseStyle = {
@@ -160,7 +160,7 @@ const CreateReelModal = (props: IProps) => {
                                         <button
                                              onClick={() => handleClose()}
                                              type="button"
-                                             className="text-gray-400 bg-gray-100 text-9xl hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8"
+                                             className="text-gray-400 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8"
                                         >
                                              <svg className="p-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7L1 13" />

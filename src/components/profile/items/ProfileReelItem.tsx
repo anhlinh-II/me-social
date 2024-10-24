@@ -1,25 +1,18 @@
 
 import React, { useState } from 'react';
 import { FaComment, FaHeart, FaPlay } from 'react-icons/fa6';
+import { formatNumberWithUnit } from '../../../utils/FormatNumber';
 
 interface ReelItemProps {
 	altText: string;
 	posterUrl: string;
+	views: number;
 	likeNum: number;
 	commentNum: number;
 	onClick: () => void;
 }
 
-const formatNumber = (num: number): string => {
-    if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M'; 
-    } else if (num >= 1000) {
-        return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
-};
-
-const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, likeNum, commentNum, onClick }) => {
+const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, views, likeNum, commentNum, onClick }) => {
 	const [imageError, setImageError] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -27,7 +20,7 @@ const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, likeNum, commen
 		setImageError(true);
 	};
 	return (
-		<div className="w-full h-80 relative bg-gray-200 overflow-hidden cursor-pointer" 
+		<div className="w-56 h-96 relative bg-gray-200 overflow-hidden cursor-pointer" 
 			onClick={onClick}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}>
@@ -49,17 +42,18 @@ const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, likeNum, commen
 					<div className='flex flex-row gap-8 text-white text-xl z-20'>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaHeart />
-							{formatNumber(likeNum)}
+							{formatNumberWithUnit(likeNum)}
 						</div>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaComment />
-							{formatNumber(commentNum)}
+							{formatNumberWithUnit(commentNum)}
 						</div>
 					</div>
 				</div>
             ) : (
-			<div className='absolute inset-0 top-2 left-2 text-white'>
-				<FaPlay/>
+			<div className='absolute inset-0 flex flex-row gap-2 top-2 left-2 text-white'>
+				<FaPlay className='mt-2'/>
+				<p className='text-xl'>{formatNumberWithUnit(views)}</p>
 			</div>
 			)}
 		</div>

@@ -43,7 +43,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
 
     return (
         <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
-            <div className="flex relative justify-start items-center px-3 py-3 gap-2">
+            <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                 <Link to={`/groups/groupName/discussion`}>
                     <img
                         src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
@@ -54,10 +54,10 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         onMouseLeave={handleMouseLeave}
                     />
                 </Link>
-                <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border" 
-                    src={post.avatar}/>
+                <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
+                    src={post.avatar} />
                 {showGroupCard && (
-                    <div className="absolute top-8 -left-20 z-10" 
+                    <div className="absolute top-8 -left-20 z-10"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}>
                         <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={post.groupName} />
@@ -65,10 +65,10 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                 )}
                 <div className="ml-2">
                     <span className='font-bold font-serif text-lg text-black-500 hover:underline'>
-                        <Link to={`/groups/groupName/discussion`} 
+                        <Link to={`/groups/groupName/discussion`}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
-                                {post.groupName}
+                            {post.groupName}
                         </Link>
                     </span>
                     <div className="flex gap-2 justify-start items-center">
@@ -128,14 +128,19 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         lines={1}
                         more="more"
                         less="less"
-                        className="text-gray-700 w-[100%] text-base leading-relaxed"
+                        className="text-gray-700 w-[100%] text-base leading-relaxed mb-2"
                         anchorClass="text-blue-500 cursor-pointer font-bold hover:text-blue-600 transition-colors duration-300"
                         expanded={false}
                         truncatedEndingComponent={"..."}
                     >
                         {post.content}
                     </ShowMoreText>
-                    <span className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">view all 3 comments</span>
+                    {post.commentNum > 0 ?
+                        <span
+                            className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">
+                            Xem {post.commentNum} bình luận
+                        </span>
+                        : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex flex-row mt-2'>
                         <img src={post.avatar}
                             className="rounded-[100%] h-10 w-10 me-2"

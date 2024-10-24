@@ -1,4 +1,3 @@
-import { LuDot } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import UserSimpleCard from "../user/UserSimpleCard";
 
@@ -133,7 +132,7 @@ const SuggestFriends = () => {
                     <div className="flex justify-between font-bold mb-2">
                          <span className="text-gray-600">Contacts</span>
                     </div>
-                    <div className="flex flex-col w-full items-start">
+                    <div className="flex flex-col w-full items-start mb-[25%]">
                          {users.map((user) => (
                               <UserSimpleCard
                                    key={user.id}
@@ -144,47 +143,6 @@ const SuggestFriends = () => {
                          ))}
                     </div>
                </div>
-
-               <div className="flex flex-wrap mt-20 text-gray-400 text-sm">
-                    <div className="flex  justify-center items-center">
-                         <span>About</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Help</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Press</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>API</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Jobs</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Privacy</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Terms</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Locations</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Language</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Meta</span> <LuDot />
-                    </div>
-                    <div className="flex justify-center items-center">
-                         <span>Verified</span> <LuDot />
-                    </div>
-               </div>
-
-               <div className="mt-6 text-gray-400 text-sm">
-                    <span>© 2024 MeSocial from LL</span>
-               </div>
-
           </div>
      )
 }

@@ -4,6 +4,10 @@ import { FaEarthAmericas, FaLock, FaVideo } from "react-icons/fa6";
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoImagesSharp } from "react-icons/io5";
 import Select, { components, SingleValueProps } from 'react-select';
+import avt from '../../assets/me1.jpg';
+import { deleteImage, uploadImage } from "../../services/Entities/ImageService";
+import { createPost } from "../../services/Entities/PostService";
+import { PostRequest } from "../../services/Types/Post";
 
 interface IProps {
      show: boolean;
@@ -11,12 +15,12 @@ interface IProps {
 }
 
 const options = [
-     { value: "Public", label: "Public", icon: <FaEarthAmericas /> },
-     { value: "Friends", label: "Friends", icon: <FaUserFriends /> },
-     { value: "Private", label: "Private", icon: <FaLock /> }
+     { value: "PUBLIC", label: "Public", icon: <FaEarthAmericas /> },
+     { value: "FRIENDS", label: "Friends", icon: <FaUserFriends /> },
+     { value: "PRIVATE", label: "Private", icon: <FaLock /> }
 ];
 
-const baseStyle  = {
+const baseStyle = {
      control: (baseStyles: any, state: any) => ({
           ...baseStyles,
           borderColor: state.isFocused ? 'rgb(2 132 199)' : 'black',
@@ -24,7 +28,7 @@ const baseStyle  = {
           width: "150px",
           cursor: 'pointer'
      }),
-     options: (baseStyle: any, state: any) => ({
+     options: (baseStyle: any) => ({
           ...baseStyle,
           display: 'flex',
           alignItems: 'center',
@@ -40,7 +44,7 @@ const baseStyle  = {
           color: "",
           display: 'flex',
           alignItems: 'center', // Align the icon and text horizontally
-          justifyContent: 'center', 
+          justifyContent: 'center',
           cursor: 'pointer'
      }),
 }
@@ -50,8 +54,8 @@ const IconOption = (props: any) => {
      return (
           <components.Option {...props}>
                <div className="flex items-center">
-               <span className="mr-4">{data.icon}</span>
-               <span>{data.label}</span>
+                    <span className="mr-4">{data.icon}</span>
+                    <span>{data.label}</span>
                </div>
           </components.Option>
      );
@@ -61,14 +65,94 @@ type NewType = any;
 
 const CustomSingleValue = (props: SingleValueProps<NewType>) => (
      <components.SingleValue {...props}>
-       <span className="mr-2">{props.data.icon}</span> {/* Adds margin to the icon */}
-       {props.data.label}
+          <span className="mr-2">{props.data.icon}</span> {/* Adds margin to the icon */}
+          {props.data.label}
      </components.SingleValue>
-   );
+);
 
 const CreatePostModal = (props: IProps) => {
 
      const [selectedOption, setSelectedOption] = useState<any>(null);
+     const [content, setContent] = useState('');
+     const [files, setFiles] = useState<File[]>([]);
+     const [loading, setLoading] = useState<boolean>(false);
+
+     // Dummy user ID and token
+     const userId = 3;
+     const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODQ1NDA3LCJpYXQiOjE3Mjk3NTkwMDcsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.AQvnao_roLFCMXvZ59XDMMEw7z_FJbrXNrNkeyzVTN2AKd0T_tVqDy8KtXvJQ1ZPYgmLVgHl0ar-rTowPEUXNA';
+
+     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          if (e.target.files) {
+               const selectedFiles = Array.from(e.target.files);
+               setFiles(selectedFiles); // Store all selected files in the state
+          }
+     };
+
+     const handleSubmit = async () => {
+          if (files.length === 0) {
+               console.error('No files selected');
+               return;
+          }
+
+          const postRequest: PostRequest = {
+               userId: userId,
+               privacy: selectedOption?.value || 'PUBLIC',
+               content: content,
+          };
+
+          setLoading(true);
+          try {
+               const response = await handleCreatePost(files, postRequest, token);
+               console.log('Post created successfully:', response);
+               props.setShow(false);
+          } catch (error) {
+               console.error('Failed to create post:', error);
+          } finally {
+               setLoading(false);
+          }
+     };
+
+
+     const handleCreatePost = async (files: File[], postRequest: PostRequest, token: string) => {
+          const uploadedPublicIds: string[] = [];
+          const uploadedUrls: string[] = [];
+
+          try {
+               for (const file of files) {
+                    const uploadResult = await uploadImage(file);
+                    uploadedPublicIds.push(uploadResult.public_id);
+                    uploadedUrls.push(uploadResult.secure_url);
+               }
+
+               const postRequestWithMedia = {
+                    ...postRequest,
+                    urls: uploadedUrls,
+                    publicIds: uploadedPublicIds,
+               };
+
+               const postResponse = await createPost(postRequestWithMedia, token);
+               console.log('Post created successfully:', postResponse);
+
+               return postResponse;
+
+          } catch (error) {
+               console.error('Error creating post:', error);
+
+               // Delete uploaded images/videos if the post creation fails
+               for (const publicId of uploadedPublicIds) {
+                    try {
+                         await deleteImage(publicId);
+                         console.log('Uploaded image/video deleted successfully.');
+                    } catch (deleteError) {
+                         console.error('Error deleting uploaded image/video:', deleteError);
+                    }
+               }
+
+               throw error;
+          }
+     };
+
+
      return (
           <>
                <>
@@ -89,12 +173,12 @@ const CreatePostModal = (props: IProps) => {
                                                        className="p-1 ml-auto bg-transparent border-0 text-sky-600 float-right text-4xl leading-none font-semibold outline-none focus:outline-none"
                                                        onClick={() => props.setShow(false)}
                                                   >
-                                                       <IoIosCloseCircle/>
+                                                       <IoIosCloseCircle />
                                                   </button>
                                              </div>
                                              {/*body*/}
                                              <div className="flex justify-start items-center gap-2 ml-5 mt-4">
-                                                  <img src="https://scontent.fhph1-1.fna.fbcdn.net/v/t39.30808-6/451418121_1493503281258736_1067539081919969742_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=_Zd01_0VGpYQ7kNvgGeWDHD&_nc_ht=scontent.fhph1-1.fna&oh=00_AYBHEAthlGeQj62ElU3i3-wL8Pg2Yne60mzoift-ZQxEKw&oe=66F439A4"
+                                                  <img src={avt}
                                                        className="rounded-[100%] text-base h-10 w-10 "
                                                        alt="error" />
                                                   <div className="font-bold">
@@ -116,16 +200,41 @@ const CreatePostModal = (props: IProps) => {
                                              <div className="relative p-6 w-[100%]">
 
                                                   <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Tell us what you are thinking</label>
-                                                  <textarea id="message" rows={4} className="block p-2.5 w-full text-sm text-black bg-sky-100 rounded-lg border border-sky-600 focus:ring-blue-500 focus:border-blue-200 focus:outline-sky-600" placeholder="Write your thoughts here..."></textarea>
+                                                  <textarea id="message" rows={4} value={content} onChange={(e) => setContent(e.target.value)} className="block p-2.5 w-full text-sm text-black bg-sky-100 rounded-lg border border-sky-600 focus:ring-blue-500 focus:border-blue-200 focus:outline-sky-600" placeholder="Write your thoughts here..."></textarea>
 
                                              </div>
-                                             <div className=" w-[100%] flex justify-center">
+                                             <div className=" w-[100%] flex flex-col justify-center">
                                                   <div className="w-[92%] flex justify-around items-center border border-1 border-solid border-sky-200 rounded p-2 mb-2 font-lg">
                                                        Add to your post
                                                        <div className="flex justify-around w-[30%] items-center">
-                                                            <span className="hover:bg-gray-300 p-4 rounded cursor-pointer"><IoImagesSharp /></span>
-                                                            <span className="hover:bg-gray-300 p-4 rounded cursor-pointer"><FaVideo /></span>
+                                                            <label className="hover:bg-gray-300 p-4 rounded cursor-pointer">
+                                                                 <IoImagesSharp />
+                                                                 <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+                                                            </label>
+                                                            <label className="hover:bg-gray-300 p-4 rounded cursor-pointer">
+                                                                 <FaVideo />
+                                                                 <input type="file" multiple accept="video/*" onChange={handleFileChange} className="hidden" />
+                                                            </label>
                                                        </div>
+                                                  </div>
+                                                  <div className="flex flex-wrap">
+                                                       {files.map((file, index) => (
+                                                            <div key={index} className="m-2">
+                                                                 {file.type.startsWith('image/') ? (
+                                                                      <img
+                                                                           src={URL.createObjectURL(file)}
+                                                                           alt={file.name}
+                                                                           className="h-20 w-20 object-cover rounded"
+                                                                      />
+                                                                 ) : (
+                                                                      <div className="flex items-center">
+                                                                           <FaVideo className="text-blue-500" />
+                                                                           <span className="ml-2">{file.name}</span>
+                                                                      </div>
+                                                                 )}
+                                                                 <span className="text-sm">{file.name}</span> {/* Display filename */}
+                                                            </div>
+                                                       ))}
                                                   </div>
                                              </div>
                                              {/*footer*/}
@@ -133,9 +242,10 @@ const CreatePostModal = (props: IProps) => {
                                                   <button
                                                        className="bg-sky-500 text-white active:bg-sky-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                        type="button"
-                                                       onClick={() => props.setShow(false)}
+                                                       onClick={handleSubmit}
+                                                       disabled={loading}
                                                   >
-                                                       Save Changes
+                                                       {loading ? 'Saving...' : 'Save Changes'}
                                                   </button>
                                              </div>
                                         </div>

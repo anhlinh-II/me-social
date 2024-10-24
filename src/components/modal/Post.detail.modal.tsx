@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import pittapiu from '../../assets/pittapiu.png';
-import wideImage from '../../assets/image.png';
 import { BsThreeDots } from 'react-icons/bs';
 import { Avatar } from '@mui/material';
 import { IoMdHeartEmpty } from 'react-icons/io';
@@ -71,7 +70,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                     className="absolute top-6 right-6 text-slate-100 hover:text-gray-400"
                     onClick={() => setShow(false)}
                >
-                    <IoClose size={30} />
+                    <IoClose size={35} />
                </button>
                {/* Modal Content */}
                <div className="flex absolute bg-white rounded-lg shadow-lg max-w-[80%] h-[95%]">
@@ -89,7 +88,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                               <div className='flex gap-3 items-center'>
                                    <span className='border border-sky-600 rounded-full'>
                                         <Avatar
-                                             sx={{ width: 30, height: 30 }}
+                                             sx={{ width: 40, height: 40 }}
                                              src={pittapiu}
                                              alt='avatar'
                                         />
@@ -103,7 +102,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                               <div className='flex gap-3 items-start mb-4'>
                                    <span className='border h-fit w-fit rounded-full border-sky-600'>
                                         <Avatar
-                                             sx={{ width: 30, height: 30 }}
+                                             sx={{ width: 40, height: 40 }}
                                              src={pittapiu}
                                              alt='avatar'
                                         />
@@ -118,7 +117,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    <div className='flex gap-3'>
                                         <span className='border h-fit w-fit rounded-full border-sky-600'>
                                              <Avatar
-                                                  sx={{ width: 30, height: 30 }}
+                                                  sx={{ width: 35, height: 35 }}
                                                   src={pittapiu}
                                                   alt='avatar'
                                              />
@@ -146,7 +145,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                                             <div className='flex gap-3'>
                                                                  <span className='border h-fit w-fit rounded-full border-sky-600'>
                                                                       <Avatar
-                                                                           sx={{ width: 30, height: 30 }}
+                                                                           sx={{ width: 35, height: 35 }}
                                                                            src={pittapiu}
                                                                            alt='avatar'
                                                                       />
@@ -171,7 +170,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    <div className='flex gap-3'>
                                         <span className='border h-fit w-fit rounded-full border-sky-600'>
                                              <Avatar
-                                                  sx={{ width: 30, height: 30 }}
+                                                  sx={{ width: 35, height: 35 }}
                                                   src={pittapiu}
                                                   alt='avatar'
                                              />
@@ -191,7 +190,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    <div className='flex gap-3'>
                                         <span className='border h-fit w-fit rounded-full border-sky-600'>
                                              <Avatar
-                                                  sx={{ width: 30, height: 30 }}
+                                                  sx={{ width: 35, height: 35 }}
                                                   src={pittapiu}
                                                   alt='avatar'
                                              />
@@ -215,9 +214,9 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                               <div className='p-4 border border-b-gray-400 flex justify-between items-start'>
                                    <div className='flex flex-col gap-4'>
                                         <div className='flex gap-4'>
-                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegHeart /></span>
-                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegComment /></span>
-                                             <span className='text-xl cursor-pointer hover:text-gray-600'><FaRegPaperPlane /></span>
+                                             <span className='text-2xl cursor-pointer hover:text-gray-600'><FaRegHeart /></span>
+                                             <span className='text-2xl cursor-pointer hover:text-gray-600'><FaRegComment /></span>
+                                             <span className='text-2xl cursor-pointer hover:text-gray-600'><FaRegPaperPlane /></span>
                                         </div>
                                         <div className='flex flex-col text-sm'>
                                              <span className='font-semibold'>465,253 likes</span>

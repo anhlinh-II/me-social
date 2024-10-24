@@ -7,12 +7,13 @@ import { MdVideoLibrary } from "react-icons/md";
 import ReelGrid from "./ReelGrid";
 import { fakeReel, fakeStory } from "../fakeData";
 import ProfileStory from "./ProfileStory";
+import { LuDot } from "react-icons/lu";
 
 const Profile = () => {
 	const location = useLocation();
-    const initialActive = location.pathname.includes("reels") ? "reels" : "posts";
-    const [active, setActive] = useState<string>(initialActive);
-	
+	const initialActive = location.pathname.includes("reels") ? "reels" : "posts";
+	const [active, setActive] = useState<string>(initialActive);
+
 	const posts = [
 		{
 			id: 1,
@@ -101,34 +102,71 @@ const Profile = () => {
 						mutual_friends={777}
 						bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
 					/>
-					<ProfileStory stories={stories}/>
+					<ProfileStory stories={stories} />
 					<hr className='w-[97%] h-[1.5px] bg-gray-500 mt-5'></hr>
 					<div className="flex space-x-2 mb-4">
 						<Link to={`/profile`} onClick={() => setActive("posts")}>
-							<button className={active === "posts" 
-								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
+							<button className={active === "posts"
+								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold"
 								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
-									<BsGrid3X3GapFill />
-									Bài viết
+								<BsGrid3X3GapFill />
+								Bài viết
 							</button>
 						</Link>
 
 						<Link to={`/profile/reels`} onClick={() => setActive("reels")}>
-							<button className={active === "reels" 
-								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold" 
+							<button className={active === "reels"
+								? "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-blue-300 font-bold"
 								: "flex flex-row gap-2 items-center py-2 px-6 border-t-2 border-gray-100 rounded-md"}>
-									<MdVideoLibrary />
-									Reels
+								<MdVideoLibrary />
+								Reels
 							</button>
 						</Link>
 
 					</div>
-					{(active === "posts") ? 
+					{(active === "posts") ?
 						<PostGrid posts={posts} />
-						:  
-							<ReelGrid reels={reels} />
+						:
+						<ReelGrid reels={reels} />
 					}
-					
+
+					<div className="flex flex-wrap mt-20 text-gray-400 text-sm">
+						<div className="flex  justify-center items-center">
+							<span>About</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Help</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Press</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>API</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Jobs</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Privacy</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Terms</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Locations</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Language</span> <LuDot />
+						</div>
+						<div className="flex justify-center items-center">
+							<span>Verified</span>
+						</div>
+					</div>
+
+					<div className="mt-6 text-gray-400 text-sm">
+						<span>© 2024 MeSocial from LL</span>
+					</div>
+
 				</div>
 			</div>
 		</>

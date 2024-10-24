@@ -24,7 +24,7 @@ const StoryItem: React.FC<StoryItemProps> = ({ posterUrl, altText, content, onCl
 			) : (
 				<img
 					src={posterUrl}
-					className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+					className="w-full h-full object-cover"
 					alt={altText}
 					onError={handleImageError}
 				/>
