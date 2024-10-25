@@ -23,7 +23,7 @@ const Register = () => {
                               <input
                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-600 focus:border-2"
                                    type="text"
-                                   id="email"
+                                   id="fullName"
                                    placeholder="ex: thuyveo2004"
                                    required
                               />

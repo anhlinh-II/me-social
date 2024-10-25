@@ -1,11 +1,9 @@
-import { IoReload } from "react-icons/io5"
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
 import { useEffect, useState } from "react"
 import GroupPostItem from "../post/GroupPostItem"
 import { getPostsByGroup } from "../../services/Entities/PostService"
 import { Post, PostResponse } from "../../services/Types/Post"
-import ListPosts from "../post/ListPosts"
 
 const GroupDiscussion = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -17,7 +15,7 @@ const GroupDiscussion = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NzY0MDg0LCJpYXQiOjE3Mjk2Nzc2ODQsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.fW939sbRLLAG2RB-WS3WvR1mJesGRG9q41zBDyVjPomfgbUSrTpE5K8JMR5LUWykxO9QN6jyhkwOizdmPGXxQQ";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUzNjYzLCJpYXQiOjE3Mjk4NjcyNjMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.0UTslqMuHAvys8ZWf71autLq9LVheMQmnAAhlJwGEA9tWC2R_BpVXh4VJNI_K2k9-8YBCvelK5vVtkeWGLvmeg";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -46,7 +44,7 @@ const GroupDiscussion = () => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
-                        image: "https://bizweb.dktcdn.net/100/370/339/products/z4529778288710-9a538b8bcac451561af81cd240d963a1.jpg?v=1689758099500",
+                        urls: item.urls,
                         imageError: false
                     }
                 });
@@ -94,7 +92,9 @@ const GroupDiscussion = () => {
                     <div className="flex flex-col gap-4 w-[60%]">
                         <CreatePost />
                         <div className=" w-full h-fit rounded">
-                            {posts.map((item, index) => (
+                            {posts ? 
+                            <>
+                                {posts.map((item, index) => (
                                 <GroupPostItem
                                     key={`post-key-${index}`}
                                     post={item}
@@ -102,15 +102,11 @@ const GroupDiscussion = () => {
                                     handleLikeBtn={handleLikeBtn}
                                     handleFavouriteBtn={handleFavouriteBtn}
                                 />
-                            ))}
+                            ))}</> : <></>}
+                            
                         </div>
-                        <ListPosts />
                     </div>
                     <GroupOverview />
-                </div>
-
-                <div className="px-4 py-2 bg-sky-400 w-[100px] justify-center text-center rounded-full flex items-center gap-2 cursor-pointer hover:bg-sky-600 hover:text-white transition duration-150">
-                    <IoReload className="text-2xl font-bold" /><span>Refresh</span>
                 </div>
             </div>
         </>

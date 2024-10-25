@@ -16,7 +16,7 @@ const GroupActivity: React.FC = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODY2MDI5LCJpYXQiOjE3Mjk3Nzk2MjksInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.FzIxyk1DoQdltsqCyUm9se7PU7YT-6qCouEnROMcciqr68z0Iyp4eAYmkT8sMlH4phDQPkxZiq67kFmQbZ0VCw";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUzNjYzLCJpYXQiOjE3Mjk4NjcyNjMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.0UTslqMuHAvys8ZWf71autLq9LVheMQmnAAhlJwGEA9tWC2R_BpVXh4VJNI_K2k9-8YBCvelK5vVtkeWGLvmeg";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -45,7 +45,7 @@ const GroupActivity: React.FC = () => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
-                        image: "https://bizweb.dktcdn.net/100/370/339/products/z4529778288710-9a538b8bcac451561af81cd240d963a1.jpg?v=1689758099500",
+                        urls: item.urls,
                         imageError: false
                     }
                 });

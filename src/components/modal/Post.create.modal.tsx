@@ -98,6 +98,7 @@ const CreatePostModal = (props: IProps) => {
                userId: userId,
                privacy: selectedOption?.value || 'PUBLIC',
                content: content,
+               urls: []
           };
 
           setLoading(true);

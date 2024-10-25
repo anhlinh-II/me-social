@@ -8,6 +8,7 @@ export interface ReelResponse {
     updatedAt: string;
     likeNum: number;
     commentNum: number;
+    viewsCount: number;
 }
 
 export interface ReelRequest {

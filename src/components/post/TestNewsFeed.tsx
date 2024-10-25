@@ -29,7 +29,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODY2MDI5LCJpYXQiOjE3Mjk3Nzk2MjksInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.FzIxyk1DoQdltsqCyUm9se7PU7YT-6qCouEnROMcciqr68z0Iyp4eAYmkT8sMlH4phDQPkxZiq67kFmQbZ0VCw";
+                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUzNjYzLCJpYXQiOjE3Mjk4NjcyNjMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.0UTslqMuHAvys8ZWf71autLq9LVheMQmnAAhlJwGEA9tWC2R_BpVXh4VJNI_K2k9-8YBCvelK5vVtkeWGLvmeg";
                 // localStorage.getItem('token');
                 if (!token) {
                     throw new Error('No token found');
@@ -53,8 +53,8 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         privacy: item.privacy,
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt,
-                        likeNum: item.likeNum,
-                        commentNum: item.commentNum,
+                        likeCount: item.likeCount,
+                        commentCount: item.commentCount,
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
@@ -222,7 +222,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 {item.isFavourited ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
-                        <span className="font-medium text-sky-800">{item.likeNum} likes</span>
+                        <span className="font-medium text-sky-800">{item.likeCount} likes</span>
                         <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                             <span className="font-bold text-sky-700">{item.userFullName}</span>
                             <ShowMoreText
@@ -236,12 +236,12 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                             >
                                 {item.content}
                             </ShowMoreText>
-                            {item.commentNum > 0 ?
+                            {item.commentCount > 0 ?
                                 <span
                                     className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
                                     onClick={() => setShowDetailModal(true)}
                                 >
-                                    Xem {item.commentNum} bình luận
+                                    Xem {item.commentCount} bình luận
                                 </span>
                             :   <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                             <div className='flex flex-row mt-2'>

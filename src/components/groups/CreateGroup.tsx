@@ -1,4 +1,4 @@
-import { Avatar, Breadcrumbs, FormControl, InputLabel, Link, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, ListItemIcon, ListItemText } from "@mui/material";
+import { Avatar, Breadcrumbs, FormControl, InputLabel, Link, MenuItem, Select, SelectChangeEvent, TextField, Typography, ListItemIcon, ListItemText } from "@mui/material";
 import { FaEarthAmericas, FaLocationDot, FaReact, FaRegFaceKissBeam, FaUserTag } from "react-icons/fa6";
 import { IoMdClose, IoMdPhotos } from "react-icons/io";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -9,6 +9,8 @@ import creategroup from '../../assets/creategroup.png';
 import { LuDot } from "react-icons/lu";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import debounce from 'lodash/debounce';
+import { createGroup } from "../../services/Entities/GroupService";
+import { GroupPrivacy } from "../../services/Types/Group";
 
 const CreateGroup = () => {
      const [mode, setMode] = useState<string | number>('');
@@ -18,6 +20,29 @@ const CreateGroup = () => {
      const [groupLocation, setGroupLocation] = useState<string>("")
 
      const [isEnoughInfo, setIsEnoughInfo] = useState<boolean | 0>(false);
+     const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUxNzUzLCJpYXQiOjE3Mjk4NjUzNTMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.78IkgUinEkMQUfShC2WYoN3FAtz9z0fx7IHH3QP18xov4Iv3eVKnf0vyHTlB4TiQ4CCGMmOz9o6LVuT4lTkbMg"; 
+
+     const handleCreateGroup = async () => {
+          if (!isEnoughInfo) return;
+
+          const groupData = {
+               adminId: 3,
+               name: groupName,
+               description: groupBio,
+               location: groupLocation,
+               privacy: mode === 10 ? GroupPrivacy.PUBLIC : GroupPrivacy.PRIVATE,
+          };
+
+          try {
+               const response = await createGroup(groupData, token);
+               console.log(response);
+               alert(`Tạo nhóm thành công`);
+               navigate(`/groups/${response.id}`);
+          } catch (error) {
+               console.error("Failed to create group", error);
+               alert("There was an error creating the group.");
+          }
+     };
 
      useEffect(() => {
           const hasEnoughInfo: boolean | 0 = (mode && groupBio && groupName && groupLocation) as (boolean | 0);
@@ -49,7 +74,7 @@ const CreateGroup = () => {
      )
 
      const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-          // setMode("");
+         console.log(event);
      };
 
      const handleChangeModeGroup = (event: SelectChangeEvent<string | number>) => {
@@ -129,7 +154,7 @@ const CreateGroup = () => {
                                                   <div className="flex items-center gap-2 text-gray-600">
                                                        {selected === 10 && <span className="p-2 rounded-full bg-gray-300"><FaEarthAmericas /></span>}
                                                        {selected === 20 && <span className="p-2 rounded-full bg-gray-300"><FaLock /></span>}
-                                                       <span>{selected === 10 ? 'Public' : 'Private'}</span>
+                                                       <span>{selected === 10 ? GroupPrivacy.PUBLIC : GroupPrivacy.PRIVATE}</span>
                                                   </div>
                                              )}
                                         >
@@ -153,7 +178,13 @@ const CreateGroup = () => {
                          </div>
                     </div>
                     <div className="flex absolute bottom-0 right-0 left-0 border-t border-gray-300 h-[10%] drop-shadow-2xl">
-                         {isEnoughInfo ? <button className="m-auto bg-sky-500 px-32 py-2 rounded-lg text-white font-semibold">Create</button> : <button className="m-auto bg-gray-300 px-32 py-2 rounded-lg text-gray-500 cursor-not-allowed font-semibold">Create</button>}
+                         <button
+                         className={`m-auto px-32 py-2 rounded-lg font-semibold ${isEnoughInfo ? 'bg-sky-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                         onClick={handleCreateGroup}
+                         disabled={!isEnoughInfo}
+                         >
+                         Create
+                         </button>
                     </div>
                </div>
                {/* right */}

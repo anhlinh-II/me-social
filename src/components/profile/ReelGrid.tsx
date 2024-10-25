@@ -17,8 +17,8 @@ interface Reel {
     altText: string;
     content: string;
     views: number;
-    likes: number;
-    commentNum: number;
+    likeCount: number;
+    commentCount: number;
     comments: Comment[];
 }
 
@@ -67,8 +67,8 @@ const ReelGrid: React.FC<ReelGridProps> = ({ reels }) => {
                     posterUrl={reel.posterUrl}
                     altText={reel.altText}
                     views={reel.views}
-                    likeNum={reel.likes} 
-                    commentNum={reel.commentNum}
+                    likeCount={reel.likeCount} 
+                    commentCount={reel.commentCount}
                     onClick={() => handlePostClick(reel)}
                 />
             ))
@@ -85,7 +85,7 @@ const ReelGrid: React.FC<ReelGridProps> = ({ reels }) => {
                     imageUrl={selectedPost.videoUrl}
                     altText={selectedPost.altText}
                     content={selectedPost.content}
-                    likes={selectedPost.likes}
+                    likes={selectedPost.likeCount}
                     comments={selectedPost.comments}
                     onClose={handleCloseModal}
                 />

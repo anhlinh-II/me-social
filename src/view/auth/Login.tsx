@@ -32,6 +32,7 @@ const Login = () => {
 
           try {
                const res = await callLogin(username, password);
+               console.log(res);
                setIsSubmit(false);
 
                if (res?.data?.result) {  // Use 'result' from the IApiResponse

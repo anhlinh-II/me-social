@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import More from '../modal/More';
 import { Post } from '../../services/Types/Post';
 import GroupJoinedCard from '../groups/GroupJoinedCard';
+import ImageSlider from './ImageSlider';
 
 interface PostItemProps {
     post: Post;
@@ -85,17 +86,13 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                 <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
-            {imageError ? (
+            {/* Post slider */}
+            {post.imageError ? (
                 <div className="flex justify-center items-center w-full h-64 bg-gray-200">
                     <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                 </div>
             ) : (
-                <img
-                    src={post.image}
-                    className="w-[100%] h-auto"
-                    alt="error"
-                    onError={handleImageError}
-                />
+                <ImageSlider urls={post.urls} />
             )}
 
             <div className="flex flex-col p-3">
@@ -121,7 +118,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         {post.isFavourited ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
-                <span className="font-medium text-sky-800">{post.likeNum} likes</span>
+                <span className="font-medium text-sky-800">{post.likeCount} likes</span>
                 <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                     <span className="font-bold text-sky-700">{post.userFullName}</span>
                     <ShowMoreText
@@ -135,10 +132,10 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                     >
                         {post.content}
                     </ShowMoreText>
-                    {post.commentNum > 0 ?
+                    {post.commentCount > 0 ?
                         <span
                             className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">
-                            Xem {post.commentNum} bình luận
+                            Xem {post.commentCount} bình luận
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex flex-row mt-2'>

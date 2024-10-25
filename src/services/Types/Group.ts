@@ -8,8 +8,10 @@ export interface GroupResponse {
     name: string;
     description: string;
     privacy: GroupPrivacy;
+    location: string;
     createdAt: Date;
     updatedAt: Date;
+    imageUrl: string;
     memberNum: number;
     adminNum: number;
 }
@@ -19,5 +21,6 @@ export interface GroupRequest {
     adminId: number;
     name: string;
     description?: string;
+    location: string;
     privacy: GroupPrivacy;
 }

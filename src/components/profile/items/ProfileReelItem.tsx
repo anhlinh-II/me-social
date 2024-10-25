@@ -7,12 +7,12 @@ interface ReelItemProps {
 	altText: string;
 	posterUrl: string;
 	views: number;
-	likeNum: number;
-	commentNum: number;
+	likeCount: number;
+	commentCount: number;
 	onClick: () => void;
 }
 
-const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, views, likeNum, commentNum, onClick }) => {
+const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, views, likeCount, commentCount, onClick }) => {
 	const [imageError, setImageError] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -42,11 +42,11 @@ const ReelItem: React.FC<ReelItemProps> = ({ posterUrl, altText, views, likeNum,
 					<div className='flex flex-row gap-8 text-white text-xl z-20'>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaHeart />
-							{formatNumberWithUnit(likeNum)}
+							{formatNumberWithUnit(likeCount)}
 						</div>
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<FaComment />
-							{formatNumberWithUnit(commentNum)}
+							{formatNumberWithUnit(commentCount)}
 						</div>
 					</div>
 				</div>
