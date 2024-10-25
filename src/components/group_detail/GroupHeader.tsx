@@ -5,6 +5,7 @@ import { GoDotFill } from 'react-icons/go';
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { GroupResponse } from "../../services/Types/Group";
+import InviteModal from "./modal/InviteModal";
 
 
 interface GroupHeaderProps {
@@ -15,9 +16,9 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const location = useLocation();
     const initialActive = location.pathname.includes("about") ? "about" : "discussion";
     const [active, setActive] = useState<string>(initialActive);
+    const [isInviteModalOpen, setInviteModalOpen] = useState(false);
 
-    console.log(group);
-    if (!group) return null;
+    const suggestedUsers = ['User1', 'User2', 'User3'];
 
     return (
         <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mt-[-72px] mb-5">
@@ -28,13 +29,13 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
             />
             <div className='w-[72%] mt-4 border-b border-black pb-4'>
             <h1 className="text-2xl w-fit cursor-pointer font-bold hover:underline">
-                    {group.name}
+                    {group?.name}
                 </h1>
                 <div className='mt-2 flex items-center gap-2'>
                     <FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" />
-                    <span>{group.privacy}</span>
+                    <span>{group?.privacy}</span>
                     <GoDotFill className="text-[10px]" />
-                    <span className='ms-2'>{group.memberNum + group.adminNum} thành viên</span>
+                    <span className='ms-2'>{group? (group.memberNum + group.adminNum) : ""} thành viên</span>
                 </div>
                 {/* Group Info */}
                 <div className="flex items-center space-x-4">
@@ -76,7 +77,8 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
 
                     <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">
                         Tham gia</button>
-                    <button className="flex items-center text-white gap-1 bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500">
+                    <button className="flex items-center text-white gap-1 bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500"
+                        onClick={() => setInviteModalOpen(true)}>
                         <FaPlus />
                         <div>Mời</div>
                     </button>
@@ -90,6 +92,12 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                         <BsThreeDots /></button>
                 </div>
             </div>
+            {isInviteModalOpen && (
+                    <InviteModal
+                        onClose={() => setInviteModalOpen(false)}
+                        suggestedUsers={suggestedUsers}
+                    />
+                )}
         </div>
     );
 };

@@ -64,9 +64,6 @@ const GroupDiscussion = () => {
         return <></>;
     }
 
-    if (error) {
-        return <></>;
-    }
     
 
     const handleLikeBtn = (index: number) => {
