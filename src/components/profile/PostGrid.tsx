@@ -1,9 +1,9 @@
 // PostGrid.tsx
 import React, { useState } from 'react';
 import PostItem from './items/ProfilePostItem';
-import PostModal from './PostModal';
 import { PiPlusLight } from 'react-icons/pi';
 import CreatePostModal from '../modal/Post.create.modal';
+import PostDetailModal from '../modal/Post.detail.modal';
 
 interface Comment {
 	id: number;
@@ -28,13 +28,10 @@ interface PostGridProps {
 const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 	const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
 	const handlePostClick = (post: Post) => {
 		setSelectedPost(post);
-	};
-
-	const handleCloseModal = () => {
-		setSelectedPost(null);
 	};
 
 	const Posts = [
@@ -70,7 +67,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 	return (
 		<div className="relative">
 			{(posts.length > 1) ?
-				<div className="grid grid-cols-3 gap-1 p-4 w-[100%]">
+				<div className="grid grid-cols-3 gap-1 p-4 w-[100%]" onClick={() => setShowDetailModal(true)}>
 					{Posts}
 				</div>
 				: (
@@ -86,14 +83,12 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 				)}
 
 			{selectedPost && (
-				<PostModal
-					imageUrl={selectedPost.imageUrl}
-					altText={selectedPost.altText}
-					content={selectedPost.content}
-					likes={selectedPost.likes}
-					comments={selectedPost.comments}
-					onClose={handleCloseModal}
-				/>
+				<div className="relative">
+                <PostDetailModal
+                    show={showDetailModal}
+                    setShow={setShowDetailModal}
+                />
+            </div>
 			)}
 			<CreatePostModal
                     show={showCreateModal}

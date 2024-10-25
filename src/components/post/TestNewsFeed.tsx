@@ -53,8 +53,8 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         privacy: item.privacy,
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt,
-                        likeCount: item.likeCount,
-                        commentCount: item.commentCount,
+                        likeNum: item.likeNum,
+                        commentNum: item.commentNum,
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
@@ -222,7 +222,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 {item.isFavourited ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
-                        <span className="font-medium text-sky-800">{item.likeCount} likes</span>
+                        <span className="font-medium text-sky-800">{item.likeNum} likes</span>
                         <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                             <span className="font-bold text-sky-700">{item.userFullName}</span>
                             <ShowMoreText
@@ -236,12 +236,12 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                             >
                                 {item.content}
                             </ShowMoreText>
-                            {item.commentCount > 0 ?
+                            {item.commentNum > 0 ?
                                 <span
                                     className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
                                     onClick={() => setShowDetailModal(true)}
                                 >
-                                    Xem {item.commentCount} bình luận
+                                    Xem {item.commentNum} bình luận
                                 </span>
                             :   <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                             <div className='flex flex-row mt-2'>

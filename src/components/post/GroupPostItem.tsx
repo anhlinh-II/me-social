@@ -118,7 +118,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         {post.isFavourited ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
-                <span className="font-medium text-sky-800">{post.likeCount} likes</span>
+                <span className="font-medium text-sky-800">{post.likeNum} likes</span>
                 <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                     <span className="font-bold text-sky-700">{post.userFullName}</span>
                     <ShowMoreText
@@ -132,10 +132,10 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                     >
                         {post.content}
                     </ShowMoreText>
-                    {post.commentCount > 0 ?
+                    {post.commentNum > 0 ?
                         <span
                             className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">
-                            Xem {post.commentCount} bình luận
+                            Xem {post.commentNum} bình luận
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex flex-row mt-2'>
