@@ -1,9 +1,11 @@
 // src/components/ProfileInfo.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArchive, FaEdit } from 'react-icons/fa';
 import { GrSettingsOption } from "react-icons/gr";
 import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/FormatNumber';
+import { updateUser } from '../../services/Entities/UserService';
+import { UserUpdateRequest } from '../../services/Types/User';
 
 interface ProfileInfoProps {
     profileImage: string;
@@ -15,6 +17,31 @@ interface ProfileInfoProps {
 }
 
 const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts, likes, mutual_friends, bio }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState<UserUpdateRequest>({
+        id: 1, // Use actual ID here
+        firstName: '',
+        lastName: '',
+        bio,
+    });
+
+    const handleEditClick = () => setIsEditing(true);
+    const handleClose = () => setIsEditing(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const token = 'your_token'; // Add actual token here
+            await updateUser(formData, token);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    };
+    
     return (
         <div className="flex flex-row justify-between items-center p-4 bg-gray-100 w-[80%]">
             <img
@@ -25,7 +52,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
             <div className='flex flex-col items-start'>
                 <div className='flex flex-row gap-4'>
                     <h2 className="text-xl font-semibold font-serif me-2">{username}</h2>
-                    <button className='flex flex-row gap-2 items-center bg-[#E4E6EB] hover:bg-[#D8DADF] p-2 rounded-lg'>
+                    <button onClick={handleEditClick} className='flex flex-row gap-2 items-center bg-[#E4E6EB] hover:bg-[#D8DADF] p-2 rounded-lg'>
                         <FaEdit/>
                         <span>Chỉnh sửa</span>
                     </button>
@@ -62,6 +89,44 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
                 </div>
                 <p className="text-left text-gray-700 w-full">{bio} </p>
             </div>
+            
+            {isEditing && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div className="bg-white p-6 rounded-lg w-[400px] relative">
+                    <button
+                        onClick={handleClose}
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 font-bold"
+                    >
+                        &times;
+                    </button>
+                    <h3 className="text-lg font-semibold mb-4">Chỉnh sửa thông tin</h3>
+                    <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        placeholder="First Name"
+                        className="p-2 border rounded w-full mb-2"
+                    />
+                    <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        placeholder="Last Name"
+                        className="p-2 border rounded w-full mb-2"
+                    />
+                    <textarea
+                        name="bio"
+                        value={formData.bio}
+                        onChange={handleChange}
+                        placeholder="Bio"
+                        className="p-2 border rounded w-full mb-2"
+                    />
+                    <button onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded mt-2 w-full">Save</button>
+                </div>
+            </div>
+            )}
         </div>
     );
 };
