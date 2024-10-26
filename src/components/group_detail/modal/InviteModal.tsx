@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
 
 interface InviteModalProps {
     onClose: () => void;
@@ -22,15 +23,15 @@ const InviteModal: React.FC<InviteModalProps> = ({ onClose, suggestedUsers }) =>
     return (
         <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg w-[600px] flex flex-col relative">
+                <div className='relative flex gap-2 items-center justify-center w-full border-b border-gray-400 pb-2 mb-4'>
+                    <h3 className="text-xl font-bold mb-4">Mời thành viên</h3>
+                    <button onClick={onClose} className="text-black float-right text-xl absolute right-2 rounded-full p-2 bg-gray-400 hover:bg-gray-300">
+                        <IoMdClose />
+                    </button>
+                </div>
                 <div className='flex'>
                     <div className="w-1/2">
-                        <button
-                            onClick={onClose}
-                            className="absolute top-0 right-2 text-gray-600 hover:text-gray-800 font-bold"
-                        >
-                            &times;
-                        </button>
-                        <h3 className="text-lg font-semibold mb-4">Mời thành viên</h3>
+                        
                         <input
                             type="text"
                             placeholder="Tìm kiếm người dùng"

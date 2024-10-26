@@ -23,7 +23,7 @@ const GroupDropdownMenu: React.FC<GroupDropdownMenuProps> = ({ onClose }) => {
     }, [onClose]);
 
     return (
-        <div ref={menuRef} className="absolute top-[100%] mt-2 -right-24 bg-white border rounded-lg shadow-lg w-80 z-50">
+        <div ref={menuRef} className="absolute top-[100%] mt-2 -right-36 bg-white border rounded-lg shadow-lg w-80 z-50">
             <ul className="p-2 text-left">
                 <li className="px-4 py-2 rounded-lg hover:bg-gray-100 cursor-pointer flex gap-2 items-center">
                     <BiSolidBookContent />Nội dung của bạn</li>

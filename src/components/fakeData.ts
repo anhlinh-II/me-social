@@ -238,8 +238,8 @@ export const fakeReel: ReelGridProps = {
         altText: "Sintel Trailer",
         content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
         views: 93919185,
-        likes: 4693535,
-        commentNum: 93535,
+        likeCount: 4693535,
+        commentCount: 93535,
         comments: [
           {
             id: 1,
@@ -265,8 +265,8 @@ export const fakeReel: ReelGridProps = {
         altText: "Big Buck Bunny Video",
         content: "A funny animated short film by Blender Foundation",
         views: 7469185,
-        likes: 393535,
-        commentNum: 93535,
+        likeCount: 393535,
+        commentCount: 93535,
         comments: [
           {
             id: 1,
@@ -287,8 +287,8 @@ export const fakeReel: ReelGridProps = {
         altText: "Sample HTML5 Video",
         content: "An HTML5 sample video showing different video formats.",
         views: 929185,
-        likes: 793535,
-        commentNum: 93535,
+        likeCount: 793535,
+        commentCount: 93535,
         comments: [
           {
             id: 1,
@@ -309,8 +309,8 @@ export const fakeReel: ReelGridProps = {
         altText: "Sintel Trailer",
         content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
         views: 93919185,
-        likes: 4693535,
-        commentNum: 93535,
+        likeCount: 4693535,
+        commentCount: 93535,
         comments: [
           {
             id: 1,
@@ -336,8 +336,8 @@ export const fakeReel: ReelGridProps = {
         altText: "Sintel Trailer",
         content: "The official trailer of Sintel, an open movie project by Blender Foundation.",
         views: 218919185,
-        likes: 14693535,
-        commentNum: 93535,
+        likeCount: 14693535,
+        commentCount: 93535,
         comments: [
           {
             id: 1,

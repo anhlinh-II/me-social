@@ -1,3 +1,4 @@
+import { FaEarthAmericas, FaLock } from "react-icons/fa6";
 
 
 const GroupOverview = () => {
@@ -26,13 +27,29 @@ const GroupOverview = () => {
     ];
 
     return (
-        <div className="w-[40%] sticky top-20 h-fit space-y-6">
+        <div className="w-[40%] sticky bottom-0 h-fit space-y-6">
             {/* Giới thiệu */}
             <div className="space-y-2 rounded-lg bg-white shadow-md p-6">
                 <h2 className="text-lg font-bold">Giới thiệu về nhóm</h2>
                 <p className="text-gray-600">
                     Đây là một nhóm thảo luận về các chủ đề công nghệ hiện đại và chia sẻ kinh nghiệm, tài liệu học tập. Tham gia cùng chúng tôi để cập nhật các thông tin mới nhất.
                 </p>
+                
+                <span className="flex items-start gap-2">
+                    <span className="relative top-1.5"><FaEarthAmericas /></span>
+                    <span className="flex flex-col">
+                        <span className="font-semibold">Công khai</span>
+                        <span>Bất kỳ ai cũng có thể nhìn thấy mọi người trong nhóm và những gì họ đăng</span>
+                    </span>
+                </span>
+
+                <span className="flex items-start gap-2">
+                    <span className="relative top-1.5"><FaLock /></span>
+                    <span className="flex flex-col">
+                        <span className="font-semibold text-gray-700">Hiển thị</span>
+                        <span>Ai cũng có thể tìm thấy nhóm này.</span>
+                    </span>
+                </span>
             </div>
 
             {/* File phương tiện gần đây */}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
 
 interface SearchModalProps {
     onClose: () => void;
@@ -16,11 +17,8 @@ const GroupSearchModal: React.FC<SearchModalProps> = ({ onClose, recentSearches 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg w-[400px] relative">
-                <button
-                    onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 font-bold"
-                >
-                    &times;
+                <button onClick={onClose} className="text-black text-xl absolute top-4 right-6 rounded-full p-2 bg-gray-400 hover:bg-gray-300">
+                    <IoMdClose />
                 </button>
                 <h3 className="text-lg font-semibold mb-4">Tìm kiếm</h3>
                 <input

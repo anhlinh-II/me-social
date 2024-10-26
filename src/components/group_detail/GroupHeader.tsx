@@ -8,6 +8,7 @@ import { GroupResponse } from "../../services/Types/Group";
 import InviteModal from "./modal/InviteModal";
 import GroupSearchModal from "./modal/GroupSearchModal";
 import GroupDropdownMenu from "./modal/GroupDropdownMenu";
+import GroupShareModal from "./modal/GroupShareModal";
 
 
 interface GroupHeaderProps {
@@ -21,6 +22,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const [isInviteModalOpen, setInviteModalOpen] = useState(false);
     const [isGroupSearchModalOpen, setIsGroupSearchModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
     const recentSearches = ["Tìm kiếm 1", "Tìm kiếm 2", "Tìm kiếm 3"];
 
@@ -55,7 +57,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
 
             {/* Horizontal Menu */}
             <div className="mt-4">
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 relative">
                     <Link to={`/groups/groupName/about`} onClick={() => setActive("recentlyActivity")}>
                         <button className={active === "recentlyActivity" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>Giới thiệu
                         </button>
@@ -88,20 +90,21 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                         <FaPlus />
                         <div>Mời</div>
                     </button>
-                    <button className="flex items-center gap-1 bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
+                    <button className="flex items-center gap-1 bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300"
+                        onClick={() => setIsShareModalOpen(true)}>
                         <FaShare />
                         <div>Chia sẻ</div>
                     </button>
                     <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF]"
                         onClick={() => setIsGroupSearchModalOpen(true)}>
                         <IoSearchSharp /></button>
-                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF] relative"
+                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF]"
                         onClick={() => setIsMenuOpen((prev) => !prev)}>
                         <BsThreeDots />
-                        {isMenuOpen && (
+                    </button>
+                    {isMenuOpen && (
                         <GroupDropdownMenu onClose={() => setIsMenuOpen(false)} />
                         )}
-                    </button>
                 </div>
             </div>
             {isInviteModalOpen && (
@@ -114,6 +117,13 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                 <GroupSearchModal
                     onClose={() => setIsGroupSearchModalOpen(false)}
                     recentSearches={recentSearches}
+                />
+            )}
+            {isShareModalOpen && (
+                <GroupShareModal
+                    onClose={() => setIsShareModalOpen(false)}
+                    userAvatar="/gta6.jpg"
+                    userName="Cristiano Ronaldo"
                 />
             )}
         </div>
