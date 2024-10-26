@@ -14,6 +14,7 @@ export interface Post {
     time: number;
     isLiked: boolean | undefined;
     isFavourited: boolean | undefined;
+    publicIds: string[];
     urls: string[];
     imageError: boolean;
 }
@@ -44,7 +45,7 @@ export interface PostResponse {
     groupName: string;
     content: string;
     urls: string[];
-    publicIds?: string[];
+    publicIds: string[];
     privacy: string;
     createdAt: string;
     updatedAt: string;

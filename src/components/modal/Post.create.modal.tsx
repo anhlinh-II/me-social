@@ -79,8 +79,7 @@ const CreatePostModal = (props: IProps) => {
 
      // Dummy user ID and token
      const userId = 3;
-     const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5ODQ1NDA3LCJpYXQiOjE3Mjk3NTkwMDcsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.AQvnao_roLFCMXvZ59XDMMEw7z_FJbrXNrNkeyzVTN2AKd0T_tVqDy8KtXvJQ1ZPYgmLVgHl0ar-rTowPEUXNA';
-
+     
      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           if (e.target.files) {
                const selectedFiles = Array.from(e.target.files);
@@ -103,7 +102,7 @@ const CreatePostModal = (props: IProps) => {
 
           setLoading(true);
           try {
-               const response = await handleCreatePost(files, postRequest, token);
+               const response = await handleCreatePost(files, postRequest);
                console.log('Post created successfully:', response);
                props.setShow(false);
           } catch (error) {
@@ -114,7 +113,7 @@ const CreatePostModal = (props: IProps) => {
      };
 
 
-     const handleCreatePost = async (files: File[], postRequest: PostRequest, token: string) => {
+     const handleCreatePost = async (files: File[], postRequest: PostRequest) => {
           const uploadedPublicIds: string[] = [];
           const uploadedUrls: string[] = [];
 
@@ -131,7 +130,7 @@ const CreatePostModal = (props: IProps) => {
                     publicIds: uploadedPublicIds,
                };
 
-               const postResponse = await createPost(postRequestWithMedia, token);
+               const postResponse = await createPost(postRequestWithMedia);
                console.log('Post created successfully:', postResponse);
 
                return postResponse;

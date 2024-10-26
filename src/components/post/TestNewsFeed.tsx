@@ -34,8 +34,12 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                     throw new Error('No token found');
                 }
 
-                const data = await getPostsForNewsFeed(userId, 0, token);
-                const transformedPosts: Post[] = data.result.content.map((item: PostResponse) => {
+                const response = await getPostsForNewsFeed(userId, 0);
+                if (!response || !response.result || !Array.isArray(response.result.content)) {
+                    throw new Error('Invalid response structure');
+                }
+
+                const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
 
                     const createdAtDate = new Date(item.createdAt);
                     const now = new Date();
@@ -57,6 +61,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
+                        publicIds: item.publicIds,
                         urls: item.urls,
                         imageError: false
                     }
