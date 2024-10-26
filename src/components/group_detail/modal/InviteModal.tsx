@@ -21,12 +21,12 @@ const InviteModal: React.FC<InviteModalProps> = ({ onClose, suggestedUsers }) =>
 
     return (
         <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-6 rounded-lg w-[600px] flex flex-col">
+            <div className="bg-white p-6 rounded-lg w-[600px] flex flex-col relative">
                 <div className='flex'>
                     <div className="w-1/2">
                         <button
                             onClick={onClose}
-                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 font-bold"
+                            className="absolute top-0 right-2 text-gray-600 hover:text-gray-800 font-bold"
                         >
                             &times;
                         </button>
@@ -36,16 +36,16 @@ const InviteModal: React.FC<InviteModalProps> = ({ onClose, suggestedUsers }) =>
                             placeholder="Tìm kiếm người dùng"
                             className="p-2 border rounded w-full mb-4"
                         />
-                        <div className="max-h-60 overflow-y-auto">
+                        <div className="flex flex-col w-full max-h-60 overflow-y-auto">
                             {suggestedUsers.map((user, index) => (
-                                <div key={index} className="flex items-center p-2 border-b">
+                                <div key={index} className="flex items-center justify-between p-2 border-b">
+                                    <span>{user}</span>
                                     <input
                                         type="checkbox"
                                         checked={selectedUsers.includes(user)}
                                         onChange={() => handleCheckboxChange(user)}
-                                        className="mr-2"
+                                        className="mr-2 h-6 w-6"
                                     />
-                                    <span>{user}</span>
                                 </div>
                             ))}
                         </div>
@@ -63,7 +63,7 @@ const InviteModal: React.FC<InviteModalProps> = ({ onClose, suggestedUsers }) =>
                 </div>
                 <button
                     onClick={handleInvite}
-                    className="mt-4 bg-blue-500 text-white p-2 px-4 rounded w-24"
+                    className="self-end mt-4 bg-blue-500 text-white p-2 px-4 rounded w-24"
                 >
                     Mời
                 </button>

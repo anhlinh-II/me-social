@@ -6,6 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { GroupResponse } from "../../services/Types/Group";
 import InviteModal from "./modal/InviteModal";
+import GroupSearchModal from "./modal/GroupSearchModal";
+import GroupDropdownMenu from "./modal/GroupDropdownMenu";
 
 
 interface GroupHeaderProps {
@@ -17,6 +19,10 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const initialActive = location.pathname.includes("about") ? "about" : "discussion";
     const [active, setActive] = useState<string>(initialActive);
     const [isInviteModalOpen, setInviteModalOpen] = useState(false);
+    const [isGroupSearchModalOpen, setIsGroupSearchModalOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const recentSearches = ["Tìm kiếm 1", "Tìm kiếm 2", "Tìm kiếm 3"];
 
     const suggestedUsers = ['User1', 'User2', 'User3'];
 
@@ -28,14 +34,14 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                 className="rounded-md object-cover w-[1120px] h-[540px]"
             />
             <div className='w-[72%] mt-4 border-b border-black pb-4'>
-            <h1 className="text-2xl w-fit cursor-pointer font-bold hover:underline">
+                <h1 className="text-2xl w-fit cursor-pointer font-bold hover:underline">
                     {group?.name}
                 </h1>
                 <div className='mt-2 flex items-center gap-2'>
                     <FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" />
                     <span>{group?.privacy}</span>
                     <GoDotFill className="text-[10px]" />
-                    <span className='ms-2'>{group? (group.memberNum + group.adminNum) : ""} thành viên</span>
+                    <span className='ms-2'>{group ? (group.memberNum + group.adminNum) : ""} thành viên</span>
                 </div>
                 {/* Group Info */}
                 <div className="flex items-center space-x-4">
@@ -86,18 +92,30 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                         <FaShare />
                         <div>Chia sẻ</div>
                     </button>
-                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF]">
+                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF]"
+                        onClick={() => setIsGroupSearchModalOpen(true)}>
                         <IoSearchSharp /></button>
-                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF]">
-                        <BsThreeDots /></button>
+                    <button className="bg-[#E4E6EB] px-4 py-2 rounded-md hover:bg-[#D8DADF] relative"
+                        onClick={() => setIsMenuOpen((prev) => !prev)}>
+                        <BsThreeDots />
+                        {isMenuOpen && (
+                        <GroupDropdownMenu onClose={() => setIsMenuOpen(false)} />
+                        )}
+                    </button>
                 </div>
             </div>
             {isInviteModalOpen && (
-                    <InviteModal
-                        onClose={() => setInviteModalOpen(false)}
-                        suggestedUsers={suggestedUsers}
-                    />
-                )}
+                <InviteModal
+                    onClose={() => setInviteModalOpen(false)}
+                    suggestedUsers={suggestedUsers}
+                />
+            )}
+            {isGroupSearchModalOpen && (
+                <GroupSearchModal
+                    onClose={() => setIsGroupSearchModalOpen(false)}
+                    recentSearches={recentSearches}
+                />
+            )}
         </div>
     );
 };
