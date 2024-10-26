@@ -4,6 +4,14 @@ export interface IApiResponse<T> {
      result?: T;
 }
 
+export interface Page<T> {
+     content: T[]; 
+     totalElements: number;
+     totalPages: number;
+     number: number;
+     size: number;
+}
+
 export interface IUser {
      id?: string;
      email: string;

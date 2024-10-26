@@ -28,7 +28,7 @@ const ImageSlider = ({ urls }: { urls: string[] }) => {
 
     return (
         <div className="relative w-full">
-            {urls.length > 0 ? (
+            {urls.length > 1 ? (
                 <>
                     {urls[currentIndex] ? (
                         <div className='max-h-[800px] max-w-full bg-black flex items-center justify-center'>
@@ -60,7 +60,22 @@ const ImageSlider = ({ urls }: { urls: string[] }) => {
                     </button>
                 </>
             ) : (
-                <></>
+                <>
+                    {urls[currentIndex] ? (
+                        <div className='max-h-[800px] max-w-full bg-black flex items-center justify-center'>
+                            <img
+                                src={urls[currentIndex]}
+                                className="max-h-full max-w-full rounded object-fit cursor-pointer"
+                                alt="Post"
+                                onError={() => handleImageError(currentIndex)}
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-center w-full h-64 bg-gray-200">
+                            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

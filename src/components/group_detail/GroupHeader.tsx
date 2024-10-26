@@ -12,7 +12,7 @@ import GroupShareModal from "./modal/GroupShareModal";
 
 
 interface GroupHeaderProps {
-    group: GroupResponse | null;
+    group?: GroupResponse;
 }
 
 const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {

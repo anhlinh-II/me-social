@@ -20,8 +20,7 @@ const CreateGroup = () => {
      const [groupLocation, setGroupLocation] = useState<string>("")
 
      const [isEnoughInfo, setIsEnoughInfo] = useState<boolean | 0>(false);
-     const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUxNzUzLCJpYXQiOjE3Mjk4NjUzNTMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.78IkgUinEkMQUfShC2WYoN3FAtz9z0fx7IHH3QP18xov4Iv3eVKnf0vyHTlB4TiQ4CCGMmOz9o6LVuT4lTkbMg"; 
-
+     
      const handleCreateGroup = async () => {
           if (!isEnoughInfo) return;
 
@@ -34,10 +33,10 @@ const CreateGroup = () => {
           };
 
           try {
-               const response = await createGroup(groupData, token);
+               const response = await createGroup(groupData);
                console.log(response);
                alert(`Tạo nhóm thành công`);
-               navigate(`/groups/${response.id}`);
+               navigate(`/groups/${response.result?.id}`);
           } catch (error) {
                console.error("Failed to create group", error);
                alert("There was an error creating the group.");

@@ -1,104 +1,53 @@
-import axios from 'axios';
 import { GroupRequest, GroupResponse } from '../Types/Group';
-
-const API_URL = 'http://localhost:8080/api/groups';
+import instance from '../../config/axios-customize';
+import { IApiResponse, Page } from '../../types/backend';
 
 // Get Group by ID
-export const getGroupById = async (id: number, token: string): Promise<GroupResponse> => {
-    const response = await axios.get(`${API_URL}/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const getGroupById = async (id: number) => {
+    return (await instance.get<IApiResponse<GroupResponse>>(`/api/groups/${id}`)).data;
 };
 
 // Get Groups by User ID
-export const getGroupsByUserId = async (userId: number, pageNum = 0, token: string): Promise<{ content: GroupResponse[] }> => {
-    const response = await axios.get(`${API_URL}/user/?userId=${userId}&pageNum=${pageNum}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result.content;
+export const getGroupsByUserId = async (userId: number, pageNum = 0) => {
+    return (await instance.get<IApiResponse<Page<GroupResponse>>>(`/api/groups/user?userId=${userId}&pageNum=${pageNum}`)).data
 };
 
 // Get Suggested Groups
-export const getSuggestedGroups = async (userId: number, pageNum = 0, token: string): Promise<{ content: GroupResponse[] }> => {
-    const response = await axios.get(`${API_URL}/suggested?userId=${userId}&pageNum=${pageNum}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result.content;
+export const getSuggestedGroups = async (userId: number, pageNum = 0) => {
+    return (await instance.get<IApiResponse<Page<GroupResponse>>>(`/api/groups/suggested?userId=${userId}&pageNum=${pageNum}`)).data;
 };
 
 // Create Group
-export const createGroup = async (request: GroupRequest, token: string): Promise<GroupResponse> => {
-    const response = await axios.post(API_URL, request, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const createGroup = async (request: GroupRequest) => {
+    return (await instance.post<IApiResponse<GroupResponse>>(`/api/groups`, request)).data;
 };
 
 // Add Admin to Group
-export const addAdminToGroup = async (groupId: number, adminId: number, token: string): Promise<string> => {
-    const response = await axios.post(`${API_URL}/admin/${groupId}/${adminId}`, {}, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.message; // Or response.data.result if needed
+export const addAdminToGroup = async (groupId: number, adminId: number) => {
+    return (await instance.post<IApiResponse<void>>(`/api/groups/admin/${groupId}/${adminId}`)).data;
 };
 
 // Add Member to Group
-export const addMemberToGroup = async (groupId: number, memberId: number, token: string): Promise<string> => {
-    const response = await axios.post(`${API_URL}/member/${groupId}/${memberId}`, {}, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.message; // Or response.data.result if needed
+export const addMemberToGroup = async (groupId: number, memberId: number) => {
+    return (await instance.post<IApiResponse<void>>(`/api/groups/member/${groupId}/${memberId}`)).data;
 };
 
 // Edit Group
-export const editGroup = async (request: GroupRequest, token: string): Promise<GroupResponse> => {
-    const response = await axios.put(API_URL, request, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const editGroup = async (request: GroupRequest) => {
+    return (await instance.put<IApiResponse<GroupResponse>>(`/api/groups`, request)).data;
 };
 
 // Delete Group
-export const deleteGroup = async (groupId: number, token: string): Promise<string> => {
-    const response = await axios.delete(`${API_URL}/${groupId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.message; // Or response.data.result if needed
+export const deleteGroup = async (groupId: number) => {
+    return (await instance.delete<IApiResponse<void>>(`/api/groups/${groupId}`)).data;
 };
 
 // Remove Admin from Group
-export const removeAdminFromGroup = async (groupId: number, adminId: number, token: string): Promise<string> => {
-    const response = await axios.delete(`${API_URL}/admin/remove/${groupId}/${adminId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.message; // Or response.data.result if needed
+export const removeAdminFromGroup = async (groupId: number, adminId: number) => {
+    return (await instance.delete<IApiResponse<void>>(`/api/groups/admin/remove/${groupId}/${adminId}`)).data;
 };
 
 // Remove Member from Group
-export const removeMemberFromGroup = async (groupId: number, memberId: number, token: string): Promise<string> => {
-    const response = await axios.delete(`${API_URL}/member/remove/${groupId}/${memberId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.message; // Or response.data.result if needed
+export const removeMemberFromGroup = async (groupId: number, memberId: number) => {
+    return (await instance.delete<IApiResponse<void>>(`/api/groups/member/remove/${groupId}/${memberId}`)).data;
 };

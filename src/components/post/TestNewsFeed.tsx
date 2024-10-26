@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
 import { Post, PostResponse } from '../../services/Types/Post';
-import GroupJoinedCard from '../groups/GroupJoinedCard';
+import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 
 
@@ -29,7 +29,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem('accessToken');
+                const token = localStorage.getItem('access_token');
                 if (!token) {
                     throw new Error('No token found');
                 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import GroupSimpleCard from './GroupSimpleCard';
+import GroupSimpleCard from './card/GroupSimpleCard';
 import fakeGroups from '../fakeData';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoAddOutline } from 'react-icons/io5';

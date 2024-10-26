@@ -36,7 +36,7 @@ const Login = () => {
                if (res?.data?.code === 1000) {
                    const accessToken = res.data.result?.access_token;
                    if (accessToken) {
-                       localStorage.setItem('accessToken', accessToken);
+                       localStorage.setItem('access_token', accessToken);
                        console.log('Login successfully, access token saved to localStorage.');
                    }
                    dispatch(setUserLoginInfo(res.data.result));
