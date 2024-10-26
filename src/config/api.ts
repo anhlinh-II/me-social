@@ -1,4 +1,3 @@
-import axios from "axios"
 import { IAccount, IApiResponse, IGetAccount, IUser } from "../types/backend"
 import instance from "./axios-customize"
 

@@ -46,7 +46,7 @@ instance.interceptors.request.use(function (config) {
  * for requests, but it is omitted here for brevity.
  */
 instance.interceptors.response.use(
-     (res) => res.data,
+     (res) => res,
      async (error) => {
          if (error.config && error.response
              && +error.response.status === 401

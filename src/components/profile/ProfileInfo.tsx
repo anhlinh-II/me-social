@@ -6,6 +6,7 @@ import { GrSettingsOption } from "react-icons/gr";
 import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/FormatNumber';
 import { updateUser } from '../../services/Entities/UserService';
 import { UserUpdateRequest } from '../../services/Types/User';
+import { IoMdClose } from 'react-icons/io';
 
 interface ProfileInfoProps {
     profileImage: string;
@@ -93,11 +94,8 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
             {isEditing && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div className="bg-white p-6 rounded-lg w-[400px] relative">
-                    <button
-                        onClick={handleClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 font-bold"
-                    >
-                        &times;
+                    <button onClick={handleClose} className="text-black float-right text-xl absolute top-4 right-4 rounded-full p-2 bg-gray-400 hover:bg-gray-300">
+                        <IoMdClose />
                     </button>
                     <h3 className="text-lg font-semibold mb-4">Chỉnh sửa thông tin</h3>
                     <input

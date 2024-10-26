@@ -15,8 +15,7 @@ const GroupDiscussion = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5OTUzNjYzLCJpYXQiOjE3Mjk4NjcyNjMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.0UTslqMuHAvys8ZWf71autLq9LVheMQmnAAhlJwGEA9tWC2R_BpVXh4VJNI_K2k9-8YBCvelK5vVtkeWGLvmeg";
-                // localStorage.getItem('token');
+                const token = localStorage.getItem('accessToken');
                 if (!token) {
                     throw new Error('No token found');
                 }

@@ -31,11 +31,11 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
             </div>
             <div className='flex flex-row mt-auto'>
                 <div className="pb-4 pt-2 ps-4 pe-0">
+                <Link to={`/groups/groupName/discussion`}>
                     <button className="bg-blue-100 text-blue-500 px-16 py-2 rounded-md hover:bg-blue-200">
-                        <Link to={`/groups/groupName/discussion`}>
-                            Xem nhóm
-                        </Link>
+                        Xem nhóm
                     </button>
+                </Link>
                 </div>
                 <div className="p-4 pt-2">
                     <div className="relative inline-block text-left">

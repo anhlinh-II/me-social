@@ -17,7 +17,7 @@ interface NotificationProps {
 
 const Notification: React.FC<NotificationProps> = ({ notifications }) => {
     return (
-        <div className="absolute top-[64px] right-[2%] z-40 w-[360px] mt-2 bg-white rounded-lg shadow-lg">
+        <div className="fixed top-[64px] right-[2%] z-40 w-[360px] mt-2 bg-white rounded-lg shadow-lg">
             <div className='flex  justify-between items-center pe-4'>
 						<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Thông báo</p>
 						<div className={`w-[32px] h-[32px] hover:bg-[#F3F4F6] rounded-full flex items-center justify-center`}>

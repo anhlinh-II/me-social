@@ -32,37 +32,33 @@ const Login = () => {
 
           try {
                const res = await callLogin(username, password);
-               console.log(res);
-               setIsSubmit(false);
 
-               if (res?.data?.result) {  // Use 'result' from the IApiResponse
-                    if (res.data.result.access_token) {
-                         localStorage.setItem('access_token', res.data.result.access_token);  // Only set if access_token exists
-                    }
-                    dispatch(setUserLoginInfo(res.data.result));  // Use 'result.user'
-                    message.success('Đăng nhập tài khoản thành công!');
-                    window.location.href = callback ? callback : '/';
+               if (res?.data?.code === 1000) {
+                   const accessToken = res.data.result?.access_token;
+                   if (accessToken) {
+                       localStorage.setItem('accessToken', accessToken);
+                       console.log('Login successfully, access token saved to localStorage.');
+                   }
+                   dispatch(setUserLoginInfo(res.data.result));
+                   message.success('Đăng nhập tài khoản thành công!');
+                   window.location.href = callback ? callback : '/';
                } else {
-                    notification.error({
-                         message: "Có lỗi xảy ra",
-                         description: res?.data?.message ?? "Unknown error",  // Optional chaining for 'message'
-                         duration: 5,
-                    });
+                   notification.error({
+                       message: "Có lỗi xảy ra",
+                       description: res?.data?.message || "Unknown error",
+                       duration: 5,
+                   });
                }
-          } catch (error) {
-               setIsSubmit(false);
-               // Handle different possible error types (like Axios errors)
-               // const errorMessage =
-               //      error?.response?.data?.message ??  // Axios-specific error
-               //      error?.message ??  // General JS error
-               //      "An unknown error occurred";  // Fallback message
-
+           } catch (error) {
+               console.error('Login error:', error);
                notification.error({
-                    message: "Login Error",
-                    description: "Error",
-                    duration: 5,
+                   message: "Login Error",
+                   description: "An error occurred during login. Please try again.",
+                   duration: 5,
                });
-          }
+           } finally {
+               setIsSubmit(false);
+           }
      };
 
 

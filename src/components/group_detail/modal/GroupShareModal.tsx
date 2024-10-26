@@ -23,7 +23,7 @@ const GroupShareModal: React.FC<GroupShareModalProps> = ({ onClose, userAvatar, 
                 <div className='relative flex gap-2 items-center justify-center w-full border-b border-gray-400 pb-4 mb-4'>
                     <p className='text-xl font-bold'>Chia sẻ nhóm</p>
                     {/* Close Button */}
-                    <button onClick={onClose} className="text-black float-right text-xl absolute right-2 rounded-full p-2 bg-gray-400 hover:bg-gray-300">
+                    <button onClick={onClose} className="text-black float-right text-xl absolute right-2 rounded-full p-2 bg-blue-400 hover:bg-blue-300">
                         <IoMdClose />
                     </button>
                 </div>
