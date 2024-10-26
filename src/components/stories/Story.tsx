@@ -7,10 +7,6 @@ import CreateReelModal from "../modal/Reel.create.modal";
 const Story = () => {
 	const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
-    const openAddReelModal = () => {
-         setShowCreateReelModal(true);
-    }
-
 	const fakeData = [
 		{
 			id: 1,
@@ -68,41 +64,13 @@ const Story = () => {
 			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
 			background: "https://www.w3schools.com/html/mov_bbb.mp4",
 		},
-		{
-			id: 9,
-			userName: "Story 9",
-			img: "https://via.placeholder.com/100",
-			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-		},
-		{
-			id: 10,
-			userName: "Story 10",
-			img: "https://via.placeholder.com/100",
-			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-		},
-		{
-			id: 11,
-			userName: "Story 11",
-			img: "https://via.placeholder.com/100",
-			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.mp4",
-		},
-		{
-			id: 12,
-			userName: "Story 12",
-			img: "https://via.placeholder.com/100",
-			avt: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-			background: "https://www.w3schools.com/html/mov_bbb.mp4",
-		},
 	];
 
 	const navigate = useNavigate();
 	const carouselUsers = [
 		(
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
-				style={{ cursor: 'pointer' }}  onClick={() => openAddReelModal()}>
+				style={{ cursor: 'pointer' }}  onClick={() => navigate("/stories/create")}>
 				<div className="create-story flex flex-col items-center bg-gray-400">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />

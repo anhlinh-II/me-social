@@ -4,7 +4,7 @@ import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import Select, { components, SingleValueProps } from 'react-select';
 import { uploadVideo } from "../../services/Entities/VideoService";
-import { ReelRequest } from "../../services/Types/Reel";
+import { ReelPrivacy, ReelRequest } from "../../services/Types/Reel";
 import { createReel } from "../../services/Entities/ReelService";
 import avt from '../../assets/me1.jpg';
 
@@ -14,9 +14,9 @@ interface IProps {
 }
 
 const options = [
-     { value: "PUBLIC", label: "Public", icon: <FaEarthAmericas /> },
-     { value: "FRIENDS", label: "Friends", icon: <FaUserFriends /> },
-     { value: "PRIVATE", label: "Private", icon: <FaLock /> }
+     { value: ReelPrivacy.PUBLIC, label: "Public", icon: <FaEarthAmericas /> },
+     { value: ReelPrivacy.FRIENDS, label: "Friends", icon: <FaUserFriends /> },
+     { value: ReelPrivacy.PRIVATE, label: "Private", icon: <FaLock /> }
 ];
 
 const baseStyle = {
@@ -77,6 +77,7 @@ const CreateReelModal = (props: IProps) => {
      const [content, setContent] = useState('');
      const [successMessage, setSuccessMessage] = useState('');
      const [selectedFile, setSelectedFile] = useState<File | null>(null);
+     const [selectedPrivacy, setSelectedPrivacy] = useState(options[0]);
      const inputFile = useRef<HTMLInputElement | null>(null);
 
      const handleOpenFileBrowser = () => {
@@ -109,11 +110,10 @@ const CreateReelModal = (props: IProps) => {
                          userId: 3,
                          url: uploadedData.secure_url,
                          content: content,
+                         privacy: selectedPrivacy.value,
                     };
 
-                    // Gọi service để lưu reel vào database
-                    const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaGFoYWhhQGdtYWlsLmNvbSIsInBlcm1pc3Npb24iOlsiUk9MRV9VU0VSX0NSRUFURSIsIlJPTEVfVVNFUl9VUERBVEUiXSwiZXhwIjoxNzI5NTgzMDMzLCJpYXQiOjE3Mjk0OTY2MzMsInVzZXIiOnsiaWQiOjUsImVtYWlsIjoiYWhhaGFoYUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFETUlOIiwibG9jYXRpb24iOm51bGx9fQ.D0TyZsfS4-bSX40H64v5BwHcUCYxpTM-xlmn7GnEDz51mZc8CTi02sQzXPZQxWDwM5iHoZX7tfhwWqlLwmRyWA";
-                    const reelResponse = await createReel(reelRequest, token);
+                    const reelResponse = await createReel(reelRequest);
                     console.log('Reel saved:', reelResponse);
 
                     // Đóng modal và reset trạng thái
@@ -182,12 +182,17 @@ const CreateReelModal = (props: IProps) => {
                                                             <div className="cursor-pointer w-full">
                                                                  <Select
                                                                       defaultValue={options[0]}
-                                                                      // onChange={setSelectedOption}
+                                                                      onChange={(option) => {
+                                                                           if (option) {
+                                                                               setSelectedPrivacy(option);
+                                                                           }
+                                                                       }}
                                                                       options={options}
                                                                       styles={baseStyle}
                                                                       id="status"
                                                                       isSearchable={false}
                                                                       components={{ Option: IconOption, SingleValue: CustomSingleValue }}
+                                                                      isMulti={false}
                                                                  >
                                                                  </Select>
                                                             </div>

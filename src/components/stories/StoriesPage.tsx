@@ -21,7 +21,7 @@ interface LocationState {
 const StoriesPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { stories, storyIndex } = location.state as LocationState;
+    const { stories, storyIndex } = location.state as LocationState || {};
     const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(storyIndex || 0);
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true);

@@ -31,6 +31,7 @@ import GroupMembers from "./components/group_detail/GroupMembers";
 import GroupMedia from "./components/group_detail/GroupMedia";
 import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
+import CreateStory from "./components/stories/CreateStory";
 
 function App() {
   const router = createBrowserRouter([
@@ -115,7 +116,11 @@ function App() {
     },
     {
       path: '/stories',
-      element: <Stories />
+      element: <Stories />,
+    },
+    {
+      path: '/stories/create',
+      element: <CreateStory />
     },
     {
       path: '/groups/create',
