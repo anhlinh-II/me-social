@@ -1,3 +1,8 @@
+export enum ReelPrivacy {
+    PUBLIC = 'PUBLIC',
+    PRIVATE = 'PRIVATE',
+    FRIENDS = 'FRIENDS',
+}
 
 export interface ReelResponse {
     id: string;
@@ -15,4 +20,5 @@ export interface ReelRequest {
     userId: number;
     url: string;
     content: string;
+    privacy: ReelPrivacy;
 }

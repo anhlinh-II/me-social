@@ -1,62 +1,33 @@
-import axios from 'axios';
 import { Like } from '../Types/Like';
-
-const API_URL = 'http://localhost:8080/api/likes';
+import instance from '../../config/axios-customize';
+import { IApiResponse } from '../../types/backend';
 
 // Get Post Like Count
-export const getPostLikeCount = async (postId: number, token: string): Promise<number> => {
-    const response = await axios.get(`${API_URL}/post/count/${postId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const getPostLikeCount = async (postId: number) => {
+    return (await instance.get<IApiResponse<number>>(`/api/likes/post/count/${postId}`)).data;
 };
 
 // Get Comment Like Count
-export const getCommentLikeCount = async (commentId: number, token: string): Promise<number> => {
-    const response = await axios.get(`${API_URL}/comment/count/${commentId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const getCommentLikeCount = async (commentId: number) => {
+    return (await instance.get<IApiResponse<number>>(`/api/likes/comment/count/${commentId}`)).data;
 };
 
 // Create Post Like
-export const createPostLike = async (userId: number, postId: number, token: string): Promise<Like> => {
-    const response = await axios.post(`${API_URL}/post/add/${userId}/${postId}`, null, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const createPostLike = async (userId: number, postId: number) => {
+    return (await instance.post<IApiResponse<Like>>(`/api/likes/post/add/${userId}/${postId}`, null)).data;
 };
 
 // Create Comment Like
-export const createCommentLike = async (userId: number, commentId: number, token: string): Promise<Like> => {
-    const response = await axios.post(`${API_URL}/comment/add/${userId}/${commentId}`, null, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const createCommentLike = async (userId: number, commentId: number) => {
+    return (await instance.post<IApiResponse<Like>>(`/api/likes/comment/add/${userId}/${commentId}`, null)).data;
 };
 
 // Delete Post Like
-export const deletePostLike = async (userId: number, postId: number, token: string): Promise<void> => {
-    await axios.delete(`${API_URL}/post/remove/${userId}/${postId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const deletePostLike = async (userId: number, postId: number) => {
+    await instance.delete<IApiResponse<void>>(`/api/likes/post/remove/${userId}/${postId}`);
 };
 
 // Delete Comment Like
-export const deleteCommentLike = async (userId: number, commentId: number, token: string): Promise<void> => {
-    await axios.delete(`${API_URL}/comment/remove/${userId}/${commentId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const deleteCommentLike = async (userId: number, commentId: number) => {
+    await instance.delete<IApiResponse<void>>(`/api/likes/comment/remove/${userId}/${commentId}`);
 };

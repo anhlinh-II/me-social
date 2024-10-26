@@ -1,6 +1,5 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api/tags';
+import { IApiResponse, Page } from '../../types/backend';
+import instance from '../../config/axios-customize';
 
 export interface Tag {
     id: number;
@@ -8,52 +7,26 @@ export interface Tag {
 }
 
 // Get All Tags (Paginated)
-export const getAllTags = async (pageNum: number = 0, token: string): Promise<Tag[]> => {
-    const response = await axios.get(`${API_URL}/get/all`, {
-        params: { pageNum },
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result.content;
+export const getAllTags = async (pageNum: number = 0) => {
+    return (await instance.get<IApiResponse<Page<Tag>>>('/api/tags/get/all', { params: { pageNum } })).data;
 };
 
 // Get All Tags Sorted by Post Count (Paginated)
-export const getAllTagsSortedByPostCount = async (pageNum: number = 0, token: string): Promise<Tag[]> => {
-    const response = await axios.get(`${API_URL}/get/popular`, {
-        params: { pageNum },
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result.content;
+export const getAllTagsSortedByPostCount = async (pageNum: number = 0) => {
+    return (await instance.get<IApiResponse<Page<Tag>>>('/api/tags/get/popular', { params: { pageNum } })).data;
 };
 
 // Create Tag
-export const createTag = async (nameTag: string, token: string): Promise<Tag> => {
-    const response = await axios.post(API_URL, { nameTag }, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const createTag = async (nameTag: string) => {
+    return (await instance.post<IApiResponse<Tag>>('/api/tags', { nameTag })).data;
 };
 
 // Delete Tag by ID
-export const deleteTagById = async (id: number, token: string): Promise<void> => {
-    await axios.delete(`${API_URL}/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const deleteTagById = async (id: number) => {
+    await instance.delete<IApiResponse<void>>(`/api/tags/${id}`);
 };
 
 // Delete Tag by Object
-export const deleteTagByObject = async (tag: Tag, token: string): Promise<void> => {
-    await axios.delete(API_URL, {
-        data: tag,
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const deleteTagByObject = async (tag: Tag) => {
+    await instance.delete<IApiResponse<void>>('/api/tags', { data: tag });
 };

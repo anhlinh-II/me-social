@@ -1,44 +1,23 @@
-import axios from 'axios';
 import { ReelRequest, ReelResponse } from '../Types/Reel';
-
-const API_URL = 'http://localhost:8080/api/reels';
+import instance from '../../config/axios-customize';
+import { IApiResponse, Page } from '../../types/backend';
 
 // Create Reel
-export const createReel = async (request: ReelRequest, token: string): Promise<ReelResponse> => {
-    const response = await axios.post(API_URL, request, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const createReel = async (request: ReelRequest) => {
+    return (await instance.post<IApiResponse<ReelResponse>>('/api/reels', request)).data;
 };
 
 // Get Reel by ID
-export const getReelById = async (id: string, token: string): Promise<ReelResponse> => {
-    const response = await axios.get(`${API_URL}/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result;
+export const getReelById = async (id: string) => {
+    return (await instance.get<IApiResponse<ReelResponse>>(`/api/reels/${id}`)).data;
 };
 
 // Get Reels by User ID (Paginated)
-export const getReelsByUserId = async (userId: number, pageNum: number = 0, token: string): Promise<ReelResponse[]> => {
-    const response = await axios.get(`${API_URL}/user`, {
-        params: { userId, pageNum },
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response.data.result.content; // Assuming content holds the list of reels in Page<ReelResponse>
+export const getReelsByUserId = async (userId: number, pageNum: number = 0) => {
+    return (await instance.get<IApiResponse<Page<ReelResponse>>>('/api/reels/user', { params: { userId, pageNum } })).data;
 };
 
 // Delete Reel by ID
-export const deleteReel = async (id: string, token: string): Promise<void> => {
-    await axios.delete(`${API_URL}/delete/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const deleteReel = async (id: string): Promise<void> => {
+    await instance.delete<IApiResponse<void>>(`/api/reels/delete/${id}`);
 };
