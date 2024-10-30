@@ -151,9 +151,9 @@ const Header = () => {
 							}}
 						>
 							{activeButton === 'chat' ? (
-								<PiChatCircleDotsFill style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
+								<PiChatCircleDotsFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							) : (
-								<PiChatCircle style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
+								<PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
@@ -161,9 +161,9 @@ const Header = () => {
 							onClick={() => handleToggleMoon('Moon')}
 						>
 							{activeTheme === 'Moon' ? (
-								<FaMoon style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
+								<FaMoon style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							) : (
-								<FaSun style={{ fontSize: "26px", color: "white", cursor: "pointer" }} />
+								<FaSun style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
@@ -174,9 +174,9 @@ const Header = () => {
 							}}
 						>
 							{activeButton === 'notification' ? (
-								<FaBell style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
+								<FaBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							) : (
-								<GoBell style={{ fontSize: "28px", color: "white", cursor: "pointer" }} />
+								<GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button

@@ -3,6 +3,7 @@ import PostModal from "./PostModal";
 import StoryItem from "./items/ProfileStoryItem";
 import { PiPlusLight } from "react-icons/pi";
 import CreateReelModal from "../modal/Reel.create.modal";
+import { Link } from "react-router-dom";
 
 interface Comment {
     id: number;
@@ -42,16 +43,16 @@ const ProfileStory: React.FC<ProfileStoryProps> = ({ stories }) => {
 
     const Stories = [
         (
-			<div key="createReel" className="w-20 h-20 bg-gray-200 overflow-hidden cursor-pointer p-6 border rounded-full border-black relative group"
-                onClick={() => openAddReelModal()}>
-				<div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/camera.jpg')", backgroundPosition: "center bottom" }}></div>
-				<div className="relative h-full p-4 flex flex-col items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
-                    <div className='p-2 rounded-full border border-white'>
-                        <PiPlusLight className="text-4xl text-white" />
+            <Link to={`/stories/create`}>
+                <div key="createReel" className="w-20 h-20 bg-gray-200 overflow-hidden cursor-pointer p-6 border rounded-full border-black relative group">
+                    <div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/camera.jpg')", backgroundPosition: "center bottom" }}></div>
+                    <div className="relative h-full p-4 flex flex-col items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
+                        <div className='p-2 rounded-full border border-white'>
+                            <PiPlusLight className="text-4xl text-white" />
+                        </div>
                     </div>
-				</div>
-			</div>
-
+                </div>
+            </Link>
 		),
             ...stories.map(story => (
                 <StoryItem
