@@ -108,7 +108,14 @@ const CreateStory = () => {
         <div className="fixed inset-0 bg-[#18191A] bg-opacity-100 flex z-40">
             {/* Sidebar */}
             <div className="w-1/3 p-4 overflow-y-auto bg-[#242526]">
-                <button onClick={() => setIsExitModalOpen(true)} className="text-white text-2xl top-4 left-6 rounded-full p-2 bg-[#18191A] hover:bg-zinc-700">
+                <button onClick={() => 
+                    {
+                        if(!selectedFile) {
+                            handleClose();
+                        }
+                        else setIsExitModalOpen(true);
+
+                    }} className="text-white text-2xl top-4 left-6 rounded-full p-2 bg-[#18191A] hover:bg-zinc-700">
                     <IoMdClose />
                 </button>
                 <div className="flex gap-2 items-center justify-between">
@@ -188,7 +195,14 @@ const CreateStory = () => {
                             </div>
                         )}
                         <div className="flex gap-4 pt-8 font-bold">
-                            <button onClick={() => setIsExitModalOpen(true)} className="text-white top-4 left-6 rounded-lg px-4 py-2 w-32 bg-[#3A3B3C] hover:bg-zinc-700">
+                            <button onClick={() => 
+                                {
+                                    if(!selectedFile) {
+                                        handleClose();
+                                    }
+                                    else setIsExitModalOpen(true);
+            
+                                }} className="text-white top-4 left-6 rounded-lg px-4 py-2 w-32 bg-[#3A3B3C] hover:bg-zinc-700">
                                 Bỏ
                             </button>
                             <button className="px-4 py-2 bg-amber-400 rounded-lg w-60 hover:bg-yellow-500 transition duration-200 text-white"

@@ -1,5 +1,5 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
-import { IoHome, IoLogOut, IoPersonCircle } from 'react-icons/io5';
+import { IoHome, IoLogOut } from 'react-icons/io5';
 import { PiVideoFill } from 'react-icons/pi';
 import { IoIosAddCircle, IoMdSettings } from 'react-icons/io';
 import { MdManageAccounts } from 'react-icons/md';
@@ -7,6 +7,7 @@ import { FaAngleDown, FaAngleRight, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
+import avt from '../assets/me1.jpg';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -108,7 +109,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<IoPersonCircle className='text-2xl'/>}
+                              icon={<img src={avt} className='text-2xl rounded-full'/>}
                          >
                               Profile
                          </MenuItem>

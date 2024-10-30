@@ -1,4 +1,3 @@
-import logo from "../assets/react.svg";
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
 import { PiChatCircle, PiChatCircleDotsFill } from "react-icons/pi";
@@ -77,7 +76,7 @@ const Header = () => {
 				>
 					<div className="flex w-[20%] lg:flex-1">
 						<a href="/" className="-m-1.5 p-1.5">
-							<img className="h-8 w-auto" src={logo} alt="" />
+							<img className="h-10 w-auto" src="/logo.png" alt="" />
 						</a>
 						<div className="relative ml-10">
 							<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
