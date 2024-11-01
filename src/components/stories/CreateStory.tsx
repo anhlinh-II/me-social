@@ -4,7 +4,7 @@ import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { createStory } from "../../services/Entities/StoryService";
-import { uploadVideoStory } from "../../services/Entities/VideoService";
+import { uploadStoryVideo } from "../../services/Entities/VideoService";
 import { StoryPrivacy, StoryRequest } from "../../services/Types/Story";
 import avt from '../../assets/me1.jpg';
 import { PiPlusLight } from "react-icons/pi";
@@ -71,7 +71,7 @@ const CreateStory = () => {
         console.log('Selected file:', selectedFile);
         if (selectedFile) {
             try {
-                const uploadedData = await uploadVideoStory(selectedFile, 3);
+                const uploadedData = await uploadStoryVideo(selectedFile, 3);
                 console.log(uploadedData);
                 console.log('Uploaded video URL:', uploadedData.secure_url);
 

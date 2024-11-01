@@ -3,7 +3,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import Select, { components, SingleValueProps } from 'react-select';
-import { uploadVideoReel } from "../../services/Entities/VideoService";
+import { uploadReelVideo } from "../../services/Entities/VideoService";
 import { ReelPrivacy, ReelRequest } from "../../services/Types/Reel";
 import { createReel } from "../../services/Entities/ReelService";
 import avt from '../../assets/me1.jpg';
@@ -101,7 +101,7 @@ const CreateReelModal = (props: IProps) => {
           if (selectedFile) {
                try {
                     // Upload video lên Cloudinary
-                    const uploadedData = await uploadVideoReel(selectedFile, 3);
+                    const uploadedData = await uploadReelVideo(selectedFile, 3);
                     console.log(uploadedData);
                     console.log('Uploaded video URL:', uploadedData.secure_url);
 

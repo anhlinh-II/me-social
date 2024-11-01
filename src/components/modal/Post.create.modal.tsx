@@ -5,7 +5,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { IoImagesSharp } from "react-icons/io5";
 import Select, { components, SingleValueProps } from 'react-select';
 import avt from '../../assets/me1.jpg';
-import { deleteImage, uploadImage } from "../../services/Entities/ImageService";
+import { deleteImage, uploadPostImage } from "../../services/Entities/ImageService";
 import { createPost } from "../../services/Entities/PostService";
 import { PostRequest } from "../../services/Types/Post";
 
@@ -119,7 +119,7 @@ const CreatePostModal = (props: IProps) => {
 
           try {
                for (const file of files) {
-                    const uploadResult = await uploadImage(file);
+                    const uploadResult = await uploadPostImage(file, userId);
                     uploadedPublicIds.push(uploadResult.public_id);
                     uploadedUrls.push(uploadResult.secure_url);
                }

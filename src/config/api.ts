@@ -6,8 +6,11 @@ export const callRegister = (name: string, email: string, password: string, age:
 }
 
 export const callLogin = (username: string, password: string) => {
-    // console.log(import.meta as string);
     return instance.post<IApiResponse<IAccount>>('/api/auth/login', { username, password })
+}
+
+export const callLogout = () => {
+    return instance.post<IApiResponse<void>>('/api/auth/logout')
 }
 
 export const callFetchAccount = () => {

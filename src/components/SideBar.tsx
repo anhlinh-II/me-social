@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 import avt from '../assets/me1.jpg';
+import { callLogout } from '../config/api';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -133,7 +134,13 @@ const SideBar = (props: IProps) => {
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
                               active={active === "logout" ? true : false}
-                              onClick={() => setActive("logout")}
+                              onClick={async () => 
+                                   {
+                                        const res = await callLogout();
+                                        console.log(res);
+                                        setActive("logout");
+
+                                   }}
                               component={<Link to={'/login'} />}
                               icon={<IoLogOut className='text-2xl'/>}
                          >
