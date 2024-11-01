@@ -4,6 +4,7 @@ import { getPostsForGroupActivities } from '../../services/Entities/PostService'
 import { Post, PostResponse } from '../../services/Types/Post';
 import ListPosts from '../post/ListPosts';
 import GroupJoinedSideBar from './GroupJoinedSideBar';
+import PostPlaceholder from '../post/PostPlaceholder';
 
 const GroupActivity: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -15,13 +16,11 @@ const GroupActivity: React.FC = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
-                if (!token) {
-                    throw new Error('No token found');
+                const response = await getPostsForGroupActivities(userId, 0);
+                if (!response || !response.result || !Array.isArray(response.result.content)) {
+                    throw new Error('Invalid response structure');
                 }
-
-                const data = await getPostsForGroupActivities(userId, 0, token);
-                const transformedPosts: Post[] = data.result.content.map((item: PostResponse) => {
+                const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
 
                     const createdAtDate = new Date(item.createdAt);
                     const now = new Date();
@@ -43,6 +42,7 @@ const GroupActivity: React.FC = () => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
+                        publicIds: item.publicIds,
                         urls: item.urls,
                         imageError: false
                     }
@@ -60,11 +60,11 @@ const GroupActivity: React.FC = () => {
     }, [userId]);
     
     if (loading) {
-        return <></>;
+        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     if (error) {
-        return <></>;
+        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     const handleLikeBtn = (index: number) => {

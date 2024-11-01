@@ -10,6 +10,7 @@ import More from '../modal/More';
 import { Post } from '../../services/Types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
+import PostDetailModal from '../modal/Post.detail.modal';
 
 interface PostItemProps {
     post: Post;
@@ -21,6 +22,7 @@ interface PostItemProps {
 const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
+	const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -149,6 +151,12 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                 </div>
             </div>
             <More show={showMore} setShow={setShowMore} />
+            <div className="relative">
+				<PostDetailModal
+					show={showDetailModal}
+					setShow={setShowDetailModal}
+				/>
+			</div>
         </div>
     );
 };

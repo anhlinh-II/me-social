@@ -13,6 +13,7 @@ import More from '../modal/More';
 import { Post, PostResponse } from '../../services/Types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
+import PostPlaceholder from './PostPlaceholder';
 
 
 const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -29,11 +30,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
-                if (!token) {
-                    throw new Error('No token found');
-                }
-
+                
                 const response = await getPostsForNewsFeed(userId, 0);
                 if (!response || !response.result || !Array.isArray(response.result.content)) {
                     throw new Error('Invalid response structure');
@@ -80,11 +77,11 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
 
 
     if (loading) {
-        return <></>;
+        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     if (error) {
-        return <></>;
+        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     const handleLikeBtn = (index: number) => {

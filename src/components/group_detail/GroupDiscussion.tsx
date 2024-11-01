@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import GroupPostItem from "../post/GroupPostItem"
 import { getPostsByGroup } from "../../services/Entities/PostService"
 import { Post, PostResponse } from "../../services/Types/Post"
+import PostPlaceholder from "../post/PostPlaceholder"
 
 const GroupDiscussion = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -15,13 +16,12 @@ const GroupDiscussion = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
-                if (!token) {
-                    throw new Error('No token found');
-                }
 
-                const data = await getPostsByGroup(groupId, 0, token);
-                const transformedPosts: Post[] = data.result.content.map((item: PostResponse) => {
+                const response = await getPostsByGroup(groupId, 0);
+                if (!response || !response.result || !Array.isArray(response.result.content)) {
+                    throw new Error('Invalid response structure');
+                }
+                const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
 
                     const createdAtDate = new Date(item.createdAt);
                     const now = new Date();
@@ -43,6 +43,7 @@ const GroupDiscussion = () => {
                         time: timeDifference,
                         isLiked: false,
                         isFavourited: false,
+                        publicIds: item.publicIds,
                         urls: item.urls,
                         imageError: false
                     }
@@ -58,55 +59,84 @@ const GroupDiscussion = () => {
 
         fetchPosts();
     }, [groupId]);
-    
+
     if (loading) {
-        return <></>;
-    }
-
-    
-
-    const handleLikeBtn = (index: number) => {
-        setPosts(prevPosts =>
-            prevPosts.map((post, i) =>
-                i === index ? { ...post, isLiked: !post.isLiked } : post
-            )
-        );
-    };
-
-    const handleFavouriteBtn = (index: number) => {
-        setPosts(prevPosts =>
-            prevPosts.map((post, i) => {
-                return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
-            })
-        )
-    }
-
-    return (
-        <>
-            <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+        return <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
                 <div className="flex gap-5">
                     <div className="flex flex-col gap-4 w-[60%]">
                         <CreatePost />
                         <div className=" w-full h-fit rounded">
-                            {posts ? 
-                            <>
-                                {posts.map((item, index) => (
-                                <GroupPostItem
-                                    key={`post-key-${index}`}
-                                    post={item}
-                                    index={index}
-                                    handleLikeBtn={handleLikeBtn}
-                                    handleFavouriteBtn={handleFavouriteBtn}
-                                />
-                            ))}</> : <></>}
-                            
+                            <div>
+                                <PostPlaceholder />
+                                <PostPlaceholder />
+                            </div>
                         </div>
                     </div>
                     <GroupOverview />
                 </div>
             </div>
-        </>
+    }
+
+    if (error) {
+        return <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+                <div className="flex gap-5">
+                    <div className="flex flex-col gap-4 w-[60%]">
+                        <CreatePost />
+                        <div className=" w-full h-fit rounded">
+                            <div>
+                                <PostPlaceholder />
+                                <PostPlaceholder />
+                            </div>
+                        </div>
+                    </div>
+                    <GroupOverview />
+                </div>
+            </div>
+    }
+
+
+const handleLikeBtn = (index: number) => {
+    setPosts(prevPosts =>
+        prevPosts.map((post, i) =>
+            i === index ? { ...post, isLiked: !post.isLiked } : post
+        )
+    );
+};
+
+const handleFavouriteBtn = (index: number) => {
+    setPosts(prevPosts =>
+        prevPosts.map((post, i) => {
+            return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
+        })
     )
+}
+
+return (
+    <>
+        <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+            <div className="flex gap-5">
+                <div className="flex flex-col gap-4 w-[60%]">
+                    <CreatePost />
+                    <div className=" w-full h-fit rounded">
+                        {posts ?
+                            <>
+                                {posts.map((item, index) => (
+                                    <GroupPostItem
+                                        key={`post-key-${index}`}
+                                        post={item}
+                                        index={index}
+                                        handleLikeBtn={handleLikeBtn}
+                                        handleFavouriteBtn={handleFavouriteBtn}
+                                    />
+                                ))}</> :<></>}
+
+                    </div>
+                </div>
+                <GroupOverview />
+            </div>
+        </div>
+    </>
+)
 }
 
 export default GroupDiscussion
