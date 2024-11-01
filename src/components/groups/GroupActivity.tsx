@@ -5,6 +5,7 @@ import { Post, PostResponse } from '../../services/Types/Post';
 import ListPosts from '../post/ListPosts';
 import GroupJoinedSideBar from './GroupJoinedSideBar';
 import PostPlaceholder from '../post/PostPlaceholder';
+import GroupSidebarPlaceholder from './placeholder/GroupJoinedSideBarPlaceholder';
 
 const GroupActivity: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -60,11 +61,33 @@ const GroupActivity: React.FC = () => {
     }, [userId]);
     
     if (loading) {
-        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /><PostPlaceholder /></div>;
+        return <div className='flex flex-row'>
+        <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
+            <div className=" w-full h-fit rounded">
+            <PostPlaceholder /><PostPlaceholder /><PostPlaceholder />
+            </div>
+        </div>
+        <div className='flex flex-col gap-2 bg-[#F3F4F6] absolute top-0 bottom-0 right-3 w-[24%] border-l'>
+            <div className="h-full scrollbar-hidden scrollbar-visible hover:overflow-auto">
+                <GroupSidebarPlaceholder />
+            </div>
+        </div>
+    </div>;
     }
 
     if (error) {
-        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /><PostPlaceholder /></div>;
+        return <div className='flex flex-row'>
+        <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
+            <div className=" w-full h-fit rounded">
+            <PostPlaceholder /><PostPlaceholder /><PostPlaceholder />
+            </div>
+        </div>
+        <div className='flex flex-col gap-2 bg-[#F3F4F6] absolute top-0 bottom-0 right-3 w-[24%] border-l'>
+            <div className="h-full scrollbar-hidden scrollbar-visible hover:overflow-auto">
+                <GroupSidebarPlaceholder />
+            </div>
+        </div>
+    </div>;
     }
 
     const handleLikeBtn = (index: number) => {
