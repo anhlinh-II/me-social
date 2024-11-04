@@ -2,7 +2,7 @@ import React from 'react';
 
 const PostPlaceholder: React.FC = () => {
     return (
-        <div className="w-full bg-white rounded-lg border-2 mb-4 animate-pulse">
+        <div className="md:w-[600px] sm:w-full bg-white rounded-lg border-2 mb-4 animate-pulse">
             <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                 <div className="w-12 h-12 bg-gray-300 rounded-lg"></div>
                 <div className="ml-2 flex flex-col gap-1">

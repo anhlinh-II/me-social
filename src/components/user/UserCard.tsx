@@ -11,6 +11,23 @@ interface UserCardProps {
 }
 
 const UserCard: React.FC<UserCardProps> = ({ name, avatar, description, location }) => {
+
+	const placeholder = (
+		<div className="flex w-full justify-between overflow-hidden animate-pulse bg-gray-100 rounded-lg p-4">
+			<div className="flex items-start">
+				<div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+				<div className="ml-4 flex flex-col items-start space-y-2">
+					<div className="h-4 bg-gray-300 rounded w-24"></div>
+					<div className="h-3 bg-gray-300 rounded w-32"></div>
+					<div className="h-3 bg-gray-300 rounded w-20"></div>
+				</div>
+			</div>
+			<div className="self-center">
+				<div className="bg-gray-300 rounded-md px-4 py-2 w-28 h-10"></div>
+			</div>
+		</div>
+	);
+
 	return (
 		<div className="flex w-full justify-between overflow-hidden">
 			<div className="flex items-start p-4">
