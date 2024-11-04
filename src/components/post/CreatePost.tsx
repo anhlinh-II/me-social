@@ -9,7 +9,7 @@ const CreatePost = () => {
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
      return (
-          <div className="p-5 w-full h-max border-solid border-[1px] align-center rounded-lg bg-white shadow-md text-sky-800">
+          <div className="p-5 md:w-[600px] sm:w-full h-max border-solid border-[1px] align-center rounded-lg bg-white shadow-md text-sky-800">
                <div className="flex gap-4 justify-start items-center pb-4 border-b border-gray-200">
                     <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/458632275_418614794573295_2633384543465741474_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=UvdxpgBoLT0Q7kNvgHOh1n4&_nc_ht=scontent.fhan14-3.fna&_nc_gid=AFNJnXuNp14Kj0-EzvTI1pv&oh=00_AYBbUGyCKi1w35uyT0xgmbl1dl3ZzOqHVQV65pTnFTnxsQ&oe=670C7E4F"
                          className="rounded-[100%] text-base h-10 w-10 "

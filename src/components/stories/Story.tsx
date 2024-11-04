@@ -112,7 +112,7 @@ const Story = () => {
 
 	return (
 		<>
-			<div className="mt-2 mb-2">
+			<div className="mt-2 mb-2 -ms-2">
 				<MultiCarousel items={carouselUsers} />
 			</div>
 			<CreateReelModal
