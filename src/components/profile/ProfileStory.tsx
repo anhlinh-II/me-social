@@ -2,7 +2,6 @@ import { useState } from "react";
 import PostModal from "./PostModal";
 import StoryItem from "./items/ProfileStoryItem";
 import { PiPlusLight } from "react-icons/pi";
-import CreateReelModal from "../modal/Reel.create.modal";
 import { Link } from "react-router-dom";
 
 interface Comment {
@@ -27,11 +26,7 @@ export interface ProfileStoryProps {
 }
 
 const ProfileStory: React.FC<ProfileStoryProps> = ({ stories }) => {
-    const [selectedPost, setSelectedPost] = useState<Story | null>(null);const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
-
-    const openAddReelModal = () => {
-         setShowCreateReelModal(true);
-    }
+    const [selectedPost, setSelectedPost] = useState<Story | null>(null);
 
     const handlePostClick = (story: Story) => {
         setSelectedPost(story);
@@ -81,10 +76,6 @@ const ProfileStory: React.FC<ProfileStoryProps> = ({ stories }) => {
                     onClose={handleCloseModal}
                 />
             )}
-            <CreateReelModal
-                show={showCreateReelModal}
-                setShow={setShowCreateReelModal}
-            />
         </div>
     );
 };

@@ -93,15 +93,15 @@ const StoriesPage: React.FC = () => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-100 flex z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-100 flex z-50 ">
             {/* Sidebar */}
             <div className="w-1/3 p-4 overflow-y-auto bg-[#242526]">
                 <button onClick={handleClose} className="text-white text-2xl top-4 left-6 rounded-full p-2 bg-[#18191A] hover:bg-zinc-700">
                     <IoMdClose />
                 </button>
                 <h2 className="text-white text-2xl font-bold mt-6 mb-4">Tin</h2>
-                <div className='flex gap-2 mb-4 py-4 border-b border-gray-600'>
-                    <Link to={`/stories/create`}>
+                <Link to={`/stories/create`}>
+                    <div className='flex gap-2 mb-4 p-2 rounded-lg hover:bg-[#404141]'>
                         <div key="createReel" className="w-16 h-16 bg-gray-200 overflow-hidden cursor-pointer p-2 border rounded-full border-black relative group">
                             <div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/camera.jpg')", backgroundPosition: "center bottom" }}></div>
                             <div className="relative h-full p-4 flex flex-col items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
@@ -110,12 +110,13 @@ const StoriesPage: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                    </Link>
-                    <div className="flex flex-col gap-1 justify-center">
-                        <p className='text-white text-md'>Tạo tin</p>
-                        <p className='text-gray-400 text-xs'>Bạn có thể chia sẻ ảnh hoặc video</p>
+                        <div className="flex flex-col gap-1 justify-center">
+                            <p className='text-white text-md'>Tạo tin</p>
+                            <p className='text-gray-400 text-xs'>Bạn có thể chia sẻ ảnh hoặc video</p>
+                        </div>
                     </div>
-                </div>
+                </Link>
+                <hr className='border-b border-[#404141] mb-4'></hr>
                 <ul className="">
                     {stories.map((story, index) => (
                         <li

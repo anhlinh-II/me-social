@@ -11,7 +11,7 @@ const Suggestion = () => {
         {/* a friend */}
         <div className="flex justify-between items-center p-4 drop-shadow-lg border border-gray-300 rounded-lg">
           <div className="flex justify-between items-center">
-            <img src="https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/455247901_1566647544255850_2979140626005352086_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=XHw-xfIqPqIQ7kNvgHN1AQW&_nc_ht=scontent.fhan2-5.fna&_nc_gid=ARn_bX--Vqrg0pt_LReyCXF&oh=00_AYANCwmukd7rJ0XLgEVMJuozi6ZR12_n06jeuU2lVr8lfQ&oe=66F842CC"
+            <img src="http://localhost:5173/src/assets/jisoo.jpg"
               alt="error"
               className="w-[100px] h-[100px] rounded-lg"
             />
@@ -26,7 +26,7 @@ const Suggestion = () => {
         </div>
         <div className="flex justify-between items-center p-4 drop-shadow-lg border border-gray-300 rounded-lg">
           <div className="flex justify-between items-center">
-            <img src="https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/455247901_1566647544255850_2979140626005352086_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=XHw-xfIqPqIQ7kNvgHN1AQW&_nc_ht=scontent.fhan2-5.fna&_nc_gid=ARn_bX--Vqrg0pt_LReyCXF&oh=00_AYANCwmukd7rJ0XLgEVMJuozi6ZR12_n06jeuU2lVr8lfQ&oe=66F842CC"
+            <img src="http://localhost:5173/src/assets/jisoo.jpg"
               alt="error"
               className="w-[100px] h-[100px] rounded-lg"
             />
@@ -41,7 +41,7 @@ const Suggestion = () => {
         </div>
         <div className="flex justify-between items-center p-4 drop-shadow-lg border border-gray-300 rounded-lg">
           <div className="flex justify-between items-center">
-            <img src="https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/455247901_1566647544255850_2979140626005352086_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=XHw-xfIqPqIQ7kNvgHN1AQW&_nc_ht=scontent.fhan2-5.fna&_nc_gid=ARn_bX--Vqrg0pt_LReyCXF&oh=00_AYANCwmukd7rJ0XLgEVMJuozi6ZR12_n06jeuU2lVr8lfQ&oe=66F842CC"
+            <img src="http://localhost:5173/src/assets/jisoo.jpg"
               alt="error"
               className="w-[100px] h-[100px] rounded-lg"
             />
@@ -56,7 +56,7 @@ const Suggestion = () => {
         </div>
         <div className="flex justify-between items-center p-4 drop-shadow-lg border border-gray-300 rounded-lg">
           <div className="flex justify-between items-center">
-            <img src="https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/455247901_1566647544255850_2979140626005352086_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=XHw-xfIqPqIQ7kNvgHN1AQW&_nc_ht=scontent.fhan2-5.fna&_nc_gid=ARn_bX--Vqrg0pt_LReyCXF&oh=00_AYANCwmukd7rJ0XLgEVMJuozi6ZR12_n06jeuU2lVr8lfQ&oe=66F842CC"
+            <img src="http://localhost:5173/src/assets/jisoo.jpg"
               alt="error"
               className="w-[100px] h-[100px] rounded-lg"
             />

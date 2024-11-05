@@ -88,61 +88,6 @@ const ListVideos = () => {
 			video: "https://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.mp4",
 			isFriend: false
 		},
-		{
-			username: "Hồng Phấn",
-			avatar: "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/450060036_2206890346344715_5629840112055867382_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=d1HRxqoc9RoQ7kNvgFGnzuh&_nc_ht=scontent.fhan2-5.fna&oh=00_AYBex4CJfA1Yhbv2uQXCH-iROeI1iBIdaq4F-pRE-vH7lw&oe=66F8A893",
-			likes: 284,
-			description: "ava i do se thich hon (my mom😔)!",
-			totalComments: 53,
-			isLiked: false,
-			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-			isFriend: false
-		},
-		{
-			username: "Hồng Phấn",
-			avatar: "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/450060036_2206890346344715_5629840112055867382_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=d1HRxqoc9RoQ7kNvgFGnzuh&_nc_ht=scontent.fhan2-5.fna&oh=00_AYBex4CJfA1Yhbv2uQXCH-iROeI1iBIdaq4F-pRE-vH7lw&oe=66F8A893",
-			likes: 284,
-			description: "ava i do se thich hon (my mom😔)!",
-			totalComments: 53,
-			isLiked: false,
-			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-			isFriend: false
-		},
-		{
-			username: "Hồng Phấn",
-			avatar: "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/450060036_2206890346344715_5629840112055867382_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=d1HRxqoc9RoQ7kNvgFGnzuh&_nc_ht=scontent.fhan2-5.fna&oh=00_AYBex4CJfA1Yhbv2uQXCH-iROeI1iBIdaq4F-pRE-vH7lw&oe=66F8A893",
-			likes: 284,
-			description: "ava i do se thich hon (my mom😔)!",
-			totalComments: 53,
-			isLiked: false,
-			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-			isFriend: false
-		},
-		{
-			username: "Hồng Phấn",
-			avatar: "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/450060036_2206890346344715_5629840112055867382_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=d1HRxqoc9RoQ7kNvgFGnzuh&_nc_ht=scontent.fhan2-5.fna&oh=00_AYBex4CJfA1Yhbv2uQXCH-iROeI1iBIdaq4F-pRE-vH7lw&oe=66F8A893",
-			likes: 284,
-			description: "ava i do se thich hon (my mom😔)!",
-			totalComments: 53,
-			isLiked: false,
-			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-			isFriend: false
-		},
-		{
-			username: "Hồng Phấn",
-			avatar: "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/450060036_2206890346344715_5629840112055867382_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=d1HRxqoc9RoQ7kNvgFGnzuh&_nc_ht=scontent.fhan2-5.fna&oh=00_AYBex4CJfA1Yhbv2uQXCH-iROeI1iBIdaq4F-pRE-vH7lw&oe=66F8A893",
-			likes: 284,
-			description: "ava i do se thich hon (my mom😔)!",
-			totalComments: 53,
-			isLiked: false,
-			isFavourited: true,
-			video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-			isFriend: false
-		}
 	]
 
 	const handleNextVideo = () => {

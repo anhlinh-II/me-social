@@ -81,7 +81,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     }
 
     if (error) {
-        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
+        return <></> //<div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     const handleLikeBtn = (index: number) => {

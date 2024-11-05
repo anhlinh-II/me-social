@@ -37,8 +37,8 @@ const GroupSuggestion: React.FC = () => {
         return <div className='mt-5'>
                     <h5 className="font-bold mb-6">Các nhóm gợi ý cho bạn</h5>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_) => (
-                            <GroupCardPlaceholder />
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => (
+                            <GroupCardPlaceholder key={index}/>
                         ))}
                     </div>
                 </div>
@@ -48,8 +48,8 @@ const GroupSuggestion: React.FC = () => {
         return <div className='mt-5'>
                     <h5 className="font-bold mb-6">Các nhóm gợi ý cho bạn</h5>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_) => (
-                            <GroupCardPlaceholder />
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => (
+                            <GroupCardPlaceholder  key={index}/>
                         ))}
                     </div>
                 </div>

@@ -1,8 +1,7 @@
-import { IoIosSearch } from "react-icons/io";
-import { MdOutlineGroups, MdOutlineOndemandVideo } from "react-icons/md";
+import { MdOutlineOndemandVideo } from "react-icons/md";
 import { PiChatCircle, PiChatCircleDotsFill } from "react-icons/pi";
-import { IoHomeOutline, IoPersonAddOutline } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { IoHome, IoHomeOutline, IoPersonAdd, IoPersonAddOutline } from "react-icons/io5";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../styles/Header.scss';
 import { GoBell } from "react-icons/go";
 import { useState } from "react";
@@ -11,62 +10,64 @@ import NotificationDropdown from "./notification/Notification";
 import Chat from "./Chat/Chat";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";
+import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 
 const Header = () => {
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
-    const [showNotifications, setShowNotifications] = useState<boolean>(false);
-    const [showChats, setChats] = useState<boolean>(false);
-    const navigate = useNavigate();
+	const [showNotifications, setShowNotifications] = useState<boolean>(false);
+	const [showChats, setChats] = useState<boolean>(false);
+	const location = useLocation();
+	const navigate = useNavigate();
 
-    const handleOpenSearch = () => {
-        setOpenSearch(true);
-    };
+	const handleOpenSearch = () => {
+		setOpenSearch(true);
+	};
 
-    const toggleNotifications = () => {
-        setShowNotifications(!showNotifications);
-        if (showChats) {
-            setChats(false); 
-        }
-    };
+	const toggleNotifications = () => {
+		setShowNotifications(!showNotifications);
+		if (showChats) {
+			setChats(false);
+		}
+	};
 
-    const toggleChats = () => {
-        setChats(!showChats);
-        if (showNotifications) {
-            setShowNotifications(false); 
-        }
-    };
+	const toggleChats = () => {
+		setChats(!showChats);
+		if (showNotifications) {
+			setShowNotifications(false);
+		}
+	};
 
-    const [activeButton, setActiveButton] = useState<'chat' | 'notification' | null>(null);
+	const [activeButton, setActiveButton] = useState<'chat' | 'notification' | null>(null);
 	const [activeTheme, setActiveTheme] = useState<'Moon' | 'Sun' | null>(null);
 
-    const handleToggle = (button: 'chat' | 'notification') => {
-        if (activeButton === button) {
-            setActiveButton(null);
-            return; 
-        }
+	const handleToggle = (button: 'chat' | 'notification') => {
+		if (activeButton === button) {
+			setActiveButton(null);
+			return;
+		}
 
-        setActiveButton(button);
-        if (button === 'chat') {
-            setShowNotifications(false);
-        } else if (button === 'notification') {
-            setChats(false); 
-        }
-    };
+		setActiveButton(button);
+		if (button === 'chat') {
+			setShowNotifications(false);
+		} else if (button === 'notification') {
+			setChats(false);
+		}
+	};
 
 	const handleToggleMoon = (button: 'Moon' | 'Sun') => {
 		if (activeTheme === button) {
-            setActiveTheme(null);
-            return; 
-        }
+			setActiveTheme(null);
+			return;
+		}
 
-        if (button === 'Moon') {
-            setActiveTheme('Moon');
-        } else if (button === 'Sun') {
-            setActiveTheme('Sun');
-        }
+		if (button === 'Moon') {
+			setActiveTheme('Moon');
+		} else if (button === 'Sun') {
+			setActiveTheme('Sun');
+		}
 	};
 
-	
+
 	return (
 		<>
 			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0">
@@ -78,7 +79,7 @@ const Header = () => {
 						<a href="/" className="-m-1.5 p-1.5">
 							<img className="h-10 w-auto" src="/logo.png" alt="" />
 						</a>
-						<div className="relative ml-10">
+						{/* <div className="relative ml-10">
 							<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 								<IoIosSearch
 									style={{
@@ -97,24 +98,46 @@ const Header = () => {
 								autoComplete="off"
 								onClick={() => handleOpenSearch()}
 							/>
+						</div> */}
+						<div className="w-[240px] ps-4 flex flex-row items-center">
+							<input
+								id="searchQueryInput"
+								type="text"
+								name="searchQueryInput"
+								placeholder="Tìm bạn bè, nhóm, ..."
+								className="w-full h-10 bg-[#0EA5E9] placeholder-white outline-none border-none rounded-full pl-4 pr-10 text-white text-base"
+								onClick={() => handleOpenSearch()}
+							/>
+							<button
+								id="searchQuerySubmit"
+								type="submit"
+								name="searchQuerySubmit"
+								className="w-14 h-10 -ml-10 bg-none border-none outline-none hover:cursor-pointer"
+							>
+								<svg style={{ width: "24px", height: "24px" }} viewBox="0 0 24 24">
+									<path
+										fill="#666666"
+										d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+									/>
+								</svg>
+							</button>
 						</div>
-
 					</div>
 					<div className="flex justify-between w-[38%] ">
 						<Link
 							to={`/`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg"
-						>
-							<IoHomeOutline style={{ fontSize: "28px", color: "white" }} />
+							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
+								}`}>
+							{location.pathname === "/" ? <IoHome style={{ fontSize: "28px", color: "white" }} /> : <IoHomeOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Home
 							</div>
 						</Link>
 						<Link
 							to={`/listFriends/friends`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
-						>
-							<IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />
+							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
+								}`}>
+							{location.pathname.includes("/listFriends") ? <IoPersonAdd style={{ fontSize: "28px", color: "white" }} /> : <IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Friends
 							</div>
@@ -132,9 +155,9 @@ const Header = () => {
 
 						<Link
 							to={`/groups/feed`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
-						>
-							<MdOutlineGroups style={{ fontSize: "28px", color: "white" }} />
+							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
+								}`}>
+							{location.pathname.includes("/groups") ? <HiUserGroup style={{ fontSize: "28px", color: "white" }} /> : <HiOutlineUserGroup style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
 								Groups
 							</div>

@@ -90,7 +90,7 @@ const SuggestFriends = () => {
                     <div className="flex flex-col mt-6">
                          <div className="mb-5 flex justify-between items-center">
                               <div className="flex justify-between">
-                                   <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/458632275_418614794573295_2633384543465741474_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=UvdxpgBoLT0Q7kNvgHOh1n4&_nc_ht=scontent.fhan14-3.fna&_nc_gid=AFNJnXuNp14Kj0-EzvTI1pv&oh=00_AYBbUGyCKi1w35uyT0xgmbl1dl3ZzOqHVQV65pTnFTnxsQ&oe=670C7E4F"
+                                   <img src="http://localhost:5173/src/assets/jisoo.jpg"
                                         alt="error"
                                         className="cursor-pointer rounded-[100%] text-base h-10 w-10 "
                                    />
@@ -103,7 +103,7 @@ const SuggestFriends = () => {
                          </div>
                          <div className="mb-5 flex justify-between items-center">
                               <div className="flex justify-between">
-                                   <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/458632275_418614794573295_2633384543465741474_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=UvdxpgBoLT0Q7kNvgHOh1n4&_nc_ht=scontent.fhan14-3.fna&_nc_gid=AFNJnXuNp14Kj0-EzvTI1pv&oh=00_AYBbUGyCKi1w35uyT0xgmbl1dl3ZzOqHVQV65pTnFTnxsQ&oe=670C7E4F"
+                                   <img src="http://localhost:5173/src/assets/jisoo.jpg"
                                         alt="error"
                                         className="cursor-pointer rounded-[100%] text-base h-10 w-10 "
                                    />
@@ -116,7 +116,7 @@ const SuggestFriends = () => {
                          </div>
                          <div className="mb-5 flex justify-between items-center">
                               <div className="flex justify-between">
-                                   <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/458632275_418614794573295_2633384543465741474_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=UvdxpgBoLT0Q7kNvgHOh1n4&_nc_ht=scontent.fhan14-3.fna&_nc_gid=AFNJnXuNp14Kj0-EzvTI1pv&oh=00_AYBbUGyCKi1w35uyT0xgmbl1dl3ZzOqHVQV65pTnFTnxsQ&oe=670C7E4F"
+                                   <img src="http://localhost:5173/src/assets/jisoo.jpg"
                                         alt="error"
                                         className="cursor-pointer rounded-[100%] text-base h-10 w-10 "
                                    />
