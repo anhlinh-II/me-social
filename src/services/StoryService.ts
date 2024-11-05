@@ -1,6 +1,6 @@
-import instance from "../../config/axios-customize";
-import { IApiResponse, Page } from "../../types/backend";
-import { StoryRequest, StoryResponse } from "../Types/Story";
+import instance from "../config/axios-customize";
+import { IApiResponse, Page } from "../types/backend";
+import { StoryRequest, StoryResponse } from "../types/Story";
 
 
 // Create Story

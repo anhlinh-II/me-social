@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GroupJoinedCard from './card/GroupJoinedCard';
-import { GroupResponse } from '../../services/Types/Group';
-import { getGroupsByUserId } from '../../services/Entities/GroupService';
+import { GroupResponse } from '../../types/Group';
+import { getGroupsByUserId } from '../../services/GroupService';
 import GroupCardPlaceholder from './placeholder/GroupCardPlaceholder';
 
 const GroupJoined: React.FC = () => {

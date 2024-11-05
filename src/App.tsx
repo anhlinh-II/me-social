@@ -1,7 +1,6 @@
 import ListFriends from "./components/friends/ListFriends";
 import Posts from "./components/post/Posts";
 import Reels from "./components/reels/Reels";
-import SeeMore from "./components/SeeMore";
 import "./styles/App.scss";
 import Login from "./view/auth/Login";
 import Register from "./view/auth/Register";
@@ -84,10 +83,6 @@ function App() {
             },
             
           ]
-        },
-        {
-          path: "seemore",
-          element: <SeeMore />
         },
         {
           path: '/profile',

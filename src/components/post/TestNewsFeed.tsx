@@ -1,6 +1,6 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { getPostsForNewsFeed } from '../../services/Entities/PostService';
+import { getPostsForNewsFeed } from '../../services/PostService';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
@@ -10,7 +10,7 @@ import ShowMoreText from "react-show-more-text";
 import { Link } from 'react-router-dom';
 import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
-import { Post, PostResponse } from '../../services/Types/Post';
+import { Post, PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';

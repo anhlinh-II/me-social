@@ -5,9 +5,9 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { IoImagesSharp } from "react-icons/io5";
 import Select, { components, SingleValueProps } from 'react-select';
 import avt from '../../assets/me1.jpg';
-import { deleteImage, uploadPostImage } from "../../services/Entities/ImageService";
-import { createPost } from "../../services/Entities/PostService";
-import { PostRequest } from "../../services/Types/Post";
+import { deleteImage, uploadPostImage } from "../../services/ImageService";
+import { createPost } from "../../services/PostService";
+import { PostRequest } from "../../types/Post";
 
 interface IProps {
      show: boolean;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GroupSuggestCard from './card/GroupSuggestCard';
-import { getSuggestedGroups } from '../../services/Entities/GroupService';
-import { GroupResponse } from '../../services/Types/Group';
+import { getSuggestedGroups } from '../../services/GroupService';
+import { GroupResponse } from '../../types/Group';
 import GroupCardPlaceholder from './placeholder/GroupCardPlaceholder';
 
 const GroupSuggestion: React.FC = () => {

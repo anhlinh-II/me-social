@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GroupPostItem from '../post/GroupPostItem';
-import { getPostsForGroupActivities } from '../../services/Entities/PostService';
-import { Post, PostResponse } from '../../services/Types/Post';
+import { getPostsForGroupActivities } from '../../services/PostService';
+import { Post, PostResponse } from '../../types/Post';
 import ListPosts from '../post/ListPosts';
 import GroupJoinedSideBar from './GroupJoinedSideBar';
 import PostPlaceholder from '../post/PostPlaceholder';

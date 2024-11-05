@@ -2,8 +2,8 @@ import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
 import { useEffect, useState } from "react"
 import GroupPostItem from "../post/GroupPostItem"
-import { getPostsByGroup } from "../../services/Entities/PostService"
-import { Post, PostResponse } from "../../services/Types/Post"
+import { getPostsByGroup } from "../../services/PostService"
+import { Post, PostResponse } from "../../types/Post"
 import PostPlaceholder from "../post/PostPlaceholder"
 
 const GroupDiscussion = () => {

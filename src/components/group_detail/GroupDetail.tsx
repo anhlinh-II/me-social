@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getGroupById } from "../../services/Entities/GroupService";
-import { GroupResponse } from "../../services/Types/Group";
+import { getGroupById } from "../../services/GroupService";
+import { GroupResponse } from "../../types/Group";
 import Header from "../Header";
 import GroupHeader from "./GroupHeader";
 import { Outlet } from "react-router-dom";

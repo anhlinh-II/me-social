@@ -8,6 +8,7 @@ export interface StoryResponse {
     id: string;
     userId: number;
     url: string;
+    thumbnail: string;
     content: string;
     createdAt: string;
     updatedAt: string;
@@ -19,6 +20,7 @@ export interface StoryResponse {
 export interface StoryRequest {
     userId: number;
     url: string;
+    thumbnail: string;
     content: string;
     privacy: StoryPrivacy;
 }

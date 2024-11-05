@@ -9,8 +9,8 @@ import creategroup from '../../assets/creategroup.png';
 import { LuDot } from "react-icons/lu";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import debounce from 'lodash/debounce';
-import { createGroup } from "../../services/Entities/GroupService";
-import { GroupPrivacy } from "../../services/Types/Group";
+import { createGroup } from "../../services/GroupService";
+import { GroupPrivacy } from "../../types/Group";
 
 const CreateGroup = () => {
      const [mode, setMode] = useState<string | number>('');

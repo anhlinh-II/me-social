@@ -4,7 +4,7 @@ import { FaEarthAmericas, FaPlus, FaShare } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { GroupResponse } from "../../services/Types/Group";
+import { GroupResponse } from "../../types/Group";
 import InviteModal from "./modal/InviteModal";
 import GroupSearchModal from "./modal/GroupSearchModal";
 import GroupDropdownMenu from "./modal/GroupDropdownMenu";

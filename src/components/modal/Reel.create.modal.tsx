@@ -3,9 +3,9 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import Select, { components, SingleValueProps } from 'react-select';
-import { uploadReelVideo } from "../../services/Entities/VideoService";
-import { ReelPrivacy, ReelRequest } from "../../services/Types/Reel";
-import { createReel } from "../../services/Entities/ReelService";
+import { uploadReelVideo } from "../../services/VideoService";
+import { ReelPrivacy, ReelRequest } from "../../types/Reel";
+import { createReel } from "../../services/ReelService";
 import avt from '../../assets/me1.jpg';
 
 interface IProps {

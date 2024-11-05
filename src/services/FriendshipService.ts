@@ -1,6 +1,6 @@
-import { FriendshipResponse } from '../Types/Friendship';
-import instance from '../../config/axios-customize';
-import { IApiResponse } from '../../types/backend';
+import { FriendshipResponse } from '../types/Friendship';
+import instance from '../config/axios-customize';
+import { IApiResponse } from '../types/backend';
 
 // Get Friendship Status
 export const getFriendStatus = async (requesterId: number, receiverId: number) => {

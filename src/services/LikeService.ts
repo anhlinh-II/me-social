@@ -1,6 +1,6 @@
-import { Like } from '../Types/Like';
-import instance from '../../config/axios-customize';
-import { IApiResponse } from '../../types/backend';
+import { Like } from '../types/Like';
+import instance from '../config/axios-customize';
+import { IApiResponse } from '../types/backend';
 
 // Get Post Like Count
 export const getPostLikeCount = async (postId: number) => {

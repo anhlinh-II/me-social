@@ -7,7 +7,7 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
 import More from '../modal/More';
-import { Post } from '../../services/Types/Post';
+import { Post } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';

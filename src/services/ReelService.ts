@@ -1,6 +1,6 @@
-import { ReelRequest, ReelResponse } from '../Types/Reel';
-import instance from '../../config/axios-customize';
-import { IApiResponse, Page } from '../../types/backend';
+import { ReelRequest, ReelResponse } from '../types/Reel';
+import instance from '../config/axios-customize';
+import { IApiResponse, Page } from '../types/backend';
 
 // Create Reel
 export const createReel = async (request: ReelRequest) => {

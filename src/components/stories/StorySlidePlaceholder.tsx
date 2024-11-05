@@ -1,10 +1,10 @@
 import React from 'react';
 
-const StorySlidePlaceholder: React.FC = () => {
+const StoryCarouselPlaceholder: React.FC = () => {
     const placeholders = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
-        <div className="flex gap-2 overflow-x-auto">
+        <div className="flex w-[600px] overflow-hidden gap-2">
             {/* Placeholder for "Create New Story" */}
             <div className="story-container create-new-story bg-gray-400 animate-pulse" style={{ width: '100px', cursor: 'pointer' }}>
                 <div className="flex flex-col items-center">
@@ -33,4 +33,4 @@ const StorySlidePlaceholder: React.FC = () => {
     );
 };
 
-export default StorySlidePlaceholder;
+export default StoryCarouselPlaceholder;

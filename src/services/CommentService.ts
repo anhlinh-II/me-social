@@ -1,6 +1,6 @@
-import { CommentRequest, CommentResponse } from '../Types/Comment';
-import instance from '../../config/axios-customize';
-import { IApiResponse } from '../../types/backend';
+import { CommentRequest, CommentResponse } from '../types/Comment';
+import instance from '../config/axios-customize';
+import { IApiResponse } from '../types/backend';
 
 // Get Comment by ID
 export const getCommentById = async (id: number) => {

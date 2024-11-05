@@ -1,6 +1,6 @@
-import { UserCreationRequest, UserUpdateRequest, UserResponse, UserDTO } from '../Types/User';
-import { IApiResponse, Page } from '../../types/backend';
-import instance from '../../config/axios-customize';
+import { UserCreationRequest, UserUpdateRequest, UserResponse, UserDTO } from '../types/User';
+import { IApiResponse, Page } from '../types/backend';
+import instance from '../config/axios-customize';
 
 // Create User
 export const createUser = async (request: UserCreationRequest) => {

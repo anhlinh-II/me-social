@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { FaArchive, FaEdit } from 'react-icons/fa';
 import { GrSettingsOption } from "react-icons/gr";
 import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/FormatNumber';
-import { updateUser } from '../../services/Entities/UserService';
-import { UserUpdateRequest } from '../../services/Types/User';
+import { updateUser } from '../../services/UserService';
+import { UserUpdateRequest } from '../../types/User';
 import { IoMdClose } from 'react-icons/io';
 
 interface ProfileInfoProps {

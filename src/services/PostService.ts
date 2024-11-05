@@ -1,6 +1,6 @@
-import { PostRequest, PostResponse } from '../Types/Post';
-import instance from '../../config/axios-customize';
-import { IApiResponse, Page } from '../../types/backend';
+import { PostRequest, PostResponse } from '../types/Post';
+import instance from '../config/axios-customize';
+import { IApiResponse, Page } from '../types/backend';
 
 // Get Posts for NewsFeed
 export const getPostsForNewsFeed = async (userId: number, pageNum = 0) => {

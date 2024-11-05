@@ -3,9 +3,9 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { createStory } from "../../services/Entities/StoryService";
-import { uploadStoryVideo } from "../../services/Entities/VideoService";
-import { StoryPrivacy, StoryRequest } from "../../services/Types/Story";
+import { createStory } from "../../services/StoryService";
+import { uploadStoryVideo } from "../../services/VideoService";
+import { StoryPrivacy, StoryRequest } from "../../types/Story";
 import avt from '../../assets/me1.jpg';
 import { PiPlusLight } from "react-icons/pi";
 
@@ -78,6 +78,7 @@ const CreateStory = () => {
                 const storyRequest: StoryRequest = {
                     userId: 3,
                     url: uploadedData.secure_url,
+                    thumbnail: uploadedData.eager?.[0]?.secure_url,
                     content: content,
                     privacy: privacy,
                 };

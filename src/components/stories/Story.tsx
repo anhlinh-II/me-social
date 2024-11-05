@@ -6,6 +6,7 @@ import CreateReelModal from "../modal/Reel.create.modal";
 
 const Story = () => {
 	const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	const fakeData = [
 		{
@@ -92,7 +93,10 @@ const Story = () => {
 			return (
 				<div key={item.id} className="story-container hover:opacity-90" onClick={handleClick} style={{ cursor: 'pointer' }}>
 					{/* Background video or image */}
-					<video className="story-background">
+					<video 
+						className="story-background"
+						onLoadedData={() => setIsLoading(false)}
+						hidden={isLoading}>
 						<source src={item.background} type="video/mp4" />
 						Your browser does not support the video tag.
 					</video>

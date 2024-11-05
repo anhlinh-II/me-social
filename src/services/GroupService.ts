@@ -1,6 +1,6 @@
-import { GroupRequest, GroupResponse } from '../Types/Group';
-import instance from '../../config/axios-customize';
-import { IApiResponse, Page } from '../../types/backend';
+import { GroupRequest, GroupResponse } from '../types/Group';
+import instance from '../config/axios-customize';
+import { IApiResponse, Page } from '../types/backend';
 
 // Get Group by ID
 export const getGroupById = async (id: number) => {
