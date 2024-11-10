@@ -11,8 +11,13 @@ import Chat from "./Chat/Chat";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";
 import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
+import { useAppSelector } from "../redux/hook";
+import avt from '../assets/me1.jpg';
 
 const Header = () => {
+
+	const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
 	const [showNotifications, setShowNotifications] = useState<boolean>(false);
 	const [showChats, setChats] = useState<boolean>(false);
@@ -166,7 +171,7 @@ const Header = () => {
 
 					<div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex gap-4 justify-center align-center">
 						<button
-							className={`w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('chat')
 								toggleChats()
@@ -179,7 +184,7 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center `}
+							className={`w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center `}
 							onClick={() => handleToggleMoon('Moon')}
 						>
 							{activeTheme === 'Moon' ? (
@@ -189,7 +194,7 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`relative w-[44px] h-[44px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`relative w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
 								handleToggle('notification')
 								toggleNotifications()
@@ -201,13 +206,22 @@ const Header = () => {
 								<GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
-						<button
-							style={{ cursor: "pointer" }}
-							onClick={() => navigate("login")}
-							className="mb-2 text-lg font-semibold leading-6 text-white mt-2 ml-2"
-						>
-							Log in <span aria-hidden="true">&rarr;</span>
-						</button>
+						{
+							isAuthenticated ?
+								<button
+									style={{ cursor: "pointer" }}
+									onClick={() => navigate("login")}
+									className="mb-2 text-lg font-semibold leading-6 text-white mt-2 ml-2"
+								>
+									Log in <span aria-hidden="true">&rarr;</span>
+								</button>
+								:
+								<img src={avt}
+									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
+									alt="error"
+									onClick={() => navigate(`/profile`)}
+								/>
+						}
 					</div>
 				</nav>
 			</header>

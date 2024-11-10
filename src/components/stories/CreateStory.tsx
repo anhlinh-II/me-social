@@ -4,7 +4,7 @@ import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { createStory } from "../../services/StoryService";
-import { uploadStoryVideo } from "../../services/VideoService";
+// import { uploadStoryVideo } from "../../services/VideoService";
 import { StoryPrivacy, StoryRequest } from "../../types/Story";
 import avt from '../../assets/me1.jpg';
 import { PiPlusLight } from "react-icons/pi";
@@ -70,28 +70,28 @@ const CreateStory = () => {
     const handleSaveFile = async () => {
         console.log('Selected file:', selectedFile);
         if (selectedFile) {
-            try {
-                const uploadedData = await uploadStoryVideo(selectedFile, 3);
-                console.log(uploadedData);
-                console.log('Uploaded video URL:', uploadedData.secure_url);
+            // try {
+            //     const uploadedData = await uploadStoryVideo(selectedFile, 3);
+            //     console.log(uploadedData);
+            //     console.log('Uploaded video URL:', uploadedData.secure_url);
 
-                const storyRequest: StoryRequest = {
-                    userId: 3,
-                    url: uploadedData.secure_url,
-                    thumbnail: uploadedData.eager?.[0]?.secure_url,
-                    content: content,
-                    privacy: privacy,
-                };
+            //     const storyRequest: StoryRequest = {
+            //         userId: 3,
+            //         url: uploadedData.secure_url,
+            //         thumbnail: uploadedData.eager?.[0]?.secure_url,
+            //         content: content,
+            //         privacy: privacy,
+            //     };
 
-                const storyResponse = await createStory(storyRequest);
-                console.log('story saved:', storyResponse);
+            //     const storyResponse = await createStory(storyRequest);
+            //     console.log('story saved:', storyResponse);
 
-                setSuccessMessage('story đã được đăng tải thành công!');
-                setStory("");
-            } catch (error) {
-                console.error('Error during file upload or story save:', error);
-                alert('Có lỗi xảy ra khi đăng video. Vui lòng thử lại!');
-            }
+            //     setSuccessMessage('story đã được đăng tải thành công!');
+            //     setStory("");
+            // } catch (error) {
+            //     console.error('Error during file upload or story save:', error);
+            //     alert('Có lỗi xảy ra khi đăng video. Vui lòng thử lại!');
+            // }
         } else {
             alert('Vui lòng chọn một video để đăng.');
         }

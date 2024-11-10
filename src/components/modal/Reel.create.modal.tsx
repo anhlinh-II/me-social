@@ -3,7 +3,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas, FaLock, FaRegCircleCheck } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import Select, { components, SingleValueProps } from 'react-select';
-import { uploadReelVideo } from "../../services/VideoService";
+// import { uploadReelVideo } from "../../services/VideoService";
 import { ReelPrivacy, ReelRequest } from "../../types/Reel";
 import { createReel } from "../../services/ReelService";
 import avt from '../../assets/me1.jpg';
@@ -99,31 +99,31 @@ const CreateReelModal = (props: IProps) => {
      const handleSaveFile = async () => {
           console.log('Selected file:', selectedFile);
           if (selectedFile) {
-               try {
-                    // Upload video lên Cloudinary
-                    const uploadedData = await uploadReelVideo(selectedFile, 3);
-                    console.log(uploadedData);
-                    console.log('Uploaded video URL:', uploadedData.secure_url);
+               // try {
+               //      // Upload video lên Cloudinary
+               //      const uploadedData = await uploadReelVideo(selectedFile, 3);
+               //      console.log(uploadedData);
+               //      console.log('Uploaded video URL:', uploadedData.secure_url);
 
-                    // Tạo request để lưu vào database
-                    const reelRequest: ReelRequest = {
-                         userId: 3,
-                         url: uploadedData.secure_url,
-                         content: content,
-                         privacy: selectedPrivacy.value,
-                    };
+               //      // Tạo request để lưu vào database
+               //      const reelRequest: ReelRequest = {
+               //           userId: 3,
+               //           url: uploadedData.secure_url,
+               //           content: content,
+               //           privacy: selectedPrivacy.value,
+               //      };
 
-                    const reelResponse = await createReel(reelRequest);
-                    console.log('Reel saved:', reelResponse);
+               //      const reelResponse = await createReel(reelRequest);
+               //      console.log('Reel saved:', reelResponse);
 
-                    // Đóng modal và reset trạng thái
-                    setSuccessMessage('Reel đã được đăng tải thành công!');
-                    setOpenEditPanel(false);
-                    setReel("");
-               } catch (error) {
-                    console.error('Error during file upload or reel save:', error);
-                    alert('Có lỗi xảy ra khi đăng video. Vui lòng thử lại!');
-               }
+               //      // Đóng modal và reset trạng thái
+               //      setSuccessMessage('Reel đã được đăng tải thành công!');
+               //      setOpenEditPanel(false);
+               //      setReel("");
+               // } catch (error) {
+               //      console.error('Error during file upload or reel save:', error);
+               //      alert('Có lỗi xảy ra khi đăng video. Vui lòng thử lại!');
+               // }
           } else {
                alert('Vui lòng chọn một video để đăng.');
           }
