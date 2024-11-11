@@ -1,5 +1,5 @@
 import { IApiResponse, Page } from '../types/backend';
-import instance from '../config/axios-customize';
+import instance from './Axios-customize';
 
 export interface Tag {
     id: number;

@@ -21,7 +21,7 @@ const HomeView = () => {
     if (isAuthenticated === false) {
       navigate(`/login`)
     }
-  }, [])
+  }, [isAuthenticated])
 
   const inHomeView: boolean = !hasListFriends && !hasProfile && !hasGroups && !hasSeemore ? true : false;
   return (

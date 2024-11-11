@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { callFetchAccount } from '../../config/api';
+import { callFetchAccount } from '../../services/AuthService';
 
 // First, create the thunk
 export const fetchAccount = createAsyncThunk(
@@ -84,7 +84,7 @@ export const accountSlide = createSlice({
                if (!action?.payload?.user?.role) state.user.role = {};
                state.user.role.permissions = action?.payload?.role?.permissions ?? [];
           },
-          setLogoutAction: (state, action) => {
+          setLogoutAction: (state) => {
                localStorage.removeItem('access_token');
                state.isAuthenticated = false;
                state.user = {

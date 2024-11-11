@@ -1,5 +1,5 @@
 import { FriendshipResponse } from '../types/Friendship';
-import instance from '../config/axios-customize';
+import instance from './Axios-customize';
 import { IApiResponse } from '../types/backend';
 
 // Get Friendship Status

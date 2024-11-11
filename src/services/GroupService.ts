@@ -1,5 +1,5 @@
 import { GroupRequest, GroupResponse } from '../types/Group';
-import instance from '../config/axios-customize';
+import instance from './Axios-customize';
 import { IApiResponse, Page } from '../types/backend';
 
 // Get Group by ID

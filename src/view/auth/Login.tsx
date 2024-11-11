@@ -2,7 +2,7 @@ import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { TbBrandReact } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { callLogin } from '../../config/api';
+import { callLogin } from '../../services/AuthService';
 import { setUserLoginInfo } from '../../redux/slice/accountSlice';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../redux/hook';

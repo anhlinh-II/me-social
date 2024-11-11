@@ -1,5 +1,5 @@
 import { CommentRequest, CommentResponse } from '../types/Comment';
-import instance from '../config/axios-customize';
+import instance from './Axios-customize';
 import { IApiResponse } from '../types/backend';
 
 // Get Comment by ID

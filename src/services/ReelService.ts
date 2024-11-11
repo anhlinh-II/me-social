@@ -1,5 +1,5 @@
 import { ReelRequest, ReelResponse } from '../types/Reel';
-import instance from '../config/axios-customize';
+import instance from './Axios-customize';
 import { IApiResponse, Page } from '../types/backend';
 
 // Create Reel

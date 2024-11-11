@@ -1,5 +1,5 @@
 import { IAccount, IApiResponse, IGetAccount, IUser } from "../types/backend"
-import instance from "./axios-customize"
+import instance from "./Axios-customize"
 
 export const callRegister = (name: string, email: string, password: string, age: number, gender: string, address: string) => {
     return instance.post<IApiResponse<IUser>>('/api/auth/register', { name, email, password, age, gender, address })

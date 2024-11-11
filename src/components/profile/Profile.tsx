@@ -96,11 +96,6 @@ const Profile = () => {
 				<div id="detail" className="w-[100%] flex flex-col items-center justify-center">
 					<ProfileInfo
 						profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
-						username="Cristiano Ronaldo"
-						posts={3749}
-						likes={1639607594}
-						mutual_friends={777}
-						bio="GOAT! No.1 in the world! SIUUUbscribe to my Youtube Channel!"
 					/>
 					<ProfileStory stories={stories} />
 					<hr className='w-[97%] h-[1.5px] bg-gray-500 mt-5'></hr>
