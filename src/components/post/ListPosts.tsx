@@ -11,8 +11,11 @@ import jisoo from '../../assets/jisoo.jpg'
 import { useState } from "react";
 import PostDetailModal from "../modal/Post.detail.modal";
 import More from "../modal/More";
+import { useAppSelector } from "../../redux/hook";
 
 const ListPosts = () => {
+
+	const user = useAppSelector(state => state.account.user)
 	const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 	const [showMore, setShowMore] = useState<boolean>(false);
 	const [posts, setPosts] = useState<IPost[]>([
@@ -117,7 +120,6 @@ const ListPosts = () => {
 												<span>{item.postStatus === "public" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.postStatus === "friends" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
 											</div>
 										</div>
-										<div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
 										<span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
 									</div>
 									{item.imageError ? (
@@ -183,7 +185,7 @@ const ListPosts = () => {
 													className="rounded-[100%] h-10 w-10 me-2"
 													alt="error"
 												/>
-												<input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
+												<input type="text" className="block bg-transparent outline-none mt-1" placeholder={`comment as ${user.name}`} />
 											</div>
 										</div>
 									</div>

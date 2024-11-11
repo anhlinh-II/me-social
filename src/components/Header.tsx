@@ -208,6 +208,12 @@ const Header = () => {
 						</button>
 						{
 							isAuthenticated ?
+								<img src={avt}
+									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
+									alt="error"
+									onClick={() => navigate(`/profile`)}
+								/>
+								:
 								<button
 									style={{ cursor: "pointer" }}
 									onClick={() => navigate("login")}
@@ -215,12 +221,6 @@ const Header = () => {
 								>
 									Log in <span aria-hidden="true">&rarr;</span>
 								</button>
-								:
-								<img src={avt}
-									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
-									alt="error"
-									onClick={() => navigate(`/profile`)}
-								/>
 						}
 					</div>
 				</nav>

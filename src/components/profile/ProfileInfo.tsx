@@ -7,6 +7,7 @@ import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/Format
 import { updateUser } from '../../services/UserService';
 import { UserUpdateRequest } from '../../types/User';
 import { IoMdClose } from 'react-icons/io';
+import { useAppSelector } from '../../redux/hook';
 
 interface ProfileInfoProps {
     profileImage: string;
@@ -26,6 +27,8 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
         bio,
     });
 
+    const user = useAppSelector(state => state.account.user)
+
     const handleEditClick = () => setIsEditing(true);
     const handleClose = () => setIsEditing(false);
 
@@ -35,8 +38,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
 
     const handleSubmit = async () => {
         try {
-            const token = 'your_token';
-            await updateUser(formData, token);
+            await updateUser(formData);
             setIsEditing(false);
         } catch (error) {
             console.error('Error updating user:', error);
@@ -44,15 +46,15 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
     };
     
     return (
-        <div className="flex flex-row justify-between items-center p-4 bg-gray-100 w-[80%]">
+        <div className="flex flex-row gap-14 items-center p-4 bg-gray-100 w-[80%]">
             <img
                 src={profileImage}
                 alt={`${username}'s profile`}
                 className="w-44 h-44 rounded-full object-cover ms-5 mb-4 me-5 cursor-pointer border border-blue-300"
             />
-            <div className='flex flex-col items-start'>
-                <div className='flex flex-row gap-4'>
-                    <h2 className="text-xl font-semibold font-serif me-2">{username}</h2>
+            <div className='flex flex-col items-center'>
+                <div className='flex flex-row items-center gap-4'>
+                    <h2 className="text-xl font-semibold me-2">{user.name}</h2>
                     <button onClick={handleEditClick} className='flex flex-row gap-2 items-center bg-[#E4E6EB] hover:bg-[#D8DADF] p-2 rounded-lg'>
                         <FaEdit/>
                         <span>Chỉnh sửa</span>
@@ -69,26 +71,26 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
                     </button>
                 </div>
                 <div className="flex space-x-8 my-4">
-                    <div className="text-start group/item relative">
-                        <p className="font-bold">{formatNumberWithUnit(posts)}</p>
+                    <div className="text-start flex-row flex gap-2 group/item relative">
+                        <p className="font-semibold">{formatNumberWithUnit(posts)}</p>
                         <p className="text-gray-500">Bài đăng</p>
                         <div className="absolute z-40 w-max top-[25px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-200 rounded-lg">
 							{formatNumberWithCommas(posts)}
 						</div>
                     </div>
-                    <div className="text-start group/item relative">
-                        <p className="font-bold">{formatNumberWithUnit(likes)}</p>
+                    <div className="text-start flex flex-row gap-2 group/item relative">
+                        <p className="font-semibold">{formatNumberWithUnit(likes)}</p>
                         <p className="text-gray-500">Lượt thích</p>
                         <div className="absolute z-40 w-max top-[25px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-200 rounded-lg">
 							{formatNumberWithCommas(likes)}
 						</div>
                     </div>
-                    <div className="text-start">
+                    {/* <div className="text-start">
                         <p className="font-bold">{formatNumberWithUnit(mutual_friends)}</p>
                         <p className="text-gray-500">Bạn chung</p>
-                    </div>
+                    </div> */}
                 </div>
-                <p className="text-left text-gray-700 w-full">{bio} </p>
+                <p className="text-center text-gray-700 w-full">{user.bio}</p>
             </div>
             
             {isEditing && (
