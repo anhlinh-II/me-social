@@ -1,8 +1,10 @@
+import { request } from "http"
 import { IAccount, IApiResponse, IGetAccount, IUser } from "../types/backend"
 import instance from "./Axios-customize"
+import { UserCreationRequest } from "../types/User"
 
-export const callRegister = (name: string, email: string, password: string, age: number, gender: string, address: string) => {
-    return instance.post<IApiResponse<IUser>>('/api/auth/register', { name, email, password, age, gender, address })
+export const callRegister = (request: UserCreationRequest) => {
+    return instance.post<IApiResponse<IUser>>('/api/auth/register', request)
 }
 
 export const callLogin = (username: string, password: string) => {

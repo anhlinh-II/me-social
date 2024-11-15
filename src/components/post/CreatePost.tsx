@@ -4,10 +4,12 @@ import {  FaImage } from "react-icons/fa6";
 import CreatePostModal from "../modal/Post.create.modal";
 import { SiGoogledocs } from "react-icons/si";
 import avt from '../../assets/me1.jpg';
+import { useAppSelector } from "../../redux/hook";
 
 const CreatePost = () => {
 
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+     const user = useAppSelector(state => state.account.user)
 
      return (
           <div className="p-5 md:w-[600px] sm:w-full h-max border-solid border-[1px] align-center rounded-lg bg-white shadow-md text-sky-800">
@@ -20,7 +22,7 @@ const CreatePost = () => {
                          onClick={() => setShowCreateModal(true)}
                          className="hover:bg-sky-500/25 duration-200 block w-full p-2 cursor-pointer indent-4 text-gray-900 border border-sky-400 focus:ring-blue-500 rounded-3xl bg-zinc-100 text-base focus:outline-sky-600 focus:border-blue-500 dark:bg-zinc-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                          type="text"
-                         placeholder="What's on your mind, bro...?"
+                         placeholder={`What's on your mind, ${user.name}?`}
                     />
                </div>
                <div className="flex gap-10 justify-center items-center mt-4">
