@@ -70,13 +70,13 @@ const Story = () => {
 	const navigate = useNavigate();
 	const carouselUsers = [
 		(
-			<div key="create-new-story" className="story-container create-new-story hover:opacity-90"
-				style={{ cursor: 'pointer' }}  onClick={() => navigate("/stories/create")}>
+			<div key="create-new-story" className="story-container create-new-story hover:opacity-90 cursor-pointer"
+				onClick={() => navigate("/stories/create")}>
 				<div className="create-story flex flex-col items-center bg-gray-400">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
 					<h5 className="text-white font-semibold w-full text-center mt-1">Tạo Tin</h5>
-					<div className="w-full h-full px-2 pb-2 pt-1 text-3xl flex items-center justify-center">
+					<div className="w-full h-full px-2 pb-2 pt-1 text-3xl flex items-center justify-center storyPlusCircle">
 						<FaCirclePlus className="create-story-btn"/>
 					</div>
 				</div>
@@ -91,7 +91,7 @@ const Story = () => {
 			};
 
 			return (
-				<div key={item.id} className="story-container hover:opacity-90" onClick={handleClick} style={{ cursor: 'pointer' }}>
+				<div key={item.id} className="story-container cursor-pointer hover:opacity-90" onClick={handleClick}>
 					{/* Background video or image */}
 					<video 
 						className="story-background"

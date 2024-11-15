@@ -35,8 +35,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, username, posts
 
     const handleSubmit = async () => {
         try {
-            const token = 'your_token';
-            await updateUser(formData, token);
+            await updateUser(formData);
             setIsEditing(false);
         } catch (error) {
             console.error('Error updating user:', error);

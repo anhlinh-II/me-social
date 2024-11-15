@@ -101,6 +101,13 @@
   border-radius: 100%;
   text-align: center;
 }
+.create-story img{
+  transition: all ease-in-out 0.2s;
+}
+.create-new-story:hover .create-story img {
+  transform: scale(1.05);
+}
+
 
 
 
