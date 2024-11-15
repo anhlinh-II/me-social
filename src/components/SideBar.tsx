@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 import avt from '../assets/me1.jpg';
-import { callLogout } from '../config/api';
+import { callLogout } from '../services/AuthService';
+import { useAppDispatch } from '../redux/hook';
+import { setLogoutAction } from '../redux/slice/accountSlice';
+import { message, notification } from 'antd';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -22,6 +25,8 @@ const SideBar = (props: IProps) => {
      const { active, setActive } = props
 
      const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
+
+     const dispatch = useAppDispatch();
 
      const openAddRewModal = () => {
           setShowCreateReelModal(true);
@@ -110,7 +115,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<img src={avt} className='text-2xl rounded-full'/>}
+                              icon={<img src={avt} className='text-md rounded-full'/>}
                          >
                               Profile
                          </MenuItem>
@@ -138,8 +143,8 @@ const SideBar = (props: IProps) => {
                                    {
                                         const res = await callLogout();
                                         console.log(res);
-                                        setActive("logout");
-
+                                        dispatch(setLogoutAction())
+                                        message.success("Log out successfully!")
                                    }}
                               component={<Link to={'/login'} />}
                               icon={<IoLogOut className='text-2xl'/>}

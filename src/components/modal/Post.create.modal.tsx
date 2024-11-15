@@ -5,7 +5,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { IoImagesSharp } from "react-icons/io5";
 import Select, { components, SingleValueProps } from 'react-select';
 import avt from '../../assets/me1.jpg';
-import { deleteImage, uploadPostImage } from "../../services/ImageService";
+// import { deleteImage, uploadPostImage } from "../../services/ImageService";
 import { createPost } from "../../services/PostService";
 import { PostRequest } from "../../types/Post";
 
@@ -117,39 +117,39 @@ const CreatePostModal = (props: IProps) => {
           const uploadedPublicIds: string[] = [];
           const uploadedUrls: string[] = [];
 
-          try {
-               for (const file of files) {
-                    const uploadResult = await uploadPostImage(file, userId);
-                    uploadedPublicIds.push(uploadResult.public_id);
-                    uploadedUrls.push(uploadResult.secure_url);
-               }
+          // try {
+          //      for (const file of files) {
+          //           const uploadResult = await uploadPostImage(file, userId);
+          //           uploadedPublicIds.push(uploadResult.public_id);
+          //           uploadedUrls.push(uploadResult.secure_url);
+          //      }
 
-               const postRequestWithMedia = {
-                    ...postRequest,
-                    urls: uploadedUrls,
-                    publicIds: uploadedPublicIds,
-               };
+          //      const postRequestWithMedia = {
+          //           ...postRequest,
+          //           urls: uploadedUrls,
+          //           publicIds: uploadedPublicIds,
+          //      };
 
-               const postResponse = await createPost(postRequestWithMedia);
-               console.log('Post created successfully:', postResponse);
+          //      const postResponse = await createPost(postRequestWithMedia);
+          //      console.log('Post created successfully:', postResponse);
 
-               return postResponse;
+          //      return postResponse;
 
-          } catch (error) {
-               console.error('Error creating post:', error);
+          // } catch (error) {
+          //      console.error('Error creating post:', error);
 
-               // Delete uploaded images/videos if the post creation fails
-               for (const publicId of uploadedPublicIds) {
-                    try {
-                         await deleteImage(publicId);
-                         console.log('Uploaded image/video deleted successfully.');
-                    } catch (deleteError) {
-                         console.error('Error deleting uploaded image/video:', deleteError);
-                    }
-               }
+          //      // Delete uploaded images/videos if the post creation fails
+          //      for (const publicId of uploadedPublicIds) {
+          //           try {
+          //                await deleteImage(publicId);
+          //                console.log('Uploaded image/video deleted successfully.');
+          //           } catch (deleteError) {
+          //                console.error('Error deleting uploaded image/video:', deleteError);
+          //           }
+          //      }
 
-               throw error;
-          }
+          //      throw error;
+          // }
      };
 
 

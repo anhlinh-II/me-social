@@ -6,7 +6,7 @@ import Login from "./view/auth/Login";
 import Register from "./view/auth/Register";
 import ErrorPage from "./view/errors/ErrorPage";
 import HomeView from "./view/home/HomeView";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import Profile from "./components/profile/Profile";
 import Stories from "./components/stories/StoriesPage";
 import Friends from "./components/friends/Friends";
@@ -31,6 +31,7 @@ import GroupMedia from "./components/group_detail/GroupMedia";
 import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
 import CreateStory from "./components/stories/CreateStory";
+import { useAppSelector } from "./redux/hook";
 
 function App() {
   const router = createBrowserRouter([
@@ -171,7 +172,6 @@ function App() {
     }
     
   ]);
-
   return (
     <div>
       <RouterProvider router={router} />

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { callFetchAccount } from '../../config/api';
+import { callFetchAccount } from '../../services/AuthService';
 
 // First, create the thunk
 export const fetchAccount = createAsyncThunk(
@@ -29,7 +29,10 @@ interface IState {
                     method: string;
                     module: string;
                }[]
-          }
+          };
+          bio: string;
+          postNum: number;
+          likeNum: number;
      };
      activeMenu: string;
 }
@@ -48,6 +51,9 @@ const initialState: IState = {
                name: "",
                permissions: [],
           },
+          bio: "",
+          postNum: 0,
+          likeNum: 0,
      },
 
      activeMenu: 'home'
@@ -64,17 +70,21 @@ export const accountSlide = createSlice({
                state.activeMenu = action.payload;
           },
           setUserLoginInfo: (state, action) => {
+               console.log("action: ", action)
                state.isAuthenticated = true;
                state.isLoading = false;
-               state.user.id = action?.payload?.id;
-               state.user.email = action.payload.email;
-               state.user.name = action.payload.name;
+               state.user.id = action?.payload?.user?.id;
+               state.user.email = action.payload.user.email;
+               state.user.name = action.payload.user.username;
+               state.user.bio = action.payload.user.bio;
                state.user.role = action?.payload?.role;
+               state.user.postNum = action?.payload?.postNum;
+               state.user.likeNum = action?.payload?.likeNum;
 
                if (!action?.payload?.user?.role) state.user.role = {};
                state.user.role.permissions = action?.payload?.role?.permissions ?? [];
           },
-          setLogoutAction: (state, action) => {
+          setLogoutAction: (state) => {
                localStorage.removeItem('access_token');
                state.isAuthenticated = false;
                state.user = {
@@ -86,6 +96,9 @@ export const accountSlide = createSlice({
                          name: "",
                          permissions: [],
                     },
+                    bio: "",
+                    postNum: 0,
+                    likeNum: 0
                }
           },
           setRefreshTokenAction: (state, action) => {

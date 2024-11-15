@@ -2,7 +2,7 @@ import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { TbBrandReact } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { callLogin } from '../../config/api';
+import { callLogin } from '../../services/AuthService';
 import { setUserLoginInfo } from '../../redux/slice/accountSlice';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../redux/hook';
@@ -14,15 +14,14 @@ const Login = () => {
      const dispatch = useDispatch();
      const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
 
-     let location = useLocation();
-     let params = new URLSearchParams(location.search);
-     const callback = params?.get("callback");
+     // let location = useLocation();
+     // let params = new URLSearchParams(location.search);
+     // const callback = params?.get("callback");
 
      useEffect(() => {
           //đã login => redirect to '/'
-          if (isAuthenticated) {
-               // navigate('/');
-               window.location.href = '/';
+          if (isAuthenticated === true) {
+               navigate('/');
           }
      }, [])
 
@@ -32,33 +31,35 @@ const Login = () => {
 
           try {
                const res = await callLogin(username, password);
+               console.log(res)
 
                if (res?.data?.code === 1000) {
-                   const accessToken = res.data.result?.access_token;
-                   if (accessToken) {
-                       localStorage.setItem('access_token', accessToken);
-                       console.log('Login successfully, access token saved to localStorage.');
-                   }
-                   dispatch(setUserLoginInfo(res.data.result));
-                   message.success('Đăng nhập tài khoản thành công!');
-                   window.location.href = callback ? callback : '/';
+                    const accessToken = res.data.result?.access_token;
+                    if (accessToken) {
+                         localStorage.setItem('access_token', accessToken);
+                         console.log('Login successfully, access token saved to localStorage.');
+                    }
+                    dispatch(setUserLoginInfo(res.data.result));
+                    message.success('Đăng nhập tài khoản thành công!');
+                    navigate('/')
+                    console.log('')
                } else {
-                   notification.error({
-                       message: "Có lỗi xảy ra",
-                       description: res?.data?.message || "Unknown error",
-                       duration: 5,
-                   });
+                    notification.error({
+                         message: "Đăng nhập không thành công",
+                         description: res?.data?.message || "Unknown error",
+                         duration: 5,
+                    });
                }
-           } catch (error) {
+          } catch (error) {
                console.error('Login error:', error);
                notification.error({
-                   message: "Login Error",
-                   description: "An error occurred during login. Please try again.",
-                   duration: 5,
+                    message: "Login Error",
+                    description: "An error occurred during login. Please try again.",
+                    duration: 5,
                });
-           } finally {
+          } finally {
                setIsSubmit(false);
-           }
+          }
      };
 
 
@@ -101,7 +102,7 @@ const Login = () => {
                          <p className='flex justify-center mb-8 hover:text-sky-600 cursor-pointer'>Forgot your password?</p>
 
                          <Form.Item>
-                              <Button className="w-full bg-sky-600 text-white py-5 rounded-md hover:bg-sky-700 transition duration-300" type="primary" htmlType="submit" loading={isSubmit}>
+                              <Button onClick={onFinish} className="w-full bg-sky-600 text-white py-5 rounded-md hover:bg-sky-700 transition duration-300" type="primary" htmlType="submit" loading={isSubmit}>
                                    Đăng nhập
                               </Button>
                          </Form.Item>
