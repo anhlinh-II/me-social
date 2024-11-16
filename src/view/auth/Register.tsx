@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbBrandReact } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signup from '../../assets/signup.png';
 import { Button, Form, Input, message, Radio } from "antd";
 import { callRegister } from "../../services/AuthService";
@@ -9,21 +9,18 @@ import { UserCreationRequest } from "../../types/User";
 
 const Register = () => {
      const [form] = Form.useForm();
+     const navigate = useNavigate();
 
      const onFinish = async (values: UserCreationRequest) => {
           const response = await callRegister(values);
-          if (response.data && response.data.code === 1000) {
-               console.log('ok')
+          console.log("response: ", response)
+          if (response && response.data && response.data.code === 1000) {
+               navigate(`/verify-otp/${values.email}`);
                message.info("We sending you an OTP, check your email")
           }
-          if (response && response.data && response.data.code === 1002) {
-               console.log('not oke')
-               message.error("Email or username is already existed, try another one")
+          if (!response.data) {
+               message.error("Email or username existed. Try again!")
           }
-     };
-
-     const onFinishFailed = (errorInfo: any) => {
-
      };
 
      return (
@@ -45,7 +42,6 @@ const Register = () => {
                               name="register"
                               layout="vertical"
                               onFinish={onFinish}
-                              onFinishFailed={onFinishFailed}
                          >
                               <div className="flex w-full justify-between gap-2">
                                    <Form.Item
@@ -57,7 +53,7 @@ const Register = () => {
                                              { min: 8, message: 'User must be at least 4 characters!' }
                                         ]}
                                    >
-                                        <Input placeholder="ex: thuyveo2004" />
+                                        <Input placeholder="ex: anhlinh_II" />
                                    </Form.Item>
                                    <Form.Item
                                    className="w-1/2"
