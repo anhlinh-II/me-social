@@ -67,7 +67,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                     </div>
                 )}
                 <div className="ml-2">
-                    <span className='font-bold font-serif text-lg text-black-500 hover:underline'>
+                    <span className='font-bold font-serif text-md text-black-500 hover:underline'>
                         <Link to={`/groups/groupName/discussion`}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>

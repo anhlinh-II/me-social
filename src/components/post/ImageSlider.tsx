@@ -6,7 +6,11 @@ const ImageSlider = ({ urls }: { urls: string[] }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!urls || urls.length === 0) {
-        return <>{console.log("No image to display")}</>;
+        return <>
+            {
+                // console.log("Post has no images")
+            }
+        </>;
     }
 
     const handlePrevious = () => {
@@ -31,7 +35,7 @@ const ImageSlider = ({ urls }: { urls: string[] }) => {
             {urls.length > 1 ? (
                 <>
                     {urls[currentIndex] ? (
-                        <div className='max-h-[800px] max-w-full bg-black flex items-center justify-center'>
+                        <div className='max-h-[540px] max-w-full bg-black flex items-center justify-center overflow-hidden'>
                             <img
                                 src={urls[currentIndex]}
                                 className="max-h-full max-w-full rounded object-fit cursor-pointer"
@@ -62,7 +66,7 @@ const ImageSlider = ({ urls }: { urls: string[] }) => {
             ) : (
                 <>
                     {urls[currentIndex] ? (
-                        <div className='max-h-[800px] max-w-full bg-black flex items-center justify-center'>
+                        <div className='max-h-[540px] max-w-full bg-black flex items-center justify-center overflow-hidden'>
                             <img
                                 src={urls[currentIndex]}
                                 className="max-h-full max-w-full rounded object-fit cursor-pointer"

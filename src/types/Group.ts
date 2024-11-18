@@ -19,8 +19,9 @@ export interface GroupResponse {
 export interface GroupRequest {
     groupId?: number;
     adminId: number;
-    name: string;
+    name?: string;
     description?: string;
-    location: string;
-    privacy: GroupPrivacy;
+    imageUrl?: string;
+    location?: string;
+    privacy?: GroupPrivacy;
 }
