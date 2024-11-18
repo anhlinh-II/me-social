@@ -8,10 +8,6 @@ export interface UserCreationRequest {
     username: string;
     password: string;
     email: string;
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
-    dob?: Date;
     gender?: Gender;
 }
 

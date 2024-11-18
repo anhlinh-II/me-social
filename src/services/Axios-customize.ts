@@ -6,7 +6,7 @@ import { store } from '../redux/store';
 import { setRefreshTokenAction } from "../redux/slice/accountSlice";
 
 interface AccessTokenResponse {
-     access_token: string;
+    access_token: string;
 }
 
 /**
@@ -14,8 +14,8 @@ interface AccessTokenResponse {
  */
 
 const instance = axiosClient.create({
-     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : import.meta.env.VITE_BACKEND_URL,
-     withCredentials: true
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : import.meta.env.VITE_BACKEND_URL,
+    withCredentials: true
 });
 
 
@@ -31,14 +31,14 @@ const handleRefreshToken = async (): Promise<string | null | undefined> => {
 };
 
 instance.interceptors.request.use(function (config) {
-     if (typeof window !== "undefined" && window.localStorage.getItem('access_token')) {
-          config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
-     }
-     if (!config.headers.Accept && config.headers["Content-Type"]) {
-          config.headers.Accept = "application/json";
-          config.headers["Content-Type"] = "application/json; charset=utf-8";
-     }
-     return config;
+    if (typeof window !== "undefined" && window.localStorage.getItem('access_token')) {
+        config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
+    }
+    if (!config.headers.Accept && config.headers["Content-Type"]) {
+        config.headers.Accept = "application/json";
+        config.headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+    return config;
 });
 
 /**

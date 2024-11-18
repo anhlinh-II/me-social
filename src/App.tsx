@@ -32,6 +32,7 @@ import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
 import CreateStory from "./components/stories/CreateStory";
 import { useAppSelector } from "./redux/hook";
+import Verify from "./view/auth/Verify";
 
 function App() {
   const router = createBrowserRouter([
@@ -82,7 +83,7 @@ function App() {
               element: <GroupSuggestion />,
               path: 'suggestion'
             },
-            
+
           ]
         },
         {
@@ -96,34 +97,10 @@ function App() {
         },
       ]
     },
-    
-    {
-      path: "reels",
-      element: <Reels />
-    },
-    {
-      path: "login",
-      element: <Login />,
-    },
+
 
     {
-      path: "register",
-      element: <Register />,
-    },
-    {
-      path: '/stories',
-      element: <Stories />,
-    },
-    {
-      path: '/stories/create',
-      element: <CreateStory />
-    },
-    {
-      path: '/groups/create',
-      element: <CreateGroup />
-    },
-    {
-      element: <GroupDetail/>,
+      element: <GroupDetail />,
       path: '/groups/groupName',
       children: [
         {
@@ -169,8 +146,37 @@ function App() {
           element: <GroupsPanel />
         }
       ]
+    },
+    {
+      path: "reels",
+      element: <Reels />
+    },
+    {
+      path: "login",
+      element: <Login />,
+    },
+
+    {
+      path: "register",
+      element: <Register />,
+    },
+    {
+      path: '/stories',
+      element: <Stories />,
+    },
+    {
+      path: '/stories/create',
+      element: <CreateStory />
+    },
+    {
+      path: '/groups/create',
+      element: <CreateGroup />
+    },
+    {
+      path: '/verify-otp/:email',
+      element: <Verify />
     }
-    
+
   ]);
   return (
     <div>
