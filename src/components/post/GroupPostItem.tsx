@@ -45,7 +45,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
     };
 
     return (
-        <div className="w-[100%] bg-white rounded-lg border-2 mb-4">
+        <div className="md:w-[600px] sm:w-full bg-white rounded-lg border-2 mb-4">
             <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                 <Link to={`/groups/groupName/discussion`}>
                     <img

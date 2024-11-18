@@ -125,7 +125,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     return (
         <div className="w-full h-fit rounded flex flex-col gap-4">
             {posts.map((item: Post, index: number) => (
-                <div key={`post-key-${index}`} className="w-[100%] bg-white border shadow-md rounded-lg">
+                <div key={`post-key-${index}`} className="md:w-[600px] sm:w-full bg-white border shadow-md rounded-lg">
                     {/* Post header */}
                     <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                         {item.groupId ? (
