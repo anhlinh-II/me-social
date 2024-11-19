@@ -22,7 +22,7 @@ const Message: React.FC<MessageProps> = ({ message: { text, user }, name }) => {
 	return (
 		isSentByCurrentUser ? (
 			<div className="flex justify-end items-end my-2 me-1">
-				<div className="inline-block max-w-[80%] bg-[#2979FF] rounded-[20px] p-2 px-3">
+				<div className="inline-block max-w-[80%] bg-[#0199FC] rounded-[20px] p-2 px-3">
 					<p className="text-white text-md break-words">{text}</p>
 				</div>
 			</div>
