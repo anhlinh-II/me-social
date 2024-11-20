@@ -1,11 +1,14 @@
 import { GoDash } from "react-icons/go";
+import { io } from "socket.io-client";
 import { IoClose } from "react-icons/io5";
 import { UserChat } from "./ChatList"
 import InfoBar from "./InfoBar";
 import Input from "./Input";
 import Messages, { MessageObject } from "./Messages";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../redux/hook";
 
+const ENDPOINT = "http://localhost:8086";
 let socket: any;
 
 interface ChatProps {
@@ -15,20 +18,35 @@ interface ChatProps {
 }
 
 const Chat = ({ selectedChat, position, setSelectedChat }: ChatProps) => {
-	//const [selectedChat, setSelectedChat] = props;
+	const currentUser = useAppSelector(state => state.account.user);
 	const [message, setMessage] = useState<string>('');
 	const [messages, setMessages] = useState<MessageObject[]>([]);
 
-	const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
-		if (message) {
-			// Emit sự kiện "sendMessage" để gửi tin nhắn
-			socket.emit('sendMessage', message, () => setMessage(''));
-		}
-	};
-
+	useEffect(() => {
+		// Kết nối với backend
+		socket = io(ENDPOINT);
 	
+		// Lắng nghe sự kiện nhận tin nhắn từ server
+		socket.on("message", (newMessage: MessageObject) => {
+		  setMessages((prevMessages) => [...prevMessages, newMessage]);
+		});
+	
+		return () => {
+		  // Ngắt kết nối khi component bị unmount
+		  socket.disconnect();
+		};
+	  }, []);
+	
+	  const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+	
+		if (message) {
+		  socket.emit("sendMessage", { text: message, user: currentUser.name }, () => {
+			setMessage(""); 
+		  });
+		}
+	  };
+			
 	useEffect(() => {
 		setMessages([
 			{ text: "Hello everyone!", user: "alice" },
@@ -41,6 +59,7 @@ const Chat = ({ selectedChat, position, setSelectedChat }: ChatProps) => {
 			{ text: "Oh! Thats amazing girl", user: "john" },
 		]);
 	}, []);
+		
     
     return <div className={`fixed bottom-0 ${position} z-10 flex flex-col justify-start h-[65vh] w-[340px] 
 					bg-white rounded-t-lg`}

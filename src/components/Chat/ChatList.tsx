@@ -27,7 +27,7 @@ const ChatList: React.FC<ChatListProps> = ({ chats, setSelectedChat, showChatLis
 	return (
 		<div>
 			{showChatList ? (
-				<div className="flex flex-col fixed top-[72px] right-[2%] z-20 justify-start h-[85vh] w-[360px] bg-white rounded-lg">
+				<div className="flex flex-col fixed top-[50px] right-[2%] z-20 justify-start h-[90vh] w-[360px] bg-white rounded-lg">
 					{/* Tiêu đề đoạn chat */}
 					<div className='flex justify-between items-center pe-4'>
 						<p className="text-2xl ms-4 mt-2 mb-4 font-bold">Đoạn chat</p>

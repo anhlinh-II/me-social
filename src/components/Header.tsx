@@ -135,7 +135,7 @@ const Header = () => {
 					<div className="flex justify-between w-[38%] ">
 						<Link
 							to={`/`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname === "/" ? <IoHome style={{ fontSize: "28px", color: "white" }} /> : <IoHomeOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -144,7 +144,7 @@ const Header = () => {
 						</Link>
 						<Link
 							to={`/listFriends/friends`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/listFriends") ? <IoPersonAdd style={{ fontSize: "28px", color: "white" }} /> : <IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -154,7 +154,7 @@ const Header = () => {
 
 						<Link
 							to={`/reels`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
+							className="group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<MdOutlineOndemandVideo style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -164,7 +164,7 @@ const Header = () => {
 
 						<Link
 							to={`/groups/feed`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/groups") ? <HiUserGroup style={{ fontSize: "28px", color: "white" }} /> : <HiOutlineUserGroup style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
