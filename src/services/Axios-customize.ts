@@ -24,22 +24,36 @@ const NO_RETRY_HEADER = 'x-no-retry';
 
 const handleRefreshToken = async (): Promise<string | null | undefined> => {
     return await mutex.runExclusive(async () => {
-        const res = await instance.get<IApiResponse<AccessTokenResponse>>('/api/v1/auth/refresh');
-        if (res && res.data) return res.data?.result?.access_token;
+        const res = await instance.get<IApiResponse<AccessTokenResponse>>('/api/auth/refresh');
+        console.log(res)
+        if (res) return res.data?.result?.access_token;
         else return null;
     });
 };
 
 instance.interceptors.request.use(function (config) {
-    if (typeof window !== "undefined" && window.localStorage.getItem('access_token')) {
+    const excludedEndpoints = ['/api/auth/login', '/api/auth/verify-otp']; // Match your backend endpoints
+    const shouldExcludeToken = excludedEndpoints.some(endpoint =>
+        config.url?.endsWith(endpoint) // Adjust to match the exact endpoint
+    );
+
+    console.log('Request URL:', config.url); // Debugging
+
+    if (!shouldExcludeToken && typeof window !== "undefined" && window.localStorage.getItem('access_token')) {
         config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
     }
+
+    console.log('Headers sent:', config.headers); // Check if Authorization is included or not
+
     if (!config.headers.Accept && config.headers["Content-Type"]) {
         config.headers.Accept = "application/json";
         config.headers["Content-Type"] = "application/json; charset=utf-8";
     }
+
     return config;
 });
+
+
 
 /**
  * Handle all responses. It is possible to add handlers

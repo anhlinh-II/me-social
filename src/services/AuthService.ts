@@ -3,16 +3,9 @@ import instance from "./Axios-customize"
 import { UserCreationRequest } from "../types/User"
 
 export const callRegister = (request: UserCreationRequest) => {
-        const response = instance.post<IApiResponse<IUser>>('/api/auth/register', request);
+    const response = instance.post<IApiResponse<IUser>>('/api/auth/register', request);
 
-        return response;
-        // console.log(response);
-        // if (response.status === 200 && response.data) {
-        //     return response.data; // Successful response
-        // }
-        // if (response.status !== 200) {
-        //     return response;
-        // }
+    return response;
 };
 
 
@@ -29,9 +22,17 @@ export const callFetchAccount = () => {
 }
 
 export const callVerifyOtp = (email: string, otp: string) => {
-    return instance.post<IApiResponse<void>>(`/api/auth/verify-otp`, {
-        param: {
-            email, otp
-        }
-    })
+    return instance.post<IApiResponse<void>>(
+        `/api/auth/verify-otp?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`, // Gửi qua query parameters
+        {}, // Body rỗng
+        { headers: { Authorization: undefined } } // Ensure no Authorization header is added
+    );
+};
+
+export const callResendOtp = (email: string) => {
+    return instance.post<IApiResponse<string>>(
+        `/api/auth/regenerate-otp?email=${encodeURIComponent(email)}`,
+        {}, // Body rỗng
+        { headers: { Authorization: undefined } }
+    )
 }

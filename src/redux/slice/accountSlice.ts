@@ -33,6 +33,7 @@ interface IState {
           bio: string;
           postNum: number;
           likeNum: number;
+          active: boolean;
      };
      activeMenu: string;
 }
@@ -54,6 +55,7 @@ const initialState: IState = {
           bio: "",
           postNum: 0,
           likeNum: 0,
+          active: false
      },
 
      activeMenu: 'home'
@@ -80,6 +82,7 @@ export const accountSlide = createSlice({
                state.user.role = action?.payload?.role;
                state.user.postNum = action?.payload?.postNum;
                state.user.likeNum = action?.payload?.likeNum;
+               state.user.active = action?.payload?.active;
 
                if (!action?.payload?.user?.role) state.user.role = {};
                state.user.role.permissions = action?.payload?.role?.permissions ?? [];
@@ -98,7 +101,8 @@ export const accountSlide = createSlice({
                     },
                     bio: "",
                     postNum: 0,
-                    likeNum: 0
+                    likeNum: 0,
+                    active: false
                }
           },
           setRefreshTokenAction: (state, action) => {

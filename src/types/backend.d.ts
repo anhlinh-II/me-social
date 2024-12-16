@@ -45,6 +45,7 @@ export interface IAccount {
           username: string;
           firstName: string;
           lastName: string;
+          active: boolean;
           role: {
                id: string;
                name: string;

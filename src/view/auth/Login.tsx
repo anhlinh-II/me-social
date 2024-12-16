@@ -2,7 +2,7 @@ import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { TbBrandReact } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { callLogin } from '../../services/AuthService';
+import { callLogin, callRegister, callResendOtp, callVerifyOtp } from '../../services/AuthService';
 import { setUserLoginInfo } from '../../redux/slice/accountSlice';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../redux/hook';
@@ -31,18 +31,22 @@ const Login = () => {
 
           try {
                const res = await callLogin(username, password);
-               console.log(res)
+               console.log("res: ", res)
 
                if (res?.data?.code === 1000) {
+                    const email = res?.data?.result?.user.email as string;
+                    if (res?.data?.result?.user.active === false) {
+                         navigate(`/verify-otp/${email}`);
+                         callResendOtp(email);
+                         return;
+                    }
                     const accessToken = res.data.result?.access_token;
                     if (accessToken) {
                          localStorage.setItem('access_token', accessToken);
-                         console.log('Login successfully, access token saved to localStorage.');
                     }
                     dispatch(setUserLoginInfo(res.data.result));
                     message.success('Đăng nhập tài khoản thành công!');
                     navigate('/')
-                    console.log('')
                } else {
                     notification.error({
                          message: "Đăng nhập không thành công",
