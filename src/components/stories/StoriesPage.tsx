@@ -188,6 +188,7 @@ const StoriesPage: React.FC = () => {
                     <video
                         ref={(el) => videoRefs.current[currentStoryIndex] = el}
                         autoPlay
+                        onEnded={handleNextStory}
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-contain w-full h-full z-10"
                         onClick={handlePlay}
                         src={stories[currentStoryIndex]?.background}

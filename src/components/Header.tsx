@@ -7,20 +7,39 @@ import { GoBell } from "react-icons/go";
 import { useState } from "react";
 import SearchFriends from "./friends/SearchFriends";
 import NotificationDropdown from "./notification/Notification";
-import Chat from "./Chat/Chat";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";
 import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 import { useAppSelector } from "../redux/hook";
 import avt from '../assets/me1.jpg';
+import ChatList, { UserChat } from "./Chat/ChatList";
+import Chat from "./Chat/Chat";
 
 const Header = () => {
 
 	const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
 
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
+
 	const [showNotifications, setShowNotifications] = useState<boolean>(false);
-	const [showChats, setChats] = useState<boolean>(false);
+	const [showChatList, setShowChatList] = useState<boolean>(false);
+	const [selectedChats, setSelectedChats] = useState<UserChat[]>([]);
+
+    const handleSelectChat = (chat: UserChat) => {
+        setSelectedChats(prevChats => {
+            // If Chat exists in the selected list, no change
+            if (prevChats.some(c => c.id === chat.id)) {
+                return prevChats;
+            }
+            // If selected list is not full of 2, add a new one
+            if (prevChats.length < 2) {
+                return [...prevChats, chat];
+            }
+            // If there are 2, replace the first one
+            return [prevChats[1], chat];
+        });
+    };
+	
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -30,34 +49,19 @@ const Header = () => {
 
 	const toggleNotifications = () => {
 		setShowNotifications(!showNotifications);
-		if (showChats) {
-			setChats(false);
+		if (showChatList) {
+			setShowChatList(false);
 		}
 	};
 
 	const toggleChats = () => {
-		setChats(!showChats);
+		setShowChatList(!showChatList);
 		if (showNotifications) {
 			setShowNotifications(false);
 		}
 	};
 
-	const [activeButton, setActiveButton] = useState<'chat' | 'notification' | null>(null);
 	const [activeTheme, setActiveTheme] = useState<'Moon' | 'Sun' | null>(null);
-
-	const handleToggle = (button: 'chat' | 'notification') => {
-		if (activeButton === button) {
-			setActiveButton(null);
-			return;
-		}
-
-		setActiveButton(button);
-		if (button === 'chat') {
-			setShowNotifications(false);
-		} else if (button === 'notification') {
-			setChats(false);
-		}
-	};
 
 	const handleToggleMoon = (button: 'Moon' | 'Sun') => {
 		if (activeTheme === button) {
@@ -131,7 +135,7 @@ const Header = () => {
 					<div className="flex justify-between w-[38%] ">
 						<Link
 							to={`/`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname === "/" ? <IoHome style={{ fontSize: "28px", color: "white" }} /> : <IoHomeOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -140,7 +144,7 @@ const Header = () => {
 						</Link>
 						<Link
 							to={`/listFriends/friends`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/listFriends") ? <IoPersonAdd style={{ fontSize: "28px", color: "white" }} /> : <IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -150,7 +154,7 @@ const Header = () => {
 
 						<Link
 							to={`/reels`}
-							className="group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg"
+							className="group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<MdOutlineOndemandVideo style={{ fontSize: "28px", color: "white" }} />
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -160,7 +164,7 @@ const Header = () => {
 
 						<Link
 							to={`/groups/feed`}
-							className={`group/item relative cursor-pointer transition duration-200 p-4 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
+							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/groups") ? <HiUserGroup style={{ fontSize: "28px", color: "white" }} /> : <HiOutlineUserGroup style={{ fontSize: "28px", color: "white" }} />}
 							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
@@ -171,20 +175,19 @@ const Header = () => {
 
 					<div className="w-[20%] lg:flex lg:flex-1 lg:justify-end flex gap-4 justify-center align-center">
 						<button
-							className={`w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'chat' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`w-[40px] h-[40px] bg-[#05A5FB] hover:bg-[#35B5FF] rounded-full flex items-center justify-center ${showChatList ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
-								handleToggle('chat')
 								toggleChats()
 							}}
 						>
-							{activeButton === 'chat' ? (
+							{showChatList ? (
 								<PiChatCircleDotsFill style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							) : (
 								<PiChatCircle style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
 						<button
-							className={`w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center `}
+							className={`w-[40px] h-[40px] bg-[#05A5FB] hover:bg-[#35B5FF] rounded-full flex items-center justify-center `}
 							onClick={() => handleToggleMoon('Moon')}
 						>
 							{activeTheme === 'Moon' ? (
@@ -194,13 +197,12 @@ const Header = () => {
 							)}
 						</button>
 						<button
-							className={`relative w-[40px] h-[40px] bg-[#05A5E5] hover:bg-[#0FAFEF] rounded-full flex items-center justify-center ${activeButton === 'notification' ? 'bg-[#0EA5E9]' : ''}`}
+							className={`relative w-[40px] h-[40px] bg-[#05A5FB] hover:bg-[#35B5FF] rounded-full flex items-center justify-center ${showNotifications ? 'bg-[#0EA5E9]' : ''}`}
 							onClick={() => {
-								handleToggle('notification')
 								toggleNotifications()
 							}}
 						>
-							{activeButton === 'notification' ? (
+							{showNotifications ? (
 								<FaBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							) : (
 								<GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
@@ -235,9 +237,21 @@ const Header = () => {
 					onClose={() => setShowNotifications(false)}
 				/>
 			)}
-			{showChats && (
-				<Chat chats={chats} />
+			{showChatList && (
+				<ChatList chats={chats} setSelectedChat={handleSelectChat} showChatList setShowChatList={setShowChatList}/>
 			)}
+			{selectedChats.map((chat, index) => (
+                <Chat
+                    key={chat.id}
+                    selectedChat={chat}
+					position={index === 0 ? "right-[5%]" : "right-[28%]"}
+                    setSelectedChat={() =>
+                        setSelectedChats(prevChats =>
+                            prevChats.filter(c => c.id !== chat.id)
+                        )
+                    }
+                />
+            ))}
 		</>
 	);
 };

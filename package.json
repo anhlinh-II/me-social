@@ -37,6 +37,7 @@
     "recharts": "^2.12.7",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.8.0",
+    "sockjs-client": "^1.6.1",
     "yet-another-react-lightbox": "^3.21.6"
   },
   "devDependencies": {

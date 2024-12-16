@@ -38,8 +38,8 @@ const ProfileStory: React.FC<ProfileStoryProps> = ({ stories }) => {
 
     const Stories = [
         (
-            <Link to={`/stories/create`}>
-                <div key="createReel" className="w-20 h-20 bg-gray-200 overflow-hidden cursor-pointer p-6 border rounded-full border-black relative group">
+            <Link key="createReel" to={`/stories/create`}>
+                <div className="w-20 h-20 bg-gray-200 overflow-hidden cursor-pointer p-6 border rounded-full border-black relative group">
                     <div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/camera.jpg')", backgroundPosition: "center bottom" }}></div>
                     <div className="relative h-full p-4 flex flex-col items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
                         <div className='p-2 rounded-full border border-white'>

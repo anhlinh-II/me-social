@@ -8,13 +8,15 @@ import { updateUser } from '../../services/UserService';
 import { UserUpdateRequest } from '../../types/User';
 import { IoMdClose } from 'react-icons/io';
 import { useAppSelector } from '../../redux/hook';
+import { PiPaperPlaneRightFill } from 'react-icons/pi';
 
 interface ProfileInfoProps {
     profileImage: string;
 }
 
 const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, }) => {
-    const user = useAppSelector(state => state.account.user)
+    const user = useAppSelector(state => state.account.user);
+    const [charCount, setCharCount] = useState<number>(0);
 
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState<UserUpdateRequest>({
@@ -53,7 +55,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, }) => {
             />
             <div className='flex flex-col items-center'>
                 <div className='flex flex-row items-center gap-4'>
-                    <h2 className="text-xl font-semibold me-2">{user.name}</h2>
+                    <h2 className="text-xl font-semibold me-2 min-w-[180px]">{user.name}</h2>
                     <button onClick={handleEditClick} className='flex flex-row gap-2 items-center bg-[#E4E6EB] hover:bg-[#D8DADF] p-2 rounded-lg'>
                         <FaEdit />
                         <span>Chỉnh sửa</span>
@@ -92,12 +94,33 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, }) => {
                         <p className="text-gray-500">Bạn chung</p>
                     </div> */}
                 </div>
-                <p className="text-center text-gray-700 w-full">{user.bio}</p>
+                {user.bio ? 
+                    (<p className="text-center text-gray-700 w-full">{user.bio}</p>)
+                    :
+                    (<div className='w-full h-28 relative'>
+                        <textarea placeholder='Giới thiệu về bản thân...🪶'
+                            className={`w-full h-full rounded-lg p-2 pe-14 pb-4 resize-none border border-gray-300 outline-none  
+                                `} 
+                            onClick={handleEditClick}
+                            spellCheck="false"
+                            onChange={(e) => {
+                                const currentLength = e.target.value.length;
+                                setCharCount(currentLength);
+                                e.target.style.borderColor = currentLength > 150 ? 'red' : 'gray';
+                            }}
+                        ></textarea>
+                        <div className='absolute right-4 bottom-2 flex flex-col justify-end'>
+                            <p className={`text-gray-600 text-sm ${charCount > 150 ? 'text-[#ff0909]' : ''}`}>
+                                0 / 150</p>
+                            <button className='self-end text-lg'><PiPaperPlaneRightFill /></button>
+                        </div>
+                    </div>)
+                }
             </div>
 
             {isEditing && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg w-[400px] relative">
+                    <div className="bg-white p-6 rounded-lg w-[600px] relative">
                         <button onClick={handleClose} className="text-black float-right text-xl absolute top-4 right-4 rounded-full p-2 bg-gray-400 hover:bg-gray-300">
                             <IoMdClose />
                         </button>
@@ -118,13 +141,22 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ profileImage, }) => {
                             placeholder="Last Name"
                             className="p-2 border rounded w-full mb-2"
                         />
-                        <textarea
-                            name="bio"
-                            value={formData.bio}
-                            onChange={handleChange}
-                            placeholder="Bio"
-                            className="p-2 border rounded w-full mb-2"
-                        />
+                        <div className='w-full h-28 relative'>
+                            <textarea placeholder='Giới thiệu về bản thân...🪶'
+                                className={`w-full h-full rounded-lg p-2 pe-16 pb-4 resize-none border border-gray-300 outline-none  
+                            `}
+                                spellCheck="false"
+                                onChange={(e) => {
+                                    const currentLength = e.target.value.length;
+                                    setCharCount(currentLength);
+                                    e.target.style.borderColor = currentLength > 150 ? 'red' : 'gray';
+                                }}
+                            ></textarea>
+                            <div className='absolute right-4 bottom-2 flex flex-col justify-end'>
+                                <p className={`text-gray-600 text-sm ${charCount > 150 ? 'text-[#ff0909]' : ''}`}>
+                                    {charCount} / 150</p>
+                            </div>
+                        </div>
                         <button onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded mt-2 w-full">Save</button>
                     </div>
                 </div>

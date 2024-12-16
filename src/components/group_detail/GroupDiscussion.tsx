@@ -11,7 +11,7 @@ const GroupDiscussion = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const groupId = 6;
+    const groupId = 8;
 
     useEffect(() => {
         const fetchPosts = async () => {

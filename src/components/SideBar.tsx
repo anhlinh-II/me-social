@@ -11,7 +11,7 @@ import avt from '../assets/me1.jpg';
 import { callLogout } from '../services/AuthService';
 import { useAppDispatch } from '../redux/hook';
 import { setLogoutAction } from '../redux/slice/accountSlice';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 
 interface IProps {
      isFullSiderBar: boolean;

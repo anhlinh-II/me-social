@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 
 const GroupDetail: React.FC = () => {
     const [group, setGroup] = useState<GroupResponse >();
-    const id  = 7;//useParams<{ id: string }>();
+    const id  = 8;//useParams<{ id: string }>();
 
     useEffect(() => {
         const fetchGroupData = async () => {
