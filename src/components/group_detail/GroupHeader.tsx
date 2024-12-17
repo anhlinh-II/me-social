@@ -11,7 +11,7 @@ import GroupDropdownMenu from "./modal/GroupDropdownMenu";
 import GroupShareModal from "./modal/GroupShareModal";
 import { FaEdit } from "react-icons/fa";
 import { PiUploadSimpleFill } from "react-icons/pi";
-import { uploadGroupImage } from "../../services/ImageService";
+import { uploadGroupImage } from "../../services/ImagesService";
 import { editGroup } from "../../services/GroupService";
 
 

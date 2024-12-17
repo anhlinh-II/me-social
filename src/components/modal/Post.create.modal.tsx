@@ -5,10 +5,11 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { IoImagesSharp } from "react-icons/io5";
 import Select, { components, SingleValueProps } from 'react-select';
 import avt from '../../assets/me1.jpg';
-import { deleteImage, uploadPostImage } from "../../services/ImageService";
+import { deleteImage, uploadPostImage } from "../../services/ImagesService";
 import { createPost } from "../../services/PostService";
 import { PostRequest } from "../../types/Post";
 import { useLocation } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
 
 interface IProps {
      show: boolean;
@@ -72,6 +73,9 @@ const CustomSingleValue = (props: SingleValueProps<NewType>) => (
 );
 
 const CreatePostModal = (props: IProps) => {
+
+     const user = useAppSelector(state => state.account.user);
+
      const location = useLocation();
      const [selectedOption, setSelectedOption] = useState<any>(null);
      const [content, setContent] = useState('');
@@ -79,7 +83,6 @@ const CreatePostModal = (props: IProps) => {
      const [loading, setLoading] = useState<boolean>(false);
 
      // Dummy user ID and token
-     const userId = 5;
      const groupId = 8;
      
      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,13 +99,13 @@ const CreatePostModal = (props: IProps) => {
           }
 
           const postRequest: PostRequest = (location.pathname.includes("/groups")) ? {
-               userId: userId,
+               userId: Number(user.id),
                groupId: groupId,
                privacy: selectedOption?.value || 'PUBLIC',
                content: content,
                urls: []
           } : {
-               userId: userId,
+               userId: Number(user.id),
                privacy: selectedOption?.value || 'PUBLIC',
                content: content,
                urls: []
@@ -127,7 +130,7 @@ const CreatePostModal = (props: IProps) => {
 
           try {
                for (const file of files) {
-                    const uploadResult = await uploadPostImage(file, userId);
+                    const uploadResult = await uploadPostImage(file, Number(user.id));
                     uploadedPublicIds.push(uploadResult.public_id);
                     uploadedUrls.push(uploadResult.secure_url);
                }

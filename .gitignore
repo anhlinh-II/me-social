@@ -23,5 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-ImageService.ts
-VideoService.ts
+.env.development
