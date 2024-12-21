@@ -46,6 +46,7 @@ export interface IAccount {
           firstName: string;
           lastName: string;
           active: boolean;
+          avatarUrl: string;
           role: {
                id: string;
                name: string;

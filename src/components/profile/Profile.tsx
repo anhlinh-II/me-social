@@ -94,9 +94,7 @@ const Profile = () => {
 		<>
 			<div className="flex w-[80%] items-center justify-between mt-5 mb-[100px] ms-[-10%]">
 				<div id="detail" className="w-[100%] flex flex-col items-center justify-center">
-					<ProfileInfo
-						profileImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
-					/>
+					<ProfileInfo />
 					<ProfileStory stories={stories} />
 					<hr className='w-[97%] h-[1.5px] bg-gray-500 mt-5'></hr>
 					<div className="flex space-x-2">

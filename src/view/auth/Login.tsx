@@ -31,7 +31,6 @@ const Login = () => {
 
           try {
                const res = await callLogin(username, password);
-               console.log("res: ", res)
 
                if (res?.data?.code === 1000) {
                     const email = res?.data?.result?.user.email as string;

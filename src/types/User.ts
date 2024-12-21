@@ -13,6 +13,7 @@ export interface UserCreationRequest {
 
 export interface UserUpdateRequest {
     id: number;
+    avatarUrl?: string;
     firstName?: string;
     lastName?: string;
     dob?: Date;

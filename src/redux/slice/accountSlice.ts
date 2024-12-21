@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { callFetchAccount } from '../../services/AuthService';
 
 // First, create the thunk
-export const fetchAccount = createAsyncThunk(
+export const   fetchAccount = createAsyncThunk(
      'account/fetchAccount',
      async () => {
           const response = await callFetchAccount();
@@ -18,7 +18,7 @@ interface IState {
      user: {
           id: string;
           email: string;
-          name: string;
+          username: string;
           role: {
                id?: string;
                name?: string;
@@ -30,12 +30,14 @@ interface IState {
                     module: string;
                }[]
           };
+          firstName: string;
+          lastName: string;
           bio: string;
           postNum: number;
           likeNum: number;
           active: boolean;
+          avatarUrl: string;
      };
-     activeMenu: string;
 }
 
 const initialState: IState = {
@@ -46,7 +48,7 @@ const initialState: IState = {
      user: {
           id: "",
           email: "",
-          name: "",
+          username: "",
           role: {
                id: "",
                name: "",
@@ -55,34 +57,33 @@ const initialState: IState = {
           bio: "",
           postNum: 0,
           likeNum: 0,
-          active: false
+          active: false,
+          firstName: '',
+          lastName: '',
+          avatarUrl: ''
      },
-
-     activeMenu: 'home'
 };
-
 
 export const accountSlide = createSlice({
      name: 'account',
      initialState,
      // The `reducers` field lets us define reducers and generate associated actions
      reducers: {
-          // Use the PayloadAction type to declare the contents of `action.payload`
-          setActiveMenu: (state, action) => {
-               state.activeMenu = action.payload;
-          },
           setUserLoginInfo: (state, action) => {
-               console.log("action: ", action)
+               console.log("payload: ", action.payload)
                state.isAuthenticated = true;
                state.isLoading = false;
                state.user.id = action?.payload?.user?.id;
                state.user.email = action.payload.user.email;
-               state.user.name = action.payload.user.username;
+               state.user.username = action.payload.user.username;
                state.user.bio = action.payload.user.bio;
-               state.user.role = action?.payload?.role;
-               state.user.postNum = action?.payload?.postNum;
-               state.user.likeNum = action?.payload?.likeNum;
-               state.user.active = action?.payload?.active;
+               state.user.role = action?.payload?.user?.role;
+               state.user.postNum = action?.payload?.user?.postNum;
+               state.user.likeNum = action?.payload?.user?.likeNum;
+               state.user.active = action?.payload?.user?.active;
+               state.user.firstName = action?.payload?.user?.firstName;
+               state.user.lastName = action?.payload?.user?.lastName;
+               state.user.avatarUrl = action?.payload?.user?.avatarUrl;
 
                if (!action?.payload?.user?.role) state.user.role = {};
                state.user.role.permissions = action?.payload?.role?.permissions ?? [];
@@ -93,7 +94,7 @@ export const accountSlide = createSlice({
                state.user = {
                     id: "",
                     email: "",
-                    name: "",
+                    username: "",
                     role: {
                          id: "",
                          name: "",
@@ -102,7 +103,10 @@ export const accountSlide = createSlice({
                     bio: "",
                     postNum: 0,
                     likeNum: 0,
-                    active: false
+                    active: false,
+                    firstName: '',
+                    lastName: '',
+                    avatarUrl: ''
                }
           },
           setRefreshTokenAction: (state, action) => {
@@ -126,8 +130,11 @@ export const accountSlide = createSlice({
                     state.isLoading = false;
                     state.user.id = action.payload.result.user.id;
                     state.user.email = action.payload.result.user.email;
-                    state.user.name = action.payload.result.user.firstName + ' ' + action.payload.result.user.lastName;
+                    state.user.username = action.payload.result.user.username;
+                    state.user.firstName = action.payload.result.user.firstName;
+                    state.user.lastName = action.payload.result.user.lastName;
                     state.user.role = action.payload.result.user.role;
+                    state.user.avatarUrl = action.payload.result.user.avatarUrl;
                     if (!action.payload.result.user.role) state.user.role = {};
                     state.user.role.permissions = action.payload.result.user.role?.permissions ?? [];
                }
@@ -145,7 +152,7 @@ export const accountSlide = createSlice({
 });
 
 export const {
-     setActiveMenu, setUserLoginInfo, setLogoutAction, setRefreshTokenAction
+     setUserLoginInfo, setLogoutAction, setRefreshTokenAction
 } = accountSlide.actions;
 
 export default accountSlide.reducer;

@@ -18,6 +18,7 @@ import Chat from "./Chat/Chat";
 const Header = () => {
 
 	const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+	const user = useAppSelector(state => state.account.user);
 
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
 
@@ -210,7 +211,7 @@ const Header = () => {
 						</button>
 						{
 							isAuthenticated ?
-								<img src={avt}
+								<img src={user.avatarUrl}
 									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
 									alt="error"
 									onClick={() => navigate(`/profile`)}

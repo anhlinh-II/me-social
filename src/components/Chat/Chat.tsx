@@ -41,7 +41,7 @@ const Chat = ({ selectedChat, position, setSelectedChat }: ChatProps) => {
 		event.preventDefault();
 	
 		if (message) {
-		  socket.emit("sendMessage", { text: message, user: currentUser.name }, () => {
+		  socket.emit("sendMessage", { text: message, user: currentUser.username }, () => {
 			setMessage(""); 
 		  });
 		}

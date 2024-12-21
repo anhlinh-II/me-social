@@ -3,8 +3,12 @@ import MultiCarousel from "./MultiCarousel";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import CreateReelModal from "../modal/Reel.create.modal";
+import { useAppSelector } from "../../redux/hook";
 
 const Story = () => {
+
+	const user = useAppSelector(state => state.account.user);
+
 	const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -73,11 +77,11 @@ const Story = () => {
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90 cursor-pointer"
 				onClick={() => navigate("/stories/create")}>
 				<div className="create-story flex flex-col items-center bg-gray-400">
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1GlOqZQeGxh87JJ8DiM8a_F-KcLiNt1qHw&s"
+					<img src={user.avatarUrl}
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
 					<h5 className="text-white font-semibold w-full text-center mt-1">Tạo Tin</h5>
 					<div className="w-full h-full px-2 pb-2 pt-1 text-3xl flex items-center justify-center storyPlusCircle">
-						<FaCirclePlus className="create-story-btn"/>
+						<FaCirclePlus className="create-story-btn" />
 					</div>
 				</div>
 			</div>
@@ -93,7 +97,7 @@ const Story = () => {
 			return (
 				<div key={item.id} className="story-container cursor-pointer hover:opacity-90" onClick={handleClick}>
 					{/* Background video or image */}
-					<video 
+					<video
 						className="story-background"
 						onLoadedData={() => setIsLoading(false)}
 						hidden={isLoading}>
@@ -103,8 +107,8 @@ const Story = () => {
 					{/* Avatar and username */}
 					<div className="story-info">
 						<img src={item.avt} alt={item.userName} className="story-avatar" />
-						<img className="absolute bottom-0 left-7 w-3 h-3 rounded-full object-cover" 
-                    		src="../src/assets/img/icons/onlineIcon.png"></img> 
+						<img className="absolute bottom-0 left-7 w-3 h-3 rounded-full object-cover"
+							src="../src/assets/img/icons/onlineIcon.png"></img>
 					</div>
 					<div className="absolute bottom-[0.5rem] left-[0.5rem]">
 						<h5 className="text-white text-sm font-semibold">{item.userName}</h5>
@@ -120,9 +124,9 @@ const Story = () => {
 				<MultiCarousel items={carouselUsers} />
 			</div>
 			<CreateReelModal
-                show={showCreateReelModal}
-                setShow={setShowCreateReelModal}
-            />
+				show={showCreateReelModal}
+				setShow={setShowCreateReelModal}
+			/>
 		</>
 	)
 }

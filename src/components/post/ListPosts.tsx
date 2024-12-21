@@ -185,7 +185,7 @@ const ListPosts = () => {
 													className="rounded-[100%] h-10 w-10 me-2"
 													alt="error"
 												/>
-												<input type="text" className="block bg-transparent outline-none mt-1" placeholder={`comment as ${user.name}`} />
+												<input type="text" className="block bg-transparent outline-none mt-1" placeholder={`comment as ${user.username}`} />
 											</div>
 										</div>
 									</div>

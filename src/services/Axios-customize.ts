@@ -36,13 +36,9 @@ instance.interceptors.request.use(function (config) {
         config.url?.endsWith(endpoint) // Adjust to match the exact endpoint
     );
 
-    console.log('Request URL:', config.url); // Debugging
-
     if (!shouldExcludeToken && typeof window !== "undefined" && window.localStorage.getItem('access_token')) {
         config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
     }
-
-    console.log('Headers sent:', config.headers); // Check if Authorization is included or not
 
     if (!config.headers.Accept && config.headers["Content-Type"]) {
         config.headers.Accept = "application/json";

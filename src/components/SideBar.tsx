@@ -9,7 +9,7 @@ import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 import avt from '../assets/me1.jpg';
 import { callLogout } from '../services/AuthService';
-import { useAppDispatch } from '../redux/hook';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setLogoutAction } from '../redux/slice/accountSlice';
 import { message } from 'antd';
 
@@ -27,6 +27,7 @@ const SideBar = (props: IProps) => {
      const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
      const dispatch = useAppDispatch();
+     const user = useAppSelector(state => state.account.user);
 
      const openAddRewModal = () => {
           setShowCreateReelModal(true);
@@ -115,7 +116,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<img src={avt} className='text-md rounded-full'/>}
+                              icon={<img src={user.avatarUrl} className='text-md rounded-full'/>}
                          >
                               Profile
                          </MenuItem>

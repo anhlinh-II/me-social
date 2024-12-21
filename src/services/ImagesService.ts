@@ -1,5 +1,28 @@
 import axios from 'axios';
 import crypto from 'crypto';
+import { cloudinaryConfig } from '../utils/EnvConfig';
+
+export const uploadUserAvatar = async (file: File, userId: number) => {
+    const uploadPreset = cloudinaryConfig.uploadPreset;
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', uploadPreset);
+    formData.append('folder', `user/avatar/${userId}`);
+
+    try {
+        const response = await axios.post(
+            `https://api.cloudinary.com/v1_1/ds14e8hbm/image/upload`,
+            formData
+        );
+
+        console.log('Upload success:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        throw error;
+    }
+};
 
 export const uploadPostImage = async (file: File, userId: number) => {
     const formData = new FormData();
@@ -61,13 +84,28 @@ export const uploadGroupImage = async (file: File, groupId: number) => {
     }
 };
 
+const extractPublicId = (url: string): string => {
+    const regex = /\/v\d+\/(.+)\.\w+$/; // Tìm phần giữa `/v<number>/` và phần mở rộng
+    const match = url.match(regex);
+    return match ? match[1] : '';
+};
 
-export const deleteImage = async (publicId: string) => {
-    const cloudName = 'ds14e8hbm';
-    const apiKey = '329519132628277';
-    const apiSecret = 'iR-zdryWfcSpYeGVTLs-EJ4LHU4';
+
+export const deleteImage = async (secureUrl: string) => {
+    console.log("delete image called")
+    // const cloudName = 'ds14e8hbm';
+    // const apiKey = '329519132628277';
+    // const apiSecret = 'iR-zdryWfcSpYeGVTLs-EJ4LHU4';
+
+    const apiKey = cloudinaryConfig.apiKey;
+    const apiSecret = cloudinaryConfig.apiSecret;
+    const cloudName = cloudinaryConfig.cloudName;
+    
 
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;
+
+    const publicId = extractPublicId(secureUrl);
+    console.log(publicId)
 
     const formData = new FormData();
     formData.append('public_id', publicId);
@@ -87,8 +125,8 @@ export const deleteImage = async (publicId: string) => {
 
     try {
         const response = await axios.post(url, formData);
-        console.log('Image deleted successfully:', response.data);
-        return response.data;
+        console.log('Image deleted successfully:', response);
+        return response;
     } catch (error) {
         console.error('Error deleting image:', error);
         throw error;

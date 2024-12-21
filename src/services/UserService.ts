@@ -1,4 +1,3 @@
-import { useInternalMessage } from 'antd/es/message/useMessage';
 import { UserCreationRequest, UserUpdateRequest, UserResponse, UserDTO } from '../types/User';
 import { IApiResponse, Page } from '../types/backend';
 import instance from './Axios-customize';
