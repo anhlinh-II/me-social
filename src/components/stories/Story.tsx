@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import CreateReelModal from "../modal/Reel.create.modal";
 import { useAppSelector } from "../../redux/hook";
+import { useUser } from "../../utils/Constant";
 
 const Story = () => {
 
-	const user = useAppSelector(state => state.account.user);
+	const user = useUser();
 
 	const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -77,7 +78,8 @@ const Story = () => {
 			<div key="create-new-story" className="story-container create-new-story hover:opacity-90 cursor-pointer"
 				onClick={() => navigate("/stories/create")}>
 				<div className="create-story flex flex-col items-center bg-gray-400">
-					<img src={user.avatarUrl}
+					<img
+						src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
 						alt="{user.userName}" className="w-100 h-[120px] object-cover" />
 					<h5 className="text-white font-semibold w-full text-center mt-1">Tạo Tin</h5>
 					<div className="w-full h-full px-2 pb-2 pt-1 text-3xl flex items-center justify-center storyPlusCircle">

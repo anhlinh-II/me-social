@@ -12,6 +12,7 @@ import { callLogout } from '../services/AuthService';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setLogoutAction } from '../redux/slice/accountSlice';
 import { message } from 'antd';
+import { useUser } from '../utils/Constant';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -27,7 +28,7 @@ const SideBar = (props: IProps) => {
      const [showCreateReelModal, setShowCreateReelModal] = useState<boolean>(false);
 
      const dispatch = useAppDispatch();
-     const user = useAppSelector(state => state.account.user);
+     const user = useUser();
 
      const openAddRewModal = () => {
           setShowCreateReelModal(true);
@@ -116,7 +117,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<img src={user.avatarUrl} className='text-md rounded-full'/>}
+                              icon={<img src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"} className='text-md rounded-full'/>}
                          >
                               Profile
                          </MenuItem>
@@ -142,8 +143,7 @@ const SideBar = (props: IProps) => {
                               active={active === "logout" ? true : false}
                               onClick={async () => 
                                    {
-                                        const res = await callLogout();
-                                        console.log(res);
+                                        await callLogout();
                                         dispatch(setLogoutAction())
                                         message.success("Log out successfully!")
                                    }}

@@ -9,7 +9,7 @@ import { deleteImage, uploadPostImage } from "../../services/ImagesService";
 import { createPost } from "../../services/PostService";
 import { PostRequest } from "../../types/Post";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../redux/hook";
+import { useUser } from "../../utils/Constant";
 
 interface IProps {
      show: boolean;
@@ -74,7 +74,7 @@ const CustomSingleValue = (props: SingleValueProps<NewType>) => (
 
 const CreatePostModal = (props: IProps) => {
 
-     const user = useAppSelector(state => state.account.user);
+     const user = useUser();
 
      const location = useLocation();
      const [selectedOption, setSelectedOption] = useState<any>(null);

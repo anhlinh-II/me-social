@@ -1,19 +1,21 @@
 import { useState } from "react"
 import { BsCameraVideoFill } from "react-icons/bs";
-import {  FaImage } from "react-icons/fa6";
+import { FaImage } from "react-icons/fa6";
 import CreatePostModal from "../modal/Post.create.modal";
 import { SiGoogledocs } from "react-icons/si";
 import { useAppSelector } from "../../redux/hook";
+import { useUser } from "../../utils/Constant";
 
 const CreatePost = () => {
 
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
-     const user = useAppSelector(state => state.account.user)
+     const user = useUser();
 
      return (
           <div className="p-5 md:w-[600px] sm:w-full h-max border-solid border-[1px] align-center rounded-lg bg-white shadow-md text-sky-800">
                <div className="flex gap-4 justify-start items-center pb-4 border-b border-gray-200">
-                    <img src={user.avatarUrl}
+                    <img
+                         src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                          className="rounded-[100%] text-base h-10 w-10 "
                          alt="error"
                     />

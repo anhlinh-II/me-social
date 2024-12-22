@@ -1,18 +1,27 @@
 import ProfileInfo from "./ProfileInfo";
 import PostGrid from "./PostGrid";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsGrid3X3GapFill } from "react-icons/bs";
 import { MdVideoLibrary } from "react-icons/md";
 import ReelGrid from "./ReelGrid";
 import { fakeReel, fakeStory } from "../fakeData";
 import ProfileStory from "./ProfileStory";
 import { LuDot } from "react-icons/lu";
+import { useAppSelector } from "../../redux/hook";
+import { useUser } from "../../utils/Constant";
 
 const Profile = () => {
 	const location = useLocation();
 	const initialActive = location.pathname.includes("reels") ? "reels" : "posts";
 	const [active, setActive] = useState<string>(initialActive);
+
+	const user = useUser();
+
+	useEffect(() => {
+
+	}, [user])
+
 
 	const posts = [
 		{

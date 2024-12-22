@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { callFetchAccount } from '../../services/AuthService';
 
 // First, create the thunk
-export const   fetchAccount = createAsyncThunk(
+export const fetchAccount = createAsyncThunk(
      'account/fetchAccount',
      async () => {
           const response = await callFetchAccount();
@@ -67,26 +67,46 @@ const initialState: IState = {
 export const accountSlide = createSlice({
      name: 'account',
      initialState,
-     // The `reducers` field lets us define reducers and generate associated actions
      reducers: {
           setUserLoginInfo: (state, action) => {
                console.log("payload: ", action.payload)
+               console.log("action.payload.user: ", action.payload.user)
+               console.log("state: ", state)
+               console.log("previous user state:", { ...state.user });
                state.isAuthenticated = true;
                state.isLoading = false;
                state.user.id = action?.payload?.user?.id;
-               state.user.email = action.payload.user.email;
-               state.user.username = action.payload.user.username;
-               state.user.bio = action.payload.user.bio;
+               state.user.email = action.payload?.user.email;
+               state.user.username = action.payload?.user.username;
+               state.user.bio = action.payload?.user.bio;
                state.user.role = action?.payload?.user?.role;
                state.user.postNum = action?.payload?.user?.postNum;
                state.user.likeNum = action?.payload?.user?.likeNum;
                state.user.active = action?.payload?.user?.active;
                state.user.firstName = action?.payload?.user?.firstName;
                state.user.lastName = action?.payload?.user?.lastName;
-               state.user.avatarUrl = action?.payload?.user?.avatarUrl;
+               
+               console.log("after User state:", { ...state.user });
 
-               if (!action?.payload?.user?.role) state.user.role = {};
-               state.user.role.permissions = action?.payload?.role?.permissions ?? [];
+               console.log("set info to redux ok")
+
+               // if (!action?.payload?.user?.role) state.user.role = {};
+               // state.user.role.permissions = action?.payload?.role?.permissions ?? [];
+          },
+          setUserAvatar: (state, action) => {
+               state.user.avatarUrl = action?.payload?.avatarUrl;
+          },
+          setUserUpdateInfo: (state, action) => {
+               state.user.id = action?.payload?.id;
+               state.user.email = action.payload.email;
+               state.user.username = action.payload.username;
+               state.user.bio = action.payload.bio;
+               state.user.role = action?.payload?.role;
+               state.user.postNum = action?.payload?.postNum;
+               state.user.likeNum = action?.payload?.likeNum;
+               state.user.active = action?.payload?.active;
+               state.user.firstName = action?.payload?.firstName;
+               state.user.lastName = action?.payload?.lastName;
           },
           setLogoutAction: (state) => {
                localStorage.removeItem('access_token');
@@ -152,7 +172,7 @@ export const accountSlide = createSlice({
 });
 
 export const {
-     setUserLoginInfo, setLogoutAction, setRefreshTokenAction
+     setUserLoginInfo, setLogoutAction, setRefreshTokenAction, setUserUpdateInfo, setUserAvatar
 } = accountSlide.actions;
 
 export default accountSlide.reducer;

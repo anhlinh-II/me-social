@@ -5,14 +5,17 @@ import { formatNumberWithCommas, formatNumberWithUnit } from '../../utils/Format
 import { updateUser } from '../../services/UserService';
 import { UserUpdateRequest } from '../../types/User';
 import { IoMdClose } from 'react-icons/io';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { PiPaperPlaneRightFill } from 'react-icons/pi';
-import { setUserLoginInfo } from '../../redux/slice/accountSlice';
+import { useAppDispatch } from '../../redux/hook';
+import { setUserAvatar, setUserLoginInfo, setUserUpdateInfo } from '../../redux/slice/accountSlice';
 import UpdateAvatarModal from '../modal/UpdateAvatarModal';
 import { deleteImage, uploadUserAvatar } from '../../services/ImagesService';
+import { Spin } from 'antd';
+import { useUser } from '../../utils/Constant';
 
 const ProfileInfo = () => {
-    const user = useAppSelector(state => state.account.user);
+    const user = useUser();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [charCount, setCharCount] = useState<number>(0);
@@ -42,7 +45,7 @@ const ProfileInfo = () => {
             console.log('Update response:', res);
             if (res) {
                 setIsEditing(false);
-                dispatch(setUserLoginInfo({ ...user, ...formData }));
+                dispatch(setUserUpdateInfo({ ...user, ...formData }));
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -53,10 +56,11 @@ const ProfileInfo = () => {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
             setFile(selectedFile);
+            setIsLoading(true)
+            setShowModal(false)
 
             try {
                 const responseUploadedUrl = await uploadUserAvatar(selectedFile, Number(user.id));
-                console.log('Uploaded Avatar URL:', responseUploadedUrl);
 
                 // Update the avatar URL in the state
                 setFormData({ ...formData, avatarUrl: responseUploadedUrl?.secure_url });
@@ -64,11 +68,9 @@ const ProfileInfo = () => {
                 // Save the updated avatar URL to the user profile
                 const updatedUser = await updateUser({ ...formData, avatarUrl: responseUploadedUrl?.secure_url });
 
-                console.log("updated user: ", updatedUser);
-
                 if (updatedUser) {
-                    dispatch(setUserLoginInfo({ ...user, avatarUrl: responseUploadedUrl }));
-                    console.log("dispatch ok")
+                    dispatch(setUserAvatar({ ...user, avatarUrl: responseUploadedUrl?.secure_url }));
+                    setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error handling file upload:', error);
@@ -97,21 +99,23 @@ const ProfileInfo = () => {
     }
 
     const handleOnclickRemove = async () => {
-        console.log("function remove called")
+        setIsLoading(true);
+        setIsEditing(false);
         try {
             // Xóa ảnh trên Cloudinary
             const res = await deleteImage(user.avatarUrl);
             console.log("res ", res)
-    
+
             if (res) {
                 console.log("Delete on cloud success");
-    
+
                 // Cập nhật cơ sở dữ liệu
                 const updatedUser = await updateUser({ ...formData, avatarUrl: '' });
-    
+                setIsLoading(false)
+
                 if (updatedUser) {
                     console.log("Delete on DB success");
-    
+
                     // Đồng bộ Redux và trạng thái cục bộ
                     setFormData({ ...formData, avatarUrl: '' });
                     dispatch(setUserLoginInfo({ ...user, avatarUrl: '' }));
@@ -125,20 +129,34 @@ const ProfileInfo = () => {
             console.error("Error in handleOnclickRemove:", error);
         }
     };
-    
+
 
     return (
         <div className="flex flex-row gap-14 items-center p-4 bg-gray-100 w-[80%]">
-            <div className='w-44 h-44  ms-5 me-5 cursor-pointer'
+            <div
+                className="w-44 h-44 ms-5 me-5 cursor-pointer relative"
                 onClick={() => handleClickPhoto()}
             >
                 <img
-                    src={user.avatarUrl ? user.avatarUrl : 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg'}
+                    src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                     alt={`${user.username}'s profile`}
-                    className="w-44 h-44 rounded-full object-covercursor-pointer border border-blue-500"
+                    className={`w-44 h-44 rounded-full object-cover border border-blue-500 ${isLoading ? "opacity-30" : "opacity-100"}`}
                 />
-                <input id="fileInput" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+                {/* Spinner */}
+                {isLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <Spin />
+                    </div>
+                )}
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                />
             </div>
+
             <div className="flex flex-col items-center">
                 <div className="flex flex-row items-center gap-4">
                     <h2 className="text-xl font-semibold me-2 min-w-[180px]">{user.username}</h2>

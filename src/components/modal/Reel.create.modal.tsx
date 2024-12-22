@@ -6,7 +6,8 @@ import Select, { components, SingleValueProps } from 'react-select';
 // import { uploadReelVideo } from "../../services/VideoService";
 import { ReelPrivacy, ReelRequest } from "../../types/Reel";
 import { createReel } from "../../services/ReelService";
-import avt from '../../assets/me1.jpg';
+import { useAppSelector } from "../../redux/hook";
+import { useUser } from "../../utils/Constant";
 
 interface IProps {
      show: boolean;
@@ -70,6 +71,8 @@ const CustomSingleValue = (props: SingleValueProps<NewType>) => (
 );
 
 const CreateReelModal = (props: IProps) => {
+     const user = useUser();
+
      const { show, setShow } = props;
 
      const [reel, setReel] = useState<string>("");
@@ -174,7 +177,8 @@ const CreateReelModal = (props: IProps) => {
                                         openEditPanel
                                              ? <div>
                                                   <div className="flex justify-start items-center gap-2 ml-5 mt-4">
-                                                       <img src={avt}
+                                                       <img
+                                                            src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                                                             className="rounded-[100%] text-base h-10 w-10 "
                                                             alt="error" />
                                                        <div className="">
@@ -184,9 +188,9 @@ const CreateReelModal = (props: IProps) => {
                                                                       defaultValue={options[0]}
                                                                       onChange={(option) => {
                                                                            if (option) {
-                                                                               setSelectedPrivacy(option);
+                                                                                setSelectedPrivacy(option);
                                                                            }
-                                                                       }}
+                                                                      }}
                                                                       options={options}
                                                                       styles={baseStyle}
                                                                       id="status"
@@ -242,7 +246,7 @@ const CreateReelModal = (props: IProps) => {
                                    {successMessage && (
                                         <div className="flex flex-row self-center items-center justify-center gap-2 mt-2 p-2 bg-white text-2xl text-blue-400 rounded-lg">
                                              <span>{successMessage}</span>
-                                             {successMessage? <FaRegCircleCheck /> : <></>}
+                                             {successMessage ? <FaRegCircleCheck /> : <></>}
                                         </div>
                                    )}
                               </div>

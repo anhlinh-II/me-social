@@ -22,7 +22,7 @@ interface ChatListProps {
 }
 
 const ChatList: React.FC<ChatListProps> = ({ chats, setSelectedChat, showChatList, setShowChatList }) => {
-	//const currentUser = useAppSelector(state => state.account.user);
+	//const currentUser = USER
 
 	return (
 		<div>

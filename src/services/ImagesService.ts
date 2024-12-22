@@ -100,6 +100,8 @@ export const deleteImage = async (secureUrl: string) => {
     const apiKey = cloudinaryConfig.apiKey;
     const apiSecret = cloudinaryConfig.apiSecret;
     const cloudName = cloudinaryConfig.cloudName;
+
+    console.log(cloudName)
     
 
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;

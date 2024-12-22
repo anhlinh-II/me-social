@@ -11,14 +11,14 @@ import { FaBell, FaMoon, FaSun } from "react-icons/fa6";
 import { chats, notifications } from "./fakeData";
 import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 import { useAppSelector } from "../redux/hook";
-import avt from '../assets/me1.jpg';
 import ChatList, { UserChat } from "./Chat/ChatList";
 import Chat from "./Chat/Chat";
+import { useUser } from "../utils/Constant";
 
 const Header = () => {
 
 	const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
-	const user = useAppSelector(state => state.account.user);
+	const user = useUser();
 
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
 
@@ -26,21 +26,21 @@ const Header = () => {
 	const [showChatList, setShowChatList] = useState<boolean>(false);
 	const [selectedChats, setSelectedChats] = useState<UserChat[]>([]);
 
-    const handleSelectChat = (chat: UserChat) => {
-        setSelectedChats(prevChats => {
-            // If Chat exists in the selected list, no change
-            if (prevChats.some(c => c.id === chat.id)) {
-                return prevChats;
-            }
-            // If selected list is not full of 2, add a new one
-            if (prevChats.length < 2) {
-                return [...prevChats, chat];
-            }
-            // If there are 2, replace the first one
-            return [prevChats[1], chat];
-        });
-    };
-	
+	const handleSelectChat = (chat: UserChat) => {
+		setSelectedChats(prevChats => {
+			// If Chat exists in the selected list, no change
+			if (prevChats.some(c => c.id === chat.id)) {
+				return prevChats;
+			}
+			// If selected list is not full of 2, add a new one
+			if (prevChats.length < 2) {
+				return [...prevChats, chat];
+			}
+			// If there are 2, replace the first one
+			return [prevChats[1], chat];
+		});
+	};
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -211,7 +211,8 @@ const Header = () => {
 						</button>
 						{
 							isAuthenticated ?
-								<img src={user.avatarUrl}
+								<img
+									src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
 									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
 									alt="error"
 									onClick={() => navigate(`/profile`)}
@@ -239,20 +240,20 @@ const Header = () => {
 				/>
 			)}
 			{showChatList && (
-				<ChatList chats={chats} setSelectedChat={handleSelectChat} showChatList setShowChatList={setShowChatList}/>
+				<ChatList chats={chats} setSelectedChat={handleSelectChat} showChatList setShowChatList={setShowChatList} />
 			)}
 			{selectedChats.map((chat, index) => (
-                <Chat
-                    key={chat.id}
-                    selectedChat={chat}
+				<Chat
+					key={chat.id}
+					selectedChat={chat}
 					position={index === 0 ? "right-[5%]" : "right-[28%]"}
-                    setSelectedChat={() =>
-                        setSelectedChats(prevChats =>
-                            prevChats.filter(c => c.id !== chat.id)
-                        )
-                    }
-                />
-            ))}
+					setSelectedChat={() =>
+						setSelectedChats(prevChats =>
+							prevChats.filter(c => c.id !== chat.id)
+						)
+					}
+				/>
+			))}
 		</>
 	);
 };
