@@ -85,6 +85,7 @@ export const accountSlide = createSlice({
                state.user.active = action?.payload?.user?.active;
                state.user.firstName = action?.payload?.user?.firstName;
                state.user.lastName = action?.payload?.user?.lastName;
+               state.user.avatarUrl = action?.payload?.user?.avatarUrl;
                
                console.log("after User state:", { ...state.user });
 

@@ -30,6 +30,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
+    
 	const handlePostClick = (post: Post) => {
 		setSelectedPost(post);
 	};

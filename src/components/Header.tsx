@@ -13,7 +13,8 @@ import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 import { useAppSelector } from "../redux/hook";
 import ChatList, { UserChat } from "./Chat/ChatList";
 import Chat from "./Chat/Chat";
-import { useUser } from "../utils/Constant";
+import { useUser } from "../utils/CustomHook";
+import { Avatar } from "antd";
 
 const Header = () => {
 
@@ -86,29 +87,10 @@ const Header = () => {
 					aria-label="Global"
 				>
 					<div className="flex w-[20%] lg:flex-1">
-						<a href="/" className="-m-1.5 p-1.5">
+						<Link to={`/`} className="-m-1.5 p-1.5">
 							<img className="h-10 w-auto" src="/logo.png" alt="" />
-						</a>
-						{/* <div className="relative ml-10">
-							<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-								<IoIosSearch
-									style={{
-										fontSize: "20px",
-										color: "white",
-										fontWeight: "bold",
-									}}
-								/>
-							</div>
-							<input
-								type="search"
-								id="default-search"
-								className="block cursor-pointer w-full p-2 ps-10 text-sm text-white rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-outline-none focus:border-sky-500 dark:bg-sky-500 dark:border-sky-600 dark:placeholder-white dark:text-white dark:focus:ring-white-500 dark:focus:border-blue-500"
-								placeholder="Find Friends..."
-								required
-								autoComplete="off"
-								onClick={() => handleOpenSearch()}
-							/>
-						</div> */}
+						</Link>
+						
 						<div className="w-[240px] ps-4 flex flex-row items-center">
 							<input
 								id="searchQueryInput"
@@ -209,23 +191,6 @@ const Header = () => {
 								<GoBell style={{ fontSize: "24px", color: "white", cursor: "pointer" }} />
 							)}
 						</button>
-						{
-							isAuthenticated ?
-								<img
-									src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
-									className="border border-sky-600 rounded-[100%] h-10 w-10 cursor-pointer"
-									alt="error"
-									onClick={() => navigate(`/profile`)}
-								/>
-								:
-								<button
-									style={{ cursor: "pointer" }}
-									onClick={() => navigate("login")}
-									className="mb-2 text-lg font-semibold leading-6 text-white mt-2 ml-2"
-								>
-									Log in <span aria-hidden="true">&rarr;</span>
-								</button>
-						}
 					</div>
 				</nav>
 			</header>

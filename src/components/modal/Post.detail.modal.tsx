@@ -78,7 +78,6 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                          <img
                               className='max-h-full max-w-full'
                               src={pittapiu}
-                              // src={pittapiu}
                               alt="error"
                          />
                     </div>

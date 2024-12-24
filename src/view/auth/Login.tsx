@@ -14,10 +14,6 @@ const Login = () => {
      const dispatch = useDispatch();
      const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
 
-     // let location = useLocation();
-     // let params = new URLSearchParams(location.search);
-     // const callback = params?.get("callback");
-
      useEffect(() => {
           //đã login => redirect to '/'
           if (isAuthenticated === true) {
@@ -49,9 +45,10 @@ const Login = () => {
                } else {
                     notification.error({
                          message: "Đăng nhập không thành công",
-                         description: res?.data?.message || "Unknown error",
+                         description: res?.data?.message || "Kiểm tra tên người dùng hoặc mật khẩu của bạn",
                          duration: 5,
                     });
+                    console.log("đăng nhập không thành công")
                }
           } catch (error) {
                console.error('Login error:', error);

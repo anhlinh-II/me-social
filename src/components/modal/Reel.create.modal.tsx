@@ -7,7 +7,7 @@ import Select, { components, SingleValueProps } from 'react-select';
 import { ReelPrivacy, ReelRequest } from "../../types/Reel";
 import { createReel } from "../../services/ReelService";
 import { useAppSelector } from "../../redux/hook";
-import { useUser } from "../../utils/Constant";
+import { useUser } from "../../utils/CustomHook";
 
 interface IProps {
      show: boolean;

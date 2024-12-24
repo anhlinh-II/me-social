@@ -1,11 +1,10 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import SideBar from "../../components/SideBar";
 import SuggestFriends from "../../components/friends/SuggestFriends";
 
 import "../../styles/App.scss"
 import { useAppSelector } from "../../redux/hook";
-import { useEffect } from "react";
 
 const HomeView = () => {
   const location = useLocation();
@@ -14,14 +13,12 @@ const HomeView = () => {
   const hasGroups = location.pathname.includes("group")
   const hasSeemore = location.pathname.includes("seemore")
 
-  const navigate = useNavigate()
-
   const isAuthenticated = useAppSelector(state => state.account.isAuthenticated)
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      navigate(`/login`)
-    }
-  }, [isAuthenticated])
+  
+  if (!isAuthenticated) {
+    
+    return <Navigate to="/login" replace />;
+  }
 
   const inHomeView: boolean = !hasListFriends && !hasProfile && !hasGroups && !hasSeemore ? true : false;
   return (

@@ -6,7 +6,6 @@ const Groups = () => {
 	const initialActive = location.pathname.includes("joined") ? "joined" : "feed";
 	const [active, setActive] = useState<string>(initialActive);
 
-
 	return (
 		<div className="w-[80%]">
 			<div>

@@ -4,15 +4,16 @@ import { PiVideoFill } from 'react-icons/pi';
 import { IoIosAddCircle, IoMdSettings } from 'react-icons/io';
 import { MdManageAccounts } from 'react-icons/md';
 import { FaAngleDown, FaAngleRight, FaGithub } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import CreateReelModal from './modal/Reel.create.modal';
 import avt from '../assets/me1.jpg';
 import { callLogout } from '../services/AuthService';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setLogoutAction } from '../redux/slice/accountSlice';
-import { message } from 'antd';
-import { useUser } from '../utils/Constant';
+import { Avatar, message } from 'antd';
+import { useUser } from '../utils/CustomHook';
+import { BsCollectionPlayFill } from 'react-icons/bs';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -90,7 +91,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "home" ? true : false}
                               component={<Link to={'/'} />}
-                              icon={<IoHome className='text-2xl'/>}
+                              icon={<IoHome className='text-2xl' />}
                               onClick={() => setActive("home")}
                          >
                               Home
@@ -100,7 +101,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("reels")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/reels'} />}
-                              icon={<PiVideoFill className='text-2xl'/>}
+                              icon={<BsCollectionPlayFill className='text-xl' />}
                          >
                               Reels
                          </MenuItem>
@@ -108,7 +109,7 @@ const SideBar = (props: IProps) => {
                               active={active === "createReels" ? true : false}
                               onClick={() => openAddRewModal()}
                               rootStyles={{ padding: "5px" }}
-                              icon={<IoIosAddCircle className='text-2xl'/>}
+                              icon={<IoIosAddCircle className='text-2xl' />}
                          >
                               Create Reels
                          </MenuItem>
@@ -117,7 +118,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/profile'} />}
-                              icon={<img src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"} className='text-md rounded-full'/>}
+                              icon={<Avatar src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"} />}
                          >
                               Profile
                          </MenuItem>
@@ -125,7 +126,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "setting" ? true : false}
                               onClick={() => setActive("setting")}
-                              icon={<IoMdSettings className='text-2xl'/>}
+                              icon={<IoMdSettings className='text-2xl' />}
                          >
                               Setting
                          </MenuItem>
@@ -133,7 +134,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "admin" ? true : false}
                               onClick={() => setActive("admin")}
-                              icon={<MdManageAccounts className='text-2xl'/>}
+                              icon={<MdManageAccounts className='text-2xl' />}
                               component={<Link to={'/admin/dashboard'} />}
                          >
                               Admin Page
@@ -141,14 +142,15 @@ const SideBar = (props: IProps) => {
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
                               active={active === "logout" ? true : false}
-                              onClick={async () => 
-                                   {
-                                        await callLogout();
+                              onClick={async () => {
+                                   const res = await callLogout();
+                                   if (res) {
                                         dispatch(setLogoutAction())
                                         message.success("Log out successfully!")
-                                   }}
-                              component={<Link to={'/login'} />}
-                              icon={<IoLogOut className='text-2xl'/>}
+                                        return <Navigate to={`/login`}/>
+                                   }
+                              }}
+                              icon={<IoLogOut className='text-2xl' />}
                          >
                               Log out
                          </MenuItem>

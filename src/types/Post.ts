@@ -40,6 +40,7 @@ export interface PostRequest {
 export interface PostResponse {
     id: number;
     userId: number;
+    avatarUrl: string;
     userFullName: string;
     groupId: number;
     groupName: string;
@@ -51,4 +52,5 @@ export interface PostResponse {
     updatedAt: string;
     likeNum: number;
     commentNum: number;
+    isLiked: boolean;
   }

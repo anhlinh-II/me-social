@@ -14,12 +14,18 @@ import { Post, PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { RootState } from '../../redux/store';
+import { fetchUserNewsfeed } from '../../redux/slice/postsSlice';
+import { formatTime } from '../../utils/FormatTime';
 
 
-const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
+    // const [posts, setPosts] = useState<PostResponse[]>([]);
+    // const [loading, setLoading] = useState<boolean>(true);
+    // const [error, setError] = useState<string | null>(null);
+
+    // const {} = useAppSelector((state: RootState) => state)
 
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<boolean>(false);
@@ -27,86 +33,92 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         try {
+
+    //             const response = await getPostsForNewsFeed(userId, 0);
+    //             if (!response || !response.result || !Array.isArray(response.result.content)) {
+    //                 throw new Error('Invalid response structure');
+    //             }
+
+    //             const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
+
+
+
+    //                 return {
+    //                     id: item.id,
+    //                     userId: item.userId,
+    //                     userFullName: item.userFullName,
+    //                     avatar: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
+    //                     groupId: item.groupId,
+    //                     groupName: item.groupName,
+    //                     content: item.content,
+    //                     privacy: item.privacy,
+    //                     createdAt: item.createdAt,
+    //                     updatedAt: item.updatedAt,
+    //                     likeNum: item.likeNum,
+    //                     commentNum: item.commentNum,
+    //                     time: timeDifference,
+    //                     isLiked: false,
+    //                     isFavourited: false,
+    //                     publicIds: item.publicIds,
+    //                     urls: item.urls,
+    //                     imageError: false
+    //                 }
+    //             });
+
+    //             setPosts(transformedPosts);
+    //             setLoading(false);
+    //         } catch (err: any) {
+    //             setError(err.message || 'Something went wrong');
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchPosts();
+    // }, [userId]);
+
+    const dispatch = useAppDispatch();
+    const { posts, isLoading, error } = useAppSelector((state: RootState) => state.posts);
+
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                
-                const response = await getPostsForNewsFeed(userId, 0);
-                if (!response || !response.result || !Array.isArray(response.result.content)) {
-                    throw new Error('Invalid response structure');
-                }
-
-                const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
-
-                    const createdAtDate = new Date(item.createdAt);
-                    const now = new Date();
-                    const timeDifference = Math.floor((now.getTime() - createdAtDate.getTime()) / (1000 * 60 * 60));
-
-                    return {
-                        id: item.id,
-                        userId: item.userId,
-                        userFullName: item.userFullName,
-                        avatar: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-                        groupId: item.groupId,
-                        groupName: item.groupName,
-                        content: item.content,
-                        privacy: item.privacy,
-                        createdAt: item.createdAt,
-                        updatedAt: item.updatedAt,
-                        likeNum: item.likeNum,
-                        commentNum: item.commentNum,
-                        time: timeDifference,
-                        isLiked: false,
-                        isFavourited: false,
-                        publicIds: item.publicIds,
-                        urls: item.urls,
-                        imageError: false
-                    }
-                });
-
-                setPosts(transformedPosts);
-                setLoading(false);
-            } catch (err: any) {
-                setError(err.message || 'Something went wrong');
-                setLoading(false);
-            }
-        };
-
-        fetchPosts();
-    }, [userId]);
+        const res = dispatch(fetchUserNewsfeed({ userId, pageNum: 0 }));
+        console.log("res >> ", res)
+    }, [dispatch, userId]);
 
 
-    if (loading) {
+    if (isLoading) {
         return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
     }
 
     if (error) {
-        return <></> //<div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
+        return <></>
     }
 
-    const handleLikeBtn = (index: number) => {
-        setPosts(prevPosts =>
-            prevPosts.map((post, i) =>
-                i === index ? { ...post, isLiked: !post.isLiked } : post
-            )
-        );
-    };
+    // const handleLikeBtn = (index: number) => {
+    //     setPosts(prevPosts =>
+    //         prevPosts.map((post, i) =>
+    //             i === index ? { ...post, isLiked: !post.isLiked } : post
+    //         )
+    //     );
+    // };
 
-    const handleFavouriteBtn = (index: number) => {
-        setPosts(prevPosts =>
-            prevPosts.map((post, i) => {
-                return (i === index ? { ...post, isFavourited: !post.isFavourited } : post);
-            })
-        );
-    };
+    // const handleFavouriteBtn = (index: number) => {
+    //     setPosts(prevPosts =>
+    //         prevPosts.map((post, i) => {
+    //             return (i === index ? { ...post, isFavourited: !post.isFavourited } : post);
+    //         })
+    //     );
+    // };
 
-    const handleImageError = (index: number) => {
-        setPosts(prevPosts =>
-            prevPosts.map((post, i) =>
-                i === index ? { ...post, imageError: true } : post
-            )
-        );
-    };
+    // const handleImageError = (index: number) => {
+    //     setPosts(prevPosts =>
+    //         prevPosts.map((post, i) =>
+    //             i === index ? { ...post, imageError: true } : post
+    //         )
+    //     );
+    // };
 
     const handleMouseEnter = () => {
         const timeout = setTimeout(() => {
@@ -124,7 +136,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
 
     return (
         <div className="w-full h-fit rounded flex flex-col gap-4">
-            {posts.map((item: Post, index: number) => (
+            {posts.map((item: PostResponse, index: number) => (
                 <div key={`post-key-${index}`} className="md:w-[600px] sm:w-full bg-white border shadow-md rounded-lg">
                     {/* Post header */}
                     <div className="flex relative justify-start items-center px-3 py-2 gap-2">
@@ -135,24 +147,24 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                         src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
                                         className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
                                         alt="error"
-                                        onError={() => handleImageError(index)}
+                                        // onError={() => handleImageError(index)}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}
                                     />
                                 </Link>
                                 <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
-                                    src={item.avatar} />
+                                    src={item.avatarUrl} />
                                 {showGroupCard && (
                                     <div className="absolute top-8 -left-20 z-10"
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                            <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={item.groupName} />
+                                        <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={item.groupName} />
                                     </div>
                                 )}
                             </div>
                         ) : (
                             <>
-                                <img src={item.avatar}
+                                <img src={item.avatarUrl}
                                     className="border border-sky-600 rounded-[100%] h-12 w-12 object-cover cursor-pointer"
                                     alt="error"
                                 />
@@ -164,7 +176,7 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     <Link to={`/groups/groupName/discussion`}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                            {item.groupName}
+                                        {item.groupName}
                                     </Link>
                                 </h4>
                                 <div className="flex gap-2 justify-start items-center">
@@ -173,38 +185,38 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                             {item.userFullName}
                                         </Link>
                                     </span>
-                                    <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{item.time}h <GoDotFill className="text-[10px]" /></span>
+                                    <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{formatTime(item.createdAt)} <GoDotFill className="text-[10px]" /></span>
                                     <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
                             </div>
                         ) : (
                             <div className="ml-2">
                                 <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{item.userFullName}</span>
-                                <div className="flex gap-2 justify-start items-center">
-                                    <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{item.time}h <GoDotFill className="text-[10px]" /></span>
+                                <div className="flex gap-2 justify-start items-center text-gray-500 ">
+                                    <span className="font-semibold text-sm">{formatTime(item.createdAt)} </span>
+                                    <span><GoDotFill className="text-[10px]" /></span>
                                     <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
                             </div>
                         )}
-                        <div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
                         <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
                     </div>
 
                     {/* Post slider */}
-                    {item.imageError ? (
+                    {/* {item.imageError ? (
                         <div className="flex justify-center items-center w-full h-64 bg-gray-200">
                             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                         </div>
                     ) : (
-                        <ImageSlider urls={item.urls}/>
-                    )}
+                    )} */}
+                    <ImageSlider urls={item.urls}/>
 
                     {/* Post Content and things */}
                     <div className="flex flex-col p-3">
                         <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                             <div className="flex gap-1 font-bold text-2xl">
                                 <button
-                                    onClick={() => handleLikeBtn(index)}
+                                    // onClick={() => handleLikeBtn(index)}
                                     className={item.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
                                 >
                                     {item.isLiked ? <FaHeart /> : <FaRegHeart />}
@@ -217,10 +229,11 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 </button>
                             </div>
                             <button
-                                onClick={() => handleFavouriteBtn(index)}
-                                className={item.isFavourited ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
+                                // onClick={() => handleFavouriteBtn(index)}
+                                className={true ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
+                            // this is favorite icon
                             >
-                                {item.isFavourited ? <FaBookmark /> : <BsBookmark />}
+                                {true ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
                         <span className="font-medium text-sky-800">{item.likeNum} likes</span>
@@ -244,9 +257,9 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 >
                                     Xem {item.commentNum} bình luận
                                 </span>
-                            :   <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
+                                : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                             <div className='flex flex-row mt-2'>
-                                <img src={item.avatar}
+                                <img src={item.avatarUrl}
                                     className="rounded-[100%] h-10 w-10 me-2"
                                     alt="error"
                                 />
@@ -267,4 +280,4 @@ const TestNewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     );
 };
 
-export default TestNewsFeed;
+export default NewsFeed;

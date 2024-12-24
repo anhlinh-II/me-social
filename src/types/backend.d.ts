@@ -1,4 +1,5 @@
 export interface IApiResponse<T> {
+     data: any;
      code: number;
      message: string;
      result?: T;

@@ -9,7 +9,10 @@ import { deleteImage, uploadPostImage } from "../../services/ImagesService";
 import { createPost } from "../../services/PostService";
 import { PostRequest } from "../../types/Post";
 import { useLocation } from "react-router-dom";
-import { useUser } from "../../utils/Constant";
+import { useUser } from "../../utils/CustomHook";
+import { Avatar, message } from "antd";
+import { useAppDispatch } from "../../redux/hook";
+import { fetchUserNewsfeed } from "../../redux/slice/postsSlice";
 
 interface IProps {
      show: boolean;
@@ -75,6 +78,7 @@ const CustomSingleValue = (props: SingleValueProps<NewType>) => (
 const CreatePostModal = (props: IProps) => {
 
      const user = useUser();
+     const dispatch = useAppDispatch();
 
      const location = useLocation();
      const [selectedOption, setSelectedOption] = useState<any>(null);
@@ -84,7 +88,7 @@ const CreatePostModal = (props: IProps) => {
 
      // Dummy user ID and token
      const groupId = 8;
-     
+
      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           if (e.target.files) {
                const selectedFiles = Array.from(e.target.files);
@@ -114,8 +118,11 @@ const CreatePostModal = (props: IProps) => {
           setLoading(true);
           try {
                const response = await handleCreatePost(files, postRequest);
-               console.log('Post created successfully:', response);
-               props.setShow(false);
+               if (response) {
+                    message.success("Bài viết của bạn đã được đăng!")
+                    props.setShow(false);
+                    dispatch(fetchUserNewsfeed({ userId: Number(user.id), pageNum: 0 }));
+               }
           } catch (error) {
                console.error('Failed to create post:', error);
           } finally {
@@ -189,9 +196,9 @@ const CreatePostModal = (props: IProps) => {
                                              </div>
                                              {/*body*/}
                                              <div className="flex justify-start items-center gap-2 ml-5 mt-4">
-                                                  <img src={avt}
-                                                       className="rounded-[100%] text-base h-10 w-10 "
-                                                       alt="error" />
+                                                  <Avatar size={`large`} src={user.avatarUrl}
+
+                                                       alt="avatar" />
                                                   <div className="font-bold">
                                                        <span>Ahn Linhh</span>
                                                        <div className="cursor-pointer w-full">

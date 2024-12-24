@@ -10,7 +10,7 @@ import { setUserAvatar, setUserLoginInfo, setUserUpdateInfo } from '../../redux/
 import UpdateAvatarModal from '../modal/UpdateAvatarModal';
 import { deleteImage, uploadUserAvatar } from '../../services/ImagesService';
 import { Spin } from 'antd';
-import { useUser } from '../../utils/Constant';
+import { useUser } from '../../utils/CustomHook';
 
 const ProfileInfo = () => {
     const user = useUser();
