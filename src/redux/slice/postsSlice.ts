@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getPostsByUser, getPostsForGroupActivities } from "../../services/PostService";
+import { getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
 import { PostResponse } from "../../types/Post";
 
 // Fetch posts based on userId and pageNum
@@ -13,12 +13,17 @@ interface IFetchGroupActivities {
     pageNum: number;
 }
 
+interface IFetchPostByUser {
+    userId: number;
+    pageNum: number;
+}
+
 // APIs
 
 export const fetchUserNewsfeed = createAsyncThunk(
     'posts/fetchUserNewsfeed',
     async ({ userId, pageNum }: fetchUserNewsfeed) => {
-        const response = await getPostsByUser(userId, pageNum);
+        const response = await getPostsForNewsFeed(userId, pageNum);
         console.log(response)
         return response; // Assuming the response is an object with a 'data' key containing posts
     }
@@ -33,8 +38,17 @@ export const fetchGroupActivities = createAsyncThunk(
     }
 )
 
+export const fetchPostByUser = createAsyncThunk(
+    'posts/fetchPostByUser',
+    async ({ userId, pageNum }: IFetchPostByUser) => {
+        const response = await getPostsByUser(userId, pageNum);
+        console.log(response)
+        return response; // Assuming the response is an object with a 'data' key containing posts
+    }
+)
+
 interface IState {
-    posts: PostResponse[]; 
+    posts: PostResponse[];
     isLoading: boolean;
     error: string | null;
 }
@@ -45,30 +59,44 @@ const initialState: IState = {
     error: null
 };
 
+const handlePending = (state: IState) => {
+    state.isLoading = true;
+    state.error = null;
+}
+
+const handleFullfiled = (state: IState, action: any) => {
+    state.isLoading = false;
+    state.posts = action.payload.result?.content ?? [];
+}
+
+const handleReject = (state: IState, action: any) => {
+    state.isLoading = false;
+    state.error = action.error.message || 'Failed to fetch posts';
+}
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {
-        
-    },
+    reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchUserNewsfeed.pending, (state) => {
-            state.isLoading = true;
-            state.error = null;
-        });
+        builder
+            // Case cho fetchUserNewsfeed
+            .addCase(fetchUserNewsfeed.pending, handlePending)
+            .addCase(fetchUserNewsfeed.fulfilled, handleFullfiled)
+            .addCase(fetchUserNewsfeed.rejected, handleReject)
 
-        builder.addCase(fetchUserNewsfeed.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.posts = action.payload.result?.content ?? []; 
-        });
+            // Case cho fetchGroupActivities
+            .addCase(fetchGroupActivities.pending, handlePending)
+            .addCase(fetchGroupActivities.fulfilled, handleFullfiled)
+            .addCase(fetchGroupActivities.rejected, handleReject)
 
-        builder.addCase(fetchUserNewsfeed.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message || 'Failed to fetch posts';
-        });
-    }
+            .addCase(fetchPostByUser.pending, handlePending)
+            .addCase(fetchPostByUser.fulfilled, handleFullfiled)
+            .addCase(fetchPostByUser.rejected, handleReject)
+    },
 });
 
-export const {} = postsSlice.actions;
+
+export const { } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -7,22 +7,27 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
 import More from '../modal/More';
-import { Post } from '../../types/Post';
+import { Post, PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';
+import { formatTime } from '../../utils/FormatTime';
 
 interface PostItemProps {
-    post: Post;
+    post: PostResponse;
     index: number;
-    handleLikeBtn: (index: number) => void;
-    handleFavouriteBtn: (index: number) => void;
+    error: string | null;
+    // handleLikeBtn: (index: number) => void;
+    // handleFavouriteBtn: (index: number) => void;
 }
 
-const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, handleFavouriteBtn }) => {
+
+const GroupPostItem = (props: PostItemProps) => {
+
+    const { post, error } = props;
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
-	const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -58,7 +63,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                     />
                 </Link>
                 <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
-                    src={post.avatar} />
+                    src={post.avatarUrl} />
                 {showGroupCard && (
                     <div className="absolute top-8 -left-20 z-10"
                         onMouseEnter={handleMouseEnter}
@@ -80,16 +85,15 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                                 {post.userFullName}
                             </Link>
                         </span>
-                        <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{post.time}h <GoDotFill className="text-[10px]" /></span>
+                        <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{formatTime(post.createdAt)} <GoDotFill className="text-[10px]" /></span>
                         <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>
                 </div>
-                <div className='ml-auto satisfy-regular text-xl decoration-sky-600'>Me Social</div>
                 <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
             {/* Post slider */}
-            {post.imageError ? (
+            {error ? (
                 <div className="flex justify-center items-center w-full h-64 bg-gray-200">
                     <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                 </div>
@@ -97,11 +101,13 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                 <ImageSlider urls={post.urls} />
             )}
 
+
+
             <div className="flex flex-col p-3">
                 <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                     <div className="flex gap-1 font-bold text-2xl">
                         <button
-                            onClick={() => handleLikeBtn(index)}
+                            // onClick={() => handleLikeBtn(index)}
                             className={post.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
                         >
                             {post.isLiked ? <FaHeart /> : <FaRegHeart />}
@@ -114,10 +120,11 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         </button>
                     </div>
                     <button
-                        onClick={() => handleFavouriteBtn(index)}
-                        className={post.isFavourited ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
+                        // onClick={() => handleFavouriteBtn(index)} 
+                        // this is where isFavorited is handled
+                        className={true ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
                     >
-                        {post.isFavourited ? <FaBookmark /> : <BsBookmark />}
+                        {true ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
                 <span className="font-medium text-sky-800">{post.likeNum} likes</span>
@@ -141,7 +148,7 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex flex-row mt-2'>
-                        <img src={post.avatar}
+                        <img src={post.avatarUrl}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
                             onError={handleImageError}
@@ -152,11 +159,11 @@ const GroupPostItem: React.FC<PostItemProps> = ({ post, index, handleLikeBtn, ha
             </div>
             <More show={showMore} setShow={setShowMore} />
             <div className="relative">
-				<PostDetailModal
-					show={showDetailModal}
-					setShow={setShowDetailModal}
-				/>
-			</div>
+                <PostDetailModal
+                    show={showDetailModal}
+                    setShow={setShowDetailModal}
+                />
+            </div>
         </div>
     );
 };

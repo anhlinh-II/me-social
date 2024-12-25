@@ -6,13 +6,13 @@ import { formatNumberWithUnit } from '../../../utils/FormatNumber';
 interface PostItemProps {
 	id: number;
 	imageUrl: string;
-	altText: string;
+	// altText: string;
 	likeNum: number;
 	commentNum: number;
-	onClick: () => void;
+	// onClick: () => void;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, commentNum, onClick }) => {
+const PostItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNum }) => {
 	const [imageError, setImageError] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, comment
 	};
 	return (
 		<div className="w-full h-80 relative bg-gray-200 overflow-hidden cursor-pointer" 
-			onClick={onClick}
+			// onClick={onClick}
 			onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
 			{imageError ? (
@@ -33,7 +33,7 @@ const PostItem: React.FC<PostItemProps> = ({ imageUrl, altText, likeNum, comment
 				  <img
 					  src={imageUrl}
 					  className="w-full h-full object-cover"
-					  alt={altText}
+					//   alt={altText}
 					  onError={handleImageError}
 				  />
 			)}

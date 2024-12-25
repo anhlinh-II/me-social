@@ -4,6 +4,7 @@ import PostItem from './items/ProfilePostItem';
 import { PiPlusLight } from 'react-icons/pi';
 import CreatePostModal from '../modal/Post.create.modal';
 import PostDetailModal from '../modal/Post.detail.modal';
+import { PostResponse } from '../../types/Post';
 
 interface Comment {
 	id: number;
@@ -22,15 +23,15 @@ interface Post {
 }
 
 interface PostGridProps {
-	posts: Post[];
+	posts: PostResponse[];
 }
 
 const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 	const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
-    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+	const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
-    
+
 	const handlePostClick = (post: Post) => {
 		setSelectedPost(post);
 	};
@@ -57,11 +58,12 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 			<PostItem
 				key={post.id}
 				id={post.id}
-				imageUrl={post.imageUrl}
-				altText={post.altText}
-				likeNum={post.likes} 
+				imageUrl={post.urls && post.urls.length > 0 ? post.urls[0] : ''}
+				// altText={post.altText}
+				likeNum={post.likeNum}
 				commentNum={post.commentNum}
-				onClick={() => handlePostClick(post)}/>
+				// onClick={() => handlePostClick(post)}
+			/>
 		))
 	];
 
@@ -72,29 +74,29 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 					{Posts}
 				</div>
 				: (
-				<div key="createPost" className="w-full h-80 bg-gray-200 overflow-hidden cursor-pointer p-6 border border-gray-500 relative group">
-					<div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/gta6.jpg')", backgroundPosition: "center bottom" }}></div>
-					<div className="relative h-full p-4 pt-12 border border-white flex flex-col gap-y-4 items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
-						<p className="text-lg text-center text-white" style={{
-							textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-						}}>Chia sẻ với mọi người khoảng khắc tuyệt vời của bạn!</p>
-						<PiPlusLight className="text-8xl text-white" />
+					<div key="createPost" className="w-full h-80 bg-gray-200 overflow-hidden cursor-pointer p-6 border border-gray-500 relative group">
+						<div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: "url('/gta6.jpg')", backgroundPosition: "center bottom" }}></div>
+						<div className="relative h-full p-4 pt-12 border border-white flex flex-col gap-y-4 items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
+							<p className="text-lg text-center text-white" style={{
+								textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+							}}>Chia sẻ với mọi người khoảng khắc tuyệt vời của bạn!</p>
+							<PiPlusLight className="text-8xl text-white" />
+						</div>
 					</div>
-				</div>
 				)}
 
 			{selectedPost && (
 				<div className="relative">
-                <PostDetailModal
-                    show={showDetailModal}
-                    setShow={setShowDetailModal}
-                />
-            </div>
+					<PostDetailModal
+						show={showDetailModal}
+						setShow={setShowDetailModal}
+					/>
+				</div>
 			)}
 			<CreatePostModal
-                    show={showCreateModal}
-                    setShow={setShowCreateModal}
-               />
+				show={showCreateModal}
+				setShow={setShowCreateModal}
+			/>
 		</div>
 	);
 };

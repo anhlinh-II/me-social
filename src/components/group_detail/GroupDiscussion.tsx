@@ -7,7 +7,7 @@ import { Post, PostResponse } from "../../types/Post"
 import PostPlaceholder from "../post/PostPlaceholder"
 
 const GroupDiscussion = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +21,7 @@ const GroupDiscussion = () => {
                 if (!response || !response.result || !Array.isArray(response.result.content)) {
                     throw new Error('Invalid response structure');
                 }
-                const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
+                const transformedPosts: PostResponse[] = response.result.content.map((item: PostResponse) => {
 
                     const createdAtDate = new Date(item.createdAt);
                     const now = new Date();
@@ -31,7 +31,7 @@ const GroupDiscussion = () => {
                         id: item.id,
                         userId: item.userId,
                         userFullName: item.userFullName,
-                        avatar: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
+                        avatarUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
                         groupId: item.groupId,
                         groupName: item.groupName,
                         content: item.content,
@@ -44,8 +44,8 @@ const GroupDiscussion = () => {
                         isLiked: false,
                         isFavourited: false,
                         publicIds: item.publicIds,
-                        urls: item.urls,
-                        imageError: false
+                        // urls: item.urls,
+                        // imageError: false
                     }
                 });
 
