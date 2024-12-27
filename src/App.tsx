@@ -31,7 +31,6 @@ import GroupMedia from "./components/group_detail/GroupMedia";
 import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
 import CreateStory from "./components/stories/CreateStory";
-import { useAppSelector } from "./redux/hook";
 import Verify from "./view/auth/Verify";
 
 function App() {
@@ -101,7 +100,7 @@ function App() {
 
     {
       element: <GroupDetail />,
-      path: '/groups/groupName',
+      path: '/groups/:id',
       children: [
         {
           path: 'about',

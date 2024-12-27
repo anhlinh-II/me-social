@@ -12,6 +12,7 @@ import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';
 import { formatTime } from '../../utils/FormatTime';
+import { useAppSelector } from '../../redux/hook';
 
 interface PostItemProps {
     post: PostResponse;
@@ -52,9 +53,9 @@ const GroupPostItem = (props: PostItemProps) => {
     return (
         <div className="md:w-[600px] sm:w-full bg-white rounded-lg border-2 mb-4">
             <div className="flex relative justify-start items-center px-3 py-2 gap-2">
-                <Link to={`/groups/groupName/discussion`}>
+                <Link to={`/groups/${post.groupId}/discussion`}>
                     <img
-                        src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
+                        src={post.groupAvatar}
                         className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
                         alt="error"
                         onError={handleImageError}
@@ -68,19 +69,19 @@ const GroupPostItem = (props: PostItemProps) => {
                     <div className="absolute top-8 -left-20 z-10"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}>
-                        <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={post.groupName} />
+                        <GroupJoinedCard createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName}  />
                     </div>
                 )}
                 <div className="ml-2">
-                    <span className='font-bold font-serif text-md text-black-500 hover:underline'>
-                        <Link to={`/groups/groupName/discussion`}
+                    <span className='font-bold text-md text-black-500 hover:underline'>
+                        <Link to={`/groups/${post.groupId}/discussion`}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
                             {post.groupName}
                         </Link>
                     </span>
                     <div className="flex gap-2 justify-start items-center">
-                        <span className="text-sm font-bold text-gray-500 hover:underline">
+                        <span className="text-sm font-semibold text-gray-500 hover:underline">
                             <Link to={`/profile`}>
                                 {post.userFullName}
                             </Link>

@@ -1,20 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
+import { getPostsByGroup, getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
 import { PostResponse } from "../../types/Post";
 
 // Fetch posts based on userId and pageNum
-interface fetchUserNewsfeed {
+interface IFetchPost {
     userId: number;
     pageNum: number;
 }
 
-interface IFetchGroupActivities {
-    userId: number;
-    pageNum: number;
-}
-
-interface IFetchPostByUser {
-    userId: number;
+interface IFetchPostByGroup {
+    groupId: number;
     pageNum: number;
 }
 
@@ -22,7 +17,7 @@ interface IFetchPostByUser {
 
 export const fetchUserNewsfeed = createAsyncThunk(
     'posts/fetchUserNewsfeed',
-    async ({ userId, pageNum }: fetchUserNewsfeed) => {
+    async ({ userId, pageNum }: IFetchPost) => {
         const response = await getPostsForNewsFeed(userId, pageNum);
         console.log(response)
         return response; // Assuming the response is an object with a 'data' key containing posts
@@ -31,21 +26,32 @@ export const fetchUserNewsfeed = createAsyncThunk(
 
 export const fetchGroupActivities = createAsyncThunk(
     'posts/fetchGroupActivities',
-    async ({ userId, pageNum }: IFetchGroupActivities) => {
+    async ({ userId, pageNum }: IFetchPost) => {
         const response = await getPostsForGroupActivities(userId, pageNum);
         console.log(response)
-        return response; // Assuming the response is an object with a 'data' key containing posts
+        return response; 
     }
 )
 
 export const fetchPostByUser = createAsyncThunk(
     'posts/fetchPostByUser',
-    async ({ userId, pageNum }: IFetchPostByUser) => {
+    async ({ userId, pageNum }: IFetchPost) => {
         const response = await getPostsByUser(userId, pageNum);
         console.log(response)
-        return response; // Assuming the response is an object with a 'data' key containing posts
+        return response; 
     }
 )
+
+export const fetchPostByGroup = createAsyncThunk(
+    'posts/fetchPostByGroup',
+    async ({ groupId, pageNum }: IFetchPostByGroup) => {
+        const response = await getPostsByGroup(groupId, pageNum);
+        console.log(response)
+        return response; 
+    }
+)
+
+
 
 interface IState {
     posts: PostResponse[];
@@ -93,6 +99,10 @@ export const postsSlice = createSlice({
             .addCase(fetchPostByUser.pending, handlePending)
             .addCase(fetchPostByUser.fulfilled, handleFullfiled)
             .addCase(fetchPostByUser.rejected, handleReject)
+
+            .addCase(fetchPostByGroup.pending, handlePending)
+            .addCase(fetchPostByGroup.fulfilled, handleFullfiled)
+            .addCase(fetchPostByGroup.rejected, handleReject)
     },
 });
 

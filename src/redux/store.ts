@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'; // Lưu trữ trong localStorag
 import counterReducer from '../redux/features/counter/counterSlice';
 import accountReducer from '../redux/slice/accountSlice';
 import { postsSlice } from './slice/postsSlice';
+import { groupSlice } from './slice/groupSlice';
 
 // Cấu hình redux-persist cho accountReducer
 const accountPersistConfig = {
@@ -18,6 +19,7 @@ export const store = configureStore({
     counter: counterReducer, // Reducer không cần lưu trữ
     account: persistedAccountReducer, // Reducer với redux-persist
     posts: postsSlice.reducer,
+    group: groupSlice.reducer
   },
 });
 

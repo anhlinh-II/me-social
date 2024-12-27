@@ -9,8 +9,11 @@ import creategroup from '../../assets/creategroup.png';
 import { LuDot } from "react-icons/lu";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import debounce from 'lodash/debounce';
-import { createGroup } from "../../services/GroupService";
 import { GroupPrivacy } from "../../types/Group";
+import { useUser } from "../../utils/CustomHook";
+import { fetchCreateGroup } from "../../redux/slice/groupSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { message } from "antd";
 
 const CreateGroup = () => {
      const [mode, setMode] = useState<string | number>('');
@@ -18,14 +21,21 @@ const CreateGroup = () => {
      const [groupName, setGroupName] = useState<string>("");
      const [groupBio, setGroupBio] = useState<string>("");
      const [groupLocation, setGroupLocation] = useState<string>("")
-
      const [isEnoughInfo, setIsEnoughInfo] = useState<boolean | 0>(false);
-     
+
+     const user = useUser();
+
+     const createdGroup = useAppSelector(state => state.group?.groups[state.group.groups.length - 1])
+
+     console.log(createdGroup)
+
+     const dispatch = useAppDispatch();
+
      const handleCreateGroup = async () => {
           if (!isEnoughInfo) return;
 
           const groupData = {
-               adminId: 3,
+               adminId: Number(user.id),
                name: groupName,
                description: groupBio,
                location: groupLocation,
@@ -33,10 +43,10 @@ const CreateGroup = () => {
           };
 
           try {
-               const response = await createGroup(groupData);
-               console.log(response);
-               alert(`Tạo nhóm thành công`);
-               navigate(`/groups/${response.result?.id}`);
+               await dispatch(fetchCreateGroup(groupData));
+               // await dispatch()
+               message.success("Tạo nhóm thành công");
+               navigate(`/groups/feed`);
           } catch (error) {
                console.error("Failed to create group", error);
                alert("There was an error creating the group.");
@@ -73,7 +83,7 @@ const CreateGroup = () => {
      )
 
      const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-         console.log(event);
+          console.log(event);
      };
 
      const handleChangeModeGroup = (event: SelectChangeEvent<string | number>) => {
@@ -127,11 +137,11 @@ const CreateGroup = () => {
                          {/* avatar */}
                          <div className="flex gap-3 items-center mb-8">
                               <Avatar
-                                   src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-1/348932296_132677126443691_7610668787772437288_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=103&cb=99be929b-6bbdfb60&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=84pP-b5_dwEQ7kNvgHnQDBt&_nc_ht=scontent.fhan20-1.fna&_nc_gid=AgjX1d9pJOEZ_gZWxVvDKg3&oh=00_AYDbE273OCApqPYTObtEHif9En576laUOFF_TXmMzY9LDQ&oe=66FB7048"
+                                   src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                                    alt="avatar"
                               />
                               <div className="flex flex-col justify-center">
-                                   <span className="font-semibold text-sm">Đồ Thị Sóng Cơ</span>
+                                   <span className="font-semibold text-sm">{user.username}</span>
                                    <span className="text-xs font-semibold text-gray-500">Admin</span>
                               </div>
                          </div>
@@ -178,11 +188,11 @@ const CreateGroup = () => {
                     </div>
                     <div className="flex absolute bottom-0 right-0 left-0 border-t border-gray-300 h-[10%] drop-shadow-2xl">
                          <button
-                         className={`m-auto px-32 py-2 rounded-lg font-semibold ${isEnoughInfo ? 'bg-sky-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-                         onClick={handleCreateGroup}
-                         disabled={!isEnoughInfo}
+                              className={`m-auto px-32 py-2 rounded-lg font-semibold ${isEnoughInfo ? 'bg-sky-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                              onClick={handleCreateGroup}
+                              disabled={!isEnoughInfo}
                          >
-                         Create
+                              Tạo nhóm
                          </button>
                     </div>
                </div>
@@ -209,9 +219,9 @@ const CreateGroup = () => {
                                         <span className="text-gray-700">1 member</span>
                                    </span>
                                    <div className="flex cursor-not-allowed font-semibold text-gray-500">
-                                        <span className="px-4 py-3">About</span>
-                                        <span className="px-4 py-3">Posts</span>
-                                        <span className="px-4 py-3">Members</span>
+                                        <span className="px-4 py-3">Giới thiệu</span>
+                                        <span className="px-4 py-3">Thảo luận</span>
+                                        <span className="px-4 py-3">Mọi người</span>
                                    </div>
                               </div>
                               <div className="bg-gray-200 p-4 flex gap-6 shadow-md">
@@ -227,7 +237,7 @@ const CreateGroup = () => {
                                         </div>
                                    </div>
                                    <div className="flex-[40%] h-fit bg-gray-50 rounded-lg px-4 pt-4 pb-6 text-gray-500">
-                                        <div className="text-gray-500 font-semibold mb-2">About</div>
+                                        <div className="text-gray-500 font-semibold mb-2">Giới thiệu về nhóm</div>
                                         {groupBio ? <div className="mb-2">{groupBio}</div> : ""}
                                         {
                                              mode === 10 &&

@@ -1,142 +1,106 @@
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import GroupPostItem from "../post/GroupPostItem"
-import { getPostsByGroup } from "../../services/PostService"
-import { Post, PostResponse } from "../../types/Post"
 import PostPlaceholder from "../post/PostPlaceholder"
+import { useAppDispatch, useAppSelector } from "../../redux/hook"
+import { fetchPostByGroup } from "../../redux/slice/postsSlice"
+import { useOutletContext, useParams } from "react-router-dom"
+import { GroupResponse } from "../../types/Group"
 
 const GroupDiscussion = () => {
-    const [posts, setPosts] = useState<PostResponse[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const { id } = useParams();
 
-    const groupId = 8;
+    const { group } = useOutletContext<{ group: GroupResponse | undefined }>();
+
+    const { posts, isLoading, error } = useAppSelector(state => state.posts)
+    // const { group } = useAppSelector(state => state.group.group)
+
+    const dispatch = useAppDispatch();
+
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
+        dispatch(fetchPostByGroup({ groupId: Number(id), pageNum: 0 }))
+    }, [dispatch]);
 
-                const response = await getPostsByGroup(groupId, 0);
-                if (!response || !response.result || !Array.isArray(response.result.content)) {
-                    throw new Error('Invalid response structure');
-                }
-                const transformedPosts: PostResponse[] = response.result.content.map((item: PostResponse) => {
-
-                    const createdAtDate = new Date(item.createdAt);
-                    const now = new Date();
-                    const timeDifference = Math.floor((now.getTime() - createdAtDate.getTime()) / (1000 * 60 * 60));
-
-                    return {
-                        id: item.id,
-                        userId: item.userId,
-                        userFullName: item.userFullName,
-                        avatarUrl: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-                        groupId: item.groupId,
-                        groupName: item.groupName,
-                        content: item.content,
-                        privacy: item.privacy,
-                        createdAt: item.createdAt,
-                        updatedAt: item.updatedAt,
-                        likeNum: item.likeNum,
-                        commentNum: item.commentNum,
-                        time: timeDifference,
-                        isLiked: false,
-                        isFavourited: false,
-                        publicIds: item.publicIds,
-                        // urls: item.urls,
-                        // imageError: false
-                    }
-                });
-
-                setPosts(transformedPosts);
-                setLoading(false);
-            } catch (err: any) {
-                setError(err.message || 'Something went wrong');
-                setLoading(false);
-            }
-        };
-
-        fetchPosts();
-    }, [groupId]);
-
-    if (loading) {
+    if (isLoading) {
         return <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
-                <div className="flex gap-5">
-                    <div className="flex flex-col gap-4 w-[60%]">
-                        <CreatePost />
-                        <div className=" w-full h-fit rounded">
-                            <div>
-                                <PostPlaceholder />
-                                <PostPlaceholder />
-                            </div>
-                        </div>
-                    </div>
-                    <GroupOverview />
-                </div>
-            </div>
-    }
-
-    if (error) {
-        return <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
-                <div className="flex gap-5">
-                    <div className="flex flex-col gap-4 w-[60%]">
-                        <CreatePost />
-                        <div className=" w-full h-fit rounded">
-                            <div>
-                                <PostPlaceholder />
-                                <PostPlaceholder />
-                            </div>
-                        </div>
-                    </div>
-                    <GroupOverview />
-                </div>
-            </div>
-    }
-
-
-const handleLikeBtn = (index: number) => {
-    setPosts(prevPosts =>
-        prevPosts.map((post, i) =>
-            i === index ? { ...post, isLiked: !post.isLiked } : post
-        )
-    );
-};
-
-const handleFavouriteBtn = (index: number) => {
-    setPosts(prevPosts =>
-        prevPosts.map((post, i) => {
-            return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
-        })
-    )
-}
-
-return (
-    <>
-        <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
             <div className="flex gap-5">
                 <div className="flex flex-col gap-4 w-[60%]">
                     <CreatePost />
                     <div className=" w-full h-fit rounded">
-                        {posts ?
-                            <>
-                                {posts.map((item, index) => (
-                                    <GroupPostItem
-                                        key={`post-key-${index}`}
-                                        post={item}
-                                        index={index}
-                                        handleLikeBtn={handleLikeBtn}
-                                        handleFavouriteBtn={handleFavouriteBtn}
-                                    />
-                                ))}</> :<></>}
-
+                        <div>
+                            <PostPlaceholder />
+                            <PostPlaceholder />
+                        </div>
                     </div>
                 </div>
-                <GroupOverview />
+                <GroupOverview group={group} />
             </div>
         </div>
-    </>
-)
+    }
+
+    if (error) {
+        return <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+            <div className="flex gap-5">
+                <div className="flex flex-col gap-4 w-[60%]">
+                    <CreatePost />
+                    <div className=" w-full h-fit rounded">
+                        <div>
+                            <PostPlaceholder />
+                            <PostPlaceholder />
+                        </div>
+                    </div>
+                </div>
+                <GroupOverview group={group} />
+            </div>
+        </div>
+    }
+
+
+    // const handleLikeBtn = (index: number) => {
+    //     setPosts(prevPosts =>
+    //         prevPosts.map((post, i) =>
+    //             i === index ? { ...post, isLiked: !post.isLiked } : post
+    //         )
+    //     );
+    // };
+
+    // const handleFavouriteBtn = (index: number) => {
+    //     setPosts(prevPosts =>
+    //         prevPosts.map((post, i) => {
+    //             return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
+    //         })
+    //     )
+    // }
+
+    return (
+        <>
+            <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+                <div className="flex gap-5">
+                    <div className="flex flex-col gap-4 w-[60%]">
+                        <CreatePost />
+                        <div className=" w-full h-fit rounded">
+                            {posts ?
+                                <>
+                                    {posts.map((item, index) => (
+                                        <GroupPostItem
+                                            key={`post-key-${index}`}
+                                            post={item}
+                                            index={index}
+                                            error={null}
+                                        // handleLikeBtn={handleLikeBtn}
+                                        // handleFavouriteBtn={handleFavouriteBtn}
+                                        />
+                                    ))}</> : <></>}
+
+                        </div>
+                    </div>
+                    <GroupOverview group={group} />
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default GroupDiscussion

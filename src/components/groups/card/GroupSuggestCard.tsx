@@ -1,23 +1,26 @@
 import { MdOutlineGroups } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { formatNumberWithCommas } from "../../../utils/FormatNumber";
 
 interface GroupCardProps {
     imageUrl: string;
     groupName: string;
+    memberNum: number;
+    groupId: number;
 }
 
-const GroupSuggestCard: React.FC<GroupCardProps> = ({ imageUrl, groupName }) => {
+const GroupSuggestCard: React.FC<GroupCardProps> = ({ imageUrl, groupName, memberNum, groupId }) => {
     return (
         <div className="flex flex-col h-full gap-2 bg-white rounded-lg shadow-md">
-            <Link to={`/groups/groupName/discussion`}>
+            <Link to={`/groups/${groupId}/discussion`}>
                 <img src={imageUrl} alt={groupName} className="w-full h-36 object-cover rounded-tl-lg rounded-tr-lg" />
             </Link>
-            <Link to={`/groups/groupName/discussion`} className='hover:underline'>
+            <Link to={`/groups/${groupId}/discussion`} className='hover:underline'>
                 <h3 className="text-lg font-semibold mt-2 ms-4 break-words max-w-[280px] leading-tight line-clamp-3">{groupName}</h3>
             </Link>
             <div className="flex flex-row gap-2 ms-4">
                 <MdOutlineGroups style={{ fontSize: "18px", color: "black" }} />
-                <span className='text-xs text-black'>782,7 Nghìn thành viên</span>
+                <span className='text-xs text-black'>{formatNumberWithCommas(memberNum)} thành viên</span>
             </div>
             <div className='flex flex-row justify-center mt-auto w-full'>
                 <div className="p-4 pt-2 w-full">

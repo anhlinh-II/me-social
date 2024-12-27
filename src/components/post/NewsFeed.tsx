@@ -18,6 +18,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
 import { fetchUserNewsfeed } from '../../redux/slice/postsSlice';
 import { formatTime } from '../../utils/FormatTime';
+import { group } from 'console';
+import { Avatar } from 'antd';
 
 
 const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -158,35 +160,39 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     <div className="absolute top-8 -left-20 z-10"
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                        <GroupJoinedCard imageUrl="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg" groupName={item.groupName} />
+                                        <GroupJoinedCard imageUrl={item.avatarUrl} groupName={item.groupName} />
                                     </div>
                                 )}
                             </div>
                         ) : (
                             <>
-                                <img src={item.avatarUrl}
-                                    className="border border-sky-600 rounded-[100%] h-12 w-12 object-cover cursor-pointer"
-                                    alt="error"
+                                <Avatar
+                                    size={'large'}
+                                    className='border-sky-500'
+                                    src={item.avatarUrl ? item.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
+                                    alt="avatar"
                                 />
                             </>
                         )}
                         {item.groupId ? (
                             <div className="ml-2">
-                                <h4 className='font-bold font-serif text-lg text-black-500 hover:underline'>
-                                    <Link to={`/groups/groupName/discussion`}
+                                <h4 className='font-bold text-lg hover:underline'>
+                                    <Link to={`/groups/${item.groupId}/discussion`}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
                                         {item.groupName}
                                     </Link>
                                 </h4>
-                                <div className="flex gap-2 justify-start items-center">
-                                    <span className="text-sm font-bold text-gray-500 hover:underline">
+                                <div className="flex gap-1 justify-start items-center text-sm">
+                                    <span className="font-semibold text-gray-500 hover:underline">
                                         <Link to={`/profile`}>
                                             {item.userFullName}
                                         </Link>
                                     </span>
-                                    <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{formatTime(item.createdAt)} <GoDotFill className="text-[10px]" /></span>
-                                    <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                                    <GoDotFill className="text-[6px]" />
+                                    <span className=" text-gray-500 font-semibold text-sm ">{formatTime(item.createdAt)} </span>
+                                    <GoDotFill className="text-[6px]" />
+                                    <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm  align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
                             </div>
                         ) : (
@@ -209,7 +215,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         </div>
                     ) : (
                     )} */}
-                    <ImageSlider urls={item.urls}/>
+                    <ImageSlider urls={item.urls} />
 
                     {/* Post Content and things */}
                     <div className="flex flex-col p-3">
@@ -258,10 +264,12 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     Xem {item.commentNum} bình luận
                                 </span>
                                 : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
-                            <div className='flex flex-row mt-2'>
-                                <img src={item.avatarUrl}
-                                    className="rounded-[100%] h-10 w-10 me-2"
-                                    alt="error"
+                            <div className='flex flex-row gap-2 mt-2'>
+                                <Avatar
+                                    // size={''}
+                                    // className='border-sky-500'
+                                    src={item.avatarUrl ? item.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
+                                    alt="avatar"
                                 />
                                 <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                             </div>

@@ -1,6 +1,6 @@
 import { IoSearchSharp } from "react-icons/io5";
 import { BsThreeDots } from 'react-icons/bs';
-import { FaEarthAmericas, FaPlus, FaShare } from 'react-icons/fa6';
+import { FaEarthAmericas, FaLock, FaPlus, FaShare } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -81,7 +81,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
         <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mt-[-72px] mb-5">
             <div className="relative">
                 <img
-                    src={imageUrl}
+                    src={group?.imageUrl}
                     alt="Group"
                     className="rounded-md object-cover w-[1120px] h-[540px]"
                 />
@@ -142,11 +142,21 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                     {group?.name}
                 </h1>
                 <div className='mt-2 flex items-center gap-2'>
-                    <FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" />
-                    <span>{group?.privacy}</span>
+                    {group?.privacy === "PUBLIC" ? (
+                        <FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" />
+                    ) : (
+                        <FaLock className="text-gray-600 text-sm font-normal align-center" />
+                    )}
+                    <span>
+                        {group?.privacy === "PUBLIC" ? "Công khai" : "Riêng tư"}
+                    </span>
                     <GoDotFill className="text-[10px]" />
-                    <span className='ms-2'>{group ? (group.memberNum + group.adminNum) : ""} thành viên</span>
+                    <span className='ms-2'>
+                        {group ? group.memberNum + group.adminNum : ""} thành viên
+                    </span>
                 </div>
+
+
                 {/* Group Info */}
                 <div className="flex items-center space-x-4">
                     <div className="flex-1">
@@ -160,27 +170,27 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
             {/* Horizontal Menu */}
             <div className="mt-4">
                 <div className="flex space-x-4 relative">
-                    <Link to={`/groups/groupName/about`} onClick={() => setActive("recentlyActivity")}>
+                    <Link to={`/groups/${group?.id}/about`} onClick={() => setActive("recentlyActivity")}>
                         <button className={active === "recentlyActivity" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>Giới thiệu
                         </button>
                     </Link>
 
-                    <Link to={`/groups/groupName/discussion`} onClick={() => setActive("discussion")}>
+                    <Link to={`/groups/${group?.id}/discussion`} onClick={() => setActive("discussion")}>
                         <button className={active === "discussion" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>Thảo luận
                         </button>
                     </Link>
 
-                    <Link to={`/groups/groupName/members`} onClick={() => setActive("members")}>
+                    <Link to={`/groups/${group?.id}/members`} onClick={() => setActive("members")}>
                         <button className={active === "members" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>Mọi người
                         </button>
                     </Link>
 
-                    <Link to={`/groups/groupName/media`} onClick={() => setActive("media")}>
+                    <Link to={`/groups/${group?.id}/media`} onClick={() => setActive("media")}>
                         <button className={active === "media" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>File phương tiện
                         </button>
                     </Link>
 
-                    <Link to={`/groups/groupName/files`} onClick={() => setActive("files")}>
+                    <Link to={`/groups/${group?.id}/files`} onClick={() => setActive("files")}>
                         <button className={active === "files" ? "py-2 px-4 border-b-2 border-blue-500 font-medium" : "py-2 px-4 rounded-md hover:text-blue-500 hover:bg-blue-300"}>File
                         </button>
                     </Link>
@@ -206,7 +216,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                     </button>
                     {isMenuOpen && (
                         <GroupDropdownMenu onClose={() => setIsMenuOpen(false)} />
-                        )}
+                    )}
                 </div>
             </div>
             {isInviteModalOpen && (

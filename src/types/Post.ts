@@ -44,6 +44,8 @@ export interface PostResponse {
     userFullName: string;
     groupId: number;
     groupName: string;
+    groupAvatar: string;
+    groupCreatedAt: string;
     content: string;
     urls: string[];
     publicIds: string[];
