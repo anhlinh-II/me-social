@@ -8,7 +8,7 @@ import avt from '../../assets/me1.jpg';
 import { deleteImage, uploadPostImage } from "../../services/ImagesService";
 import { createPost } from "../../services/PostService";
 import { PostRequest } from "../../types/Post";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useUser } from "../../utils/CustomHook";
 import { Avatar, message } from "antd";
 import { useAppDispatch } from "../../redux/hook";
@@ -87,7 +87,7 @@ const CreatePostModal = (props: IProps) => {
      const [loading, setLoading] = useState<boolean>(false);
 
      // Dummy user ID and token
-     const groupId = 8;
+     // const groupId = 8;
 
      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           if (e.target.files) {
@@ -95,6 +95,8 @@ const CreatePostModal = (props: IProps) => {
                setFiles(selectedFiles); // Store all selected files in the state
           }
      };
+
+     const { groupId } = useParams();
 
      const handleSubmit = async () => {
           if (files.length === 0) {
@@ -104,7 +106,7 @@ const CreatePostModal = (props: IProps) => {
 
           const postRequest: PostRequest = (location.pathname.includes("/groups")) ? {
                userId: Number(user.id),
-               groupId: groupId,
+               groupId: Number(groupId),
                privacy: selectedOption?.value || 'PUBLIC',
                content: content,
                urls: []

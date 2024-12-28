@@ -100,7 +100,7 @@ function App() {
 
     {
       element: <GroupDetail />,
-      path: '/groups/:id',
+      path: '/groups/:groupId',
       children: [
         {
           path: 'about',

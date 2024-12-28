@@ -28,8 +28,8 @@ export const fetchGroupById = createAsyncThunk(
 
 export const fetchGroupByUser = createAsyncThunk(
      'group/fetchGroupByUser',
-     async (id: number) => {
-          const response = await getGroupsByUserId(id);
+     async ({userId, pageNum}: IFetchGroup) => {
+          const response = await getGroupsByUserId(userId, pageNum);
           console.log(response);
           return response;
      }
@@ -58,11 +58,12 @@ const initialState: IState = {
           description: "",
           privacy: GroupPrivacy.PUBLIC,
           location: "",
-          createdAt: new Date(0),
+          createdAt: "",
           updatedAt: new Date(0),
           imageUrl: "",
           memberNum: 0,
           adminNum: 0,
+          joined: false
      },
      groups: [],
      error: null,

@@ -69,7 +69,7 @@ const GroupPostItem = (props: PostItemProps) => {
                     <div className="absolute top-8 -left-20 z-10"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}>
-                        <GroupJoinedCard createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName}  />
+                        <GroupJoinedCard createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName} />
                     </div>
                 )}
                 <div className="ml-2">
@@ -80,13 +80,15 @@ const GroupPostItem = (props: PostItemProps) => {
                             {post.groupName}
                         </Link>
                     </span>
-                    <div className="flex gap-2 justify-start items-center">
+                    <div className="flex gap-1 justify-start items-center">
                         <span className="text-sm font-semibold text-gray-500 hover:underline">
                             <Link to={`/profile`}>
                                 {post.userFullName}
                             </Link>
                         </span>
-                        <span className="flex justify-center items-center text-gray-500 font-semibold align-center">{formatTime(post.createdAt)} <GoDotFill className="text-[10px]" /></span>
+                        <GoDotFill className="text-[6px]" />
+                        <span className="flex justify-center items-center text-gray-500 text-sm font-semibold align-center">{formatTime(post.createdAt)} </span>
+                        <GoDotFill className="text-[6px]" />
                         <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>
                 </div>

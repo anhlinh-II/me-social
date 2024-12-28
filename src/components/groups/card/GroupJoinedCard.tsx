@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaClock } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
+import { formatCreatedTime } from '../../../utils/FormatTime';
 
 interface GroupCardProps {
     imageUrl: string;
@@ -15,35 +16,6 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName, create
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
-
-    const formatCreatedTime = (createdAt: string) => {
-        const createdAtDate = new Date(createdAt);
-        const now = new Date();
-        const timePassed = (now.getTime() - createdAtDate.getTime()) / 1000;
-
-        if (timePassed < 60) {
-            return "1 phút trước";
-        }
-        if (timePassed >= 60 && timePassed < 3600) {
-            const minutes = Math.floor(timePassed / 60);
-            return `${minutes} phút trước`;
-        }
-        if (timePassed >= 3600 && timePassed < 86400) {
-            const hours = Math.floor(timePassed / 3600);
-            return `${hours} giờ trước`;
-        }
-        if (timePassed >= 86400 && timePassed < 2592000) {
-            const days = Math.floor(timePassed / 86400);
-            return `${days} ngày trước`;
-        }
-        if (timePassed >= 2592000 && timePassed < 31536000) {
-            const months = Math.floor(timePassed / 2592000);
-            return `${months} tháng trước`;
-        }
-        const years = Math.floor(timePassed / 31536000);
-        return `${years} năm trước`;
-    };
-
 
     return (
         <div className="flex flex-col h-full gap-2 bg-white rounded-lg shadow-md">

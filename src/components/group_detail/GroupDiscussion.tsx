@@ -9,7 +9,7 @@ import { useOutletContext, useParams } from "react-router-dom"
 import { GroupResponse } from "../../types/Group"
 
 const GroupDiscussion = () => {
-    const { id } = useParams();
+    const { groupId } = useParams();
 
     const { group } = useOutletContext<{ group: GroupResponse | undefined }>();
 
@@ -20,7 +20,7 @@ const GroupDiscussion = () => {
 
 
     useEffect(() => {
-        dispatch(fetchPostByGroup({ groupId: Number(id), pageNum: 0 }))
+        dispatch(fetchPostByGroup({ groupId: Number(groupId), pageNum: 0 }))
     }, [dispatch]);
 
     if (isLoading) {

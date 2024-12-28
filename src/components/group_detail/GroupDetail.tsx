@@ -8,13 +8,13 @@ import { fetchGroupById } from "../../redux/slice/groupSlice";
 
 const GroupDetail: React.FC = () => {
     // const [group, setGroup] = useState<GroupResponse>();
-    const { id } = useParams();
+    const { groupId } = useParams();
     const dispatch = useAppDispatch();
     const { group } = useAppSelector(state => state.group)
 
     useEffect(() => {
-        dispatch(fetchGroupById(Number(id)))
-    }, [id, dispatch]);
+        dispatch(fetchGroupById(Number(groupId)))
+    }, [groupId, dispatch]);
 
     return (
         <>

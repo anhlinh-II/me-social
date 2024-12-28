@@ -9,11 +9,12 @@ export interface GroupResponse {
     description: string;
     privacy: GroupPrivacy;
     location: string;
-    createdAt: Date;
+    createdAt: string;
     updatedAt: Date;
     imageUrl: string;
     memberNum: number;
     adminNum: number;
+    joined: boolean;
 }
 
 export interface GroupRequest {

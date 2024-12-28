@@ -16,28 +16,7 @@ const GroupJoined: React.FC = () => {
     const { groups, isLoading, error } = useAppSelector(state => state.group)
 
     useEffect(() => {
-        // const fetchGroupsJoined = async () => {
-        //     try {
-        //         const token = localStorage.getItem('access_token');
-        //         if (!token) {
-        //             throw new Error('No token found');
-        //         }
-
-        //         const response = await getGroupsByUserId(userId, 0);
-
-        //         const groupsData = response?.result?.content ?? [];
-        //         setGroups(groupsData);
-        //         setLoading(false);
-        //     } catch (err: any) {
-        //         console.log(err);
-        //         setError(err.message || 'Something went wrong');
-        //         setLoading(false);
-        //     }
-        // };
-
-        dispatch(fetchGroupByUser(Number(user.id)))
-
-        // fetchGroupsJoined();
+        dispatch(fetchGroupByUser({userId: Number(user.id), pageNum: 0}))
     }, [user.id, dispatch]);
 
     if (isLoading) {

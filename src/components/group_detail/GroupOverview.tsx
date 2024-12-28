@@ -1,6 +1,7 @@
-import { FaEarthAmericas, FaLock, FaUnlock } from "react-icons/fa6";
+import { FaEarthAmericas, FaLock } from "react-icons/fa6";
 import { GroupResponse } from "../../types/Group";
-import { publicDecrypt } from "crypto";
+import { IoEyeSharp } from "react-icons/io5";
+import { MdLocationPin } from "react-icons/md";
 
 interface IProps {
     group: GroupResponse | undefined;
@@ -68,7 +69,7 @@ const GroupOverview = (props: IProps) => {
                     (
                         <>
                             <span className="flex items-start gap-2">
-                                <span className="relative top-1.5"><FaUnlock /></span>
+                                <span className="relative top-1.5 text-lg"><IoEyeSharp /></span>
                                 <span className="flex flex-col">
                                     <span className="font-semibold text-gray-700">Hiển thị</span>
                                     <span>Ai cũng có thể tìm thấy nhóm này.</span>
@@ -88,6 +89,10 @@ const GroupOverview = (props: IProps) => {
                     )
 
                 }
+                <div className="flex items-center gap-2">
+                    <span className="text-md"><MdLocationPin /></span>
+                    <span className="font-bold">{group?.location}</span>
+                </div>
             </div>
 
             {/* File phương tiện gần đây */}

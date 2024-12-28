@@ -1,6 +1,6 @@
 import { IoSearchSharp } from "react-icons/io5";
 import { BsThreeDots } from 'react-icons/bs';
-import { FaEarthAmericas, FaLock, FaPlus, FaShare } from 'react-icons/fa6';
+import { FaCaretDown, FaEarthAmericas, FaLock, FaPlus, FaShare } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -13,6 +13,8 @@ import { FaEdit } from "react-icons/fa";
 import { PiUploadSimpleFill } from "react-icons/pi";
 import { uploadGroupImage } from "../../services/ImagesService";
 import { editGroup } from "../../services/GroupService";
+import { useUser } from "../../utils/CustomHook";
+import GroupJoinedDropdown from "./modal/GroupJoinedDropDown";
 
 
 interface GroupHeaderProps {
@@ -27,11 +29,14 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const [isGroupSearchModalOpen, setIsGroupSearchModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    const [isOpenJoinedDropDown, setIsOpenJoinedDropDown] = useState<boolean>(false);
 
     const [imageUrl, setImageUrl] = useState("https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg");
     const [showMenu, setShowMenu] = useState(false);
     const [inputUrl, setInputUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const user = useUser();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -78,7 +83,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const suggestedUsers = ['User1', 'User2', 'User3'];
 
     return (
-        <div className="flex flex-col items-center justify-center w-full bg-blue-100 shadow-sm p-4 mt-[-72px] mb-5">
+        <div className="flex flex-col items-center justify-center w-full bg-blue-50 shadow-sm p-4 mt-[-72px] mb-5">
             <div className="relative">
                 <img
                     src={group?.imageUrl}
@@ -195,8 +200,20 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
                         </button>
                     </Link>
 
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">
-                        Tham gia</button>
+                    {
+                        group?.joined ?
+                            <>
+                                <button onClick={() => setIsOpenJoinedDropDown(true)} className="flex items-center gap-1 bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
+                                    Đã tham gia <span><FaCaretDown /></span>
+                                </button>
+                                {isOpenJoinedDropDown && (
+                                    <GroupJoinedDropdown onClose={() => setIsOpenJoinedDropDown(false)} />
+                                )}
+                            </> :
+                            <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">
+                                Tham gia
+                            </button>
+                    }
                     <button className="flex items-center text-white gap-1 bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500"
                         onClick={() => setInviteModalOpen(true)}>
                         <FaPlus />
@@ -234,8 +251,8 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
             {isShareModalOpen && (
                 <GroupShareModal
                     onClose={() => setIsShareModalOpen(false)}
-                    userAvatar="/gta6.jpg"
-                    userName="Cristiano Ronaldo"
+                    userAvatar={user.avatarUrl}
+                    userName={user.username}
                 />
             )}
         </div>
