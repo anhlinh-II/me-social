@@ -16,7 +16,6 @@ const HomeView = () => {
   const isAuthenticated = useAppSelector(state => state.account.isAuthenticated)
   
   if (!isAuthenticated) {
-    
     return <Navigate to="/login" replace />;
   }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
 import { BsBookmark } from 'react-icons/bs';
@@ -7,12 +7,12 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
 import { Link } from 'react-router-dom';
 import More from '../modal/More';
-import { Post, PostResponse } from '../../types/Post';
+import { PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';
-import { formatTime } from '../../utils/FormatTime';
-import { useAppSelector } from '../../redux/hook';
+import { formatCreatedTime } from '../../utils/FormatTime';
+import { Avatar } from 'antd';
 
 interface PostItemProps {
     post: PostResponse;
@@ -69,7 +69,7 @@ const GroupPostItem = (props: PostItemProps) => {
                     <div className="absolute top-8 -left-20 z-10"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}>
-                        <GroupJoinedCard createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName} />
+                        <GroupJoinedCard groupId={post.groupId} createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName} />
                     </div>
                 )}
                 <div className="ml-2">
@@ -87,7 +87,7 @@ const GroupPostItem = (props: PostItemProps) => {
                             </Link>
                         </span>
                         <GoDotFill className="text-[6px]" />
-                        <span className="flex justify-center items-center text-gray-500 text-sm font-semibold align-center">{formatTime(post.createdAt)} </span>
+                        <span className="flex justify-center items-center text-gray-500 text-sm font-semibold align-center">{formatCreatedTime(post.createdAt)} </span>
                         <GoDotFill className="text-[6px]" />
                         <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                     </div>
@@ -151,10 +151,10 @@ const GroupPostItem = (props: PostItemProps) => {
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex flex-row mt-2'>
-                        <img src={post.avatarUrl}
+                        <Avatar src={post.avatarUrl}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
-                            onError={handleImageError}
+                            // onError={handleImageError}
                         />
                         <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                     </div>

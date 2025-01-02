@@ -31,7 +31,7 @@ const handleRefreshToken = async (): Promise<string | null | undefined> => {
 };
 
 instance.interceptors.request.use(function (config) {
-    const excludedEndpoints = ['/api/auth/login', '/api/auth/verify-otp']; // Match your backend endpoints
+    const excludedEndpoints = ['/api/auth/login', '/api/auth/verify-otp', '/api/auth/logout']; // Match your backend endpoints
     const shouldExcludeToken = excludedEndpoints.some(endpoint =>
         config.url?.endsWith(endpoint) // Adjust to match the exact endpoint
     );

@@ -1,6 +1,5 @@
 // src/components/PostList.tsx
 import React, { useEffect, useState } from 'react';
-import { getPostsForNewsFeed } from '../../services/PostService';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
@@ -10,15 +9,14 @@ import ShowMoreText from "react-show-more-text";
 import { Link } from 'react-router-dom';
 import PostDetailModal from '../modal/Post.detail.modal';
 import More from '../modal/More';
-import { Post, PostResponse } from '../../types/Post';
+import { PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
 import { fetchUserNewsfeed } from '../../redux/slice/postsSlice';
-import { formatTime } from '../../utils/FormatTime';
-import { group } from 'console';
+import { formatCreatedTime } from '../../utils/FormatTime';
 import { Avatar } from 'antd';
 
 
@@ -160,7 +158,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     <div className="absolute top-8 -left-20 z-10"
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                        <GroupJoinedCard imageUrl={item.avatarUrl} groupName={item.groupName} />
+                                        <GroupJoinedCard groupId={item.id} imageUrl={item.avatarUrl} groupName={item.groupName} />
                                     </div>
                                 )}
                             </div>
@@ -190,7 +188,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                         </Link>
                                     </span>
                                     <GoDotFill className="text-[6px]" />
-                                    <span className=" text-gray-500 font-semibold text-sm ">{formatTime(item.createdAt)} </span>
+                                    <span className=" text-gray-500 font-semibold text-sm ">{formatCreatedTime(item.createdAt)} </span>
                                     <GoDotFill className="text-[6px]" />
                                     <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm  align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
@@ -199,7 +197,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                             <div className="ml-2">
                                 <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{item.userFullName}</span>
                                 <div className="flex gap-2 justify-start items-center text-gray-500 ">
-                                    <span className="font-semibold text-sm">{formatTime(item.createdAt)} </span>
+                                    <span className="font-semibold text-sm">{formatCreatedTime(item.createdAt)} </span>
                                     <span><GoDotFill className="text-[10px]" /></span>
                                     <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>

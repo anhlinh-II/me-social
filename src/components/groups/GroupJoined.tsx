@@ -47,10 +47,12 @@ const GroupJoined: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
                 {groups.length > 0 ? (
                     groups.map(group => (
-                        <GroupJoinedCard key={group.id} imageUrl={group.imageUrl} groupName={group.name} createdAt={group.createdAt} />
+                        <GroupJoinedCard key={group.id} groupId={group.id} imageUrl={group.imageUrl} groupName={group.name} createdAt={group.createdAt} />
                     ))
                 ) : (
-                    <></>
+                    <>
+                    Hãy tham gia các hội nhóm để chia sẻ thông tin nhé!
+                    </>
                 )}
             </div>
         </div>

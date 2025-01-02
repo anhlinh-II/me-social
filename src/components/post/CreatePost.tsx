@@ -28,9 +28,9 @@ const CreatePost = () => {
                     />
                </div>
                <div className="flex gap-10 justify-center items-center mt-4">
-                    <div onClick={() => setShowCreateModal(true)} className="flex justify-center items-center gap-2 text-base cursor-pointer" ><FaImage /> <span>Media</span></div>
+                    <div onClick={() => setShowCreateModal(true)} className="flex justify-center items-center gap-2 text-base cursor-pointer" ><FaImage /> <span>Hình ảnh</span></div>
                     <div onClick={() => setShowCreateModal(true)} className="flex justify-center items-center gap-2 text-base cursor-pointer"><BsCameraVideoFill /><span>Video</span></div>
-                    <div onClick={() => setShowCreateModal(true)} className="flex justify-center items-center gap-2 text-base cursor-pointer"><SiGoogledocs /> <span>Write Artical</span></div>
+                    <div onClick={() => setShowCreateModal(true)} className="flex justify-center items-center gap-2 text-base cursor-pointer"><SiGoogledocs /> <span>Đề tài</span></div>
                </div>
                <CreatePostModal
                     show={showCreateModal}

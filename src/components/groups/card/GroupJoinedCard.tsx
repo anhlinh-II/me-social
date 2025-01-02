@@ -8,10 +8,13 @@ interface GroupCardProps {
     imageUrl: string;
     groupName: string;
     createdAt?: string;
+    groupId: number;
 }
 
-const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName, createdAt }) => {
+const GroupJoinedCard: React.FC<GroupCardProps> = ({ groupId, imageUrl, groupName, createdAt }) => {
     const [menuOpen, setMenuOpen] = useState(false);
+
+    console.log(groupId)
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -30,13 +33,13 @@ const GroupJoinedCard: React.FC<GroupCardProps> = ({ imageUrl, groupName, create
             <div className="flex flex-row gap-2 ms-4">
                 <FaClock className='text-gray-600' />
                 <span className="text-xs text-black">
-                    Nhóm được tạo vào {createdAt ? formatCreatedTime(createdAt) : ""}
+                    Nhóm được tạo vào {createdAt ? formatCreatedTime(createdAt) : ""} trước
                 </span>
 
             </div>
             <div className='flex flex-row mt-auto'>
                 <div className="pb-4 pt-2 ps-4 pe-0">
-                    <Link to={`/groups/groupName/discussion`}>
+                    <Link to={`/groups/${groupId}/discussion`}>
                         <button className="bg-blue-100 text-blue-500 px-16 py-2 rounded-md hover:bg-blue-200">
                             Xem nhóm
                         </button>
