@@ -142,9 +142,9 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                     <div className="flex relative justify-start items-center px-3 py-2 gap-2">
                         {item.groupId ? (
                             <div>
-                                <Link to={`/groups/groupName/discussion`}>
+                                <Link to={`/groups/${[item.groupId]}/discussion`}>
                                     <img
-                                        src="https://vnn-imgs-f.vgcloud.vn/2018/05/27/04/real-liverpool2.jpg"
+                                        src={item.groupAvatar}
                                         className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
                                         alt="error"
                                         // onError={() => handleImageError(index)}
@@ -158,7 +158,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     <div className="absolute top-8 -left-20 z-10"
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                        <GroupJoinedCard groupId={item.id} imageUrl={item.avatarUrl} groupName={item.groupName} />
+                                        <GroupJoinedCard createdAt={item.createdAt} groupId={item.id} imageUrl={item.avatarUrl} groupName={item.groupName} />
                                     </div>
                                 )}
                             </div>

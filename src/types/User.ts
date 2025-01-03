@@ -29,6 +29,7 @@ export interface UserDTO {
     location: string;
     isFriend: boolean;
     friendNum: number;
+    avatarUrl: string;
     mutualFriendsNum?: number | null;
 }
 

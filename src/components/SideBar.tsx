@@ -160,7 +160,7 @@ const SideBar = (props: IProps) => {
                               className='cursor-pointer flex justify-start align-center gap-x-4'
                               to={'https://github.com/anhlinh-II/me-social'} target="_blank"
                          >
-                              <FaGithub className='mt-1 text-2xl text-sky-800' />
+                              <FaGithub className='text-2xl text-sky-800' />
                               <p className='underline underline-offset-4 decoration-sky-800 text-sky-800 font-medium'>Visit Our Source</p>
                          </Link>
                     </div>
