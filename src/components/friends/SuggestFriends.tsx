@@ -94,36 +94,42 @@ const SuggestFriends = () => {
      const dispatch = useAppDispatch();
 
      useEffect(() => {
-          dispatch(fetchSuggestedFriend({userId: Number(user.id), pageNum: 0}))
+          dispatch(fetchSuggestedFriend({ userId: Number(user.id), pageNum: 0 }))
      }, [dispatch, user.id])
 
      return (
           <div className="h-fit border-1 rounded-xl p-2 me-2">
                <div className=" text-sm ">
                     {/* title */}
-                    <div className="flex justify-between font-bold ">
-                         <span className="text-gray-600">Gợi ý kết bạn</span>
-                         <Link to={`/listFriends/suggestion`}><span className="cursor-pointer hover:text-gray-600 font-semibold">Xem tất cả</span></Link>
-                    </div>
-                    {/* list suggest */}
-                    <div className="flex flex-col mt-6">
-                         {slicedArray.map((friend: UserDTO, index: number) => (
-                              <div className="mb-5 flex justify-between items-center">
-                                   <div className="flex justify-between">
-                                        <Avatar src={friend.avatarUrl ? friend.avatarUrl : DEFAULT_AVATAR}
-                                             alt="error"
-                                             className="cursor-pointer rounded-[100%] text-base h-10 w-10 "
-                                        />
-                                        <div className="flex flex-col ml-3">
-                                             <span className="font-semibold text-sm text-gray-700 cursor-pointer ">{friend.firstName} {friend.lastName}</span>
-                                             <span className="text-gray-400">{friend.mutualFriendsNum ? `${friend.mutualFriendsNum} bạn chung` : 'Chưa có bạn chung nào'} </span>
-                                        </div>
-                                   </div>
-                                   <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Thêm</span>
+                    {
+                         suggestedFriend.length > 0 ?
+                         <>
+                              <div className="flex justify-between font-bold ">
+                                   <span className="text-gray-600">Gợi ý kết bạn</span>
+                                   <Link to={`/listFriends/suggestion`}><span className="cursor-pointer hover:text-gray-600 font-semibold">Xem tất cả</span></Link>
                               </div>
+                              {/* list suggest */}
+                              <div className="flex flex-col mt-6">
+                                   {slicedArray.map((friend: UserDTO, index: number) => (
+                                        <div className="mb-5 flex justify-between items-center">
+                                             <div className="flex justify-between">
+                                                  <Avatar src={friend.avatarUrl ? friend.avatarUrl : DEFAULT_AVATAR}
+                                                       alt="error"
+                                                       className="cursor-pointer rounded-[100%] text-base h-10 w-10 "
+                                                  />
+                                                  <div className="flex flex-col ml-3">
+                                                       <span className="font-semibold text-sm text-gray-700 cursor-pointer ">{friend.firstName} {friend.lastName}</span>
+                                                       <span className="text-gray-400">{friend.mutualFriendsNum ? `${friend.mutualFriendsNum} bạn chung` : 'Chưa có bạn chung nào'} </span>
+                                                  </div>
+                                             </div>
+                                             <span className="text-sky-600 cursor-pointer hover:text-gray-500 font-semibold text-sm">Thêm</span>
+                                        </div>
 
-                         ))}
-                    </div>
+                                   ))}
+                              </div>
+                         </> : 
+                         <></>
+                    }
 
                     <div className="flex justify-between font-bold mb-2">
                          <span className="text-gray-600">Liên hệ</span>
