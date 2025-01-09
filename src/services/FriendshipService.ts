@@ -14,7 +14,7 @@ export const sendFriendRequest = async (requesterId: number, receiverId: number)
 
 // Delete Friendship
 export const deleteFriendship = async (id: number) => {
-    await instance.delete<IApiResponse<void>>(`/api/friendships/${id}`);
+    return await instance.delete<IApiResponse<void>>(`/api/friendships/${id}`);
 };
 
 // Edit Friendship Status
@@ -24,4 +24,8 @@ export const editFriendshipStatus = async (id: number, status: string) => {
 
 export const getFriendRequestByUser = async (userId: number, pageNum: number) => {
     return (await instance.get<IApiResponse<Page<FriendshipResponse>>>(`/api/friendships/friendRequest/${userId}/${pageNum}`)).data;
+}
+
+export const getUserFriends = async (userId: number, pageNum: number) => {
+    return (await instance.get<IApiResponse<Page<FriendshipResponse>>>(`/api/friendships/friends/${userId}/${pageNum}`)).data;
 }

@@ -6,9 +6,11 @@ export interface FriendshipRequest {
 export interface FriendshipResponse {
     friendshipId: number;
     requesterId: number;
-    requesterName: string;
     receiverId: number;
+    requesterName: string;
+    receiverName: string;
+    requesterAvatar: string;
+    receiverAvatar: string;
     mutualFriend: number;
     status: string;
-    requesterAvatar: string;
 }

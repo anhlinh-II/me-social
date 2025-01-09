@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getSuggestedFriends } from '../../services/UserService';
 import { UserDTO } from '../../types/User';
-import { getFriendRequestByUser, sendFriendRequest } from '../../services/FriendshipService';
+import { getFriendRequestByUser, getUserFriends, sendFriendRequest } from '../../services/FriendshipService';
 import { FriendshipResponse } from '../../types/Friendship';
 
 interface IFetchSuggestedFriend {
@@ -43,18 +43,33 @@ export const fetchFriendRequestByUser = createAsyncThunk(
      }
 )
 
+interface IFetchFriendByUser {
+     userId: number;
+     pageNum: number;
+}
+
+export const fetchFriendByUser = createAsyncThunk(
+     'friend/fetchFriendByUser',
+     async ({userId, pageNum}: IFetchFriendByUser) => {
+          const response = await getUserFriends(userId, pageNum);
+          return response;
+     }
+)
+
 interface IState {
      isLoading: boolean;
      error: null | string;
      suggestedFriend: UserDTO[];
-     friendRequest: FriendshipResponse[]
+     friendRequest: FriendshipResponse[];
+     friends: FriendshipResponse[]
 }
 
 const initialState: IState = {
      isLoading: true,
      error: null,
      suggestedFriend: [],
-     friendRequest: []
+     friendRequest: [],
+     friends: []
 };
 
 const handlePending = (state: IState, action: any) => {
@@ -96,6 +111,14 @@ export const friendSlice = createSlice({
                state.error = null
           })
           builder.addCase(fetchFriendRequestByUser.rejected, handleRejected)
+
+          // fetchFriendForUser
+          builder.addCase(fetchFriendByUser.pending, handlePending)
+          builder.addCase(fetchFriendByUser.fulfilled, (state: IState, action: any) => {
+               state.friends = action.payload.result.content
+               state.isLoading = false;
+               state.error = null;
+          })
      },
 
 });
