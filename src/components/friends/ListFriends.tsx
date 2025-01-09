@@ -15,7 +15,7 @@ const ListFriends = () => {
                                    className={active === "friends" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("friends")}
                               >
-                                   Friends
+                                   Bạn bè
                               </Link>
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
@@ -23,7 +23,7 @@ const ListFriends = () => {
                                    className={active === "friendsRequest" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("friendsRequest")}
                               >
-                                   Request
+                                   Yêu cầu kết bạn
                               </Link>
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
@@ -31,7 +31,7 @@ const ListFriends = () => {
                                    className={active === "recentlyAdded" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("recentlyAdded")}
                               >
-                                   Recently Added
+                                   Thêm gần đây
                               </Link>
                          </li>
                          <li className="me-2 hover:bg-sky-200 transition duration-300 rounded-t-md">
@@ -39,7 +39,7 @@ const ListFriends = () => {
                                    className={active === "suggestion" ? "inline-flex items-center justify-center p-4 text-base text-sky-600 border-b-2 border-sky-600 rounded-t-lg active dark:text-sky-500 dark:border-sky-500 group" : "inline-flex items-center justify-center p-4 text-base border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"}
                                    onClick={() => setActive("suggestion")}
                               >
-                                   Suggestion
+                                   Đề xuất kết bạn
                               </Link>
                          </li>
                     </ul>

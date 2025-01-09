@@ -29,8 +29,7 @@ const FriendsRequest = () => {
 
      return (
           <div className="p-4 border border-sky-500 rounded-lg drop-shadow-md">
-               <div className="my-4 grid grid-cols-2 gap-8">
-                    {/* a friend */}
+               <div className="grid grid-cols-2 gap-8">
                     {
                          friendRequest.map((friendship: FriendshipResponse) => (
                               <div className="flex justify-between items-center p-4 drop-shadow-lg border border-sky-300 rounded-lg">
@@ -61,6 +60,9 @@ const FriendsRequest = () => {
                          ))
                     }
                </div>
+               {
+                    friendRequest.length === 0 && <div className="font-bold text-md text-center text-sky-800">Bạn chưa có lời mời kết bạn nào</div>
+               }
           </div>
      )
 };

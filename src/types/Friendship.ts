@@ -13,4 +13,5 @@ export interface FriendshipResponse {
     receiverAvatar: string;
     mutualFriend: number;
     status: string;
+    acceptedAt: string;
 }
