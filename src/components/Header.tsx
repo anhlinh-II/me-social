@@ -81,7 +81,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="bg-sky-600 w-full top-0 fixed z-10 right-0 left-0">
+			<header className="bg-sky-600 w-full top-0 fixed z-auto right-0 left-0">
 				<nav
 					className="mx-0 flex max-w-8xl items-center justify-between p-1 lg:px-10 shadow-lg"
 					aria-label="Global"
@@ -121,7 +121,7 @@ const Header = () => {
 							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 h-max mt-0 hover:bg-sky-500 rounded-lg ${location.pathname === "/" ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname === "/" ? <IoHome style={{ fontSize: "28px", color: "white" }} /> : <IoHomeOutline style={{ fontSize: "28px", color: "white" }} />}
-							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-sky-200 rounded">
 								Home
 							</div>
 						</Link>
@@ -130,7 +130,7 @@ const Header = () => {
 							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/listFriends") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/listFriends") ? <IoPersonAdd style={{ fontSize: "28px", color: "white" }} /> : <IoPersonAddOutline style={{ fontSize: "28px", color: "white" }} />}
-							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-sky-200 rounded">
 								Friends
 							</div>
 						</Link>
@@ -140,7 +140,7 @@ const Header = () => {
 							className="group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg"
 						>
 							<MdOutlineOndemandVideo style={{ fontSize: "28px", color: "white" }} />
-							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-sky-200 rounded">
 								Video
 							</div>
 						</Link>
@@ -150,7 +150,7 @@ const Header = () => {
 							className={`group/item relative cursor-pointer transition duration-200 p-2 px-10 mt-0 hover:bg-sky-500 rounded-lg ${location.pathname.includes("/groups") ? "border-b-4 border-sky-500" : ""
 								}`}>
 							{location.pathname.includes("/groups") ? <HiUserGroup style={{ fontSize: "28px", color: "white" }} /> : <HiOutlineUserGroup style={{ fontSize: "28px", color: "white" }} />}
-							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-gray-100 rounded">
+							<div className="absolute z-50 top-[65px] left-6 invisible group-hover/item:delay-200 group-hover/item:visible px-2 py-1 decoration-blue-100 bg-sky-200 rounded">
 								Groups
 							</div>
 						</Link>

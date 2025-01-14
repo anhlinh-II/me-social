@@ -16,7 +16,7 @@ const FriendsRequest = () => {
      const [acceptedList, setAcceptedList] = useState<number[]>([]);
 
      useEffect(() => {
-          dispatch(fetchFriendRequestByUser({ userId: Number(user.id), pageNum: 0 }))
+          dispatch(fetchFriendRequestByUser({ userId: Number(user.id), page: 0, size: 10 }))
      }, [dispatch, user.id])
 
      const handleAcceptRequest = async (friendShipId: number) => {
@@ -51,8 +51,8 @@ const FriendsRequest = () => {
 
                                         ) : (
                                              <div className="flex flex-col gap-4">
-                                                  <button onClick={() => handleAcceptRequest(Number(friendship.friendshipId))} className="py-1 px-4 bg-sky-600 text-white rounded-lg">Accept</button>
-                                                  <button className="py-1 px-4 bg-rose-500 text-white rounded-lg">Decline</button>
+                                                  <button onClick={() => handleAcceptRequest(Number(friendship.friendshipId))} className="py-1 px-4 bg-sky-600 text-white rounded-lg">Chấp nhận</button>
+                                                  <button className="py-1 px-4 bg-rose-500 text-white rounded-lg">Từ chối</button>
                                              </div>
                                         )
                                    }

@@ -3,18 +3,26 @@ import instance from './Axios-customize';
 import { IApiResponse, Page } from '../types/backend';
 
 // Get Posts for NewsFeed
-export const getPostsForNewsFeed = async (userId: number, pageNum = 0) => {
-    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/newsfeed?userId=${userId}&pageNum=${pageNum}`)).data;
+export const getPostsForNewsFeed = async (userId: number, page = 0, size: number = 10) => {
+    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/newsfeed`, {
+        params: {
+            userId, page, size
+        }
+    })).data;
 };
 
 // Get Posts for Group Activities
-export const getPostsForGroupActivities = async (userId: number, pageNum = 0) => {
-    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/newsfeed/groups?userId=${userId}&pageNum=${pageNum}`)).data;
+export const getPostsForGroupActivities = async (userId: number, page = 0, size: number = 0) => {
+    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/newsfeed/groups`, {
+        params: { userId, page, size }
+    })).data;
 };
 
 // Get Posts By User
-export const getPostsByUser = async (userId: number, pageNum = 0) => {
-    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/user?userId=${userId}&pageNum=${pageNum}`)).data;
+export const getPostsByUser = async (userId: number, page: number = 0, size: number = 0) => {
+    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/user`, {
+        params: { userId, page, size }
+    })).data;
 };
 
 // Get Posts By Group

@@ -8,13 +8,19 @@ import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane } from 'r
 import { FiBookmark } from 'react-icons/fi';
 import Emoji from '../Emoji';
 import More from './More';
+import { PostResponse } from '../../types/Post';
+import { DEFAULT_AVATAR } from '../../utils/Constant';
+import ImageSlider from '../post/ImageSlider';
+import { formatNumberWithCommas } from '../../utils/FormatNumber';
+import { formatCreatedTime } from '../../utils/FormatTime';
 
 interface ModalProps {
      show: boolean;
      setShow: React.Dispatch<React.SetStateAction<boolean>>;
+     post: PostResponse;
 }
 
-const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
+const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
 
      const [openEmoji, setOpenEmoji] = useState<boolean>(false);
      const [showReplies, setShowReplies] = useState<boolean>(false);
@@ -75,11 +81,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                {/* Modal Content */}
                <div className="flex absolute bg-white rounded-lg shadow-lg max-w-[80%] h-[95%]">
                     <div className='max-h-[100%] max-w-[700px] mr-auto bg-black flex items-center justify-center border-2 border-black'>
-                         <img
-                              className='max-h-full max-w-full'
-                              src={pittapiu}
-                              alt="error"
-                         />
+                         <ImageSlider urls={post.urls} />
                     </div>
                     {/* left */}
                     <div className='relative w-[480px] bg-stone-50 overflow-hidden'>
@@ -88,11 +90,11 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    <span className='border border-sky-600 rounded-full'>
                                         <Avatar
                                              sx={{ width: 40, height: 40 }}
-                                             src={pittapiu}
+                                             src={post.avatarUrl ? post.avatarUrl : DEFAULT_AVATAR}
                                              alt='avatar'
                                         />
                                    </span>
-                                   <span className='font-semibold text-sm'>pittapiu</span>
+                                   <span className='font-semibold text-sm'>{post.userFullName}</span>
                               </div>
                               <span onClick={() => setShowMore(true)} className='cursor-pointer hover:text-gray-600'><BsThreeDots /></span>
                          </div>
@@ -107,7 +109,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                         />
                                    </span>
                                    <div className='flex flex-col gap-1.5'>
-                                        <p className='text-sm'><span className='font-semibold'>pittapiu</span> this is a dump photo of me 🐟</p>
+                                        <p className='text-sm'><span className='font-semibold'>{post.userFullName}</span> {post.content}</p>
                                         <span className='text-gray-400 text-xs font-semibold'>8w</span>
                                    </div>
                               </div>
@@ -165,47 +167,6 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                    </div>
                                    <span className='text-md'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
                               </div>
-                              <div className='flex justify-between items-start mb-4'>
-                                   <div className='flex gap-3'>
-                                        <span className='border h-fit w-fit rounded-full border-sky-600'>
-                                             <Avatar
-                                                  sx={{ width: 35, height: 35 }}
-                                                  src={pittapiu}
-                                                  alt='avatar'
-                                             />
-                                        </span>
-                                        <div className='flex flex-col gap-1.5'>
-                                             <p className='text-sm'><span className='font-semibold'>Khánh Linh</span> xinh qua di, huhuhuhu</p>
-                                             <div className='text-gray-400 text-xs font-semibold flex gap-4 '>
-                                                  <div className='cursor-text'>8w</div>
-                                                  <span className='cursor-pointer'>1 like</span>
-                                                  <span className='cursor-pointer'>Reply</span>
-                                             </div>
-                                        </div>
-                                   </div>
-                                   <span className='text-md'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
-                              </div>
-                              <div className='flex justify-between items-start mb-4'>
-                                   <div className='flex gap-3'>
-                                        <span className='border h-fit w-fit rounded-full border-sky-600'>
-                                             <Avatar
-                                                  sx={{ width: 35, height: 35 }}
-                                                  src={pittapiu}
-                                                  alt='avatar'
-                                             />
-                                        </span>
-                                        <div className='flex flex-col gap-1.5'>
-                                             <p className='text-sm'><span className='font-semibold'>Ahn Linhh</span> this is really a good girl</p>
-                                             <div className='text-gray-400 text-xs font-semibold flex gap-4 '>
-                                                  <div className='cursor-text'>8w</div>
-                                                  <span className='cursor-pointer'>1 like</span>
-                                                  <span className='cursor-pointer'>Reply</span>
-                                             </div>
-                                        </div>
-                                   </div>
-                                   <span className='text-md'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
-                              </div>
-
                          </div>
                          {/* interact with post */}
                          <div className='absolute bottom-0 right-0 left-0 h-1/4 bg-white'>
@@ -218,8 +179,8 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow }) => {
                                              <span className='text-2xl cursor-pointer hover:text-gray-600'><FaRegPaperPlane /></span>
                                         </div>
                                         <div className='flex flex-col text-sm'>
-                                             <span className='font-semibold'>465,253 likes</span>
-                                             <span className='text-gray-600 font-md'>4 hours ago</span>
+                                             <span className='font-semibold'>{formatNumberWithCommas(post.likeNum)} {post.likeNum ? "likes" : "like"}</span>
+                                             <span className='text-gray-600 font-md'>{formatCreatedTime(post.createdAt)}</span>
                                         </div>
                                    </div>
                                    <span className='text-xl cursor-pointer hover:text-gray-600'><FiBookmark /></span>

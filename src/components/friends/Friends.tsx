@@ -8,7 +8,6 @@ import { FriendshipResponse } from "../../types/Friendship";
 import { DEFAULT_AVATAR } from "../../utils/Constant";
 import { deleteFriendship, editFriendshipStatus } from "../../services/FriendshipService";
 import { message } from "antd";
-import ListFriends from "./ListFriends";
 
 const Friends = () => {
      const user = useUser();
@@ -41,7 +40,7 @@ const Friends = () => {
      }
 
      useEffect(() => {
-          dispatch(fetchFriendByUser({ userId: Number(user.id), pageNum: 0 }));
+          dispatch(fetchFriendByUser({ userId: Number(user.id), page: 0, size: 10 }));
      }, [dispatch, user.id]);
 
      const handleOnClickOptions = (friendId: number) => {
@@ -52,7 +51,7 @@ const Friends = () => {
           const response = await deleteFriendship(friendShipId);
           if (response && response.data.code === 1000) {
                message.success(`Hủy kết bạn với ${friendName} thành công!`)
-               dispatch(fetchFriendByUser({ userId: Number(user.id), pageNum: 0 }))
+               dispatch(fetchFriendByUser({ userId: Number(user.id), page: 0, size: 10 }))
           }
      }
 
@@ -104,7 +103,7 @@ const Friends = () => {
                                              />
                                              <div className="flex flex-col ml-4">
                                                   <span className="font-semibold text-lg">{friendName}</span>
-                                                  <span className="text-gray-500">{friendship.mutualFriend} mutual friends</span>
+                                                  <span className="text-gray-500">{friendship.mutualFriend} bạn chung</span>
                                              </div>
                                         </div>
                                         <span
@@ -115,8 +114,8 @@ const Friends = () => {
                                         </span>
                                         {openOptionsFriendId === friendId && (
                                              <div ref={wrapperRef} className="absolute top-12 right-[-100px] bg-white border border-gray-300 rounded-lg shadow-lg p-2">
-                                                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleOnlickUnfriend(friendship.friendshipId, friendName)}>Unfriend</button>
-                                                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleBlockFriend(friendship.friendshipId, "BLOCKED", friendName)}>Block</button>
+                                                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleOnlickUnfriend(friendship.friendshipId, friendName)}>Hủy kết bạn</button>
+                                                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => handleBlockFriend(friendship.friendshipId, "BLOCKED", friendName)}>Chặn</button>
                                              </div>
                                         )}
                                    </div>

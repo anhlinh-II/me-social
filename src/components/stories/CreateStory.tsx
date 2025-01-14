@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { createStory } from "../../services/StoryService";
 import { uploadStoryVideo } from "../../services/VideoService";
 import { StoryPrivacy, StoryRequest } from "../../types/Story";
-import avt from '../../assets/me1.jpg';
 import { PiPlusLight } from "react-icons/pi";
+import { useUser } from "../../utils/CustomHook";
+import { DEFAULT_AVATAR } from "../../utils/Constant";
 
 
 const CreateStory = () => {
+
+    const user = useUser();
+
     const navigate = useNavigate();
     const [privacy, setPrivacy] = useState(StoryPrivacy.PUBLIC);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -68,34 +72,46 @@ const CreateStory = () => {
     };
 
     const handleSaveFile = async () => {
-        console.log('Selected file:', selectedFile);
         if (selectedFile) {
             try {
-                const uploadedData = await uploadStoryVideo(selectedFile, 3);
-                console.log(uploadedData);
-                console.log('Uploaded video URL:', uploadedData.secure_url);
-
-                const storyRequest: StoryRequest = {
-                    userId: 3,
-                    url: uploadedData.secure_url,
-                    thumbnail: uploadedData.eager?.[0]?.secure_url,
-                    content: content,
-                    privacy: privacy,
-                };
-
-                const storyResponse = await createStory(storyRequest);
-                console.log('story saved:', storyResponse);
-
-                setSuccessMessage('story đã được đăng tải thành công!');
-                setStory("");
-            } catch (error) {
+                const uploadedData = await uploadStoryVideo(selectedFile, Number(user.id));
+                console.log("code run here")
+    
+                if (uploadedData && uploadedData.secure_url) {
+                    console.log('Uploaded video URL:', uploadedData.secure_url);
+    
+                    const storyRequest: StoryRequest = {
+                        userId: Number(user.id),
+                        url: uploadedData.secure_url,
+                        thumbnail: uploadedData.eager?.[0]?.secure_url || '',
+                        content: content,
+                        privacy: privacy,
+                    };
+    
+                    const storyResponse = await createStory(storyRequest);
+                    console.log('story saved:', storyResponse);
+    
+                    setSuccessMessage('story đã được đăng tải thành công!');
+                    setStory("");
+                } else {
+                    throw new Error('Không thể lấy được URL video từ kết quả upload.');
+                }
+            } catch (error: any) {
                 console.error('Error during file upload or story save:', error);
-                alert('Có lỗi xảy ra khi đăng video. Vui lòng thử lại!');
+    
+                if (error.response) {
+                    alert(`Có lỗi xảy ra: ${error.response?.message || 'Vui lòng thử lại sau.'}`);
+                } else if (error.request) {
+                    alert('Không thể kết nối tới máy chủ. Vui lòng kiểm tra kết nối mạng.');
+                } else {
+                    alert(`Có lỗi xảy ra: ${error.message}`);
+                }
             }
         } else {
             alert('Vui lòng chọn một video để đăng.');
         }
     };
+    
 
     const handleChangeContent = (event: React.ChangeEvent<HTMLInputElement>) => {
         setContent(event.target.value);
@@ -109,14 +125,13 @@ const CreateStory = () => {
         <div className="fixed inset-0 bg-[#18191A] bg-opacity-100 flex z-40">
             {/* Sidebar */}
             <div className="w-1/3 p-4 overflow-y-auto bg-[#242526]">
-                <button onClick={() => 
-                    {
-                        if(!selectedFile) {
-                            handleClose();
-                        }
-                        else setIsExitModalOpen(true);
+                <button onClick={() => {
+                    if (!selectedFile) {
+                        handleClose();
+                    }
+                    else setIsExitModalOpen(true);
 
-                    }} className="text-white text-2xl top-4 left-6 rounded-full p-2 bg-[#18191A] hover:bg-zinc-700">
+                }} className="text-white text-2xl top-4 left-6 rounded-full p-2 bg-[#18191A] hover:bg-zinc-700">
                     <IoMdClose />
                 </button>
                 <div className="flex gap-2 items-center justify-between">
@@ -151,11 +166,11 @@ const CreateStory = () => {
                     </div>
                 </div>
                 <div className="flex justify-start items-center gap-6 mt-4 pb-4 border-b border-gray-600">
-                    <img src={avt}
-                        className="rounded-[100%] text-base h-16 w-16"
+                    <img src={user.avatarUrl ? user.avatarUrl : DEFAULT_AVATAR}
+                        className="rounded-[100%] text-base h-16 w-16 object-cover object-center"
                         alt="error" />
                     <div className="">
-                        <span className="font-bold text-white">Ahn Linhh</span>
+                        <span className="font-bold text-white">{user.username}</span>
                     </div>
                 </div>
             </div>
@@ -196,19 +211,21 @@ const CreateStory = () => {
                             </div>
                         )}
                         <div className="flex gap-4 pt-8 font-bold">
-                            <button onClick={() => 
-                                {
-                                    if(!selectedFile) {
-                                        handleClose();
-                                    }
-                                    else setIsExitModalOpen(true);
-            
-                                }} className="text-white top-4 left-6 rounded-lg px-4 py-2 w-32 bg-[#3A3B3C] hover:bg-zinc-700">
+                            <button onClick={() => {
+                                if (!selectedFile) {
+                                    handleClose();
+                                }
+                                else setIsExitModalOpen(true);
+
+                            }} className="text-white top-4 left-6 rounded-lg px-4 py-2 w-32 bg-[#3A3B3C] hover:bg-zinc-700">
                                 Bỏ
                             </button>
-                            <button className="px-4 py-2 bg-amber-400 rounded-lg w-60 hover:bg-yellow-500 transition duration-200 text-white"
+                            <button
+                                className="px-4 py-2 bg-amber-400 rounded-lg w-60 hover:bg-yellow-500 transition duration-200 text-white"
                                 onClick={() => handleOpenFileBrowser()}
-                            >Chọn video</button>
+                            >
+                                Chọn video
+                            </button>
                             <input type='file' accept="video/*" id='file'
                                 onChange={handleChooseFile}
                                 ref={inputFile}
@@ -231,27 +248,27 @@ const CreateStory = () => {
                 )}
             </div>
             {isExitModalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-[#242526] p-6 rounded-lg w-[550px] relative">
-                    <button onClick={() => setIsExitModalOpen(false)} className="text-black text-xl absolute top-4 right-6 rounded-full p-2 bg-blue-400 hover:bg-blue-300">
-                        <IoMdClose />
-                    </button>
-                    <h3 className="text-lg text-center text-white font-semibold mb-4 pb-4 border-b border-gray-500">Bỏ tin này?</h3>
-                    <p className="text-white">Bạn có chắc chắn là bỏ tin này không? Hệ thống sẽ không lưu tin này của bạn.</p>
-                    <div className="flex gap-4 justify-end mt-4 w-full">
-                    <button
-                        onClick={() => setIsExitModalOpen(false)}
-                        className="bg-gray-800 text-blue-600 p-2 px-4 rounded-lg w-fit hover:bg-gray-700"
-                    >
-                        Tiếp tục chỉnh sửa tin</button>
-                    <button
-                        onClick={handleClose}
-                        className="bg-blue-500 text-white p-2 px-4 rounded-lg w-24 hover:bg-blue-600"
-                    >
-                        Bỏ</button>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-[#242526] p-6 rounded-lg w-[550px] relative">
+                        <button onClick={() => setIsExitModalOpen(false)} className="text-black text-xl absolute top-4 right-6 rounded-full p-2 bg-blue-400 hover:bg-blue-300">
+                            <IoMdClose />
+                        </button>
+                        <h3 className="text-lg text-center text-white font-semibold mb-4 pb-4 border-b border-gray-500">Bỏ tin này?</h3>
+                        <p className="text-white">Bạn có chắc chắn là bỏ tin này không? Hệ thống sẽ không lưu tin này của bạn.</p>
+                        <div className="flex gap-4 justify-end mt-4 w-full">
+                            <button
+                                onClick={() => setIsExitModalOpen(false)}
+                                className="bg-gray-800 text-blue-600 p-2 px-4 rounded-lg w-fit hover:bg-gray-700"
+                            >
+                                Tiếp tục chỉnh sửa tin</button>
+                            <button
+                                onClick={handleClose}
+                                className="bg-blue-500 text-white p-2 px-4 rounded-lg w-24 hover:bg-blue-600"
+                            >
+                                Bỏ</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             )}
         </div>
     );

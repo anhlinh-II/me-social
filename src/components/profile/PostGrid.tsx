@@ -79,7 +79,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 						<div className="relative h-full p-4 pt-12 border border-white flex flex-col gap-y-4 items-center justify-center z-10 transition-transform duration-300 transform group-hover:scale-105">
 							<p className="text-lg text-center text-white" style={{
 								textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-							}}>Chia sẻ với mọi người khoảng khắc tuyệt vời của bạn!</p>
+							}}>Chia sẻ với mọi người khoảnh khắc tuyệt vời của bạn!</p>
 							<PiPlusLight className="text-8xl text-white" />
 						</div>
 					</div>

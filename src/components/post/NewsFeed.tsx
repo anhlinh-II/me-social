@@ -1,5 +1,5 @@
 // src/components/PostList.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
@@ -17,108 +17,84 @@ import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
 import { fetchUserNewsfeed } from '../../redux/slice/postsSlice';
 import { formatCreatedTime } from '../../utils/FormatTime';
-import { Avatar } from 'antd';
+import { Avatar, Spin } from 'antd';
 
 
 const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
-    // const [posts, setPosts] = useState<PostResponse[]>([]);
-    // const [loading, setLoading] = useState<boolean>(true);
-    // const [error, setError] = useState<string | null>(null);
-
-    // const {} = useAppSelector((state: RootState) => state)
+    const [page, setPage] = useState(0);
+    const [size] = useState(10);
 
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<boolean>(false);
-
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [openedPost, setOpenedPost] = useState<PostResponse>({
+        id: 0,
+        userId: 0,
+        avatarUrl: '',
+        userFullName: '',
+        groupId: 0,
+        groupName: '',
+        groupAvatar: '',
+        groupCreatedAt: '',
+        content: '',
+        urls: [],
+        publicIds: [],
+        privacy: '',
+        createdAt: '',
+        updatedAt: '',
+        likeNum: 0,
+        commentNum: 0,
+        isLiked: false,
+    });
 
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         try {
-
-    //             const response = await getPostsForNewsFeed(userId, 0);
-    //             if (!response || !response.result || !Array.isArray(response.result.content)) {
-    //                 throw new Error('Invalid response structure');
-    //             }
-
-    //             const transformedPosts: Post[] = response.result.content.map((item: PostResponse) => {
-
-
-
-    //                 return {
-    //                     id: item.id,
-    //                     userId: item.userId,
-    //                     userFullName: item.userFullName,
-    //                     avatar: "https://vov.vn/sites/default/files/styles/large/public/2024-08/ro.jpg",
-    //                     groupId: item.groupId,
-    //                     groupName: item.groupName,
-    //                     content: item.content,
-    //                     privacy: item.privacy,
-    //                     createdAt: item.createdAt,
-    //                     updatedAt: item.updatedAt,
-    //                     likeNum: item.likeNum,
-    //                     commentNum: item.commentNum,
-    //                     time: timeDifference,
-    //                     isLiked: false,
-    //                     isFavourited: false,
-    //                     publicIds: item.publicIds,
-    //                     urls: item.urls,
-    //                     imageError: false
-    //                 }
-    //             });
-
-    //             setPosts(transformedPosts);
-    //             setLoading(false);
-    //         } catch (err: any) {
-    //             setError(err.message || 'Something went wrong');
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchPosts();
-    // }, [userId]);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     const dispatch = useAppDispatch();
-    const { posts, isLoading, error } = useAppSelector((state: RootState) => state.posts);
+    const { posts, isLoading, error, hasMore } = useAppSelector((state: RootState) => state.posts);
 
     useEffect(() => {
-        const res = dispatch(fetchUserNewsfeed({ userId, pageNum: 0 }));
-        console.log("res >> ", res)
-    }, [dispatch, userId]);
+        if (hasMore) {
+            console.log("Fetching page:", page);
+            dispatch(fetchUserNewsfeed({ userId, page, size }));
+        }
+    }, [page, dispatch]);
+
+    useEffect(() => {
+        const container = containerRef.current // Replace with your actual container class
+        console.log("container >> ", container)
+        console.log("is loading >> ", isLoading)
+        const handleScroll = () => {
+            if (
+                container &&
+                container.scrollHeight - container.scrollTop <= container.clientHeight + 100
+            ) {
+                console.log("set page here");
+                setPage((prev) => prev + 1);
+            }
+        };
+        console.log("code run after handle scroll")
+
+        container?.addEventListener('scroll', handleScroll);
+
+        return () => {
+            container?.removeEventListener('scroll', handleScroll);
+        };
+    }, [hasMore, isLoading, page]);
 
 
-    if (isLoading) {
-        return <div className='md:w-[600px] sm:w-full'><PostPlaceholder /><PostPlaceholder /></div>;
+    if (isLoading && posts.length === 0) {
+        return (
+            <div className="md:w-[600px] sm:w-full">
+                <PostPlaceholder />
+                <PostPlaceholder />
+            </div>
+        );
     }
 
     if (error) {
-        return <></>
+        return <div>Error loading posts</div>;
     }
-
-    // const handleLikeBtn = (index: number) => {
-    //     setPosts(prevPosts =>
-    //         prevPosts.map((post, i) =>
-    //             i === index ? { ...post, isLiked: !post.isLiked } : post
-    //         )
-    //     );
-    // };
-
-    // const handleFavouriteBtn = (index: number) => {
-    //     setPosts(prevPosts =>
-    //         prevPosts.map((post, i) => {
-    //             return (i === index ? { ...post, isFavourited: !post.isFavourited } : post);
-    //         })
-    //     );
-    // };
-
-    // const handleImageError = (index: number) => {
-    //     setPosts(prevPosts =>
-    //         prevPosts.map((post, i) =>
-    //             i === index ? { ...post, imageError: true } : post
-    //         )
-    //     );
-    // };
 
     const handleMouseEnter = () => {
         const timeout = setTimeout(() => {
@@ -134,8 +110,13 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         setShowGroupCard(false);
     };
 
+    const handleOnclickImage = (post: PostResponse) => {
+        setShowDetailModal(true);
+        setOpenedPost(post);
+    }
+
     return (
-        <div className="w-full h-fit rounded flex flex-col gap-4">
+        <div ref={containerRef} id='post-list-container' className="w-full h-fit rounded flex flex-col gap-4 ">
             {posts.map((item: PostResponse, index: number) => (
                 <div key={`post-key-${index}`} className="md:w-[600px] sm:w-full bg-white border shadow-md rounded-lg">
                     {/* Post header */}
@@ -213,7 +194,9 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                         </div>
                     ) : (
                     )} */}
-                    <ImageSlider urls={item.urls} />
+                    <div onClick={() => handleOnclickImage(item)}>
+                        <ImageSlider urls={item.urls} />
+                    </div>
 
                     {/* Post Content and things */}
                     <div className="flex flex-col p-3">
@@ -275,9 +258,11 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                     </div>
                 </div>
             ))}
+            {isLoading ?? <Spin />}
             <More show={showMore} setShow={setShowMore} />
             <div className="relative">
                 <PostDetailModal
+                    post={openedPost}
                     show={showDetailModal}
                     setShow={setShowDetailModal}
                 />

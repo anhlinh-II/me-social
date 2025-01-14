@@ -6,13 +6,14 @@ import { FriendshipResponse } from '../../types/Friendship';
 
 interface IFetchSuggestedFriend {
      userId: number;
-     pageNum: number;
+     page: number;
+     size: number;
 }
 
 export const fetchSuggestedFriend = createAsyncThunk(
      'friend/fetchSuggestedFriend',
-     async ({ userId, pageNum }: IFetchSuggestedFriend) => {
-          const response = await getSuggestedFriends(userId, pageNum);
+     async ({ userId, page, size }: IFetchSuggestedFriend) => {
+          const response = await getSuggestedFriends(userId, page, size );
           return response;
      }
 )
@@ -32,26 +33,28 @@ export const handleSendFriendRequest = createAsyncThunk(
 
 interface IFetchFriendRequestByUser {
      userId: number;
-     pageNum: number;
+     page: number;
+     size: number;
 }
 
 export const fetchFriendRequestByUser = createAsyncThunk(
      'friend/fetchFriendRequestByUser',
-     async ({userId, pageNum}: IFetchFriendRequestByUser) => {
-          const response = await getFriendRequestByUser(userId, pageNum)
+     async ({userId, page, size}: IFetchFriendRequestByUser) => {
+          const response = await getFriendRequestByUser(userId, page, size)
           return response;
      }
 )
 
 interface IFetchFriendByUser {
      userId: number;
-     pageNum: number;
+     page: number;
+     size: number;
 }
 
 export const fetchFriendByUser = createAsyncThunk(
      'friend/fetchFriendByUser',
-     async ({userId, pageNum}: IFetchFriendByUser) => {
-          const response = await getUserFriends(userId, pageNum);
+     async ({userId, page, size}: IFetchFriendByUser) => {
+          const response = await getUserFriends(userId, page, size);
           return response;
      }
 )

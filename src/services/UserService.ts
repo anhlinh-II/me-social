@@ -48,6 +48,6 @@ export const getMutualFriends = async (meId: number, youId: number, pageNum: num
 };
 
 // Get Suggested Friends
-export const getSuggestedFriends = async (userId: number, pageNum: number = 0) => {
-    return (await instance.get<IApiResponse<Page<UserDTO>>>('/api/users/get/friends/suggested', { params: { userId, pageNum } })).data;
+export const getSuggestedFriends = async (userId: number, page: number = 0, size: number = 20) => {
+    return (await instance.get<IApiResponse<Page<UserDTO>>>('/api/users/get/friends/suggested', { params: { userId, page, size } })).data;
 };

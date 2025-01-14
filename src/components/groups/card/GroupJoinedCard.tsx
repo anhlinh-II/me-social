@@ -14,8 +14,6 @@ interface GroupCardProps {
 const GroupJoinedCard: React.FC<GroupCardProps> = ({ groupId, imageUrl, groupName, createdAt }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
-    console.log(groupId)
-
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };

@@ -123,7 +123,7 @@ const CreatePostModal = (props: IProps) => {
                if (response) {
                     message.success("Bài viết của bạn đã được đăng!")
                     props.setShow(false);
-                    dispatch(fetchUserNewsfeed({ userId: Number(user.id), pageNum: 0 }));
+                    dispatch(fetchUserNewsfeed({ userId: Number(user.id), page: 0, size: 10 }));
                }
           } catch (error) {
                console.error('Failed to create post:', error);
@@ -187,7 +187,7 @@ const CreatePostModal = (props: IProps) => {
                                              {/*header*/}
                                              <div className="relative flex items-center justify-center p-5 border-b border-solid border-blueGray-200">
                                                   <h3 className="absolute top-6 text-3xl font-semibold">
-                                                       Create Post
+                                                       Tạo bài viết
                                                   </h3>
                                                   <button
                                                        className="p-1 ml-auto bg-transparent border-0 text-sky-600 float-right text-4xl leading-none font-semibold outline-none focus:outline-none"
@@ -202,7 +202,7 @@ const CreatePostModal = (props: IProps) => {
 
                                                        alt="avatar" />
                                                   <div className="font-bold">
-                                                       <span>Ahn Linhh</span>
+                                                       <span>{user.username}</span>
                                                        <div className="cursor-pointer w-full">
                                                             <Select
                                                                  defaultValue={options[0]}
@@ -219,13 +219,13 @@ const CreatePostModal = (props: IProps) => {
                                              </div>
                                              <div className="relative p-6 w-[100%]">
 
-                                                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Tell us what you are thinking</label>
-                                                  <textarea id="message" rows={4} value={content} onChange={(e) => setContent(e.target.value)} className="block p-2.5 w-full text-sm text-black bg-sky-100 rounded-lg border border-sky-600 focus:ring-blue-500 focus:border-blue-200 focus:outline-sky-600" placeholder="Write your thoughts here..."></textarea>
+                                                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Hãy chia sẻ suy nghĩ của bạn nào...</label>
+                                                  <textarea id="message" rows={4} value={content} onChange={(e) => setContent(e.target.value)} className="block p-2.5 w-full text-sm text-black bg-sky-100 rounded-lg border border-sky-600 focus:ring-blue-500 focus:border-blue-200 focus:outline-sky-600" placeholder="Viết suy nghĩ của bạn tại đây..."></textarea>
 
                                              </div>
                                              <div className=" w-[100%] flex flex-col justify-center">
                                                   <div className="w-[92%] flex justify-around items-center border border-1 border-solid border-sky-200 rounded p-2 mb-2 font-lg">
-                                                       Add to your post
+                                                       Thêm vào bài viết ảnh/file phương tiện
                                                        <div className="flex justify-around w-[30%] items-center">
                                                             <label className="hover:bg-gray-300 p-4 rounded cursor-pointer">
                                                                  <IoImagesSharp />
@@ -265,7 +265,7 @@ const CreatePostModal = (props: IProps) => {
                                                        onClick={handleSubmit}
                                                        disabled={loading}
                                                   >
-                                                       {loading ? 'Saving...' : 'Save Changes'}
+                                                       {loading ? 'Đang đăng...' : 'Đăng'}
                                                   </button>
                                              </div>
                                         </div>

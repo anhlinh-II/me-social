@@ -94,7 +94,7 @@ const SuggestFriends = () => {
      const dispatch = useAppDispatch();
 
      useEffect(() => {
-          dispatch(fetchSuggestedFriend({ userId: Number(user.id), pageNum: 0 }))
+          dispatch(fetchSuggestedFriend({ userId: Number(user.id), page: 0, size: 10 }))
      }, [dispatch, user.id])
 
      return (
