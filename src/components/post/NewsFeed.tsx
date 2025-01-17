@@ -240,7 +240,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                             {item.commentNum > 0 ?
                                 <span
                                     className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
-                                    onClick={() => setShowDetailModal(true)}
+                                    onClick={() => handleOnclickImage(item)}
                                 >
                                     Xem {item.commentNum} bình luận
                                 </span>

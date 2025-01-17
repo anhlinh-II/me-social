@@ -1,6 +1,7 @@
 import { CommentRequest, CommentResponse } from '../types/Comment';
 import instance from './Axios-customize';
-import { IApiResponse } from '../types/backend';
+import { IApiResponse, Page } from '../types/backend';
+import exp from 'constants';
 
 // Get Comment by ID
 export const getCommentById = async (id: number) => {
@@ -8,14 +9,30 @@ export const getCommentById = async (id: number) => {
 };
 
 // Get Comments by Post
-export const getCommentsByPost = async (postId: number, pageNum = 0) => {
-    return (await instance.get<IApiResponse<{ content: CommentResponse[] }>>(`/api/comments/post?postId=${postId}&pageNum=${pageNum}`)).data;
+export const getTopCommentsByPost = async (postId: number, pageNum = 0, size: number = 10) => {
+    return (await instance.get<IApiResponse<{ content: CommentResponse[] }>>(`/api/comments/post/top-comment`, {
+        params: {
+            page: pageNum,
+            size,
+            postId
+        }
+    })).data;
 };
 
 // Get Comments by User
 export const getCommentsByUser = async (userId: number, pageNum = 0) => {
     return (await instance.get<IApiResponse<{ content: CommentResponse[] }>>(`/api/comments/user?userId=${userId}&pageNum=${pageNum}`)).data;
 };
+
+export const getAllChildrenComments = async (parentCommentId: number, page: number, size: number) => {
+    return (await instance.get<IApiResponse<Page<CommentResponse>>>(`/api/comments/child-comments`, {
+        params: {
+            parentCommentId,
+            page,
+            size
+        }
+    })).data
+}
 
 // Create Comment
 export const createComment = async (request: CommentRequest) => {

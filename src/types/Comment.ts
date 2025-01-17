@@ -2,7 +2,7 @@ export interface CommentRequest {
     content: string;
     postId: number;
     userId: number;
-    id: number;
+    parentCommentId?: number;
 }
 
 export interface CommentResponse {
@@ -10,7 +10,12 @@ export interface CommentResponse {
     content: string;
     postId: number;
     userId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    username: string;
+    avatarUrl: string;
+    createdAt: string;
+    updatedAt: string;
     likeCount: number;
+    parentCommentId: number;
+    respondedToUser: string;
+    responseNum: number;
 }
