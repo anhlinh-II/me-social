@@ -1,8 +1,14 @@
 export interface CommentRequest {
+    id?: number;
     content: string;
     postId: number;
     userId: number;
     parentCommentId?: number;
+}
+
+export interface UpdateCommentRequest {
+    id: number;
+    content: string | undefined;
 }
 
 export interface CommentResponse {

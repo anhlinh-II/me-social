@@ -37,10 +37,12 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const [openCommentOption, setOpenCommentOption] = useState<boolean>(false);
      const [dataForThreeDot, setDataForThreeDot] = useState<{
           commentId: number,
-          userId: number
+          userId: number,
+          content: string;
      }>({
           commentId: 0,
-          userId: 0
+          userId: 0,
+          content: ""
      });
      const [toggleDelete, setToggleDelete] = useState<boolean>(false);
 
@@ -151,11 +153,12 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
           }
      }
 
-     const handleThreeDot = (commentId: number, userId: number) => {
+     const handleThreeDot = (commentId: number, userId: number, content: string) => {
           setOpenCommentOption(true)
           setDataForThreeDot({
                commentId,
-               userId
+               userId,
+               content
           })
      }
 
@@ -226,7 +229,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                             <span>{formatCreatedTime(comment.createdAt)}</span>
                                                             <span>1 like</span>
                                                             <span className='cursor-pointer'>trả lời</span>
-                                                            <span className='cursor-pointer' onClick={() => handleThreeDot(comment.id, comment.userId)}><BsThreeDots /></span>
+                                                            <span className='cursor-pointer' onClick={() => handleThreeDot(comment.id, comment.userId, comment.content)}><BsThreeDots /></span>
                                                        </span>
                                                        {
                                                             comment.responseNum > 0 &&
@@ -261,7 +264,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                                                                <div className='cursor-text'>{formatCreatedTime(reply.createdAt)}</div>
                                                                                                <span className='cursor-pointer'>1 like</span>
                                                                                                <span className='cursor-pointer'>Trả lời</span>
-                                                                                               <span onClick={() => handleThreeDot(reply.id, reply.userId)} className='cursor-pointer'><BsThreeDots /></span>
+                                                                                               <span onClick={() => handleThreeDot(reply.id, reply.userId, comment.content)} className='cursor-pointer'><BsThreeDots /></span>
                                                                                           </div>
                                                                                      </div>
                                                                                 </div>
@@ -326,7 +329,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                     </div>
                </div>
                <More show={showMore} setShow={setShowMore} />
-               <CommentOptionModal setToggleDelete={setToggleDelete} data={dataForThreeDot} show={openCommentOption} setShow={setOpenCommentOption} />
+               <CommentOptionModal setToggleDelete={setToggleDelete} data={dataForThreeDot} setData={setDataForThreeDot} show={openCommentOption} setShow={setOpenCommentOption} />
           </div>
      );
 };

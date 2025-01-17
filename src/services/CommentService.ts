@@ -1,4 +1,4 @@
-import { CommentRequest, CommentResponse } from '../types/Comment';
+import { CommentRequest, CommentResponse, UpdateCommentRequest } from '../types/Comment';
 import instance from './Axios-customize';
 import { IApiResponse, Page } from '../types/backend';
 import exp from 'constants';
@@ -40,7 +40,7 @@ export const createComment = async (request: CommentRequest) => {
 };
 
 // Edit Comment
-export const editComment = async (request: CommentRequest) => {
+export const editComment = async (request: UpdateCommentRequest) => {
     return (await instance.put<IApiResponse<CommentResponse>>(`/api/comments/edit`, request)).data;
 };
 
