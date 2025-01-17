@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import pittapiu from '../../assets/pittapiu.png';
 import { BsThreeDots } from 'react-icons/bs';
 import { Avatar } from '@mui/material';
 import { IoMdHeartEmpty } from 'react-icons/io';
-import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
+import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane, FaSleigh } from 'react-icons/fa6';
 import { FiBookmark } from 'react-icons/fi';
 import Emoji from '../Emoji';
 import More from './More';
@@ -16,6 +15,7 @@ import { formatCreatedTime } from '../../utils/FormatTime';
 import { CommentRequest, CommentResponse } from '../../types/Comment';
 import { createComment, getAllChildrenComments, getTopCommentsByPost } from '../../services/CommentService';
 import { useUser } from '../../utils/CustomHook';
+import CommentOptionModal from './Comment.option.modal';
 
 interface ModalProps {
      show: boolean;
@@ -34,6 +34,15 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const [comments, setComments] = useState<CommentResponse[]>([]); // State for comments
      const [loading, setLoading] = useState<boolean>(false);
      const [comment, setComment] = useState<string>("");
+     const [openCommentOption, setOpenCommentOption] = useState<boolean>(false);
+     const [dataForThreeDot, setDataForThreeDot] = useState<{
+          commentId: number,
+          userId: number
+     }>({
+          commentId: 0,
+          userId: 0
+     });
+     const [toggleDelete, setToggleDelete] = useState<boolean>(false);
 
      const wrapperRef = useRef(null);
 
@@ -79,7 +88,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
           return () => {
                document.body.style.overflow = '';
           };
-     }, [show]);
+     }, [show, toggleDelete]);
 
      if (!show) return null;
 
@@ -142,7 +151,13 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
           }
      }
 
-     console.log("comment >> ", comment)
+     const handleThreeDot = (commentId: number, userId: number) => {
+          setOpenCommentOption(true)
+          setDataForThreeDot({
+               commentId,
+               userId
+          })
+     }
 
 
      return (
@@ -204,13 +219,14 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                   </span>
                                                   <div className="flex flex-col gap-1.5 w-full">
                                                        <p className="flex justify-between text-sm">
-                                                            <span className=""><span className='font-semibold'>{comment.username}</span> {comment.content}</span> 
+                                                            <span className=""><span className='font-semibold'>{comment.username}</span> {comment.content}</span>
                                                             <span className='text-md cursor-pointer'><IoMdHeartEmpty /></span>
                                                        </p>
-                                                       <span className="text-gray-400 flex gap-3 text-xs font-semibold">
+                                                       <span className="text-gray-400 items-center flex gap-3 text-xs font-semibold">
                                                             <span>{formatCreatedTime(comment.createdAt)}</span>
                                                             <span>1 like</span>
                                                             <span className='cursor-pointer'>trả lời</span>
+                                                            <span className='cursor-pointer' onClick={() => handleThreeDot(comment.id, comment.userId)}><BsThreeDots /></span>
                                                        </span>
                                                        {
                                                             comment.responseNum > 0 &&
@@ -241,10 +257,11 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                                                           <p className='text-sm'>
                                                                                                <span className='font-semibold'>{reply.username}</span> <span className='text-sky-700'>@{reply.respondedToUser}</span> <span className=''>{reply.content}</span>
                                                                                           </p>
-                                                                                          <div className='text-gray-400 text-xs font-semibold flex gap-4 '>
+                                                                                          <div className='text-gray-400 text-xs font-semibold flex items-center gap-4 '>
                                                                                                <div className='cursor-text'>{formatCreatedTime(reply.createdAt)}</div>
                                                                                                <span className='cursor-pointer'>1 like</span>
-                                                                                               <span className='cursor-pointer'>Reply</span>
+                                                                                               <span className='cursor-pointer'>Trả lời</span>
+                                                                                               <span onClick={() => handleThreeDot(reply.id, reply.userId)} className='cursor-pointer'><BsThreeDots /></span>
                                                                                           </div>
                                                                                      </div>
                                                                                 </div>
@@ -309,6 +326,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                     </div>
                </div>
                <More show={showMore} setShow={setShowMore} />
+               <CommentOptionModal setToggleDelete={setToggleDelete} data={dataForThreeDot} show={openCommentOption} setShow={setOpenCommentOption} />
           </div>
      );
 };

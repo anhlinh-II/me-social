@@ -45,7 +45,7 @@ export const editComment = async (request: CommentRequest) => {
 };
 
 // Delete Comment
-export const deleteComment = async (commentId: number): Promise<void> => {
-    await instance.delete<IApiResponse<void>>(`/api/comments/${commentId}`);
+export const deleteComment = async (commentId: number) => {
+    return (await instance.delete<IApiResponse<void>>(`/api/comments/${commentId}`)).data;
 };
 
