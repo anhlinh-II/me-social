@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { BsThreeDots } from 'react-icons/bs';
 import { Avatar } from '@mui/material';
-import { IoMdHeartEmpty } from 'react-icons/io';
-import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane, FaSleigh } from 'react-icons/fa6';
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
+import { FaRegComment, FaRegFaceSmileBeam, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
 import { FiBookmark } from 'react-icons/fi';
 import Emoji from '../Emoji';
 import More from './More';
@@ -16,6 +16,7 @@ import { CommentRequest, CommentResponse } from '../../types/Comment';
 import { createComment, getAllChildrenComments, getTopCommentsByPost } from '../../services/CommentService';
 import { useUser } from '../../utils/CustomHook';
 import CommentOptionModal from './Comment.option.modal';
+import { createCommentLike, deleteCommentLike } from '../../services/LikeService';
 
 interface ModalProps {
      show: boolean;
@@ -31,7 +32,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const [showRepliesMap, setShowRepliesMap] = useState<{ [key: number]: boolean }>({});
      const [repliesMap, setRepliesMap] = useState<{ [key: number]: CommentResponse[] }>({});
      const [showMore, setShowMore] = useState<boolean>(false);
-     const [comments, setComments] = useState<CommentResponse[]>([]); // State for comments
+     const [comments, setComments] = useState<CommentResponse[]>([]);
      const [loading, setLoading] = useState<boolean>(false);
      const [comment, setComment] = useState<string>("");
      const [openCommentOption, setOpenCommentOption] = useState<boolean>(false);
@@ -47,6 +48,8 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const [toggleDelete, setToggleDelete] = useState<boolean>(false);
 
      const wrapperRef = useRef(null);
+     const replyRef = useRef<HTMLInputElement | null>(null);
+     const [parentCommentId, setParentCommentId] = useState<number>(0);
 
      useOutsideAlerter(wrapperRef);
 
@@ -79,7 +82,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      useEffect(() => {
           if (show) {
                // Disable scrolling
-               // document.body.style.overflow = 'hidden';
+               document.body.style.overflow = 'hidden';
                fetchComments()
           } else {
                // Enable scrolling
@@ -97,7 +100,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const fetchComments = async () => {
           setLoading(true);
           try {
-               const response = await getTopCommentsByPost(post.id);
+               const response = await getTopCommentsByPost(Number(user.id), post.id);
                console.log("res comment >> ", response);
                if (response && response.code === 1000 && response.result?.content) {
                     setComments(response.result?.content);
@@ -119,7 +122,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      const handleSeeReplies = async (parentCommentId: number, isRepliesVisible: boolean) => {
 
           if (!isRepliesVisible) {
-               const response = await getAllChildrenComments(parentCommentId, 0, 10);
+               const response = await getAllChildrenComments(Number(user.id), parentCommentId, 0, 10);
 
                setRepliesMap((prev) => ({
                     ...prev,
@@ -138,6 +141,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                     postId: post.id,
                     content: comment.trim(),
                     userId: Number(user.id),
+                    parentCommentId: parentCommentId !== 0 ? parentCommentId : undefined
                };
 
                const response = await createComment(newCommentRequest);
@@ -161,6 +165,94 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                content
           })
      }
+
+     const handleLikeComment = async (commentId: number, isLiked: boolean) => {
+          try {
+               // Find the comment to update
+               const updatedComments = [...comments];
+               const commentIndex = updatedComments.findIndex((comment) => comment.id === commentId);
+
+               if (commentIndex === -1) {
+                    console.warn("Comment not found.");
+                    return;
+               }
+
+               if (!isLiked) {
+                    // Like the comment
+                    const response = await createCommentLike(Number(user.id), commentId);
+                    if (response && response.code === 1000) {
+                         // Update the local state
+                         updatedComments[commentIndex] = {
+                              ...updatedComments[commentIndex],
+                              liked: true,
+                              likeNum: updatedComments[commentIndex].likeNum + 1,
+                         };
+                         setComments(updatedComments);
+                    }
+               } else {
+                    // Unlike the comment
+                    await deleteCommentLike(Number(user.id), commentId);
+                    // Update the local state
+                    updatedComments[commentIndex] = {
+                         ...updatedComments[commentIndex],
+                         liked: false,
+                         likeNum: Math.max(updatedComments[commentIndex].likeNum - 1, 0),
+                    };
+                    setComments(updatedComments);
+               }
+          } catch (error) {
+               console.error("Error handling comment like/unlike:", error);
+          }
+     };
+
+     const handleRepliesLike = async (replyId: number, commentId: number, isLiked: boolean) => {
+          try {
+              // Get the current replies for the given commentId
+              const replies = repliesMap[commentId] || [];
+              const replyIndex = replies.findIndex((reply) => reply.id === replyId);
+      
+              if (replyIndex === -1) {
+                  console.warn("Reply not found.");
+                  return;
+              }
+      
+              // Clone the replies array to maintain immutability
+              const updatedReplies = [...replies];
+              const targetReply = updatedReplies[replyIndex];
+      
+              if (!isLiked) {
+                  // Like the reply
+                  const response = await createCommentLike(Number(user.id), replyId);
+                  if (response && response.code === 1000) {
+                      updatedReplies[replyIndex] = {
+                          ...targetReply,
+                          liked: true,
+                          likeNum: targetReply.likeNum + 1,
+                      };
+                  }
+              } else {
+                  // Unlike the reply
+                  const response = await deleteCommentLike(Number(user.id), replyId);
+                  if (response && response.data.code === 1000) {
+                      updatedReplies[replyIndex] = {
+                          ...targetReply,
+                          liked: false,
+                          likeNum: Math.max(targetReply.likeNum - 1, 0),
+                      };
+                  }
+              }
+      
+              // Update the repliesMap state
+              setRepliesMap((prevMap) => ({
+                  ...prevMap,
+                  [commentId]: updatedReplies, // Update the specific commentId's replies
+              }));
+          } catch (error) {
+              console.error("Error handling reply like/unlike:", error);
+          }
+      };
+      
+      
 
 
      return (
@@ -243,14 +335,21 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                        <Avatar sx={{ width: 35, height: 35 }} src={comment.avatarUrl} alt="avatar" />
                                                   </span>
                                                   <div className="flex flex-col gap-1.5 w-full">
-                                                       <p className="flex justify-between text-sm">
+                                                       <p className="flex justify-between items-center text-sm">
                                                             <span className=""><span className='font-semibold'>{comment.username}</span> {comment.content}</span>
-                                                            <span className='text-md cursor-pointer'><IoMdHeartEmpty /></span>
+                                                            {
+                                                                 comment.liked
+                                                                      ? <span onClick={() => handleLikeComment(comment.id, comment.liked)} className='text-md cursor-pointer text-red-500'><IoMdHeart /></span>
+                                                                      : <span onClick={() => handleLikeComment(comment.id, comment.liked)} className='text-md cursor-pointer'><IoMdHeartEmpty /></span>
+                                                            }
                                                        </p>
                                                        <span className="text-gray-400 items-center flex gap-3 text-xs font-semibold">
                                                             <span>{formatCreatedTime(comment.createdAt)}</span>
-                                                            <span>1 like</span>
-                                                            <span className='cursor-pointer'>trả lời</span>
+                                                            {comment.likeNum >= 1 && <span>{comment.likeNum > 1 ? `${comment.likeNum} likes` : (comment.likeNum === 1 ? `${comment.likeNum} like` : null)}</span>}
+                                                            <span onClick={() => {
+                                                                 replyRef.current?.focus();
+                                                                 setParentCommentId(comment.id)
+                                                            }} className='cursor-pointer'>trả lời</span>
                                                             <span className='cursor-pointer' onClick={() => handleThreeDot(comment.id, comment.userId, comment.content)}><BsThreeDots /></span>
                                                        </span>
                                                        {
@@ -284,13 +383,23 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                                                           </p>
                                                                                           <div className='text-gray-400 text-xs font-semibold flex items-center gap-4 '>
                                                                                                <div className='cursor-text'>{formatCreatedTime(reply.createdAt)}</div>
-                                                                                               <span className='cursor-pointer'>1 like</span>
-                                                                                               <span className='cursor-pointer'>Trả lời</span>
+                                                                                               {reply.likeNum >= 1 && <span>{reply.likeNum > 1 ? `${reply.likeNum} likes` : (reply.likeNum === 1 ? `${reply.likeNum} like` : null)}</span>}
+                                                                                               <span className='cursor-pointer' onClick={
+                                                                                                    () => {
+                                                                                                         replyRef.current?.focus();
+                                                                                                         setParentCommentId(reply.id)
+                                                                                                    }
+                                                                                               }>Trả lời</span>
                                                                                                <span onClick={() => handleThreeDot(reply.id, reply.userId, comment.content)} className='cursor-pointer'><BsThreeDots /></span>
                                                                                           </div>
                                                                                      </div>
                                                                                 </div>
-                                                                                <span className='text-md cursor-pointer'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
+                                                                                
+                                                                                {
+                                                                                     reply.liked
+                                                                                          ? <span onClick={() => handleRepliesLike(reply.id, comment.id, reply.liked)} className='text-md cursor-pointer text-red-500'><IoMdHeart className='cursor-pointer' /></span>
+                                                                                          : <span onClick={() => handleRepliesLike(reply.id, comment.id, reply.liked)} className='text-md cursor-pointer'><IoMdHeartEmpty className='hover:text-gray-700 cursor-pointer' /></span>
+                                                                                }
                                                                            </div>
                                                                       )
                                                                  })
@@ -335,9 +444,9 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                              />
                                         </span>
                                    </span>
-                                   <textarea
+                                   <input
+                                        ref={replyRef}
                                         className='w-full outline-none resize-none rounded-md'
-                                        rows={1}
                                         placeholder='Add a comment...'
                                         value={comment}
                                         onChange={(e) => setComment(e.target.value)}

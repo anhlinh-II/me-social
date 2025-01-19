@@ -29,5 +29,5 @@ export const deletePostLike = async (userId: number, postId: number) => {
 
 // Delete Comment Like
 export const deleteCommentLike = async (userId: number, commentId: number) => {
-    await instance.delete<IApiResponse<void>>(`/api/likes/comment/remove/${userId}/${commentId}`);
+    return await instance.delete<IApiResponse<void>>(`/api/likes/comment/remove/${userId}/${commentId}`);
 };

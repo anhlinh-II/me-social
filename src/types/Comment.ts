@@ -20,8 +20,9 @@ export interface CommentResponse {
     avatarUrl: string;
     createdAt: string;
     updatedAt: string;
-    likeCount: number;
+    likeNum: number;
     parentCommentId: number;
     respondedToUser: string;
     responseNum: number;
+    liked: boolean;
 }
