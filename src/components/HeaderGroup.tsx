@@ -13,7 +13,7 @@ import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 import ChatList, { UserChat } from "./Chat/ChatList";
 import Chat from "./Chat/Chat";
 
-const Header = () => {
+const HeaderGroup = () => {
 
 	const location = useLocation();
 
@@ -73,7 +73,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="bg-sky-600 w-full top-0 fixed z-auto right-0 left-0">
+			<header className="bg-sky-600 w-full top-0 fixed z-50 right-0 left-0">
 				<nav
 					className="mx-0 flex max-w-8xl items-center justify-between p-1 lg:px-10 shadow-lg"
 					aria-label="Global"
@@ -215,4 +215,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default HeaderGroup;

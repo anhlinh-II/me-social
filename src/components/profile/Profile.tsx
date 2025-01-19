@@ -19,12 +19,12 @@ const Profile = () => {
 
 	const user = useUser();
 
-	const { posts, isLoading, error } = useAppSelector(state => state.posts);
+	const { userProfilePost } = useAppSelector(state => state.posts);
 
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(fetchPostByUser({ userId: Number(user.id), pageNum: 0 }))
+		dispatch(fetchPostByUser({ userId: Number(user.id), page: 0, size: 20 }))
 	}, [dispatch, user.id])
 
 	// const posts = [
@@ -131,7 +131,7 @@ const Profile = () => {
 
 					</div>
 					{(active === "posts") ?
-						<PostGrid posts={posts} />
+						<PostGrid posts={userProfilePost} />
 						:
 						<ReelGrid reels={reels} />
 					}

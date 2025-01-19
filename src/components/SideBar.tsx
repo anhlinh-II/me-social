@@ -94,7 +94,7 @@ const SideBar = (props: IProps) => {
                               icon={<IoHome className='text-2xl' />}
                               onClick={() => setActive("home")}
                          >
-                              Home
+                              Trang chủ
                          </MenuItem>
                          <MenuItem
                               active={active === "reels" ? true : false}
@@ -103,7 +103,7 @@ const SideBar = (props: IProps) => {
                               component={<Link to={'/reels'} />}
                               icon={<BsCollectionPlayFill className='text-xl' />}
                          >
-                              Reels
+                              Video
                          </MenuItem>
                          <MenuItem
                               active={active === "createReels" ? true : false}
@@ -111,7 +111,7 @@ const SideBar = (props: IProps) => {
                               rootStyles={{ padding: "5px" }}
                               icon={<IoIosAddCircle className='text-2xl' />}
                          >
-                              Create Reels
+                              Tạo Video
                          </MenuItem>
                          <MenuItem
                               active={active === "profile" ? true : false}
@@ -120,7 +120,7 @@ const SideBar = (props: IProps) => {
                               component={<Link to={'/profile'} />}
                               icon={<Avatar src={user.avatarUrl ? user.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"} />}
                          >
-                              Profile
+                              Hồ sơ
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
@@ -128,7 +128,7 @@ const SideBar = (props: IProps) => {
                               onClick={() => setActive("setting")}
                               icon={<IoMdSettings className='text-2xl' />}
                          >
-                              Setting
+                              Cài đặt
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
@@ -137,7 +137,7 @@ const SideBar = (props: IProps) => {
                               icon={<MdManageAccounts className='text-2xl' />}
                               component={<Link to={'/admin/dashboard'} />}
                          >
-                              Admin Page
+                              Trang Admin
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
@@ -152,7 +152,7 @@ const SideBar = (props: IProps) => {
                               }}
                               icon={<IoLogOut className='text-2xl' />}
                          >
-                              Log out
+                              Đăng xuất
                          </MenuItem>
                     </Menu>
                     <div className='px-8 mt-20'>
@@ -161,7 +161,7 @@ const SideBar = (props: IProps) => {
                               to={'https://github.com/anhlinh-II/me-social'} target="_blank"
                          >
                               <FaGithub className='text-2xl text-sky-800' />
-                              <p className='underline underline-offset-4 decoration-sky-800 text-sky-800 font-medium'>Visit Our Source</p>
+                              <p className='underline underline-offset-4 decoration-sky-800 text-sky-800 font-medium'>Xem mã nguồn</p>
                          </Link>
                     </div>
 

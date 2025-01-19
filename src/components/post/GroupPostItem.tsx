@@ -13,19 +13,23 @@ import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';
 import { formatCreatedTime } from '../../utils/FormatTime';
 import { Avatar } from 'antd';
+import { useAppDispatch } from '../../redux/hook';
+import { updatePostLike } from '../../redux/slice/postsSlice';
+import { useUser } from '../../utils/CustomHook';
 
 interface PostItemProps {
     post: PostResponse;
     index: number;
     error: string | null;
-    // handleLikeBtn: (index: number) => void;
-    // handleFavouriteBtn: (index: number) => void;
 }
 
 
 const GroupPostItem = (props: PostItemProps) => {
-
     const { post, error } = props;
+
+    const dispatch = useAppDispatch();
+    const user = useUser();
+
     const [showMore, setShowMore] = useState<boolean>(false);
     const [imageError, setImageError] = useState<boolean>(false);
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
@@ -49,6 +53,14 @@ const GroupPostItem = (props: PostItemProps) => {
         }
         setShowGroupCard(false);
     };
+
+    const handleOnclickImage = (post: PostResponse) => {
+        setShowDetailModal(true);
+    }
+
+    const handleLikeBtn = async (postId: number, liked: boolean) => {
+        dispatch(updatePostLike({ userId: Number(user.id), postId, isLiked: liked }))
+    }
 
     return (
         <div className="md:w-[600px] sm:w-full bg-white rounded-lg border-2 mb-4">
@@ -101,19 +113,19 @@ const GroupPostItem = (props: PostItemProps) => {
                     <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                 </div>
             ) : (
-                <ImageSlider urls={post.urls} />
+                <div onClick={() => handleOnclickImage(post)}>
+                    <ImageSlider urls={post.urls} />
+                </div>
             )}
-
-
 
             <div className="flex flex-col p-3">
                 <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                     <div className="flex gap-1 font-bold text-2xl">
                         <button
-                            // onClick={() => handleLikeBtn(index)}
-                            className={post.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
+                            onClick={() => handleLikeBtn(post.id, post.liked)}
+                            className={post.liked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
                         >
-                            {post.isLiked ? <FaHeart /> : <FaRegHeart />}
+                            {post.liked ? <FaHeart /> : <FaRegHeart />}
                         </button>
                         <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
                             <FaRegComment />
@@ -154,19 +166,19 @@ const GroupPostItem = (props: PostItemProps) => {
                         <Avatar src={post.avatarUrl}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
-                            // onError={handleImageError}
+                        // onError={handleImageError}
                         />
                         <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
                     </div>
                 </div>
             </div>
             <More show={showMore} setShow={setShowMore} />
-            <div className="relative">
-                <PostDetailModal
-                    show={showDetailModal}
-                    setShow={setShowDetailModal}
-                />
-            </div>
+
+            <PostDetailModal
+                post={post}
+                show={showDetailModal}
+                setShow={setShowDetailModal}
+            />
         </div>
     );
 };

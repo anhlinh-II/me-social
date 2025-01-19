@@ -15,9 +15,10 @@ import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
-import { fetchUserNewsfeed } from '../../redux/slice/postsSlice';
+import { fetchUserNewsfeed, updatePostLike } from '../../redux/slice/postsSlice';
 import { formatCreatedTime } from '../../utils/FormatTime';
 import { Avatar, Spin } from 'antd';
+import { createPostLike } from '../../services/LikeService';
 
 
 const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -45,13 +46,13 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         updatedAt: '',
         likeNum: 0,
         commentNum: 0,
-        isLiked: false,
+        liked: false,
     });
 
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     const dispatch = useAppDispatch();
-    const { posts, isLoading, error, hasMore } = useAppSelector((state: RootState) => state.posts);
+    const { userNewsfeedPost, isLoading, error, hasMore } = useAppSelector((state: RootState) => state.posts);
 
     useEffect(() => {
         if (hasMore) {
@@ -83,7 +84,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     }, [hasMore, isLoading, page]);
 
 
-    if (isLoading && posts.length === 0) {
+    if (isLoading && userNewsfeedPost.length === 0) {
         return (
             <div className="md:w-[600px] sm:w-full">
                 <PostPlaceholder />
@@ -115,17 +116,21 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         setOpenedPost(post);
     }
 
+    const handleLikeBtn = async (postId: number, liked: boolean) => {
+        dispatch(updatePostLike({ userId, postId, isLiked: liked }))
+    }
+
     return (
         <div ref={containerRef} id='post-list-container' className="w-full h-fit rounded flex flex-col gap-4 ">
-            {posts.map((item: PostResponse, index: number) => (
+            {userNewsfeedPost.map((post: PostResponse, index: number) => (
                 <div key={`post-key-${index}`} className="md:w-[600px] sm:w-full bg-white border shadow-md rounded-lg">
                     {/* Post header */}
                     <div className="flex relative justify-start items-center px-3 py-2 gap-2">
-                        {item.groupId ? (
+                        {post.groupId ? (
                             <div>
-                                <Link to={`/groups/${[item.groupId]}/discussion`}>
+                                <Link to={`/groups/${[post.groupId]}/discussion`}>
                                     <img
-                                        src={item.groupAvatar}
+                                        src={post.groupAvatar}
                                         className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
                                         alt="error"
                                         // onError={() => handleImageError(index)}
@@ -134,12 +139,12 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     />
                                 </Link>
                                 <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
-                                    src={item.avatarUrl} />
+                                    src={post.avatarUrl} />
                                 {showGroupCard && (
                                     <div className="absolute top-8 -left-20 z-10"
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                        <GroupJoinedCard createdAt={item.createdAt} groupId={item.id} imageUrl={item.avatarUrl} groupName={item.groupName} />
+                                        <GroupJoinedCard createdAt={post.createdAt} groupId={post.id} imageUrl={post.avatarUrl} groupName={post.groupName} />
                                     </div>
                                 )}
                             </div>
@@ -148,39 +153,39 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 <Avatar
                                     size={'large'}
                                     className='border-sky-500'
-                                    src={item.avatarUrl ? item.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
+                                    src={post.avatarUrl ? post.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                                     alt="avatar"
                                 />
                             </>
                         )}
-                        {item.groupId ? (
+                        {post.groupId ? (
                             <div className="ml-2">
                                 <h4 className='font-bold text-lg hover:underline'>
-                                    <Link to={`/groups/${item.groupId}/discussion`}
+                                    <Link to={`/groups/${post.groupId}/discussion`}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}>
-                                        {item.groupName}
+                                        {post.groupName}
                                     </Link>
                                 </h4>
                                 <div className="flex gap-1 justify-start items-center text-sm">
                                     <span className="font-semibold text-gray-500 hover:underline">
                                         <Link to={`/profile`}>
-                                            {item.userFullName}
+                                            {post.userFullName}
                                         </Link>
                                     </span>
                                     <GoDotFill className="text-[6px]" />
-                                    <span className=" text-gray-500 font-semibold text-sm ">{formatCreatedTime(item.createdAt)} </span>
+                                    <span className=" text-gray-500 font-semibold text-sm ">{formatCreatedTime(post.createdAt)} </span>
                                     <GoDotFill className="text-[6px]" />
-                                    <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm  align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                                    <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm  align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
                             </div>
                         ) : (
                             <div className="ml-2">
-                                <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{item.userFullName}</span>
-                                <div className="flex gap-2 justify-start items-center text-gray-500 ">
-                                    <span className="font-semibold text-sm">{formatCreatedTime(item.createdAt)} </span>
+                                <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{post.userFullName}</span>
+                                <div className="flex gap-2 justify-start items-center text-gray-500">
+                                    <span className="font-semibold text-sm">{formatCreatedTime(post.createdAt)} </span>
                                     <span><GoDotFill className="text-[10px]" /></span>
-                                    <span>{item.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (item.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                                    <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
                                 </div>
                             </div>
                         )}
@@ -188,25 +193,25 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                     </div>
 
                     {/* Post slider */}
-                    {/* {item.imageError ? (
+                    {error ? (
                         <div className="flex justify-center items-center w-full h-64 bg-gray-200">
                             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
                         </div>
                     ) : (
-                    )} */}
-                    <div onClick={() => handleOnclickImage(item)}>
-                        <ImageSlider urls={item.urls} />
-                    </div>
+                        <div onClick={() => handleOnclickImage(post)}>
+                            <ImageSlider urls={post.urls} />
+                        </div>
+                    )}
 
                     {/* Post Content and things */}
                     <div className="flex flex-col p-3">
                         <div className="flex justify-between cursor-pointer text-sky-600 mb-2">
                             <div className="flex gap-1 font-bold text-2xl">
                                 <button
-                                    // onClick={() => handleLikeBtn(index)}
-                                    className={item.isLiked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
+                                    onClick={() => handleLikeBtn(post.id, post.liked)}
+                                    className={post.liked ? "w-[34px] h-[34px] text-[red] rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] rounded-full flex items-center justify-center"}
                                 >
-                                    {item.isLiked ? <FaHeart /> : <FaRegHeart />}
+                                    {post.liked ? <FaHeart /> : <FaRegHeart />}
                                 </button>
                                 <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
                                     <FaRegComment />
@@ -223,9 +228,9 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 {true ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
-                        <span className="font-medium text-sky-800">{item.likeNum} likes</span>
+                        <span className="font-medium text-sky-800">{post.likeNum} likes</span>
                         <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
-                            <span className="font-bold text-sky-700">{item.userFullName}</span>
+                            <span className="font-bold text-sky-700">{post.userFullName}</span>
                             <ShowMoreText
                                 lines={1}
                                 more="more"
@@ -235,21 +240,21 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 expanded={false}
                                 truncatedEndingComponent={"..."}
                             >
-                                {item.content}
+                                {post.content}
                             </ShowMoreText>
-                            {item.commentNum > 0 ?
+                            {post.commentNum > 0 ?
                                 <span
                                     className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500"
-                                    onClick={() => handleOnclickImage(item)}
+                                    onClick={() => handleOnclickImage(post)}
                                 >
-                                    Xem {item.commentNum} bình luận
+                                    Xem {post.commentNum} bình luận
                                 </span>
                                 : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                             <div className='flex flex-row gap-2 mt-2'>
                                 <Avatar
                                     // size={''}
                                     // className='border-sky-500'
-                                    src={item.avatarUrl ? item.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
+                                    src={post.avatarUrl ? post.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                                     alt="avatar"
                                 />
                                 <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
@@ -260,13 +265,12 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
             ))}
             {isLoading ?? <Spin />}
             <More show={showMore} setShow={setShowMore} />
-            <div className="relative">
-                <PostDetailModal
-                    post={openedPost}
-                    show={showDetailModal}
-                    setShow={setShowDetailModal}
-                />
-            </div>
+
+            <PostDetailModal
+                post={openedPost}
+                show={showDetailModal}
+                setShow={setShowDetailModal}
+            />
         </div>
     );
 };

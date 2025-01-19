@@ -83,7 +83,7 @@ const GroupHeader: React.FC<GroupHeaderProps> = ({ group }) => {
     const suggestedUsers = ['User1', 'User2', 'User3'];
 
     return (
-        <div className="flex flex-col items-center justify-center w-full bg-blue-50 shadow-sm p-4 mt-[-72px] mb-5">
+        <div className="flex flex-col items-center justify-center mt-[50px] w-full bg-blue-50 shadow-sm p-4  mb-5">
             <div className="relative">
                 <img
                     src={group?.imageUrl}

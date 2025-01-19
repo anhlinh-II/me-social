@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPostsByGroup, getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
 import { PostResponse } from "../../types/Post";
+import { createPostLike, deletePostLike } from "../../services/LikeService";
 
 // Fetch posts based on userId and pageNum
 interface IFetchPost {
@@ -50,15 +51,36 @@ export const fetchPostByGroup = createAsyncThunk(
     }
 )
 
+export const updatePostLike = createAsyncThunk(
+    'posts/updateLike',
+    async ({ userId, postId, isLiked }: { userId: number; postId: number; isLiked: boolean }) => {
+        const response = isLiked
+            ? await deletePostLike(userId, postId) // Call delete like API if already liked
+            : await createPostLike(userId, postId); // Call create like API otherwise
+
+        if (response.code === 1000) {
+            return { postId, isLiked: !isLiked, increment: isLiked ? -1 : 1 };
+        }
+        throw new Error("Failed to update like");
+    }
+);
+
+
 interface IState {
-    posts: PostResponse[];
+    userNewsfeedPost: PostResponse[];
+    userProfilePost: PostResponse[];
+    groupPostForUser: PostResponse[];
+    groupPost: PostResponse[];
     isLoading: boolean;
     error: string | null;
     hasMore: boolean;
 }
 
 const initialState: IState = {
-    posts: [],
+    userNewsfeedPost: [],
+    groupPostForUser: [],
+    userProfilePost: [],
+    groupPost: [],
     isLoading: false,
     error: null,
     hasMore: true,
@@ -67,14 +89,6 @@ const initialState: IState = {
 const handlePending = (state: IState) => {
     state.isLoading = true;
     state.error = null;
-}
-
-const handleFullfiled = (state: IState, action: any) => {
-    state.isLoading = false;
-    state.posts = [...state.posts, ...action.payload.result.content]
-    console.log("post saved to redux")
-    state.hasMore = action.payload.result.content.length > 0
-    console.log("hasMore >> ", state.hasMore)
 }
 
 const handleReject = (state: IState, action: any) => {
@@ -90,21 +104,53 @@ export const postsSlice = createSlice({
         builder
             // Case cho fetchUserNewsfeed
             .addCase(fetchUserNewsfeed.pending, handlePending)
-            .addCase(fetchUserNewsfeed.fulfilled, handleFullfiled)
+            .addCase(fetchUserNewsfeed.fulfilled, (state: IState, action: any) => {
+                state.isLoading = false;
+                state.userNewsfeedPost = action.payload.result.content
+                state.hasMore = action.payload.result.content.length > 0
+            })
             .addCase(fetchUserNewsfeed.rejected, handleReject)
 
             // Case cho fetchGroupActivities
             .addCase(fetchGroupActivities.pending, handlePending)
-            .addCase(fetchGroupActivities.fulfilled, handleFullfiled)
+            .addCase(fetchGroupActivities.fulfilled, (state: IState, action: any) => {
+                state.isLoading = false;
+                state.groupPostForUser = action.payload.result.content
+                state.hasMore = action.payload.result.content.length > 0
+            })
             .addCase(fetchGroupActivities.rejected, handleReject)
 
             .addCase(fetchPostByUser.pending, handlePending)
-            .addCase(fetchPostByUser.fulfilled, handleFullfiled)
+            .addCase(fetchPostByUser.fulfilled, (state: IState, action: any) => {
+                state.isLoading = false;
+                state.userProfilePost = action.payload.result.content
+                state.hasMore = action.payload.result.content.length > 0
+            })
             .addCase(fetchPostByUser.rejected, handleReject)
 
             .addCase(fetchPostByGroup.pending, handlePending)
-            .addCase(fetchPostByGroup.fulfilled, handleFullfiled)
+            .addCase(fetchPostByGroup.fulfilled, (state: IState, action: any) => {
+                state.isLoading = false;
+                state.groupPost = action.payload.result.content
+                state.hasMore = action.payload.result.content.length > 0
+            })
             .addCase(fetchPostByGroup.rejected, handleReject)
+
+            .addCase(updatePostLike.fulfilled, (state, { payload }) => {
+                const updateLikeStatus = (posts: PostResponse[]) => {
+                    const post = posts.find((p) => p.id === payload.postId);
+                    if (post) {
+                        post.liked = payload.isLiked;
+                        post.likeNum += payload.increment;
+                    }
+                };
+
+                // Update the like status in all relevant state fields
+                updateLikeStatus(state.userNewsfeedPost);
+                updateLikeStatus(state.userProfilePost);
+                updateLikeStatus(state.groupPostForUser);
+                updateLikeStatus(state.groupPost);
+            });
     },
 });
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import GroupPostItem from '../post/GroupPostItem';
-import ListPosts from '../post/ListPosts';
 import GroupJoinedSideBar from './GroupJoinedSideBar';
 import PostPlaceholder from '../post/PostPlaceholder';
 import GroupSidebarPlaceholder from './placeholder/GroupJoinedSideBarPlaceholder';
@@ -12,7 +11,7 @@ import { useUser } from '../../utils/CustomHook';
 const GroupActivity: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useUser();
-    const { posts, isLoading, error } = useAppSelector((state: RootState) => state.posts);
+    const { groupPostForUser, isLoading, error } = useAppSelector((state: RootState) => state.posts);
 
 
     useEffect(() => {
@@ -60,7 +59,7 @@ const GroupActivity: React.FC = () => {
 
         // fetchPosts();
 
-        const res = dispatch(fetchGroupActivities({ userId: Number(user.id), pageNum: 0 }));
+        dispatch(fetchGroupActivities({ userId: Number(user.id), page: 0, size: 20 }));
 
     }, [user.id, dispatch]);
 
@@ -114,7 +113,7 @@ const GroupActivity: React.FC = () => {
         <div className='flex flex-row'>
             <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
                 <div className=" w-full h-fit rounded">
-                    {posts.map((item, index) => (
+                    {groupPostForUser.map((item, index) => (
                         <GroupPostItem
                             key={`post-key-${index}`}
                             post={item}

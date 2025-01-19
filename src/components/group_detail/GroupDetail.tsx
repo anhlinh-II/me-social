@@ -4,6 +4,7 @@ import GroupHeader from "./GroupHeader";
 import { Outlet, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { fetchGroupById } from "../../redux/slice/groupSlice";
+import HeaderGroup from "../HeaderGroup";
 
 
 const GroupDetail: React.FC = () => {
@@ -18,10 +19,12 @@ const GroupDetail: React.FC = () => {
 
     return (
         <>
-            <div className="flex flex-col bg-[#F3F4F6] items-center justify-center">
-                <Header />
+            <div className="z-10">
+            <HeaderGroup />
+            </div>
+            <div className="flex flex-col z-0 bg-[#F3F4F6] items-center justify-center">
                 <GroupHeader group={group} />
-                <Outlet context={{group}} />
+                <Outlet context={{ group }} />
             </div>
         </>
     )

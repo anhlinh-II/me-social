@@ -210,7 +210,29 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                               </div>
                               {/* other people comments */}
                               {loading ? (
-                                   <p>Loading comments...</p>
+                                   <div className="space-y-4 animate-pulse">
+                                        {/* Single Comment Skeleton */}
+                                        <div className="flex space-x-4">
+                                             {/* Profile Picture */}
+                                             <div className="h-10 w-10 bg-gray-200 rounded-full"></div>
+                                             {/* Comment Content */}
+                                             <div className="flex-1 space-y-2">
+                                                  <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                                                  <div className="h-3 bg-gray-200 rounded w-full"></div>
+                                                  <div className="h-3 bg-gray-200 rounded w-4/5"></div>
+                                             </div>
+                                        </div>
+                                        {/* Add more skeleton items to simulate multiple comments */}
+                                        <div className="flex space-x-4">
+                                             <div className="h-10 w-10 bg-gray-200 rounded-full"></div>
+                                             <div className="flex-1 space-y-2">
+                                                  <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                                                  <div className="h-3 bg-gray-200 rounded w-full"></div>
+                                                  <div className="h-3 bg-gray-200 rounded w-4/5"></div>
+                                             </div>
+                                        </div>
+                                   </div>
+
                               ) : (
                                    comments.map((comment) => {
                                         const isRepliesVisible = showRepliesMap[comment.id] || false;

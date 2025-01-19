@@ -13,7 +13,7 @@ const GroupDiscussion = () => {
 
     const { group } = useOutletContext<{ group: GroupResponse | undefined }>();
 
-    const { posts, isLoading, error } = useAppSelector(state => state.posts)
+    const { groupPost, isLoading, error } = useAppSelector(state => state.posts)
     // const { group } = useAppSelector(state => state.group.group)
 
     const dispatch = useAppDispatch();
@@ -57,42 +57,26 @@ const GroupDiscussion = () => {
         </div>
     }
 
-
-    // const handleLikeBtn = (index: number) => {
-    //     setPosts(prevPosts =>
-    //         prevPosts.map((post, i) =>
-    //             i === index ? { ...post, isLiked: !post.isLiked } : post
-    //         )
-    //     );
-    // };
-
-    // const handleFavouriteBtn = (index: number) => {
-    //     setPosts(prevPosts =>
-    //         prevPosts.map((post, i) => {
-    //             return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
-    //         })
-    //     )
-    // }
-
     return (
         <>
-            <div className="flex justify-center items-center flex-col gap-5 w-[70%]">
+            <div className="flex z-auto justify-center items-center flex-col gap-5 w-[70%]">
                 <div className="flex gap-5">
                     <div className="flex flex-col gap-4 w-[60%]">
                         <CreatePost />
                         <div className=" w-full h-fit rounded">
-                            {posts ?
+                            {groupPost ?
                                 <>
-                                    {posts.map((item, index) => (
+                                    {groupPost.map((item, index) => (
                                         <GroupPostItem
                                             key={`post-key-${index}`}
                                             post={item}
                                             index={index}
                                             error={null}
-                                        // handleLikeBtn={handleLikeBtn}
-                                        // handleFavouriteBtn={handleFavouriteBtn}
                                         />
-                                    ))}</> : <></>}
+                                    ))}</>
+                                : <>
+                                    <PostPlaceholder />
+                                </>}
 
                         </div>
                     </div>

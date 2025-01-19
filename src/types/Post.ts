@@ -54,5 +54,5 @@ export interface PostResponse {
     updatedAt: string;
     likeNum: number;
     commentNum: number;
-    isLiked: boolean;
+    liked: boolean;
   }

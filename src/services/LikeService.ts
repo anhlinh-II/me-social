@@ -24,7 +24,7 @@ export const createCommentLike = async (userId: number, commentId: number) => {
 
 // Delete Post Like
 export const deletePostLike = async (userId: number, postId: number) => {
-    await instance.delete<IApiResponse<void>>(`/api/likes/post/remove/${userId}/${postId}`);
+    return (await instance.delete<IApiResponse<void>>(`/api/likes/post/remove/${userId}/${postId}`)).data;
 };
 
 // Delete Comment Like
