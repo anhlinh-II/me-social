@@ -79,7 +79,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
      useEffect(() => {
           if (show) {
                // Disable scrolling
-               document.body.style.overflow = 'hidden';
+               // document.body.style.overflow = 'hidden';
                fetchComments()
           } else {
                // Enable scrolling

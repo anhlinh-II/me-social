@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import { fetchPostByGroup } from "../../redux/slice/postsSlice"
 import { useOutletContext, useParams } from "react-router-dom"
 import { GroupResponse } from "../../types/Group"
+import { useUser } from "../../utils/CustomHook"
 
 const GroupDiscussion = () => {
     const { groupId } = useParams();
@@ -17,10 +18,11 @@ const GroupDiscussion = () => {
     // const { group } = useAppSelector(state => state.group.group)
 
     const dispatch = useAppDispatch();
-
+    const user = useUser();
 
     useEffect(() => {
-        dispatch(fetchPostByGroup({ groupId: Number(groupId), pageNum: 0 }))
+        console.log("userId >> ",user.id)
+        dispatch(fetchPostByGroup({ userId: Number(user.id), groupId: Number(groupId), pageNum: 0 }))
     }, [dispatch]);
 
     if (isLoading) {
@@ -56,6 +58,8 @@ const GroupDiscussion = () => {
             </div>
         </div>
     }
+
+    console.log("group post >> ", groupPost)
 
     return (
         <>

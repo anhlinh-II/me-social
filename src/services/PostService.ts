@@ -26,8 +26,14 @@ export const getPostsByUser = async (userId: number, page: number = 0, size: num
 };
 
 // Get Posts By Group
-export const getPostsByGroup = async (groupId: number, pageNum = 0) => {
-    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/group?groupId=${groupId}&pageNum=${pageNum}`)).data;
+export const getPostsByGroup = async (groupId: number, pageNum = 0, userId: number) => {
+    return (await instance.get<IApiResponse<Page<PostResponse>>>(`/api/posts/group`, {
+        params: {
+            userId,
+            groupId,
+            page: pageNum
+        }
+    })).data;
 };
 
 // Get Posts By Tag

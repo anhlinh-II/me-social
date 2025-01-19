@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getPostsByGroup, getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
 import { PostResponse } from "../../types/Post";
 import { createPostLike, deletePostLike } from "../../services/LikeService";
@@ -11,6 +11,7 @@ interface IFetchPost {
 }
 
 interface IFetchPostByGroup {
+    userId: number;
     groupId: number;
     pageNum: number;
 }
@@ -44,8 +45,9 @@ export const fetchPostByUser = createAsyncThunk(
 
 export const fetchPostByGroup = createAsyncThunk(
     'posts/fetchPostByGroup',
-    async ({ groupId, pageNum }: IFetchPostByGroup) => {
-        const response = await getPostsByGroup(groupId, pageNum);
+    async ({ userId, groupId, pageNum }: IFetchPostByGroup) => {
+        console.log("userID >> ", userId)
+        const response = await getPostsByGroup(groupId, pageNum, userId);
         console.log(response)
         return response;
     }
@@ -99,7 +101,27 @@ const handleReject = (state: IState, action: any) => {
 export const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {},
+    reducers: {
+        updateCommentCount: (state, action: PayloadAction<{ postId: number; increment: number, type: string }>) => {
+            const { postId, increment, type } = action.payload;
+            let post;
+            if(type === "USER_NEWSFEED") {
+                post = state.userNewsfeedPost.find((p) => p.id === postId);
+            }
+
+            if(type === "GROUP_NEWSFEED") {
+                post = state.groupPostForUser.find((p) => p.id === postId)
+            }
+
+            if(type === "GROUP_POST") {
+                post = state.groupPost.find((p) => p.id === postId)
+            }
+
+            if (post) {
+                post.commentNum += increment;
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Case cho fetchUserNewsfeed
@@ -155,6 +177,6 @@ export const postsSlice = createSlice({
 });
 
 
-export const { } = postsSlice.actions;
+export const { updateCommentCount } = postsSlice.actions;
 
 export default postsSlice.reducer;

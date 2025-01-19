@@ -1,5 +1,5 @@
 // src/components/PostList.tsx
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { LegacyRef, useCallback, useEffect, useRef, useState } from 'react';
 import { BsBookmark } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaEarthAmericas, FaLock, FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaBookmark } from 'react-icons/fa6';
@@ -15,15 +15,20 @@ import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
-import { fetchUserNewsfeed, updatePostLike } from '../../redux/slice/postsSlice';
+import { fetchUserNewsfeed, updateCommentCount, updatePostLike } from '../../redux/slice/postsSlice';
 import { formatCreatedTime } from '../../utils/FormatTime';
 import { Avatar, Spin } from 'antd';
 import { createPostLike } from '../../services/LikeService';
+import { CommentRequest } from '../../types/Comment';
+import { createComment } from '../../services/CommentService';
+import { useUser } from '../../utils/CustomHook';
 
 
 const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
     const [page, setPage] = useState(0);
     const [size] = useState(10);
+
+    const user = useUser();
 
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<boolean>(false);
@@ -49,7 +54,10 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         liked: false,
     });
 
+    const [comments, setComments] = useState<{ [key: number]: string }>({});
+
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const commentRefs = useRef<Map<number, HTMLInputElement>>(new Map());
 
     const dispatch = useAppDispatch();
     const { userNewsfeedPost, isLoading, error, hasMore } = useAppSelector((state: RootState) => state.posts);
@@ -118,6 +126,53 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
 
     const handleLikeBtn = async (postId: number, liked: boolean) => {
         dispatch(updatePostLike({ userId, postId, isLiked: liked }))
+    }
+
+    const handleClickComment = (postId: number) => {
+        const inputRef = commentRefs.current.get(postId);
+        inputRef?.focus();
+    }
+
+    const addCommentRef = (postId: number, ref: HTMLInputElement | null) => {
+        if (ref) {
+            commentRefs.current.set(postId, ref);
+        } else {
+            commentRefs.current.delete(postId); // Clean up when unmounting
+        }
+    };
+
+    const handleChange = (postId: number, value: string) => {
+        setComments((prev) => ({
+            ...prev,
+            [postId]: value,
+        }));
+    };
+
+    const handleCreateComment = async (postId: number) => {
+        const comment = comments[postId];
+        if (!comment.trim()) return; // Prevent empty comments
+
+        try {
+            const newCommentRequest: CommentRequest = {
+                postId: postId,
+                content: comment.trim(),
+                userId: Number(user.id),
+            };
+
+            const response = await createComment(newCommentRequest);
+            if (response.code === 1000 && response.result) {
+                // Only update state if response.result is defined
+                dispatch(updateCommentCount({ postId, increment: 1, type: "USER_NEWSFEED" }));
+                setComments((prev) => ({
+                    ...prev,
+                    [postId]: "", // Clear the comment after submission
+                }));
+            } else {
+                console.error("Failed to create comment:", response.message);
+            }
+        } catch (error) {
+            console.error("Error creating comment:", error);
+        }
     }
 
     return (
@@ -213,7 +268,10 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 >
                                     {post.liked ? <FaHeart /> : <FaRegHeart />}
                                 </button>
-                                <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
+                                <button
+                                    onClick={() => handleClickComment(post.id)}
+                                    className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}
+                                >
                                     <FaRegComment />
                                 </button>
                                 <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center pe-1`}>
@@ -228,7 +286,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 {true ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
-                        <span className="font-medium text-sky-800">{post.likeNum} likes</span>
+                        <span className="font-medium text-sky-800">{post.likeNum > 1 ? `${post.likeNum} likes` : `${post.likeNum} like`} </span>
                         <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                             <span className="font-bold text-sky-700">{post.userFullName}</span>
                             <ShowMoreText
@@ -250,14 +308,27 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                     Xem {post.commentNum} bình luận
                                 </span>
                                 : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
-                            <div className='flex flex-row gap-2 mt-2'>
+                            <div className='flex items-center flex-row gap-2 mt-2'>
                                 <Avatar
                                     // size={''}
                                     // className='border-sky-500'
                                     src={post.avatarUrl ? post.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
                                     alt="avatar"
                                 />
-                                <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
+                                <input
+                                    ref={(ref) => addCommentRef(post.id, ref)}
+                                    type="text"
+                                    value={comments[post.id] || ""}
+                                    onChange={(e) => handleChange(post.id, e.target.value)}
+                                    className="block bg-transparent outline-none w-5/6 mt-1"
+                                    placeholder="Thêm bình luận..."
+                                />
+                                <div
+                                    onClick={() => handleCreateComment(post.id)}
+                                    className='text-sky-600 font-semibold cursor-pointer hover:opacity-70'
+                                >
+                                    Đăng
+                                </div>
                             </div>
                         </div>
                     </div>

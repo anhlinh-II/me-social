@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FaUserFriends } from 'react-icons/fa';
 import { FaBookmark, FaEarthAmericas, FaHeart, FaLock, FaRegComment, FaRegHeart, FaRegPaperPlane } from 'react-icons/fa6';
 import { BsBookmark } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ShowMoreText from 'react-show-more-text';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import More from '../modal/More';
 import { PostResponse } from '../../types/Post';
 import GroupJoinedCard from '../groups/card/GroupJoinedCard';
@@ -14,8 +14,10 @@ import PostDetailModal from '../modal/Post.detail.modal';
 import { formatCreatedTime } from '../../utils/FormatTime';
 import { Avatar } from 'antd';
 import { useAppDispatch } from '../../redux/hook';
-import { updatePostLike } from '../../redux/slice/postsSlice';
+import { updateCommentCount, updatePostLike } from '../../redux/slice/postsSlice';
 import { useUser } from '../../utils/CustomHook';
+import { createComment } from '../../services/CommentService';
+import { CommentRequest } from '../../types/Comment';
 
 interface PostItemProps {
     post: PostResponse;
@@ -28,6 +30,7 @@ const GroupPostItem = (props: PostItemProps) => {
     const { post, error } = props;
 
     const dispatch = useAppDispatch();
+    const location = useLocation();
     const user = useUser();
 
     const [showMore, setShowMore] = useState<boolean>(false);
@@ -35,6 +38,9 @@ const GroupPostItem = (props: PostItemProps) => {
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [showGroupCard, setShowGroupCard] = useState<boolean>(false);
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+    const [comments, setComments] = useState<{ [key: number]: string }>({});
+    const commentRefs = useRef<Map<number, HTMLInputElement>>(new Map());
 
     const handleImageError = () => {
         setImageError(true);
@@ -60,6 +66,62 @@ const GroupPostItem = (props: PostItemProps) => {
 
     const handleLikeBtn = async (postId: number, liked: boolean) => {
         dispatch(updatePostLike({ userId: Number(user.id), postId, isLiked: liked }))
+    }
+
+    const handleClickComment = (postId: number) => {
+        const inputRef = commentRefs.current.get(postId);
+        inputRef?.focus();
+    }
+
+    const addCommentRef = (postId: number, ref: HTMLInputElement | null) => {
+        if (ref) {
+            commentRefs.current.set(postId, ref);
+        } else {
+            commentRefs.current.delete(postId); // Clean up when unmounting
+        }
+    };
+
+    const handleChange = (postId: number, value: string) => {
+        setComments((prev) => ({
+            ...prev,
+            [postId]: value,
+        }));
+    };
+
+    const handleCreateComment = async (postId: number) => {
+        console.log("ok1")
+        let type: string;
+        if (location.pathname.includes("feed")) {
+            type = "GROUP_NEWSFEED"
+            console.log("code run to check group feed")
+        } else {
+            type = "GROUP_POST"
+        }
+        console.log("ok2")
+        const comment = comments[postId];
+        if (!comment.trim()) return; // Prevent empty comments
+
+        try {
+            const newCommentRequest: CommentRequest = {
+                postId: postId,
+                content: comment.trim(),
+                userId: Number(user.id),
+            };
+
+            const response = await createComment(newCommentRequest);
+            if (response.code === 1000 && response.result) {
+                // Only update state if response.result is defined
+                dispatch(updateCommentCount({ postId, increment: 1, type }));
+                setComments((prev) => ({
+                    ...prev,
+                    [postId]: "", // Clear the comment after submission
+                }));
+            } else {
+                console.error("Failed to create comment:", response.message);
+            }
+        } catch (error) {
+            console.error("Error creating comment:", error);
+        }
     }
 
     return (
@@ -127,7 +189,10 @@ const GroupPostItem = (props: PostItemProps) => {
                         >
                             {post.liked ? <FaHeart /> : <FaRegHeart />}
                         </button>
-                        <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}>
+                        <button
+                            onClick={() => handleClickComment(post.id)}
+                            className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center`}
+                        >
                             <FaRegComment />
                         </button>
                         <button className={`w-[34px] h-[34px] hover:text-gray-600 rounded-full flex items-center justify-center pe-1`}>
@@ -142,7 +207,7 @@ const GroupPostItem = (props: PostItemProps) => {
                         {true ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
-                <span className="font-medium text-sky-800">{post.likeNum} likes</span>
+                <span className="font-medium text-sky-800">{post.likeNum > 1 ? `${post.likeNum} likes` : `${post.likeNum} like`} </span>
                 <div className="w-[100%] border-t-[1.5px] border-gray-300 mt-2">
                     <span className="font-bold text-sky-700">{post.userFullName}</span>
                     <ShowMoreText
@@ -158,17 +223,31 @@ const GroupPostItem = (props: PostItemProps) => {
                     </ShowMoreText>
                     {post.commentNum > 0 ?
                         <span
+                            onClick={() => handleOnclickImage(post)}
                             className="font-semibold text-gray-600 hover:underline hover:decoration-1.5 cursor-pointer transition duration-1 hover:text-gray-500 hover-decoraion-gray-500">
                             Xem {post.commentNum} bình luận
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
-                    <div className='flex flex-row mt-2'>
+                    <div className='flex items-center flex-row mt-2'>
                         <Avatar src={post.avatarUrl}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
                         // onError={handleImageError}
                         />
-                        <input type="text" className="block bg-transparent outline-none mt-1" placeholder="Add a comment..." />
+                        <input
+                            ref={(ref) => addCommentRef(post.id, ref)}
+                            type="text"
+                            value={comments[post.id] || ""}
+                            onChange={(e) => handleChange(post.id, e.target.value)}
+                            className="block bg-transparent outline-none w-5/6 mt-1"
+                            placeholder="Thêm bình luận..."
+                        />
+                        <div
+                            onClick={() => handleCreateComment(post.id)}
+                            className='text-sky-600 font-semibold cursor-pointer hover:opacity-70'
+                        >
+                            Đăng
+                        </div>
                     </div>
                 </div>
             </div>
