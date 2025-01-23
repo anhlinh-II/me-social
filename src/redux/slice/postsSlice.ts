@@ -105,15 +105,15 @@ export const postsSlice = createSlice({
         updateCommentCount: (state, action: PayloadAction<{ postId: number; increment: number, type: string }>) => {
             const { postId, increment, type } = action.payload;
             let post;
-            if(type === "USER_NEWSFEED") {
+            if (type === "USER_NEWSFEED") {
                 post = state.userNewsfeedPost.find((p) => p.id === postId);
             }
 
-            if(type === "GROUP_NEWSFEED") {
+            if (type === "GROUP_NEWSFEED") {
                 post = state.groupPostForUser.find((p) => p.id === postId)
             }
 
-            if(type === "GROUP_POST") {
+            if (type === "GROUP_POST") {
                 post = state.groupPost.find((p) => p.id === postId)
             }
 
@@ -121,6 +121,21 @@ export const postsSlice = createSlice({
                 post.commentNum += increment;
             }
         },
+        updateFavoriteStatus: (state, action: PayloadAction<{ postId: number, favorite: boolean }>) => {
+            const { postId, favorite } = action.payload
+            const update = (posts: PostResponse[]) => {
+                const post = posts.find((p) => p.id === postId);
+                if (post) {
+                    post.favorite = !favorite;
+                }
+            };
+
+            // Update the favorite status in all relevant state fields
+            update(state.userNewsfeedPost);
+            update(state.userProfilePost);
+            update(state.groupPostForUser);
+            update(state.groupPost);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -177,6 +192,6 @@ export const postsSlice = createSlice({
 });
 
 
-export const { updateCommentCount } = postsSlice.actions;
+export const { updateCommentCount, updateFavoriteStatus } = postsSlice.actions;
 
 export default postsSlice.reducer;

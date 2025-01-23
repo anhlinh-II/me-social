@@ -55,4 +55,5 @@ export interface PostResponse {
     likeNum: number;
     commentNum: number;
     liked: boolean;
+    favorite: boolean;
   }

@@ -17,6 +17,7 @@ import { createComment, getAllChildrenComments, getTopCommentsByPost } from '../
 import { useUser } from '../../utils/CustomHook';
 import CommentOptionModal from './Comment.option.modal';
 import { createCommentLike, deleteCommentLike } from '../../services/LikeService';
+import _ from 'lodash';
 
 interface ModalProps {
      show: boolean;
@@ -207,53 +208,46 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
 
      const handleRepliesLike = async (replyId: number, commentId: number, isLiked: boolean) => {
           try {
-              // Get the current replies for the given commentId
-              const replies = repliesMap[commentId] || [];
-              const replyIndex = replies.findIndex((reply) => reply.id === replyId);
-      
-              if (replyIndex === -1) {
-                  console.warn("Reply not found.");
-                  return;
-              }
-      
-              // Clone the replies array to maintain immutability
-              const updatedReplies = [...replies];
-              const targetReply = updatedReplies[replyIndex];
-      
-              if (!isLiked) {
-                  // Like the reply
-                  const response = await createCommentLike(Number(user.id), replyId);
-                  if (response && response.code === 1000) {
-                      updatedReplies[replyIndex] = {
-                          ...targetReply,
-                          liked: true,
-                          likeNum: targetReply.likeNum + 1,
-                      };
-                  }
-              } else {
-                  // Unlike the reply
-                  const response = await deleteCommentLike(Number(user.id), replyId);
-                  if (response && response.data.code === 1000) {
-                      updatedReplies[replyIndex] = {
-                          ...targetReply,
-                          liked: false,
-                          likeNum: Math.max(targetReply.likeNum - 1, 0),
-                      };
-                  }
-              }
-      
-              // Update the repliesMap state
-              setRepliesMap((prevMap) => ({
-                  ...prevMap,
-                  [commentId]: updatedReplies, // Update the specific commentId's replies
-              }));
-          } catch (error) {
-              console.error("Error handling reply like/unlike:", error);
-          }
-      };
-      
-      
+               // Get the current replies for the given commentId
+               const replies = repliesMap[commentId] || [];
+               const replyIndex = replies.findIndex((reply) => reply.id === replyId);
 
+               if (replyIndex === -1) {
+                    console.warn("Reply not found.");
+                    return;
+               }
+
+               const updatedReplies = [...replies];
+               const targetReply = updatedReplies[replyIndex];
+
+               if (!isLiked) {
+                    const response = await createCommentLike(Number(user.id), replyId);
+                    if (response && response.code === 1000) {
+                         updatedReplies[replyIndex] = {
+                              ...targetReply,
+                              liked: true,
+                              likeNum: targetReply.likeNum + 1,
+                         };
+                    }
+               } else {
+                    // Unlike the reply
+                    const response = await deleteCommentLike(Number(user.id), replyId);
+                    if (response && response.data.code === 1000) {
+                         updatedReplies[replyIndex] = {
+                              ...targetReply,
+                              liked: false,
+                              likeNum: Math.max(targetReply.likeNum - 1, 0),
+                         };
+                    }
+               }
+
+               const updatedRepliesMap = _.cloneDeep(repliesMap);
+               updatedRepliesMap[commentId] = updatedReplies;
+               setRepliesMap(updatedRepliesMap);
+          } catch (error) {
+               console.error("Error handling reply like/unlike:", error);
+          }
+     };
 
      return (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -394,7 +388,7 @@ const PostDetailModal: React.FC<ModalProps> = ({ show, setShow, post }) => {
                                                                                           </div>
                                                                                      </div>
                                                                                 </div>
-                                                                                
+
                                                                                 {
                                                                                      reply.liked
                                                                                           ? <span onClick={() => handleRepliesLike(reply.id, comment.id, reply.liked)} className='text-md cursor-pointer text-red-500'><IoMdHeart className='cursor-pointer' /></span>

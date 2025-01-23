@@ -15,13 +15,14 @@ import ImageSlider from './ImageSlider';
 import PostPlaceholder from './PostPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { RootState } from '../../redux/store';
-import { fetchUserNewsfeed, updateCommentCount, updatePostLike } from '../../redux/slice/postsSlice';
+import { fetchUserNewsfeed, updateCommentCount, updateFavoriteStatus, updatePostLike } from '../../redux/slice/postsSlice';
 import { formatCreatedTime } from '../../utils/FormatTime';
-import { Avatar, Spin } from 'antd';
+import { Avatar, message, Spin } from 'antd';
 import { createPostLike } from '../../services/LikeService';
 import { CommentRequest } from '../../types/Comment';
 import { createComment } from '../../services/CommentService';
 import { useUser } from '../../utils/CustomHook';
+import { createPostFavorite, deletePostFavorite } from '../../services/FavoriteService';
 
 
 const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
@@ -52,6 +53,7 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         likeNum: 0,
         commentNum: 0,
         liked: false,
+        favorite: false
     });
 
     const [comments, setComments] = useState<{ [key: number]: string }>({});
@@ -175,6 +177,23 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
         }
     }
 
+    const handleFavouriteBtn = async (postId: number, favorite: boolean) => {
+        if (!favorite) {
+            const response = await createPostFavorite({ userId: Number(user.id), postId });
+            if (response && response.code === 1000) {
+                message.success("Đã thêm bài viết vào mục ưa thích");
+                dispatch(updateFavoriteStatus({ postId, favorite }));
+            }
+            return;
+        }
+        const response = await deletePostFavorite(Number(user.id), postId);
+        if (response && response.code === 1000) {
+            message.success("Đã xóa bài viết khỏi mục ưa thích");
+            dispatch(updateFavoriteStatus({ postId, favorite }));
+        }
+
+    }
+
     return (
         <div ref={containerRef} id='post-list-container' className="w-full h-fit rounded flex flex-col gap-4 ">
             {userNewsfeedPost.map((post: PostResponse, index: number) => (
@@ -279,11 +298,10 @@ const NewsFeed: React.FC<{ userId: number }> = ({ userId }) => {
                                 </button>
                             </div>
                             <button
-                                // onClick={() => handleFavouriteBtn(index)}
-                                className={true ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
-                            // this is favorite icon
+                                onClick={() => handleFavouriteBtn(post.id, post.favorite)}
+                                className={post.favorite ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
                             >
-                                {true ? <FaBookmark /> : <BsBookmark />}
+                                {post.favorite ? <FaBookmark /> : <BsBookmark />}
                             </button>
                         </div>
                         <span className="font-medium text-sky-800">{post.likeNum > 1 ? `${post.likeNum} likes` : `${post.likeNum} like`} </span>
