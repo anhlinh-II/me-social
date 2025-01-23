@@ -12,22 +12,24 @@ import GroupJoinedCard from '../groups/card/GroupJoinedCard';
 import ImageSlider from './ImageSlider';
 import PostDetailModal from '../modal/Post.detail.modal';
 import { formatCreatedTime } from '../../utils/FormatTime';
-import { Avatar } from 'antd';
+import { Avatar, message, Spin } from 'antd';
 import { useAppDispatch } from '../../redux/hook';
-import { updateCommentCount, updatePostLike } from '../../redux/slice/postsSlice';
+import { updateCommentCount, updateFavoriteStatus, updatePostLike } from '../../redux/slice/postsSlice';
 import { useUser } from '../../utils/CustomHook';
 import { createComment } from '../../services/CommentService';
 import { CommentRequest } from '../../types/Comment';
+import { createPostFavorite, deletePostFavorite } from '../../services/FavoriteService';
 
 interface PostItemProps {
     post: PostResponse;
     index: number;
     error: string | null;
+    isLoading: boolean;
 }
 
 
-const GroupPostItem = (props: PostItemProps) => {
-    const { post, error } = props;
+const PostItem = (props: PostItemProps) => {
+    const { post, error, isLoading } = props;
 
     const dispatch = useAppDispatch();
     const location = useLocation();
@@ -94,8 +96,12 @@ const GroupPostItem = (props: PostItemProps) => {
         if (location.pathname.includes("feed")) {
             type = "GROUP_NEWSFEED"
             console.log("code run to check group feed")
-        } else {
+        } else if (location.pathname.includes("discussion")) {
             type = "GROUP_POST"
+        } else if (location.pathname.includes("favorite")) {
+            type = "FAVORITE_POST"
+        } else {
+            type = "USER_NEWSFEED"
         }
         console.log("ok2")
         const comment = comments[postId];
@@ -124,48 +130,89 @@ const GroupPostItem = (props: PostItemProps) => {
         }
     }
 
+    const handleFavouriteBtn = async (postId: number, favorite: boolean) => {
+        if (!favorite) {
+            const response = await createPostFavorite({ userId: Number(user.id), postId });
+            if (response && response.code === 1000) {
+                message.success("Đã thêm bài viết vào mục ưa thích");
+                dispatch(updateFavoriteStatus({ postId, favorite }));
+            }
+            return;
+        }
+        const response = await deletePostFavorite(Number(user.id), postId);
+        if (response && response.code === 1000) {
+            message.success("Đã xóa bài viết khỏi mục ưa thích");
+            dispatch(updateFavoriteStatus({ postId, favorite }));
+        }
+
+    }
+
     return (
         <div className="md:w-[600px] sm:w-full bg-white rounded-lg border-2 mb-4">
             <div className="flex relative justify-start items-center px-3 py-2 gap-2">
-                <Link to={`/groups/${post.groupId}/discussion`}>
-                    <img
-                        src={post.groupAvatar}
-                        className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
-                        alt="error"
-                        onError={handleImageError}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    />
-                </Link>
-                <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
-                    src={post.avatarUrl} />
-                {showGroupCard && (
-                    <div className="absolute top-8 -left-20 z-10"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}>
-                        <GroupJoinedCard groupId={post.groupId} createdAt={post.groupCreatedAt} imageUrl={post.groupAvatar} groupName={post.groupName} />
+                {post.groupId ? (
+                    <div>
+                        <Link to={`/groups/${[post.groupId]}/discussion`}>
+                            <img
+                                src={post.groupAvatar}
+                                className="border border-sky-600 rounded-lg h-12 w-12 mt-1 object-cover cursor-pointer hover:opacity-80"
+                                alt="error"
+                                // onError={() => handleImageError(index)}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                        </Link>
+                        <img className="absolute bottom-2 left-8 w-8 h-8 rounded-full object-cover cursor-pointer border"
+                            src={post.avatarUrl} />
+                        {showGroupCard && (
+                            <div className="absolute top-8 -left-20 z-10"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}>
+                                <GroupJoinedCard createdAt={post.createdAt} groupId={post.id} imageUrl={post.avatarUrl} groupName={post.groupName} />
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <>
+                        <Avatar
+                            size={'large'}
+                            className='border-sky-500'
+                            src={post.avatarUrl ? post.avatarUrl : "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"}
+                            alt="avatar"
+                        />
+                    </>
+                )}
+                {post.groupId ? (
+                    <div className="ml-2">
+                        <h4 className='font-bold text-lg hover:underline'>
+                            <Link to={`/groups/${post.groupId}/discussion`}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}>
+                                {post.groupName}
+                            </Link>
+                        </h4>
+                        <div className="flex gap-1 justify-start items-center text-sm">
+                            <span className="font-semibold text-gray-500 hover:underline">
+                                <Link to={`/profile`}>
+                                    {post.userFullName}
+                                </Link>
+                            </span>
+                            <GoDotFill className="text-[6px]" />
+                            <span className=" text-gray-500 font-semibold text-sm ">{formatCreatedTime(post.createdAt)} </span>
+                            <GoDotFill className="text-[6px]" />
+                            <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm  align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="ml-2">
+                        <span className="text-base font-bold text-sky-800 cursor-pointer hover:underline decoration-sky-700">{post.userFullName}</span>
+                        <div className="flex gap-2 justify-start items-center text-gray-500">
+                            <span className="font-semibold text-sm">{formatCreatedTime(post.createdAt)} </span>
+                            <span><GoDotFill className="text-[10px]" /></span>
+                            <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
+                        </div>
                     </div>
                 )}
-                <div className="ml-2">
-                    <span className='font-bold text-md text-black-500 hover:underline'>
-                        <Link to={`/groups/${post.groupId}/discussion`}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}>
-                            {post.groupName}
-                        </Link>
-                    </span>
-                    <div className="flex gap-1 justify-start items-center">
-                        <span className="text-sm font-semibold text-gray-500 hover:underline">
-                            <Link to={`/profile`}>
-                                {post.userFullName}
-                            </Link>
-                        </span>
-                        <GoDotFill className="text-[6px]" />
-                        <span className="flex justify-center items-center text-gray-500 text-sm font-semibold align-center">{formatCreatedTime(post.createdAt)} </span>
-                        <GoDotFill className="text-[6px]" />
-                        <span>{post.privacy === "PUBLIC" ? < FaEarthAmericas className="text-gray-600 text-sm font-normal align-center" /> : (post.privacy === "FRIENDS" ? <FaUserFriends className="text-gray-600 text-sm font-normal align-center" /> : <FaLock className="text-gray-600 text-sm font-normal align-center" />)}</span>
-                    </div>
-                </div>
                 <span className="ml-auto w-[36px] h-[36px] text-xl cursor-pointer p-2 hover:bg-sky-200 duration-300 transition rounded-full" onClick={() => setShowMore(true)}><HiOutlineDotsVertical /></span>
             </div>
 
@@ -200,11 +247,11 @@ const GroupPostItem = (props: PostItemProps) => {
                         </button>
                     </div>
                     <button
-                        // onClick={() => handleFavouriteBtn(index)} 
+                        onClick={() => handleFavouriteBtn(post.id, post.favorite)}
                         // this is where isFavorited is handled
-                        className={true ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
+                        className={post.favorite ? "w-[34px] h-[34px] text-[blue-600] text-2xl rounded-full flex items-center justify-center" : "hover:text-gray-600 w-[34px] h-[34px] text-2xl rounded-full flex items-center justify-center"}
                     >
-                        {true ? <FaBookmark /> : <BsBookmark />}
+                        {post.favorite ? <FaBookmark /> : <BsBookmark />}
                     </button>
                 </div>
                 <span className="font-medium text-sky-800">{post.likeNum > 1 ? `${post.likeNum} likes` : `${post.likeNum} like`} </span>
@@ -264,4 +311,4 @@ const GroupPostItem = (props: PostItemProps) => {
 
 
 
-export default GroupPostItem;
+export default PostItem;

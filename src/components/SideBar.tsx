@@ -14,6 +14,7 @@ import { setLogoutAction } from '../redux/slice/accountSlice';
 import { Avatar, message } from 'antd';
 import { useUser } from '../utils/CustomHook';
 import { BsCollectionPlayFill } from 'react-icons/bs';
+import { FaBookmark } from 'react-icons/fa6';
 
 interface IProps {
      isFullSiderBar: boolean;
@@ -124,20 +125,21 @@ const SideBar = (props: IProps) => {
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
-                              active={active === "setting" ? true : false}
-                              onClick={() => setActive("setting")}
-                              icon={<IoMdSettings className='text-2xl' />}
-                         >
-                              Cài đặt
-                         </MenuItem>
-                         <MenuItem
-                              rootStyles={{ padding: "5px" }}
                               active={active === "admin" ? true : false}
                               onClick={() => setActive("admin")}
                               icon={<MdManageAccounts className='text-2xl' />}
                               component={<Link to={'/admin/dashboard'} />}
                          >
                               Trang Admin
+                         </MenuItem>
+                         <MenuItem
+                              rootStyles={{ padding: "5px" }}
+                              active={active === "favorite" ? true : false}
+                              onClick={() => setActive("favorite")}
+                              icon={<FaBookmark />}
+                              component={<Link to={'/favorite'} />}
+                         >
+                              Ưa thích
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}

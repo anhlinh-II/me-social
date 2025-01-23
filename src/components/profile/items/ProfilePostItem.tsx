@@ -12,7 +12,7 @@ interface PostItemProps {
 	// onClick: () => void;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNum }) => {
+const PostProfileItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNum }) => {
 	const [imageError, setImageError] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -56,4 +56,4 @@ const PostItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNum }) =>
 	);
 };
 
-export default PostItem;
+export default PostProfileItem;

@@ -1,7 +1,7 @@
 import CreatePost from "../post/CreatePost"
 import GroupOverview from "./GroupOverview"
 import { useEffect } from "react"
-import GroupPostItem from "../post/GroupPostItem"
+import PostItem from "../post/PostItem"
 import PostPlaceholder from "../post/PostPlaceholder"
 import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import { fetchPostByGroup } from "../../redux/slice/postsSlice"
@@ -71,7 +71,7 @@ const GroupDiscussion = () => {
                             {groupPost ?
                                 <>
                                     {groupPost.map((item, index) => (
-                                        <GroupPostItem
+                                        <PostItem
                                             key={`post-key-${index}`}
                                             post={item}
                                             index={index}

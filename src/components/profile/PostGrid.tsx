@@ -1,6 +1,6 @@
 // PostGrid.tsx
 import React, { useState } from 'react';
-import PostItem from './items/ProfilePostItem';
+import PostProfileItem from './items/ProfilePostItem';
 import { PiPlusLight } from 'react-icons/pi';
 import CreatePostModal from '../modal/Post.create.modal';
 import PostDetailModal from '../modal/Post.detail.modal';
@@ -55,7 +55,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 
 		),
 		...posts.map(post => (
-			<PostItem
+			<PostProfileItem
 				key={post.id}
 				id={post.id}
 				imageUrl={post.urls && post.urls.length > 0 ? post.urls[0] : ''}

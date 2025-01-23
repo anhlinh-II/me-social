@@ -32,6 +32,7 @@ import GroupFile from "./components/group_detail/GroupFile";
 import "yet-another-react-lightbox/styles.css";
 import CreateStory from "./components/stories/CreateStory";
 import Verify from "./view/auth/Verify";
+import FavoritePost from "./components/post/FavoritePost";
 
 function App() {
   const router = createBrowserRouter([
@@ -94,9 +95,12 @@ function App() {
             },
           ]
         },
+        {
+          path: '/favorite',
+          element: <FavoritePost />
+        }
       ]
     },
-
 
     {
       element: <GroupDetail />,

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getPostsByGroup, getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
+import { getFavoritePostByUser, getPostsByGroup, getPostsByUser, getPostsForGroupActivities, getPostsForNewsFeed } from "../../services/PostService";
 import { PostResponse } from "../../types/Post";
 import { createPostLike, deletePostLike } from "../../services/LikeService";
+import { update } from "lodash";
 
 // Fetch posts based on userId and pageNum
 interface IFetchPost {
@@ -53,6 +54,14 @@ export const fetchPostByGroup = createAsyncThunk(
     }
 )
 
+export const fetchFavoritePost = createAsyncThunk(
+    'posts/fetchFavoritePost',
+    async ({ userId, page, size }: IFetchPost) => {
+        const response = await getFavoritePostByUser(userId, page, size);
+        return response;
+    }
+)
+
 export const updatePostLike = createAsyncThunk(
     'posts/updateLike',
     async ({ userId, postId, isLiked }: { userId: number; postId: number; isLiked: boolean }) => {
@@ -73,6 +82,7 @@ interface IState {
     userProfilePost: PostResponse[];
     groupPostForUser: PostResponse[];
     groupPost: PostResponse[];
+    favoritePost: PostResponse[];
     isLoading: boolean;
     error: string | null;
     hasMore: boolean;
@@ -83,6 +93,7 @@ const initialState: IState = {
     groupPostForUser: [],
     userProfilePost: [],
     groupPost: [],
+    favoritePost: [],
     isLoading: false,
     error: null,
     hasMore: true,
@@ -116,6 +127,9 @@ export const postsSlice = createSlice({
             if (type === "GROUP_POST") {
                 post = state.groupPost.find((p) => p.id === postId)
             }
+            if (type === "FAVORITE_POST") {
+                post = state.favoritePost.find((p) => p.id === postId)
+            }
 
             if (post) {
                 post.commentNum += increment;
@@ -135,6 +149,7 @@ export const postsSlice = createSlice({
             update(state.userProfilePost);
             update(state.groupPostForUser);
             update(state.groupPost);
+            update(state.favoritePost);
         }
     },
     extraReducers: (builder) => {
@@ -173,6 +188,13 @@ export const postsSlice = createSlice({
             })
             .addCase(fetchPostByGroup.rejected, handleReject)
 
+            .addCase(fetchFavoritePost.pending, handlePending)
+            .addCase(fetchFavoritePost.fulfilled, (state: IState, action: any) => {
+                state.isLoading = false;
+                state.favoritePost = action.payload.result.content
+            })
+            .addCase(fetchFavoritePost.rejected, handleReject)
+
             .addCase(updatePostLike.fulfilled, (state, { payload }) => {
                 const updateLikeStatus = (posts: PostResponse[]) => {
                     const post = posts.find((p) => p.id === payload.postId);
@@ -187,6 +209,7 @@ export const postsSlice = createSlice({
                 updateLikeStatus(state.userProfilePost);
                 updateLikeStatus(state.groupPostForUser);
                 updateLikeStatus(state.groupPost);
+                updateLikeStatus(state.favoritePost);
             });
     },
 });

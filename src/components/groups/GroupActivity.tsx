@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import GroupPostItem from '../post/GroupPostItem';
+import PostItem from '../post/PostItem';
 import GroupJoinedSideBar from './GroupJoinedSideBar';
 import PostPlaceholder from '../post/PostPlaceholder';
 import GroupSidebarPlaceholder from './placeholder/GroupJoinedSideBarPlaceholder';
@@ -93,34 +93,17 @@ const GroupActivity: React.FC = () => {
         </div>;
     }
 
-    // const handleLikeBtn = (index: number) => {
-    //     setListPosts(prevPosts =>
-    //         prevPosts.map((post, i) =>
-    //             i === index ? { ...post, isLiked: !post.isLiked } : post
-    //         )
-    //     );
-    // };
-
-    // const handleFavouriteBtn = (index: number) => {
-    //     setListPosts(prevPosts =>
-    //         prevPosts.map((post, i) => {
-    //             return (i === index ? { ...post, isFavourited: !post.isFavourited } : post)
-    //         })
-    //     )
-    // }
-
     return (
         <div className='flex flex-row'>
             <div className="flex justify-center items-center flex-col gap-5 md:w-[600px] sm:w-full">
                 <div className=" w-full h-fit rounded">
                     {groupPostForUser.map((item, index) => (
-                        <GroupPostItem
+                        <PostItem
                             key={`post-key-${index}`}
                             post={item}
                             index={index}
                             error={error}
-                            // handleLikeBtn={handleLikeBtn}
-                            // handleFavouriteBtn={handleFavouriteBtn}
+                            isLoading={isLoading}
                         />
                     ))}
                 </div>

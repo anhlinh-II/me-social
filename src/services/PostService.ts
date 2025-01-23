@@ -1,6 +1,7 @@
 import { PostRequest, PostResponse } from '../types/Post';
 import instance from './Axios-customize';
 import { IApiResponse, Page } from '../types/backend';
+import exp from 'constants';
 
 // Get Posts for NewsFeed
 export const getPostsForNewsFeed = async (userId: number, page = 0, size: number = 10) => {
@@ -56,3 +57,13 @@ export const editPost = async (postRequest: PostRequest) => {
     return (await instance.put<IApiResponse<PostResponse>>(`/api/posts/edit`, postRequest)).data;
 };
 
+export const getFavoritePostByUser = async (userId: number, page: number, size: number) => {
+    return (await instance.get<IApiResponse<PostResponse>>(`/api/posts/favorite`, {
+        params: {
+            userId,
+            page,
+            size,
+            sort: 'createdAt,desc'
+        }
+    })).data;
+}
