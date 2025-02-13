@@ -17,8 +17,8 @@ import { queryUser } from "../../redux/slice/accountSlice";
 import { fetchUsersChat, handleCreateChat } from "../../redux/slice/chatSlice";
 import { DEFAULT_AVATAR } from "../../utils/Constant";
 import { ChatResponse } from "../../types/Chat";
-import { Gender } from "../../types/User";
 import { Avatar } from "antd";
+import { fetchChatMessages, handleCreateMessage } from "../../redux/slice/messageSlice";
 
 const HomePage = () => {
 
@@ -36,6 +36,12 @@ const HomePage = () => {
           dispatch(fetchUsersChat());
      }, [chat.createdChat, chat.createdGroup])
 
+     useEffect(() => {
+          if (currentChat) {
+               dispatch(fetchChatMessages(currentChat.id))
+          }
+     }, [currentChat, message.newMessage])
+
      const handleSearch = (value: string) => {
           dispatch(queryUser(value));
      }
@@ -47,7 +53,9 @@ const HomePage = () => {
      }
 
      const handleCreateNewMessage = () => {
-
+          if (currentChat) {
+               dispatch(handleCreateMessage({ chatId: currentChat.id, content: content, userId: Number(account.user.id) }))
+          }
      }
 
      const handleNavigate = () => {
@@ -165,7 +173,7 @@ const HomePage = () => {
                                                   className="w-10 h-10 rounded-full object-center"
                                                   src={
                                                        currentChat.isGroup ? currentChat.chatImage :
-                                                       (Number(account.user.id) === Number(currentChat.users[0].id) ? currentChat.users[1].avatarUrl || DEFAULT_AVATAR : currentChat.users[0].avatarUrl || DEFAULT_AVATAR)
+                                                            (Number(account.user.id) === Number(currentChat.users[0].id) ? currentChat.users[1].avatarUrl || DEFAULT_AVATAR : currentChat.users[0].avatarUrl || DEFAULT_AVATAR)
                                                   }
                                                   alt=""
                                              />
@@ -182,7 +190,7 @@ const HomePage = () => {
                               {/* message section */}
                               <div className="px-10 overflow-y-scrol ">
                                    <div className="space-y-1 flex flex-col justify-center mt-20 py-2">
-                                        {[1, 1, 1, 1, 1].map((item, i) => <MessageCard isReqUserMessage={i % 2 === 0} content="this is a message" />)}
+                                        {message.messages.length > 0 && message.messages.map((item, i) => <MessageCard isReqUserMessage={item.sender.username!==account.user.username} content={item.content} />)}
                                    </div>
                               </div>
 

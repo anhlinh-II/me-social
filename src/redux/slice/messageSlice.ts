@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SendMessageRequest } from '../../types/Message';
+import { MessageResponse, SendMessageRequest } from '../../types/Message';
 import { createMessage, getChatMessages } from '../../services/MessageService';
 
 export const handleCreateMessage = createAsyncThunk(
@@ -17,7 +17,7 @@ export const fetchChatMessages = createAsyncThunk(
 )
 
 interface IState {
-     messages: any;
+     messages: MessageResponse[];
      newMessage: any;
      isLoading: boolean;
      error: string | null;

@@ -1,8 +1,7 @@
-import exp from "constants";
 import { UserResponse } from "./User";
 
 export interface SendMessageRequest {
-     userId: number;
+     userId?: number;
      chatId: number;
      content: string;
 }
