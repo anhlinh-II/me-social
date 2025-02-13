@@ -65,8 +65,8 @@ const Login = () => {
 
 
      return (
-          <div className="flex justify-center items-center h-screen">
-               <div className="h-[550px] w-[450px] rounded border-2 shadow-gray-800 p-6">
+          <div className="flex justify-center items-center h-screen bg-slate-200">
+               <div className="h-[550px] w-[450px] rounded-xl border-2 bg-sky-200 shadow-gray-800 p-6">
                     <div className="mb-6">
                          <div className='flex justify-start items-center gap-2 text-xl text-sky-600 font-bold pb-2'>
                               <TbBrandReact className='text-sky-600 text-xl' />

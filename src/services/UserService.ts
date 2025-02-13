@@ -51,3 +51,7 @@ export const getMutualFriends = async (meId: number, youId: number, pageNum: num
 export const getSuggestedFriends = async (userId: number, page: number = 0, size: number = 20) => {
     return (await instance.get<IApiResponse<Page<UserDTO>>>('/api/users/get/friends/suggested', { params: { userId, page, size } })).data;
 };
+
+export const searchUser = async (query: string) => {
+    return (await instance.get<IApiResponse<UserDTO[]>>(`/api/users/search/${query}`)).data;
+}

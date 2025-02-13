@@ -34,7 +34,7 @@ const Register = () => {
           <div className="flex h-screen justify-center items-center bg-gray-50 px-4 sm:px-6 md:px-8">
                <div className="relative flex flex-col sm:flex-row w-full max-w-6xl bg-white rounded-lg shadow-lg overflow-hidden">
                     {/* Form Section */}
-                    <div className="w-full sm:w-1/2 p-8 overflow-y-auto no-scrollbar max-h-[calc(100vh-2rem)]">
+                    <div className="w-full sm:w-1/2 p-8 overflow-y-auto no-scrollbar bg-sky-300 max-h-[calc(100vh-2rem)]">
                          <div className="mb-4 flex justify-between">
                               <div>
                                    <div className="flex items-center gap-2 text-xl text-sky-600 font-bold pb-2">

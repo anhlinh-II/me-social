@@ -67,7 +67,7 @@ const Friends = () => {
                <div>
                     {
                          friends.length > 0 && (
-                              <div className="relative">
+                              <div className="relative mb-4">
                                    <IoIosSearch className="absolute left-2 top-2.5 text-gray-400" />
                                    <input
                                         type="text"

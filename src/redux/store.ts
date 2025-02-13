@@ -5,6 +5,8 @@ import accountReducer from '../redux/slice/accountSlice';
 import { postsSlice } from './slice/postsSlice';
 import { groupSlice } from './slice/groupSlice';
 import { friendSlice } from './slice/friendSlice';
+import { chatSlice } from './slice/chatSlice';
+import { messageSlice } from './slice/messageSlice';
 
 // Cấu hình redux-persist cho accountReducer
 const accountPersistConfig = {
@@ -19,7 +21,9 @@ export const store = configureStore({
     account: persistedAccountReducer, // Reducer với redux-persist
     posts: postsSlice.reducer,
     group: groupSlice.reducer,
-    friend: friendSlice.reducer
+    friend: friendSlice.reducer,
+    chat: chatSlice.reducer,
+    message: messageSlice.reducer,
   },
 });
 

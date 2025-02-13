@@ -20,22 +20,22 @@ const PostProfileItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNu
 		setImageError(true);
 	};
 	return (
-		<div className="w-full h-80 relative bg-gray-200 overflow-hidden cursor-pointer" 
+		<div className="w-full h-80 relative bg-gray-200 overflow-hidden cursor-pointer"
 			// onClick={onClick}
 			onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}>
+			onMouseLeave={() => setIsHovered(false)}>
 			{imageError ? (
 				<div className="flex justify-center items-center w-full h-full bg-gray-200">
 					<div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-gray-600"></div>
 				</div>
 			) : (
-				
-				  <img
-					  src={imageUrl}
-					  className="w-full h-full object-cover"
+
+				<img
+					src={imageUrl}
+					className="w-full h-full object-cover"
 					//   alt={altText}
-					  onError={handleImageError}
-				  />
+					onError={handleImageError}
+				/>
 			)}
 			{isHovered && (
 				<div className='absolute inset-0 flex items-center justify-center z-10'>
@@ -51,7 +51,7 @@ const PostProfileItem: React.FC<PostItemProps> = ({ imageUrl, likeNum, commentNu
 						</div>
 					</div>
 				</div>
-            )}
+			)}
 		</div>
 	);
 };

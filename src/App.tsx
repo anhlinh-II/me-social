@@ -33,6 +33,7 @@ import "yet-another-react-lightbox/styles.css";
 import CreateStory from "./components/stories/CreateStory";
 import Verify from "./view/auth/Verify";
 import FavoritePost from "./components/post/FavoritePost";
+import HomePage from "./components/chatpage/HomePage";
 
 function App() {
   const router = createBrowserRouter([
@@ -100,6 +101,15 @@ function App() {
           element: <FavoritePost />
         }
       ]
+    },
+    
+    {
+      path: '/chatpage',
+      element: <HomePage />,
+      children: [
+
+      ],
+      errorElement: <ErrorPage />
     },
 
     {

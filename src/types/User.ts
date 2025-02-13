@@ -1,4 +1,4 @@
-enum Gender {
+export enum Gender {
     MALE = 'Male',
     FEMALE = 'Female',
     OTHER = 'Other'
@@ -24,6 +24,7 @@ export interface UserUpdateRequest {
 
 export interface UserDTO {
     id: number;
+    username: string;
     firstName: string;
     lastName: string;
     location: string;
@@ -38,11 +39,11 @@ export interface UserResponse {
     username: string;
     email: string;
     firstName: string;
+    avatarUrl: string;
     lastName: string;
     phone: string;
-    dob: Date;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     gender?: Gender;
     groupNum: number;
     friendNum: number;

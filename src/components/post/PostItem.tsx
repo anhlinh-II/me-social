@@ -276,7 +276,7 @@ const PostItem = (props: PostItemProps) => {
                         </span>
                         : <span className='font-semibold text-gray-600'>Chưa có bình luận nào</span>}
                     <div className='flex items-center flex-row mt-2'>
-                        <Avatar src={post.avatarUrl}
+                        <Avatar src={user.avatarUrl}
                             className="rounded-[100%] h-10 w-10 me-2"
                             alt="error"
                         // onError={handleImageError}

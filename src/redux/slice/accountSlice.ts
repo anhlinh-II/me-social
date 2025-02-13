@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { callFetchAccount } from '../../services/AuthService';
+import { searchUser } from '../../services/UserService';
+import { UserDTO } from '../../types/User';
 
 // First, create the thunk
 export const fetchAccount = createAsyncThunk(
@@ -7,6 +9,14 @@ export const fetchAccount = createAsyncThunk(
      async () => {
           const response = await callFetchAccount();
           return response.data;
+     }
+)
+
+export const queryUser = createAsyncThunk(
+     'account/searchUser',
+     async (query: string) => {
+          const response = await searchUser(query);
+          return response;
      }
 )
 
@@ -22,13 +32,13 @@ interface IState {
           role: {
                id?: string;
                name?: string;
-               permissions?: {
-                    id: string;
-                    name: string;
-                    apiPath: string;
-                    method: string;
-                    module: string;
-               }[]
+               // permissions?: {
+               //      id: string;
+               //      name: string;
+               //      apiPath: string;
+               //      method: string;
+               //      module: string;
+               // }[]
           };
           firstName: string;
           lastName: string;
@@ -38,6 +48,7 @@ interface IState {
           active: boolean;
           avatarUrl: string;
      };
+     searchUsers: UserDTO[];
 }
 
 const initialState: IState = {
@@ -52,7 +63,7 @@ const initialState: IState = {
           role: {
                id: "",
                name: "",
-               permissions: [],
+               // permissions: [],
           },
           bio: "",
           postNum: 0,
@@ -62,6 +73,7 @@ const initialState: IState = {
           lastName: '',
           avatarUrl: ''
      },
+     searchUsers: []
 };
 
 export const accountSlide = createSlice({
@@ -86,7 +98,7 @@ export const accountSlide = createSlice({
                state.user.firstName = action?.payload?.user?.firstName;
                state.user.lastName = action?.payload?.user?.lastName;
                state.user.avatarUrl = action?.payload?.user?.avatarUrl;
-               
+
                console.log("after User state:", { ...state.user });
 
                console.log("set info to redux ok")
@@ -119,7 +131,7 @@ export const accountSlide = createSlice({
                     role: {
                          id: "",
                          name: "",
-                         permissions: [],
+                         // permissions: [],
                     },
                     bio: "",
                     postNum: 0,
@@ -157,7 +169,7 @@ export const accountSlide = createSlice({
                     state.user.role = action.payload.result.user.role;
                     state.user.avatarUrl = action.payload.result.user.avatarUrl;
                     if (!action.payload.result.user.role) state.user.role = {};
-                    state.user.role.permissions = action.payload.result.user.role?.permissions ?? [];
+                    // state.user.role.permissions = action.payload.result.user.role?.permissions ?? [];
                }
           });
 
@@ -167,6 +179,26 @@ export const accountSlide = createSlice({
                     state.isLoading = false;
                }
           })
+
+          // handle query users
+          builder.addCase(queryUser.pending, (state, action) => {
+               if (action.payload) {
+                    state.isLoading = true;
+               } 
+          })
+          builder.addCase(queryUser.fulfilled, (state, action) => {
+               if (action.payload) {
+                    state.isLoading = false;
+                    state.searchUsers = action.payload.result ?? [];
+               } 
+          })
+          builder.addCase(queryUser.rejected, (state, action) => {
+               if (action.payload) {
+                    state.isLoading = false;
+                    console.log("query users error!")
+               } 
+          })
+          
 
      },
 
