@@ -6,7 +6,7 @@ export interface SingleChatRequest {
 }
 
 export interface GroupChatRequest {
-     userIds: [];
+     userIds: number[];
      chatName: string;
      chatImage: string;
 }
@@ -16,7 +16,7 @@ export interface ChatResponse {
      chatName: string;
      chatImage: string;
      admins: UserResponse[];
-     isGroup: boolean;
+     group: boolean;
      createdBy: UserResponse;
      users: UserResponse[];
      messages: MessageResponse[];

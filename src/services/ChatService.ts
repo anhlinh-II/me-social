@@ -13,3 +13,7 @@ export const createGroupChat = async (request: GroupChatRequest) => {
 export const getUsersChat = async () => {
      return await instance.get<IApiResponse<ChatResponse[]>>(`/api/chats/user`);
 }
+
+export const getChatByUserIds = async (userId1: number, userId2: number) => {
+     return await instance.get<IApiResponse<ChatResponse>>(`api/chats/${userId1}/${userId2}`);
+}

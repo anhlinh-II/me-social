@@ -10,7 +10,7 @@ const ChatCard = ({avatarUrl, username}: IChatCardProps) => {
                <div className="w-[20%]">
                     <Avatar className="h-14 w-14 rounded-full" src={avatarUrl} alt="" />
                </div>
-               <div className="pl-5 w-[80%]">
+               <div className="w-[80%]">
                     <div className="flex justify-between items-center">
                          <p className="text-lg">{username}</p>
                          <p className="text-sm"> timestamp</p>

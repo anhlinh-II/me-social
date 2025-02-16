@@ -84,6 +84,25 @@ export const uploadGroupImage = async (file: File, groupId: number) => {
     }
 };
 
+export const uploadGroupChatImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'oplrzgm3');
+
+    try {
+        const response = await axios.post(
+            `https://api.cloudinary.com/v1_1/ds14e8hbm/image/upload`,
+            formData
+        );
+
+        console.log('Upload group chat inmage success:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        throw error;
+    }
+};
+
 const extractPublicId = (url: string): string => {
     const regex = /\/v\d+\/(.+)\.\w+$/; // Tìm phần giữa `/v<number>/` và phần mở rộng
     const match = url.match(regex);

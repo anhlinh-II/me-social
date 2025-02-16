@@ -19,6 +19,7 @@ import { DEFAULT_AVATAR } from "../../utils/Constant";
 import { ChatResponse } from "../../types/Chat";
 import { Avatar } from "antd";
 import { fetchChatMessages, handleCreateMessage } from "../../redux/slice/messageSlice";
+import { getChatByUserIds } from "../../services/ChatService";
 
 const HomePage = () => {
 
@@ -46,9 +47,13 @@ const HomePage = () => {
           dispatch(queryUser(value));
      }
 
-     const handleClickOnChatCard = (userId: number) => {
+     const handleClickOnSearchedChatCard = async (userId: number) => {
           // setCurrentChat(true)
           dispatch(handleCreateChat({ userId }))
+          const res = await getChatByUserIds(Number(account.user.id), userId);
+          if(res && res.data && res.data.result) {
+               setCurrentChat(res.data.result);
+          }
           setQuerys("")
      }
 
@@ -81,7 +86,7 @@ const HomePage = () => {
                     {/* left part */}
                     <div className="left w-[30%] bg-white h-full">
                          {
-                              isGroup && <CreateGroupChat />
+                              isGroup && <CreateGroupChat setIsGroup={setIsGroup} />
                          }
 
                          {/* profile */}
@@ -92,8 +97,8 @@ const HomePage = () => {
                               <div className="w-full">
                                    <div className="flex justify-between items-center p-3">
                                         <div onClick={handleNavigate} className="flex items-center space-x-3">
-                                             <img className="rounded-full w-10 h-10 cursor-pointer" src="https://i.pinimg.com/236x/86/e7/0f/86e70fb29549e9a95930d1423d1dd5bf.jpg" alt="" />
-                                             <p>username</p>
+                                             <Avatar className="rounded-full w-10 h-10 cursor-pointer" src={account.user.avatarUrl} alt="" />
+                                             <p>{account.user.username}</p>
                                         </div>
                                         <div className="space-x-3 text-2xl flex">
                                              <GoPlusCircle onClick={handleCreateGroup} className="cursor-pointer" />
@@ -119,23 +124,23 @@ const HomePage = () => {
                                    </div>
                                    {/* all user */}
                                    <div className="bg-white overflow-y-scroll h-[71vh]">
-                                        {querys && account.searchUsers.map(item =>
-                                             <div className="mx-4" onClick={() => handleClickOnChatCard(item.id)}>
-                                                  {" "} <hr /> <ChatCard avatarUrl={item.avatarUrl} username={item.username} /> {" "}
+                                        {querys && account.searchUsers.map(user =>
+                                             <div className="mx-4" onClick={() => handleClickOnSearchedChatCard(user.id)}>
+                                                  {" "} <hr /> <ChatCard avatarUrl={user.avatarUrl} username={user.username} /> {" "}
                                              </div>
                                         )}
-                                        {chat.chats.length > 0 && !querys && chat.chats.map(item =>
-                                             <div className="mx-4" onClick={() => handleCurrentChat(item)}>
+                                        {chat.chats.length > 0 && !querys && chat.chats.map(chat =>
+                                             <div className="mx-4" onClick={() => handleCurrentChat(chat)}>
                                                   <hr />
                                                   {
-                                                       item.isGroup ?
+                                                       chat.group ?
                                                             <ChatCard
-                                                                 avatarUrl={item.chatImage || DEFAULT_AVATAR}
-                                                                 username={item.chatName}
+                                                                 avatarUrl={chat.chatImage || DEFAULT_AVATAR}
+                                                                 username={chat.chatName}
                                                             />
                                                             : <ChatCard
-                                                                 avatarUrl={Number(account.user.id) === Number(item.users[0].id) ? item.users[1].avatarUrl || DEFAULT_AVATAR : item.users[0].avatarUrl || DEFAULT_AVATAR}
-                                                                 username={Number(account.user.id) === Number(item.users[0].id) ? item.users[1].username : item.users[0].username}
+                                                                 avatarUrl={Number(account.user.id) === Number(chat.users[0].id) ? chat.users[1].avatarUrl || DEFAULT_AVATAR : chat.users[0].avatarUrl || DEFAULT_AVATAR}
+                                                                 username={Number(account.user.id) === Number(chat.users[0].id) ? chat.users[1].username : chat.users[0].username}
                                                             />
                                                   }
                                                   {" "}
@@ -172,13 +177,13 @@ const HomePage = () => {
                                              <Avatar
                                                   className="w-10 h-10 rounded-full object-center"
                                                   src={
-                                                       currentChat.isGroup ? currentChat.chatImage :
+                                                       currentChat.group ? currentChat.chatImage :
                                                             (Number(account.user.id) === Number(currentChat.users[0].id) ? currentChat.users[1].avatarUrl || DEFAULT_AVATAR : currentChat.users[0].avatarUrl || DEFAULT_AVATAR)
                                                   }
                                                   alt=""
                                              />
                                              <p>
-                                                  {currentChat.isGroup ? currentChat.chatName : (Number(account.user.id) === currentChat.users[0].id ? currentChat.users[1].username : currentChat.users[0].username)}
+                                                  {currentChat.group ? currentChat.chatName : (Number(account.user.id) === currentChat.users[0].id ? currentChat.users[1].username : currentChat.users[0].username)}
                                              </p>
                                         </div>
                                         <div className="py-3 space-x-4 items-center px-3 flex">
@@ -190,7 +195,7 @@ const HomePage = () => {
                               {/* message section */}
                               <div className="px-10 overflow-y-scrol ">
                                    <div className="space-y-1 flex flex-col justify-center mt-20 py-2">
-                                        {message.messages.length > 0 && message.messages.map((item, i) => <MessageCard isReqUserMessage={item.sender.username!==account.user.username} content={item.content} />)}
+                                        {message.messages.length > 0 && message.messages.map((item, i) => <MessageCard isReqUserMessage={item.sender.username !== account.user.username} content={item.content} />)}
                                    </div>
                               </div>
 

@@ -1,15 +1,16 @@
 import { AiOutlineClose } from "react-icons/ai";
+import { UserDTO } from "../../../types/User";
 
 interface ISelectedMemberProps {
      handleRemoveMember: () => void;
-     member: any;
+     member: UserDTO;
 }
 
-const SelectedMember = ({handleRemoveMember}: ISelectedMemberProps) => {
+const SelectedMember = ({handleRemoveMember, member}: ISelectedMemberProps) => {
      return (
           <div className="flex items-center bg-slate-300 rounded-full">
-               <img className="w-7 h-7 rounded-full" src="https://i.pinimg.com/236x/4a/a5/8d/4aa58d460590403215e888873b9f908c.jpg" alt="" />
-               <p className="px-2">username</p>
+               <img className="w-7 h-7 rounded-full" src={member.avatarUrl} alt="" />
+               <p className="px-2">{member.username}</p>
                <AiOutlineClose onClick={handleRemoveMember} className="pr-1 cursor-pointer" />
           </div>
      )

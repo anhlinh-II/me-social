@@ -1,23 +1,30 @@
-import Item from "antd/es/list/Item";
-import { set } from "lodash";
 import { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import SelectedMember from "./SelectedMember";
 import ChatCard from "../chatCard/ChatCard";
-import NewGroup from "./NewGoup";
+import NewGroup from "./NewGroup";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { queryUser } from "../../../redux/slice/accountSlice";
+import { UserDTO } from "../../../types/User";
 
-const CreateGroupChat = () => {
+interface IProps {
+     setIsGroup: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CreateGroupChat = ({setIsGroup}: IProps) => {
      const [newGroup, setNewGroup] = useState<boolean>(false);
      const [query, setQuery] = useState<string>("");
-     const [groupMember, setGroupMember] = useState<Set<any>>(new Set());
+     const [groupMember, setGroupMember] = useState<Set<UserDTO>>(new Set());
+     const { account } = useAppSelector(state => state);
+     const dispatch = useAppDispatch();
 
      const handleRemoveMember = (item: any) => {
           groupMember.delete(item)
           setGroupMember(groupMember);
      }
 
-     const handleSearch = (e: any) => {
-
+     const handleSearch = (value: any) => {
+          dispatch(queryUser(value));
      }
 
      return (
@@ -49,7 +56,7 @@ const CreateGroupChat = () => {
                               </div>
                               <div className="bg-white overflow-y-scroll h-[50.2vh]">
                                    {
-                                        query && [1, 1, 1, 1].map((item: any) =>
+                                        query && account.searchUsers.map((item) =>
                                              <div onClick={() => {
                                                   groupMember.add(item)
                                                   setGroupMember(groupMember)
@@ -58,7 +65,7 @@ const CreateGroupChat = () => {
                                                   key={item?.id}
                                              >
                                                   <hr />
-                                                  <ChatCard />
+                                                  <ChatCard username={item.username} avatarUrl={item.avatarUrl} />
                                              </div>
                                         )
                                    }
@@ -75,7 +82,7 @@ const CreateGroupChat = () => {
                     )
                }
                {
-                    newGroup && <NewGroup />
+                    newGroup && <NewGroup setIsGroup={setIsGroup} groupMember={Array.from(groupMember)} />
                }
           </div>
      )
